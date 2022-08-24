@@ -1,4 +1,5 @@
 import json
+import os
 import subprocess
 from datetime import datetime
 
@@ -84,7 +85,7 @@ def do_restart(request):
     try:
         print('重启')
         # print(os.system('pwd'))
-        subprocess.Popen('chmod +x ./update.sh')
+        subprocess.Popen('chmod +x ./update.sh', shell=True)
         subprocess.Popen('./restart.sh')
         return JsonResponse(data=CommonResponse.success(
             msg='重启指令发送成功！!'
@@ -98,8 +99,8 @@ def do_restart(request):
 def do_update(request):
     try:
         print('更新')
-        # print(os.system('pwd'))
-        p = subprocess.Popen('chmod +x ./update.sh')
+        print(os.system('cat ./update.sh'))
+        p = subprocess.Popen('chmod +x ./update.sh', shell=True)
 
         subprocess.Popen('./update.sh')
         p.wait()
