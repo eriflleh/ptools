@@ -424,8 +424,8 @@ class MySiteAdmin(ImportExportModelAdmin):  # instead of ModelAdmin
                 else:
                     messages.add_message(
                         request,
-                        messages.SUCCESS if res[1] else messages.ERROR,
-                        my_site.site.name + '抓取种子信息失败！原因：' + res.msg
+                        messages.ERROR,
+                        my_site.site.name + '解析种子信息失败！原因：' + res.msg
                     )
             else:
                 messages.add_message(request, messages.ERROR,
