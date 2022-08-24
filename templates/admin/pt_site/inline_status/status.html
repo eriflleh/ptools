@@ -1,0 +1,16 @@
+{% load i18n admin_urls static admin_modify %}
+
+{% for fieldset in inline_admin_form %}
+    {% for line in fieldset %}
+        {% for field in line %}
+            <td class="{% if field.field.name %}field-{{ field.field.name }}{% endif %}{% if field.field.is_hidden %} hidden{% endif %}">
+                {% if field.is_readonly %}
+                    <p>{{ field.contents }}</p>
+                {% else %}
+                    {{ field.field.errors.as_ul }}
+                    {{ field.field }}
+                {% endif %}
+            </td>
+        {% endfor %}
+    {% endfor %}
+{% endfor %}

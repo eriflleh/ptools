@@ -1,0 +1,81 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+<el-col :span="24">
+    <el-card class="timeline">
+        <div slot="header" class="clearfix">
+                        <span><i class="fab fa-stripe-s"></i>PTools更新日志
+                        </span>
+        </div>
+
+        <div class="float-wrap clearfix">
+            <div style="text-align: center">
+                <div>v2022.08.13</div>
+            </div>
+        </div>
+
+
+        <transition name="el-zoom-in-top">
+            <div class="block" v-if="timeline">
+                <el-timeline>
+                    <el-timeline-item timestamp="2022.08.13" placement="top" color="#0bbd89">
+                        <ol>
+                            <li>
+                                <h4 style="color: red">正式命名为PTools，感谢群友</h4>
+                            </li>
+                            <li><h4>支持铂金家</h4></li>
+                            <li><h4>提供了通用配置，可自行添加站点（网站细节不同，不保证能用）</h4></li>
+                            <li><h4>支持数据导入导出</h4></li>
+                            <li><h4>提供docker，支持映射数据库文件</h4></li>
+                        </ol>
+                    </el-timeline-item>
+                    <el-timeline-item timestamp="2022.08.12" placement="top" color="#0bbd89">
+                        <ol>
+                            <li><h4>增加时魔</h4></li>
+                            <li>优化签到信息显示</li>
+                            <li>优化个人数据通知</li>
+                        </ol>
+                    </el-timeline-item>
+                    <el-timeline-item timestamp="2022.08.10" placement="top" color="#0bbd88">
+                        <ol>
+                            <li><h4>增加HD天空验证码签到功能开关</h4></li>
+                        </ol>
+                    </el-timeline-item>
+                    <el-timeline-item timestamp="2022.08.08" placement="top" color="#0bbd88">
+                        <ol>
+                            <li><h4>增加HD天空验证码签到功能</h4></li>
+                            <li><h4>打包第二版docker进行测试，无数据备份</h4></li>
+                        </ol>
+                    </el-timeline-item>
+                    <el-timeline-item timestamp="2022.08.07" placement="top" color="#0bbd87">
+                        <ol>
+                            <li><h4>实现企业微信通知，需要自行抓取个人公网IP</h4></li>
+                        </ol>
+                    </el-timeline-item>
+                    <el-timeline-item timestamp="2022.08.05" placement="top" color="#0bbd86">
+                        <ol>
+                            <li><h4>实现签到、拉取个人数据以及拉取首页促销种子的自动化</h4></li>
+                            <li><h4>打包第一版docker进行测试，无数据备份</h4></li>
+                        </ol>
+                    </el-timeline-item>
+                    <el-timeline-item timestamp="2022.08.03" placement="top" color="#0bbd85">
+                        <ol>
+                            <li>优化代码，降低数据库读写频次</li>
+                        </ol>
+                    </el-timeline-item>
+                    <el-timeline-item timestamp="2022.07.31" placement="top" color="#0bbd84">
+                        <ol>
+                            <li>开启多线程模式，大幅降低等待时间</li>
+                        </ol>
+                    </el-timeline-item>
+                </el-timeline>
+            </div>
+        </transition>
+    </el-card>
+</el-col>
+</body>
+</html>
