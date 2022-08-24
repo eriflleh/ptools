@@ -30,4 +30,4 @@ else
 fi
 
 python manage.py migrate &&
-  python manage.py runserver 0.0.0.0 $DJANGO_WEB_PORT --noreload
+  python manage.py runserver 0.0.0.0:$DJANGO_WEB_PORT --noreload
