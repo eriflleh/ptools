@@ -1,12 +1,12 @@
 import logging
 import re
 import threading
+import time
 from datetime import datetime
 
 import aip
 import cloudscraper
 import opencc
-import time
 from django.db import transaction
 from django.db.models import QuerySet
 from lxml import etree
@@ -648,7 +648,7 @@ class PtSpider:
                             # print(torrent_info)
                 if count + new_count <= 0:
                     return CommonResponse.error(msg='抓取失败或无促销种子！')
-                return CommonResponse.success((new_count, count))
+                return CommonResponse.success(data=(new_count, count))
         except Exception as e:
             # raise
             return CommonResponse.error(msg='解析种子页面失败！' + str(e))
