@@ -10,7 +10,8 @@
         <div slot="header" class="clearfix">
             <span>更新日志</span>
             <span style="float: right;margin-top: -10px">
-                 <el-button type="danger" @click="do_restart">重启更新</el-button>
+                 <el-button type="success" @click="do_update">拉取更新</el-button>
+                 <el-button type="danger" @click="do_restart">重启</el-button>
             </span>
         </div>
         <div class="text item">
@@ -66,6 +67,44 @@
                         this.$message({
                             type: 'error',
                             message: "重启失败！"
+                        });
+                    })
+
+                }).catch(res => {
+                    console.log(res)
+                    this.$message({
+                        type: 'info',
+                        message: '已取消重启'
+                    });
+                });
+            },
+            do_update() {
+                this.$confirm('此操作会拉取软件更新软件,新版本不一定稳定，是否继续?', '提示', {
+                    confirmButtonText: '确定',
+                    cancelButtonText: '取消',
+                    type: 'warning'
+                }).then(() => {
+                    axios.get(
+                        "{% url "do_update" %}"
+                        {#url + '/task/do_restart'#}
+                    ).then(res => {
+                        if (res.data.code === 0) {
+                            this.$message({
+                                type: 'success',
+                                message: res.data.msg
+                            });
+                        } else {
+                            console.log(res)
+                            this.$message({
+                                type: 'warning',
+                                message: res.data.msg
+                            });
+                        }
+
+                    }).catch(res => {
+                        this.$message({
+                            type: 'error',
+                            message: "更新失败！"
                         });
                     })
 

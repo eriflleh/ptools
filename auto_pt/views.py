@@ -84,13 +84,31 @@ def do_restart(request):
     try:
         print('重启')
         # print(os.system('pwd'))
-        subprocess.Popen('./update.sh')
+        subprocess.Popen('chmod +x ./update.sh')
+        subprocess.Popen('./restart.sh')
         return JsonResponse(data=CommonResponse.success(
             msg='重启指令发送成功！!'
         ).to_dict(), safe=False)
     except Exception as e:
         return JsonResponse(data=CommonResponse.error(
             msg='重启指令发送失败!' + str(e)
+        ).to_dict(), safe=False)
+
+
+def do_update(request):
+    try:
+        print('更新')
+        # print(os.system('pwd'))
+        p = subprocess.Popen('chmod +x ./update.sh')
+
+        subprocess.Popen('./update.sh')
+        p.wait()
+        return JsonResponse(data=CommonResponse.success(
+            msg='更新成功！!'
+        ).to_dict(), safe=False)
+    except Exception as e:
+        return JsonResponse(data=CommonResponse.error(
+            msg='更新指令发送失败!' + str(e)
         ).to_dict(), safe=False)
 
 
