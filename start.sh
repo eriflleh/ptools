@@ -29,5 +29,5 @@ else
   echo "-- Not first container startup --"
 fi
 
-#python manage.py migrate &&
-#  python manage.py runserver 0.0.0.0:8001 --noreload
+python manage.py migrate &&
+  python manage.py runserver 0.0.0.0:8001 --noreload
