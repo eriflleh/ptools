@@ -9,7 +9,7 @@ if [ ! -f ./db/db.sqlite3 ]; then
   # 如果数据库存在，就不执行
   python manage.py makemigrations &&
     python manage.py migrate &&
-    python manage.py loaddata db/pt.json
+    python manage.py loaddata pt.json
 #  mv db.sqlite3 ./db/db.sqlite3
 fi
 if [ ! -e $CONTAINER_ALREADY_STARTED ]; then
