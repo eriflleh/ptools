@@ -92,7 +92,7 @@ def do_restart(request):
                 msg='重启指令发送成功！!'
             ).to_dict(), safe=False)
         return JsonResponse(data=CommonResponse.error(
-            msg='未配置CONTAINER_NAME（容器名称）环境变量！!'
+            msg='未配置CONTAINER_NAME（容器名称）环境变量，请自行重启容器！!'
         ).to_dict(), safe=False)
     except Exception as e:
         return JsonResponse(data=CommonResponse.error(
@@ -108,14 +108,17 @@ def do_update(request):
 
         p = subprocess.Popen('./update.sh', shell=True, stdout=subprocess.PIPE, bufsize=1)
         p.wait()
-        # result = []
-        # for i in p.stdout.readlines():
-        #     print(i)
-        #     result.append(i)
+        out = p.stdout.readlines()
+        result = []
+        for i in out:
+            result.append(i.decode('utf8'))
+            print(result)
         return JsonResponse(data=CommonResponse.success(
-            msg='更新成功！!', data={
-                'p': str(p.stdout.readlines())
-            }
+            msg='更新成功！!',
+            data=result
+            # data={
+            #     # 'p': str(p.stdout.readlines()).strip("'").strip('[').strip(']').strip()
+            # }
         ).to_dict(), safe=False)
     except Exception as e:
         return JsonResponse(data=CommonResponse.error(

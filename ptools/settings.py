@@ -204,10 +204,10 @@ SIMPLEUI_CONFIG = {
     }, {
         'app': 'update',
         'name': '更新',
-        'icon': 'fas fa-shield',
+        'icon': 'fas fa-code',
         'models': [{
             'name': '重启更新',
-            'icon': 'fa fa-refresh',
+            'icon': 'far fa-surprise',
             'url': '/tasks/restart'
         }, ]
     }]

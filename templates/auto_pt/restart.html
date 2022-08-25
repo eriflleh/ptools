@@ -93,7 +93,7 @@
                     ).then(res => {
                         if (res.data.code === 0) {
                             console.log(res, 1)
-                            this.update_note = res.data.data.p.split(',')
+                            this.update_note = res.data.data
                             this.$message({
                                 type: 'success',
                                 message: res.data.msg
