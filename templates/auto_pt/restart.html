@@ -10,7 +10,7 @@
         <div slot="header" class="clearfix">
             <span>更新日志</span>
             <span style="float: right;margin-top: -10px">
-                 <el-button type="success" @click="do_update">拉取更新</el-button>
+                 <el-button type="success" @click="do_update">更新</el-button>
                  <el-button type="danger" @click="do_restart">重启</el-button>
             </span>
         </div>
@@ -21,9 +21,6 @@
             {#            {{ update_notes|safe }}#}
         </div>
     </el-card>
-
-
-    {#    href='javascript:(confirm("确定重启?"))?location="/tasks/restart":location="/"'#}
 </div>
 
 <script src="{% static 'admin/simpleui-x/js/vue.min.js' %}"></script>
@@ -38,9 +35,6 @@
         el: '#app',
         data: {
             update_note: ['请先拉取更新哦']
-        },
-        created: function () {
-            {#this.data.update_note = converter.makeHtml({{ update_notes }});#}
         },
         methods: {
             do_restart() {
