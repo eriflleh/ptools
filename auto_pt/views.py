@@ -3,6 +3,7 @@ import os
 import subprocess
 from datetime import datetime
 
+import markdown
 from django.http import JsonResponse
 from django.shortcuts import render
 
@@ -126,10 +127,10 @@ def do_update(request):
 
 
 def restart_container(request):
-    # scraper = pt_spider.get_scraper()
-    # res = scraper.get('https://gitee.com/ngfchl/ptools/raw/master/update.md')
-    # update_notes = markdown.markdown(res.text, extensions=['tables'])
-    # print(update_notes)
+    scraper = pt_spider.get_scraper()
+    res = scraper.get('https://gitee.com/ngfchl/ptools/raw/master/update.md')
+    update_notes = markdown.markdown(res.text, extensions=['tables'])
+    print(update_notes)
     return render(request, 'auto_pt/restart.html',
-                  # context={'update_notes': update_notes}
+                  context={'update_notes': update_notes}
                   )

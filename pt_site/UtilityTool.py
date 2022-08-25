@@ -770,7 +770,7 @@ class PtSpider:
             # leech = self.get_user_torrent(leeching_html, site.leech_rule)
             # seed = self.get_user_torrent(seeding_html, site.seed_rule)
             leech = ''.join(details_html.xpath(site.leech_rule)).strip()
-            seed = ''.join(details_html.xpath(site.leech_rule)).strip()
+            seed = ''.join(details_html.xpath(site.seed_rule)).strip()
             # seed = len(seed_vol_list)
             ratio = ''.join(details_html.xpath(site.ratio_rule)).replace(',', '').strip(']:').strip()
             if ratio == '无限' or ratio == '∞' or ratio == '---':

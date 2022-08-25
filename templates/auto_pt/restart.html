@@ -18,7 +18,12 @@
             <ul v-for="item in update_note">
                 <li v-text="item"></li>
             </ul>
-            {#            {{ update_notes|safe }}#}
+            <el-card class="box-card">
+                <div class="text item">
+                    {{ update_notes|safe }}
+                </div>
+            </el-card>
+
         </div>
     </el-card>
 </div>
