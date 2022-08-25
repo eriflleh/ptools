@@ -16,14 +16,15 @@ ENV DJANGO_WEB_PORT=8000
 COPY pip.conf /root/.pip/pip.conf
 
 # 创建 myproject 文件夹
-RUN mkdir -p /var/www/html/
+RUN mkdir -p /var/www/html/ptools
 
 # 将 myproject 文件夹为工作目录
-WORKDIR /var/www/html/
+WORKDIR /var/www/html/ptools
 
 # 将当前目录加入到工作目录中（. 表示当前目录）
 #ADD . /var/www/html/ptools
-ADD ./start.sh /var/www/html/
+ADD ./start.sh /var/www/html
+
 # 更新pip版本
 #RUN /usr/local/bin/python -m pip install --upgrade pip
 
@@ -34,7 +35,7 @@ ADD ./start.sh /var/www/html/
 # RUN sed -i 's/\r//' ./start.sh
 
 # 给start.sh可执行权限
-RUN chmod +x ./start.sh
+RUN chmod +x /var/www/html/start.sh
 
 # 安装redis
 RUN sed -i 's/deb.debian.org/mirrors.ustc.edu.cn/g' /etc/apt/sources.list
@@ -49,4 +50,4 @@ VOLUME ["/var/www/html/ptools"]
 EXPOSE  8000
 #ENTRYPOINT ["redis-server","/etc/redis/redis.conf"]
 #ENTRYPOINT ["/bin/bash", "first.sh"]
-ENTRYPOINT ["/bin/bash", "start.sh"]
+ENTRYPOINT ["/bin/bash", "/var/www/html/start.sh"]
