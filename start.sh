@@ -14,8 +14,10 @@ if [ ! -e $CONTAINER_ALREADY_STARTED ]; then
     git remote add origin https://gitee.com/ngfchl/ptools &&
     # 设置拉取最新文件并覆盖
     git config pull.ff only &&
-    git pull &&
-    pip install -r requirements.txt &&
+    git pull
+  git checkout master &&
+    git branch --set-upstream-to=origin/master master
+  pip install -r requirements.txt &&
     python manage.py makemigrations &&
     python manage.py migrate &&
     python manage.py loaddata pt.json
