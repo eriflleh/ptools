@@ -413,7 +413,7 @@ class PtSpider:
                       "is_updated": 1
                     }
                     """
-                    message_template = '签到成功！奖励奶糖{},奶糖总奖励是{},您已连续签到{}天，签到总天数{}天，今日您的签到排名是{},'
+                    message_template = '签到成功！奖励奶糖{},奶糖总奖励是{},您已连续签到{}天，签到总天数{}天！'
                     data = res.json().get('datas')
                     message = message_template.format(data.get('points'),
                                                       data.get('total_points'),
