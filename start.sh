@@ -1,5 +1,6 @@
 #!/bin/bash
-
+# 升级pip到最新
+python -m pip install --upgrade pip
 CONTAINER_ALREADY_STARTED="CONTAINER_ALREADY_STARTED_PLACEHOLDER"
 if [ ! -e $CONTAINER_ALREADY_STARTED ]; then
   echo "-- First container startup --"
@@ -13,8 +14,7 @@ if [ ! -e $CONTAINER_ALREADY_STARTED ]; then
     git pull
   git checkout master &&
     git branch --set-upstream-to=origin/master master
-  python -m pip install --upgrade pip &&
-    pip install -r requirements.txt &&
+  pip install -r requirements.txt &&
     python manage.py makemigrations &&
     python manage.py migrate &&
     python manage.py loaddata pt.json
@@ -30,4 +30,4 @@ fi
 pip install -r requirements.txt &&
   python manage.py makemigrations &&
   python manage.py migrate &&
-  python manage.py runserver $DJANGO_WEB_PORT --noreload
+  python manage.py runserver 0.0.0.0:$DJANGO_WEB_PORT --noreload
