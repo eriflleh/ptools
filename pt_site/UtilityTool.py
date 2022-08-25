@@ -1,12 +1,12 @@
 import logging
 import re
 import threading
+import time
 from datetime import datetime
 
 import aip
 import cloudscraper
 import opencc
-import time
 from django.db import transaction
 from django.db.models import QuerySet
 from lxml import etree
@@ -465,7 +465,7 @@ class PtSpider:
             signin_today.save()
             return CommonResponse.success(msg=message)
         except Exception as e:
-            raise
+            # raise
             return CommonResponse.error(msg='签到失败！' + str(e))
 
     @staticmethod
@@ -800,10 +800,10 @@ class PtSpider:
             if not my_site.time_join and time_join:
                 my_site.time_join = time_join
 
+            # 去除字符串中的中文
             my_level_1 = ''.join(
                 details_html.xpath(site.my_level_rule)
-            ).replace(' ', '').replace('(', '').replace(')', '').replace('_Name', '').strip()
-            # 去除字符串中的中文
+            ).replace('_Name', '').strip()
             if 'city' in site.url:
                 my_level = my_level_1.strip()
             else:
@@ -815,10 +815,13 @@ class PtSpider:
             ).split('(')[0].strip('\xa0').strip()
             latest_active = latest_active_1.replace('(', '').replace(')', '').strip()
 
+            # my_sp = ''.join(
+            #     details_html.xpath(site.my_sp_rule)
+            # ).replace(' ', '').replace('(', '').replace(')', '').replace(',', '').strip(']:').strip()
+            # 获取字符串中的魔力值
             my_sp = ''.join(
                 details_html.xpath(site.my_sp_rule)
-            ).replace(' ', '').replace('(', '').replace(')', '').replace(',', '').strip(']:').strip()
-            # 获取字符串中的魔力值
+            )
             print('魔力：', details_html.xpath(site.my_sp_rule))
 
             if my_sp:

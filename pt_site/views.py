@@ -55,14 +55,15 @@ try:
                 res = pt_spider.parse_status_html(my_site, result.data)
                 print('自动更新个人数据', my_site.site, res)
                 if res.code == StatusCodeEnum.OK.code:
+                    status = res.data[0]
                     message = message_template.format(
                         my_site.my_level,
-                        res.data[0].my_sp,
+                        status.my_sp,
                         my_site.sp_hour,
-                        res.data[0].my_bonus,
-                        res.data[0].ratio,
-                        res.data[0].downloaded,
-                        res.data[0].uploaded,
+                        status.my_bonus,
+                        status.ratio,
+                        status.downloaded,
+                        status.uploaded,
                         my_site.seed,
                         my_site.leech,
                         my_site.invitation,
