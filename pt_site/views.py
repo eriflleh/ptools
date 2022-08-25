@@ -1,8 +1,8 @@
 # Create your views here.
 import logging
+import time
 from concurrent.futures.thread import ThreadPoolExecutor
 
-import time
 from apscheduler.schedulers.background import BackgroundScheduler
 from django_apscheduler.jobstores import DjangoJobStore
 
