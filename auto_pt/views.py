@@ -84,7 +84,7 @@ def do_restart(request):
     try:
         print('重启')
         # print(os.system('pwd'))
-        if os.environ.get('DJANGO_DEBUG'):
+        if os.environ.get('CONTAINER_NAME'):
             subprocess.Popen('chmod +x ./restart.sh', shell=True)
             subprocess.Popen('./restart.sh', shell=True)
             return JsonResponse(data=CommonResponse.success(
