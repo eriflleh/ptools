@@ -1,6 +1,5 @@
 #!/bin/bash
 
-pip install -r requirements.txt
 
 CONTAINER_ALREADY_STARTED="CONTAINER_ALREADY_STARTED_PLACEHOLDER"
 if [ ! -e $CONTAINER_ALREADY_STARTED ]; then
@@ -12,6 +11,7 @@ if [ ! -e $CONTAINER_ALREADY_STARTED ]; then
     cd ptools &&
     # 设置拉取最新文件并覆盖
     git config pull.ff only &&
+    pip install -r requirements.txt &&
     python manage.py makemigrations &&
     python manage.py migrate &&
     python manage.py loaddata pt.json
@@ -23,6 +23,8 @@ if [ ! -e $CONTAINER_ALREADY_STARTED ]; then
     python manage.py createsuperuser --noinput
 else
   echo "-- Not first container startup --"
+  cd ptools &&
+  pip install -r requirements.txt
   if [ ! -f ./db/db.sqlite3 ]; then
     echo "-- 初始化数据库 init database --"
     # 如果数据库存在，就不执行
