@@ -3,24 +3,24 @@
   "model": "django_apscheduler.djangojob",
   "pk": "拉取最新种子",
   "fields": {
-    "next_run_time": "2022-08-24T19:55:18.824",
-    "job_state": "gAWVAQIAAAAAAAB9lCiMB3ZlcnNpb26USwGMAmlklIwS5ouJ5Y+W5pyA5paw56eN5a2QlIwEZnVuY5SMInB0X3NpdGUudmlld3M6YXV0b191cGRhdGVfdG9ycmVudHOUjAd0cmlnZ2VylIwdYXBzY2hlZHVsZXIudHJpZ2dlcnMuaW50ZXJ2YWyUjA9JbnRlcnZhbFRyaWdnZXKUk5QpgZR9lChoAUsCjAh0aW1lem9uZZSMBHB5dHqUjAJfcJSTlCiMDUFzaWEvU2hhbmdoYWmUTehxSwCMA0xNVJR0lFKUjApzdGFydF9kYXRllIwIZGF0ZXRpbWWUjAhkYXRldGltZZSTlEMKB+YIEgMaCQnXnJRoDyhoEE2AcEsAjANDU1SUdJRSlIaUUpSMCGVuZF9kYXRllE6MCGludGVydmFslGgVjAl0aW1lZGVsdGGUk5RLAE1QRksAh5RSlIwGaml0dGVylEt4dWKMCGV4ZWN1dG9ylIwHZGVmYXVsdJSMBGFyZ3OUKYwGa3dhcmdzlH2UjARuYW1llIwUYXV0b191cGRhdGVfdG9ycmVudHOUjBJtaXNmaXJlX2dyYWNlX3RpbWWUS3iMCGNvYWxlc2NllIiMDW1heF9pbnN0YW5jZXOUSwGMDW5leHRfcnVuX3RpbWWUaBdDCgfmCBgTNxIMk4qUaBuGlFKUdS4="
+    "next_run_time": "2022-08-25T10:58:36.742",
+    "job_state": "gAWVAQIAAAAAAAB9lCiMB3ZlcnNpb26USwGMAmlklIwS5ouJ5Y+W5pyA5paw56eN5a2QlIwEZnVuY5SMInB0X3NpdGUudmlld3M6YXV0b191cGRhdGVfdG9ycmVudHOUjAd0cmlnZ2VylIwdYXBzY2hlZHVsZXIudHJpZ2dlcnMuaW50ZXJ2YWyUjA9JbnRlcnZhbFRyaWdnZXKUk5QpgZR9lChoAUsCjAh0aW1lem9uZZSMBHB5dHqUjAJfcJSTlCiMDUFzaWEvU2hhbmdoYWmUTehxSwCMA0xNVJR0lFKUjApzdGFydF9kYXRllIwIZGF0ZXRpbWWUjAhkYXRldGltZZSTlEMKB+YIEgMaCQnXnJRoDyhoEE2AcEsAjANDU1SUdJRSlIaUUpSMCGVuZF9kYXRllE6MCGludGVydmFslGgVjAl0aW1lZGVsdGGUk5RLAE1QRksAh5RSlIwGaml0dGVylEt4dWKMCGV4ZWN1dG9ylIwHZGVmYXVsdJSMBGFyZ3OUKYwGa3dhcmdzlH2UjARuYW1llIwUYXV0b191cGRhdGVfdG9ycmVudHOUjBJtaXNmaXJlX2dyYWNlX3RpbWWUS3iMCGNvYWxlc2NllIiMDW1heF9pbnN0YW5jZXOUSwGMDW5leHRfcnVuX3RpbWWUaBdDCgfmCBkKOiQLVeuUaBuGlFKUdS4="
   }
 },
 {
   "model": "django_apscheduler.djangojob",
   "pk": "更新个人数据",
   "fields": {
-    "next_run_time": "2022-08-24T19:50:46.323",
-    "job_state": "gAWV9wEAAAAAAAB9lCiMB3ZlcnNpb26USwGMAmlklIwS5pu05paw5Liq5Lq65pWw5o2ulIwEZnVuY5SMHXB0X3NpdGUudmlld3M6YXV0b19nZXRfc3RhdHVzlIwHdHJpZ2dlcpSMHWFwc2NoZWR1bGVyLnRyaWdnZXJzLmludGVydmFslIwPSW50ZXJ2YWxUcmlnZ2VylJOUKYGUfZQoaAFLAowIdGltZXpvbmWUjARweXR6lIwCX3CUk5QojA1Bc2lhL1NoYW5naGFplE3ocUsAjANMTVSUdJRSlIwKc3RhcnRfZGF0ZZSMCGRhdGV0aW1llIwIZGF0ZXRpbWWUk5RDCgfmCBIDDiEIBqyUaA8oaBBNgHBLAIwDQ1NUlHSUUpSGlFKUjAhlbmRfZGF0ZZROjAhpbnRlcnZhbJRoFYwJdGltZWRlbHRhlJOUSwBNUEZLAIeUUpSMBmppdHRlcpRLeHVijAhleGVjdXRvcpSMB2RlZmF1bHSUjARhcmdzlCmMBmt3YXJnc5R9lIwEbmFtZZSMD2F1dG9fZ2V0X3N0YXR1c5SMEm1pc2ZpcmVfZ3JhY2VfdGltZZRLeIwIY29hbGVzY2WUiIwNbWF4X2luc3RhbmNlc5RLAYwNbmV4dF9ydW5fdGltZZRoF0MKB+YIGBMyLgTuRZRoG4aUUpR1Lg=="
+    "next_run_time": "2022-08-25T10:52:39.798",
+    "job_state": "gAWV9wEAAAAAAAB9lCiMB3ZlcnNpb26USwGMAmlklIwS5pu05paw5Liq5Lq65pWw5o2ulIwEZnVuY5SMHXB0X3NpdGUudmlld3M6YXV0b19nZXRfc3RhdHVzlIwHdHJpZ2dlcpSMHWFwc2NoZWR1bGVyLnRyaWdnZXJzLmludGVydmFslIwPSW50ZXJ2YWxUcmlnZ2VylJOUKYGUfZQoaAFLAowIdGltZXpvbmWUjARweXR6lIwCX3CUk5QojA1Bc2lhL1NoYW5naGFplE3ocUsAjANMTVSUdJRSlIwKc3RhcnRfZGF0ZZSMCGRhdGV0aW1llIwIZGF0ZXRpbWWUk5RDCgfmCBIDDiEIBqyUaA8oaBBNgHBLAIwDQ1NUlHSUUpSGlFKUjAhlbmRfZGF0ZZROjAhpbnRlcnZhbJRoFYwJdGltZWRlbHRhlJOUSwBNUEZLAIeUUpSMBmppdHRlcpRLeHVijAhleGVjdXRvcpSMB2RlZmF1bHSUjARhcmdzlCmMBmt3YXJnc5R9lIwEbmFtZZSMD2F1dG9fZ2V0X3N0YXR1c5SMEm1pc2ZpcmVfZ3JhY2VfdGltZZRLeIwIY29hbGVzY2WUiIwNbWF4X2luc3RhbmNlc5RLAYwNbmV4dF9ydW5fdGltZZRoF0MKB+YIGQo0JwwwlJRoG4aUUpR1Lg=="
   }
 },
 {
   "model": "django_apscheduler.djangojob",
   "pk": "自动签到",
   "fields": {
-    "next_run_time": "2022-08-24T21:32:11.150",
-    "job_state": "gAWV6wEAAAAAAAB9lCiMB3ZlcnNpb26USwGMAmlklIwM6Ieq5Yqo562+5YiwlIwEZnVuY5SMGnB0X3NpdGUudmlld3M6YXV0b19zaWduX2lulIwHdHJpZ2dlcpSMHWFwc2NoZWR1bGVyLnRyaWdnZXJzLmludGVydmFslIwPSW50ZXJ2YWxUcmlnZ2VylJOUKYGUfZQoaAFLAowIdGltZXpvbmWUjARweXR6lIwCX3CUk5QojA1Bc2lhL1NoYW5naGFplE3ocUsAjANMTVSUdJRSlIwKc3RhcnRfZGF0ZZSMCGRhdGV0aW1llIwIZGF0ZXRpbWWUk5RDCgfmCBYUGRENK2+UaA8oaBBNgHBLAIwDQ1NUlHSUUpSGlFKUjAhlbmRfZGF0ZZROjAhpbnRlcnZhbJRoFYwJdGltZWRlbHRhlJOUSwBNcGJLAIeUUpSMBmppdHRlcpRLeHVijAhleGVjdXRvcpSMB2RlZmF1bHSUjARhcmdzlCmMBmt3YXJnc5R9lIwEbmFtZZSMDGF1dG9fc2lnbl9pbpSMEm1pc2ZpcmVfZ3JhY2VfdGltZZRLeIwIY29hbGVzY2WUiIwNbWF4X2luc3RhbmNlc5RLAYwNbmV4dF9ydW5fdGltZZRoF0MKB+YIGBUgCwJKF5RoG4aUUpR1Lg=="
+    "next_run_time": "2022-08-25T11:33:58.995",
+    "job_state": "gAWV6wEAAAAAAAB9lCiMB3ZlcnNpb26USwGMAmlklIwM6Ieq5Yqo562+5YiwlIwEZnVuY5SMGnB0X3NpdGUudmlld3M6YXV0b19zaWduX2lulIwHdHJpZ2dlcpSMHWFwc2NoZWR1bGVyLnRyaWdnZXJzLmludGVydmFslIwPSW50ZXJ2YWxUcmlnZ2VylJOUKYGUfZQoaAFLAowIdGltZXpvbmWUjARweXR6lIwCX3CUk5QojA1Bc2lhL1NoYW5naGFplE3ocUsAjANMTVSUdJRSlIwKc3RhcnRfZGF0ZZSMCGRhdGV0aW1llIwIZGF0ZXRpbWWUk5RDCgfmCBYUGRENK2+UaA8oaBBNgHBLAIwDQ1NUlHSUUpSGlFKUjAhlbmRfZGF0ZZROjAhpbnRlcnZhbJRoFYwJdGltZWRlbHRhlJOUSwBNcGJLAIeUUpSMBmppdHRlcpRLeHVijAhleGVjdXRvcpSMB2RlZmF1bHSUjARhcmdzlCmMBmt3YXJnc5R9lIwEbmFtZZSMDGF1dG9fc2lnbl9pbpSMEm1pc2ZpcmVfZ3JhY2VfdGltZZRLeIwIY29hbGVzY2WUiIwNbWF4X2luc3RhbmNlc5RLAYwNbmV4dF9ydW5fdGltZZRoF0MKB+YIGQshOg8v35RoG4aUUpR1Lg=="
   }
 },
 {
@@ -371,6 +371,45 @@
     "duration": "40.01",
     "finished": "1661324076.76",
     "exception": null,
+    "traceback": null
+  }
+},
+{
+  "model": "django_apscheduler.djangojobexecution",
+  "pk": 321,
+  "fields": {
+    "job": "更新个人数据",
+    "status": "Missed!",
+    "run_time": "2022-08-25T05:51:44.120",
+    "duration": "2685.67",
+    "finished": "1661380589.79",
+    "exception": "Run time of job '更新个人数据' was missed!",
+    "traceback": null
+  }
+},
+{
+  "model": "django_apscheduler.djangojobexecution",
+  "pk": 322,
+  "fields": {
+    "job": "拉取最新种子",
+    "status": "Missed!",
+    "run_time": "2022-08-25T05:58:15.166",
+    "duration": "2294.64",
+    "finished": "1661380589.80",
+    "exception": "Run time of job '拉取最新种子' was missed!",
+    "traceback": null
+  }
+},
+{
+  "model": "django_apscheduler.djangojobexecution",
+  "pk": 323,
+  "fields": {
+    "job": "自动签到",
+    "status": "Missed!",
+    "run_time": "2022-08-25T04:33:39.143",
+    "duration": "7370.67",
+    "finished": "1661380589.81",
+    "exception": "Run time of job '自动签到' was missed!",
     "traceback": null
   }
 },

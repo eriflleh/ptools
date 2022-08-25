@@ -15,7 +15,10 @@
             </span>
         </div>
         <div class="text item">
-            {{ update_notes|safe }}
+            <ul v-for="item in update_note">
+                <li v-text="item"></li>
+            </ul>
+            {#            {{ update_notes|safe }}#}
         </div>
     </el-card>
 
@@ -34,7 +37,7 @@
         // element: 指定用vue来管理页面中的哪个标签区域
         el: '#app',
         data: {
-            update_note: ''
+            update_note: ['请先拉取更新哦']
         },
         created: function () {
             {#this.data.update_note = converter.makeHtml({{ update_notes }});#}
@@ -89,19 +92,21 @@
                         {#url + '/task/do_restart'#}
                     ).then(res => {
                         if (res.data.code === 0) {
+                            console.log(res, 1)
+                            this.update_note = res.data.data.p.split(',')
                             this.$message({
                                 type: 'success',
                                 message: res.data.msg
                             });
                         } else {
-                            console.log(res)
+                            console.log(res, 2)
                             this.$message({
                                 type: 'warning',
                                 message: res.data.msg
                             });
                         }
-
                     }).catch(res => {
+                        console.log(res, 3)
                         this.$message({
                             type: 'error',
                             message: "更新失败！"
@@ -111,8 +116,8 @@
                 }).catch(res => {
                     console.log(res)
                     this.$message({
-                        type: 'info',
-                        message: '已取消重启'
+                        type: 'warning',
+                        message: '已取消更新'
                     });
                 });
             }

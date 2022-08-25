@@ -1,17 +1,18 @@
 import logging
 import re
 import threading
-import time
 from datetime import datetime
 
 import aip
 import cloudscraper
 import opencc
+import time
 from django.db import transaction
 from django.db.models import QuerySet
 from lxml import etree
 from pypushdeer import PushDeer
 from requests import Response
+from urllib3.exceptions import NewConnectionError
 from wechat_push import WechatPush
 from wxpusher import WxPusher
 
@@ -721,6 +722,10 @@ class PtSpider:
                 'seeding_html': seeding_html,
                 # 'leeching_html': leeching_html
             })
+        except NewConnectionError as nce:
+            return CommonResponse.error(
+                status=StatusCodeEnum.WEB_CONNECT_ERR,
+                msg='链接网站失败，请检查网站是否维护状态？？')
         except Exception as e:
             message = my_site.site.name + '访问个人主页信息：失败！原因：' + str(e)
             logging.error(message)
@@ -747,7 +752,7 @@ class PtSpider:
             seed_vol_list = seeding_html.xpath(site.seed_vol_rule)
             if len(seed_vol_list) > 0:
                 seed_vol_list.pop(0)
-                # print('seeding_vol', seed_vol_list)
+                print('seeding_vol', len(seed_vol_list))
                 # 做种体积
                 seed_vol_all = 0
                 for seed_vol in seed_vol_list:
@@ -765,8 +770,8 @@ class PtSpider:
             # leech = self.get_user_torrent(leeching_html, site.leech_rule)
             # seed = self.get_user_torrent(seeding_html, site.seed_rule)
             leech = ''.join(details_html.xpath(site.leech_rule)).strip()
-            # seed = ''.join(details_html.xpath(site.leech_rule)).strip()
-            seed = len(seed_vol_list)
+            seed = ''.join(details_html.xpath(site.leech_rule)).strip()
+            # seed = len(seed_vol_list)
             ratio = ''.join(details_html.xpath(site.ratio_rule)).replace(',', '').strip(']:').strip()
             if ratio == '无限' or ratio == '∞' or ratio == '---':
                 # inf表示无限

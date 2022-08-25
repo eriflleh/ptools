@@ -1,16 +1,12 @@
 #!/bin/bash
 
-# 安装依赖
+git pull https://ngfchl:.wq891222@gitee.com/ngfchl/pt_assister
 pip install -r requirements.txt
-
 CONTAINER_ALREADY_STARTED="CONTAINER_ALREADY_STARTED_PLACEHOLDER"
 if [ ! -f ./db/db.sqlite3 ]; then
   echo "-- 初始化数据库 init database --"
   # 如果数据库存在，就不执行
-  python manage.py makemigrations &&
-    python manage.py migrate &&
-    python manage.py loaddata pt.json
-#  mv db.sqlite3 ./db/db.sqlite3
+  mv db.sqlite3 ./db/db.sqlite3
 fi
 if [ ! -e $CONTAINER_ALREADY_STARTED ]; then
   touch $CONTAINER_ALREADY_STARTED
@@ -30,4 +26,4 @@ else
 fi
 
 python manage.py migrate &&
-  python manage.py runserver 0.0.0.0:$DJANGO_WEB_PORT --noreload
+  python manage.py runserver 0.0.0.0:8000 --noreload

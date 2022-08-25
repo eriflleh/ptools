@@ -1,5 +1,3 @@
-git pull https://gitee.com/ngfchl/ptools &&
+git pull &&
   python manage.py makemigrations &&
-  python manage.py migrate &&
-  python manage.py loaddata db/pt.json
-
+  python manage.py migrate

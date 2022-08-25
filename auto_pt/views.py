@@ -85,10 +85,14 @@ def do_restart(request):
     try:
         print('重启')
         # print(os.system('pwd'))
-        subprocess.Popen('chmod +x ./update.sh', shell=True)
-        subprocess.Popen('./restart.sh')
-        return JsonResponse(data=CommonResponse.success(
-            msg='重启指令发送成功！!'
+        if os.environ.get('DJANGO_DEBUG'):
+            subprocess.Popen('chmod +x ./restart.sh', shell=True)
+            subprocess.Popen('./restart.sh', shell=True)
+            return JsonResponse(data=CommonResponse.success(
+                msg='重启指令发送成功！!'
+            ).to_dict(), safe=False)
+        return JsonResponse(data=CommonResponse.error(
+            msg='未配置CONTAINER_NAME（容器名称）环境变量！!'
         ).to_dict(), safe=False)
     except Exception as e:
         return JsonResponse(data=CommonResponse.error(
@@ -99,13 +103,19 @@ def do_restart(request):
 def do_update(request):
     try:
         print('更新')
-        print(os.system('cat ./update.sh'))
-        p = subprocess.Popen('chmod +x ./update.sh', shell=True)
+        # print(os.system('cat ./update.sh'))
+        subprocess.Popen('chmod +x ./update.sh', shell=True)
 
-        subprocess.Popen('./update.sh')
+        p = subprocess.Popen('./update.sh', shell=True, stdout=subprocess.PIPE, bufsize=1)
         p.wait()
+        # result = []
+        # for i in p.stdout.readlines():
+        #     print(i)
+        #     result.append(i)
         return JsonResponse(data=CommonResponse.success(
-            msg='更新成功！!'
+            msg='更新成功！!', data={
+                'p': str(p.stdout.readlines())
+            }
         ).to_dict(), safe=False)
     except Exception as e:
         return JsonResponse(data=CommonResponse.error(
