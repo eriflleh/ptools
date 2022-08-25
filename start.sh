@@ -1,6 +1,5 @@
 #!/bin/bash
 
-git pull https://ngfchl:.wq891222@gitee.com/ngfchl/pt_assister
 pip install -r requirements.txt
 CONTAINER_ALREADY_STARTED="CONTAINER_ALREADY_STARTED_PLACEHOLDER"
 if [ ! -f ./db/db.sqlite3 ]; then
@@ -25,5 +24,6 @@ else
   echo "-- Not first container startup --"
 fi
 
+python manage.py makemigrations &&
 python manage.py migrate &&
   python manage.py runserver 0.0.0.0:8000 --noreload

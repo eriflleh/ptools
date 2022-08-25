@@ -22,7 +22,8 @@ WORKDIR /var/www/html/ptools
 
 # 将当前目录加入到工作目录中（. 表示当前目录）
 ADD . /var/www/html/ptools
-
+# git pull最新
+RUN git config pull.ff only
 # 更新pip版本
 RUN /usr/local/bin/python -m pip install --upgrade pip
 
