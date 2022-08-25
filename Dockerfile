@@ -25,13 +25,13 @@ WORKDIR /var/www/html/
 #ADD . /var/www/html/ptools
 ADD ./start.sh /var/www/html/
 # 更新pip版本
-RUN /usr/local/bin/python -m pip install --upgrade pip
+#RUN /usr/local/bin/python -m pip install --upgrade pip
 
 # 利用 pip 安装依赖
 #RUN pip install -r requirements.txt
 
 # 去除windows系统编辑文件中多余的\r回车空格
- RUN sed -i 's/\r//' ./start.sh
+# RUN sed -i 's/\r//' ./start.sh
 
 # 给start.sh可执行权限
 RUN chmod +x ./start.sh

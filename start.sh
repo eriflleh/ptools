@@ -17,7 +17,8 @@ if [ ! -e $CONTAINER_ALREADY_STARTED ]; then
     git pull
   git checkout master &&
     git branch --set-upstream-to=origin/master master
-  pip install -r requirements.txt &&
+  python -m pip install --upgrade pip &&
+    pip install -r requirements.txt &&
     python manage.py makemigrations &&
     python manage.py migrate &&
     python manage.py loaddata pt.json
