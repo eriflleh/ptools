@@ -131,6 +131,12 @@ def restart_container(request):
     res = scraper.get('https://gitee.com/ngfchl/ptools/raw/master/update.md')
     update_notes = markdown.markdown(res.text, extensions=['tables'])
     print(update_notes)
+    restart = 'false'
+    if os.environ.get('CONTAINER_NAME'):
+        restart = 'true'
     return render(request, 'auto_pt/restart.html',
-                  context={'update_notes': update_notes}
+                  context={
+                      'update_notes': update_notes,
+                      'restart': restart
+                  }
                   )

@@ -11,7 +11,7 @@
             <span>更新日志</span>
             <span style="float: right;margin-top: -10px">
                  <el-button type="success" @click="do_update">更新</el-button>
-                 <el-button type="danger" @click="do_restart">重启</el-button>
+                 <el-button type="danger" @click="do_restart" v-if="restart">重启</el-button>
             </span>
         </div>
         <div class="text item">
@@ -39,7 +39,8 @@
         // element: 指定用vue来管理页面中的哪个标签区域
         el: '#app',
         data: {
-            update_note: ['请先拉取更新哦']
+            update_note: ['请先拉取更新哦'],
+            restart:{{ restart }},
         },
         methods: {
             do_restart() {
