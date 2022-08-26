@@ -110,40 +110,43 @@ class PtSpider:
         res = '你还没有配置通知参数哦！'
         if len(notifies) <= 0:
             return res
-        for notify in notifies:
-            if notify.name == PushConfig.wechat_work_push:
-                """企业微信通知"""
-                notify_push = WechatPush(
-                    corp_id=notify.corpid,
-                    secret=notify.corpsecret,
-                    agent_id=notify.agentid, )
-                res = notify_push.send_markdown(text)
+        try:
+            for notify in notifies:
+                if notify.name == PushConfig.wechat_work_push:
+                    """企业微信通知"""
+                    notify_push = WechatPush(
+                        corp_id=notify.corpid,
+                        secret=notify.corpsecret,
+                        agent_id=notify.agentid, )
+                    res = notify_push.send_markdown(text)
 
-                print(res)
+                    print(res)
 
-            if notify.name == PushConfig.wxpusher_push:
-                """WxPusher通知"""
-                res = WxPusher.send_message(
-                    content=text,
-                    url=url,
-                    uids=notify.touser.split(','),
-                    token=notify.corpsecret,
-                    content_type=3,  # 1：文本，2：html，3：markdown
-                )
-                print(res)
+                if notify.name == PushConfig.wxpusher_push:
+                    """WxPusher通知"""
+                    res = WxPusher.send_message(
+                        content=text,
+                        url=url,
+                        uids=notify.touser.split(','),
+                        token=notify.corpsecret,
+                        content_type=3,  # 1：文本，2：html，3：markdown
+                    )
+                    print(res)
 
-            if notify.name == PushConfig.pushdeer_push:
-                pushdeer = PushDeer(
-                    server=notify.custom_server,
-                    pushkey=notify.corpsecret)
-                # res = pushdeer.send_text(text, desp="optional description")
-                res = pushdeer.send_markdown(text)
-                print(res)
+                if notify.name == PushConfig.pushdeer_push:
+                    pushdeer = PushDeer(
+                        server=notify.custom_server,
+                        pushkey=notify.corpsecret)
+                    # res = pushdeer.send_text(text, desp="optional description")
+                    res = pushdeer.send_markdown(text=text, desp="PushDeer消息提醒")
+                    print(res)
 
-            if notify.name == PushConfig.bark_push:
-                url = notify.custom_server + notify.corpsecret + '/' + text
-                res = self.get_scraper().get(url=url)
-                print(res)
+                if notify.name == PushConfig.bark_push:
+                    url = notify.custom_server + notify.corpsecret + '/' + text
+                    res = self.get_scraper().get(url=url)
+                    print(res)
+        except Exception as e:
+            print("通知发送失败，" + str(e))
 
     def send_request(self,
                      my_site: MySite,
@@ -771,6 +774,11 @@ class PtSpider:
             # seed = self.get_user_torrent(seeding_html, site.seed_rule)
             leech = ''.join(details_html.xpath(site.leech_rule)).strip()
             seed = ''.join(details_html.xpath(site.seed_rule)).strip()
+            if not leech and not seed:
+                return CommonResponse.error(
+                    status=StatusCodeEnum.WEB_CONNECT_ERR,
+                    msg=StatusCodeEnum.WEB_CONNECT_ERR.errmsg + '请检查网站访问是否正常？'
+                )
             # seed = len(seed_vol_list)
             ratio = ''.join(details_html.xpath(site.ratio_rule)).replace(',', '').strip(']:').strip()
             if ratio == '无限' or ratio == '∞' or ratio == '---':
@@ -856,23 +864,23 @@ class PtSpider:
             my_site.my_level = my_level if my_level != '' else ' '
             if my_hr:
                 my_site.my_hr = my_hr
-            my_site.seed = int(seed)
+            my_site.seed = int(seed) if seed else 0
             print(leech)
-            my_site.leech = int(leech)
+            my_site.leech = int(leech) if leech else 0
 
             print('站点：', site)
-            print('等级：', my_level, )
-            print('魔力：', my_sp, )
-            print('积分：', my_bonus if my_bonus else 0)
-            print('分享率：', ratio, )
-            print('下载量：', downloaded, )
-            print('上传量：', uploaded, )
-            print('邀请：', invitation, )
-            print('注册时间：', time_join, )
-            print('最后活动：', latest_active)
-            print('H&R：', my_hr)
-            print('上传数：', seed)
-            print('下载数：', leech)
+            # print('等级：', my_level, )
+            # print('魔力：', my_sp, )
+            # print('积分：', my_bonus if my_bonus else 0)
+            # print('分享率：', ratio, )
+            # print('下载量：', downloaded, )
+            # print('上传量：', uploaded, )
+            # print('邀请：', invitation, )
+            # print('注册时间：', time_join, )
+            # print('最后活动：', latest_active)
+            # print('H&R：', my_hr)
+            # print('上传数：', seed)
+            # print('下载数：', leech)
             try:
                 res_sp_hour = self.get_hour_sp(my_site=my_site)
                 if not res_sp_hour[1]:

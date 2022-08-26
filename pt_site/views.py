@@ -89,7 +89,7 @@ try:
             '自动更新个人数据', end - start,
             time.strftime("%Y-%m-%d %H:%M:%S")
         )
-        pt_spider.send_text(message_list + consuming)
+        pt_spider.send_text(text=message_list + consuming)
 
 
     def auto_update_torrents():

@@ -1,7 +1,7 @@
+import time
 from datetime import datetime
 
 import qbittorrentapi
-import time
 import transmission_rpc
 from django.contrib import admin, messages
 from django.db import transaction
@@ -364,33 +364,33 @@ class MySiteAdmin(ImportExportModelAdmin):  # instead of ModelAdmin
             if result.code == StatusCodeEnum.OK.code:
                 res = pt_spider.parse_status_html(my_site, result.data)
                 # print(my_site.site, result)
-                site_status = res.data[0]
-                if isinstance(site_status, SiteStatus):
-                    message = my_site.site.name + '{}'.format('信息获取成功！' if res.data[1] else '信息更新成功！')
-                    # status = my_site.sitestatus_set.filter(created_at__date__gte=datetime.today()).first()
-                    # print(status.ratio)
-                    message += message_template.format(
-                        my_site.my_level,
-                        site_status.my_sp,
-                        my_site.sp_hour,
-                        site_status.my_bonus,
-                        site_status.ratio,
-                        site_status.downloaded,
-                        site_status.uploaded,
-                        my_site.seed,
-                        my_site.leech,
-                        my_site.invitation,
-                        my_site.my_hr
-                    )
-                    messages.add_message(
-                        request,
-                        messages.SUCCESS,
-                        message=message)
-                else:
-                    messages.add_message(
-                        request,
-                        messages.ERROR,
-                        my_site.site.name + '信息更新失败！原因：' + res.msg)
+                if res.code == StatusCodeEnum.OK.code:
+                    site_status = res.data[0]
+                    if isinstance(site_status, SiteStatus):
+                        message = my_site.site.name + '{}'.format('信息获取成功！' if res.data[1] else '信息更新成功！')
+                        # status = my_site.sitestatus_set.filter(created_at__date__gte=datetime.today()).first()
+                        # print(status.ratio)
+                        message += message_template.format(
+                            my_site.my_level,
+                            site_status.my_sp,
+                            my_site.sp_hour,
+                            site_status.my_bonus,
+                            site_status.ratio,
+                            site_status.downloaded,
+                            site_status.uploaded,
+                            my_site.seed,
+                            my_site.leech,
+                            my_site.invitation,
+                            my_site.my_hr
+                        )
+                        messages.add_message(
+                            request,
+                            messages.SUCCESS,
+                            message=message)
+                messages.add_message(
+                    request,
+                    messages.ERROR,
+                    my_site.site.name + '信息更新失败！原因：' + res.msg)
             else:
                 messages.add_message(
                     request,
