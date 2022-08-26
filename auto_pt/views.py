@@ -139,9 +139,11 @@ def restart_container(request):
 def do_get_update(request):
     update = 'false'
     p = subprocess.Popen('git log origin/master -1', shell=True, stdout=subprocess.PIPE, )
-    content = p.stdout.readline()
+    content = p.stdout.readlines()
     p_remote = subprocess.Popen('git log remote/origin/master -1', shell=True, stdout=subprocess.PIPE, )
-    content_remote = p_remote.stdout.readline()
+    content_remote = p_remote.stdout.readlines()
+    print(content)
+    print(content_remote)
     if content_remote == content:
         update = 'true'
         return JsonResponse(data=CommonResponse.success(
