@@ -388,7 +388,7 @@ class PtSpider:
                     return CommonResponse.success(msg=res.text)
                 elif res.status_code == 503:
                     return CommonResponse.error(
-                        status=StatusCodeEnum.WEB_CLOUD_FLARE,
+                        status=StatusCodeEnum.COOKIE_EXPIRE,
                     )
                 else:
                     return CommonResponse.error(

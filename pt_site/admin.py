@@ -387,10 +387,16 @@ class MySiteAdmin(ImportExportModelAdmin):  # instead of ModelAdmin
                             request,
                             messages.SUCCESS,
                             message=message)
-                messages.add_message(
-                    request,
-                    messages.ERROR,
-                    my_site.site.name + '信息更新失败！原因：' + res.msg)
+                    else:
+                        messages.add_message(
+                            request,
+                            messages.ERROR,
+                            my_site.site.name + '信息更新失败！原因：' + res.msg)
+                else:
+                    messages.add_message(
+                        request,
+                        messages.ERROR,
+                        my_site.site.name + '信息更新失败！原因：' + res.msg)
             else:
                 messages.add_message(
                     request,

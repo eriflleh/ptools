@@ -32,7 +32,8 @@ class StatusCodeEnum(Enum):
     THROTTLING_ERR = (4002, '访问过于频繁')
     # 网络
     WEB_CONNECT_ERR = (4404, '网站访问错误！')
-    WEB_CLOUD_FLARE = (4503, '我遇到CF盾咯！')
+    WEB_CLOUD_FLARE = (4505, '我遇到CF盾咯！')
+    COOKIE_EXPIRE = (4503, '疑似COOKIE过期咯！')
     NECESSARY_PARAM_ERR = (4003, '缺少必传参数')
     USER_ERR = (4004, '用户名错误')
     PWD_ERR = (4005, '密码错误')
