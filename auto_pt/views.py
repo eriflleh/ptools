@@ -3,7 +3,6 @@ import os
 import subprocess
 from datetime import datetime
 
-import markdown
 from django.db import connection
 from django.http import JsonResponse
 from django.shortcuts import render
@@ -88,26 +87,73 @@ def do_sql(request):
     #     with connection.cursor() as cursor:
     #         for statement in contents:
     #             res1 = cursor.execute(statement)
+
     return JsonResponse('ok', safe=False)
 
 
-def do_restart(request):
-    try:
-        print('重启')
-        # print(os.system('pwd'))
-        if os.environ.get('CONTAINER_NAME'):
-            subprocess.Popen('chmod +x ./restart.sh', shell=True)
-            subprocess.Popen('./restart.sh', shell=True)
-            return JsonResponse(data=CommonResponse.success(
-                msg='重启指令发送成功！!'
-            ).to_dict(), safe=False)
-        return JsonResponse(data=CommonResponse.error(
-            msg='未配置CONTAINER_NAME（容器名称）环境变量，请自行重启容器！!'
+def get_update(master='', n=10):
+    # 获取最新的10条更新记录
+    # master='' 本地 master='remote/'  远程
+    p = subprocess.Popen('git log {}origin/master -{}'.format(master, n), shell=True, stdout=subprocess.PIPE, )
+    contents = p.stdout.readlines()
+    update_notes = []
+    info = {
+        'date': '',
+        'data': []
+    }
+    for i in contents:
+        string = i.decode('utf8')
+        if string == '\n' or 'commit' in string or 'Author' in string:
+            continue
+        if 'Date' in string:
+            update_notes.append(info)
+            info = {}
+            list1 = string.split(':', 1)
+            info['date'] = list1[1].strip()
+            info['data'] = []
+            continue
+        info['data'].append(string.strip())
+    # print(update_notes)
+    update_notes.pop(0)
+    return update_notes
+
+
+def restart_container(request):
+    # scraper = pt_spider.get_scraper()
+    # res = scraper.get('https://gitee.com/ngfchl/ptools/raw/master/update.md')
+    # update_md = markdown.markdown(res.text, extensions=['tables'])
+
+    restart = 'false'
+    update = 'false'
+    if os.environ.get('CONTAINER_NAME'):
+        restart = 'true'
+    return render(request, 'auto_pt/restart.html',
+                  context={
+                      # 'update_md': update_md,
+                      'update_notes': get_update(),
+                      'restart': restart,
+                      'update': update,
+                  })
+
+
+def do_get_update(request):
+    update = 'false'
+    p = subprocess.Popen('git log origin/master -1', shell=True, stdout=subprocess.PIPE, )
+    content = p.stdout.readline()
+    p_remote = subprocess.Popen('git log remote/origin/master -1', shell=True, stdout=subprocess.PIPE, )
+    content_remote = p_remote.stdout.readline()
+    if content_remote == content:
+        update = 'true'
+        return JsonResponse(data=CommonResponse.success(
+            msg='拉取更新日志成功！!',
+            data={
+                'update': update,
+                'update_notes': get_update(master='remote/'),
+            }
         ).to_dict(), safe=False)
-    except Exception as e:
-        return JsonResponse(data=CommonResponse.error(
-            msg='重启指令发送失败!' + str(e)
-        ).to_dict(), safe=False)
+    return JsonResponse(data=CommonResponse.success(
+        msg='已经更新到最新！',
+    ).to_dict(), safe=False)
 
 
 def do_update(request):
@@ -144,17 +190,20 @@ def do_update(request):
         ).to_dict(), safe=False)
 
 
-def restart_container(request):
-    scraper = pt_spider.get_scraper()
-    res = scraper.get('https://gitee.com/ngfchl/ptools/raw/master/update.md')
-    update_notes = markdown.markdown(res.text, extensions=['tables'])
-    print(update_notes)
-    restart = 'false'
-    if os.environ.get('CONTAINER_NAME'):
-        restart = 'true'
-    return render(request, 'auto_pt/restart.html',
-                  context={
-                      'update_notes': update_notes,
-                      'restart': restart
-                  }
-                  )
+def do_restart(request):
+    try:
+        print('重启')
+        # print(os.system('pwd'))
+        if os.environ.get('CONTAINER_NAME'):
+            subprocess.Popen('chmod +x ./restart.sh', shell=True)
+            subprocess.Popen('./restart.sh', shell=True)
+            return JsonResponse(data=CommonResponse.success(
+                msg='重启指令发送成功！!'
+            ).to_dict(), safe=False)
+        return JsonResponse(data=CommonResponse.error(
+            msg='未配置CONTAINER_NAME（容器名称）环境变量，请自行重启容器！!'
+        ).to_dict(), safe=False)
+    except Exception as e:
+        return JsonResponse(data=CommonResponse.error(
+            msg='重启指令发送失败!' + str(e)
+        ).to_dict(), safe=False)

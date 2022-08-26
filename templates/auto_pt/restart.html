@@ -10,18 +10,35 @@
         <div slot="header" class="clearfix">
             <span>更新日志</span>
             <span style="float: right;margin-top: -10px">
-                 <el-button type="success" @click="do_update">更新</el-button>
+                 <el-button type="primary" @click="get_update">获取更新</el-button>
+                 <el-button type="success" @click="do_update" v-if="update">更新</el-button>
                  <el-button type="danger" @click="do_restart" v-if="restart">重启</el-button>
             </span>
         </div>
         <div class="text item">
-            <ul v-for="item in update_note">
-                <li v-text="item"></li>
-            </ul>
+            {#            <ul v-for="item in update_notes">#}
+            {#                <li v-html="item"></li>#}
+            {#            </ul>#}
             <el-card class="box-card">
-                <div class="text item">
-                    {{ update_notes|safe }}
-                </div>
+                {#                <div class="text item">#}
+                {#                    {{ update_md|safe }}#}
+                {#                </div>#}
+                <el-timeline>
+                    <el-timeline-item
+                            v-for="(update_note, index) in update_notes"
+                            :key="index"
+                            {#                        :icon="activity.icon"#}
+                            {#                        :type="activity.type"#}
+                            color="#0bbd87"
+                            {#                        :size="activity.size"#}
+                            :timestamp="update_note.date">
+                        <el-card>
+                            <p v-for="content in update_note.data" v-html="content">
+                            </p>
+                        </el-card>
+
+                    </el-timeline-item>
+                </el-timeline>
             </el-card>
 
         </div>
@@ -39,8 +56,9 @@
         // element: 指定用vue来管理页面中的哪个标签区域
         el: '#app',
         data: {
-            update_note: ['请先拉取更新哦'],
+            update_notes: {{ update_notes|safe }},
             restart:{{ restart }},
+            update:{{ update }}
         },
         methods: {
             do_restart() {
@@ -78,6 +96,30 @@
                     this.$message({
                         type: 'info',
                         message: '已取消重启'
+                    });
+                });
+            },
+            get_update() {
+                axios.get(
+                    "{% url "do_get_update" %}"
+                ).then(res => {
+                    if (res.data.code === 0) {
+                        this.$message({
+                            type: 'success',
+                            message: res.data.msg
+                        });
+                    } else {
+                        console.log(res)
+                        this.$message({
+                            type: 'warning',
+                            message: res.data.msg
+                        });
+                    }
+                }).catch(res => {
+                    console.log(res)
+                    this.$message({
+                        type: 'info',
+                        message: '获取更新失败！'
                     });
                 });
             },
