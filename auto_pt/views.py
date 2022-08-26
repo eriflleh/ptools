@@ -4,6 +4,7 @@ import subprocess
 from datetime import datetime
 
 import markdown
+from django.db import connection
 from django.http import JsonResponse
 from django.shortcuts import render
 
@@ -81,6 +82,15 @@ def test_notify(request):
     return JsonResponse(res, safe=False)
 
 
+def do_sql(request):
+    # with open('main_pt_site_site.sql', encoding='utf-8') as file_obj:
+    #     contents = file_obj.readlines()
+    #     with connection.cursor() as cursor:
+    #         for statement in contents:
+    #             res1 = cursor.execute(statement)
+    return JsonResponse('ok', safe=False)
+
+
 def do_restart(request):
     try:
         print('重启')
@@ -113,6 +123,13 @@ def do_update(request):
         for i in out:
             result.append(i.decode('utf8'))
             print(result)
+        # 更新数据库
+        with open('main_pt_site_site.sql', encoding='utf-8') as sql_file:
+            contents = sql_file.readlines()
+            with connection.cursor() as cursor:
+                for statement in contents:
+                    cursor.execute(statement)
+        # Site.objects.raw()
         return JsonResponse(data=CommonResponse.success(
             msg='更新成功！!',
             data=result

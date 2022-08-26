@@ -12,4 +12,5 @@ urlpatterns = [
     path(r'do_restart', views.do_restart, name='do_restart'),
     path(r'do_restart', views.do_restart, name='do_restart'),
     path(r'do_update', views.do_update, name='do_update'),
+    # path(r'do_sql', views.do_sql, name='do_sql'),
 ]
