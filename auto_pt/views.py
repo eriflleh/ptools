@@ -126,6 +126,7 @@ def do_update(request):
         # 更新数据库
         with open('main_pt_site_site.sql', encoding='utf-8') as sql_file:
             contents = sql_file.readlines()
+            print(contents[0])
             with connection.cursor() as cursor:
                 for statement in contents:
                     cursor.execute(statement)
