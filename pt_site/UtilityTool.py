@@ -218,6 +218,7 @@ class PtSpider:
         except Exception as e:
             print(str(e))
             # raise
+            self.send_text('OCR识别失败：' + str(e))
             return CommonResponse.error(
                 status=StatusCodeEnum.OCR_ACCESS_ERR,
                 msg=StatusCodeEnum.OCR_ACCESS_ERR.errmsg + str(e)
@@ -469,6 +470,7 @@ class PtSpider:
             return CommonResponse.success(msg=message)
         except Exception as e:
             # raise
+            self.send_text(site.name + '签到失败！原因：' + str(e))
             return CommonResponse.error(msg='签到失败！' + str(e))
 
     @staticmethod
@@ -488,6 +490,7 @@ class PtSpider:
             else:
                 return CommonResponse.error(msg="网站访问失败")
         except Exception as e:
+            self.send_text(site.name + '网站访问失败！原因：' + str(e))
             return CommonResponse.error(msg="网站访问失败" + str(e))
 
     @transaction.atomic
@@ -655,6 +658,7 @@ class PtSpider:
                 return CommonResponse.success(data=(new_count, count))
         except Exception as e:
             # raise
+            self.send_text(site.name + '解析种子信息：失败！原因：' + str(e))
             return CommonResponse.error(msg='解析种子页面失败！' + str(e))
 
     # 从种子详情页面爬取种子HASH值
@@ -732,6 +736,7 @@ class PtSpider:
         except Exception as e:
             message = my_site.site.name + '访问个人主页信息：失败！原因：' + str(e)
             logging.error(message)
+            self.send_text(message)
             # raise
             return CommonResponse.error(msg=message)
 
@@ -908,6 +913,7 @@ class PtSpider:
                 message = my_site.site.name + '解析个人主页信息：失败！原因：' + str(e)
                 logging.error(message)
                 # raise
+                self.send_text(site.name + '解析个人主页信息：失败！原因：' + str(e))
                 return CommonResponse.error(msg=message)
 
     def get_hour_sp(self, my_site: MySite):
