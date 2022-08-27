@@ -41,7 +41,6 @@ class SiteAdmin(ImportExportModelAdmin):  # instead of ModelAdmin
 
     )
     actions_selection_counter = True
-
     # list_display_links = None
 
     # 过滤字段
@@ -488,8 +487,8 @@ class SiteStatusAdmin(ImportExportModelAdmin):
         return False
 
     # 禁止删除按钮
-    def has_delete_permission(self, request, obj=None):
-        return False
+    # def has_delete_permission(self, request, obj=None):
+    #     return False
 
     # 禁止修改按钮
     def has_change_permission(self, request, obj=None):

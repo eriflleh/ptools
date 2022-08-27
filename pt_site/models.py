@@ -8,8 +8,8 @@ from ptools.base import BaseEntity, DownloaderCategory
 # 支持的站点
 class Site(BaseEntity):
     # 站点设置
+    url = models.URLField(verbose_name='站点网址', default='', help_text='请保留网址结尾的"/"', unique=True)
     name = models.CharField(max_length=32, verbose_name='站点名称')
-    url = models.URLField(verbose_name='站点网址', default='', help_text='请保留网址结尾的"/"')
     logo = models.URLField(verbose_name='站点logo', default='', help_text='站点logo图标')
     # 功能支持
     sign_in_support = models.BooleanField(verbose_name="签到支持", default=True)
