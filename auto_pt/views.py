@@ -93,8 +93,8 @@ def do_sql(request):
 
 def get_update(master='', n=10):
     # 获取最新的10条更新记录
-    # master='' 本地 master='remote/'  远程
-    p = subprocess.Popen('git log {}origin/master -{}'.format(master, n), shell=True, stdout=subprocess.PIPE, )
+    # master='' 本地 master='origin/master'  远程
+    p = subprocess.Popen('git log {} -{}'.format(master, n), shell=True, stdout=subprocess.PIPE, )
     contents = p.stdout.readlines()
     update_notes = []
     info = {
@@ -138,24 +138,43 @@ def restart_container(request):
 
 def do_get_update(request):
     update = 'false'
+    # 拉取更新元数据
+    update_log = subprocess.Popen('git remote update', shell=True)
+    update_log.wait()
+    # 查看更新日志
     p = subprocess.Popen('git log origin/master -1', shell=True, stdout=subprocess.PIPE, )
-    content = p.stdout.readlines()
-    p_remote = subprocess.Popen('git log remote/origin/master -1', shell=True, stdout=subprocess.PIPE, )
-    content_remote = p_remote.stdout.readlines()
-    print(content)
-    print(content_remote)
-    if content_remote == content:
+    commit = p.stdout.readline().decode('utf8')
+    print(commit)
+    if 'HEAD' in commit and 'origin' in commit:
+        return JsonResponse(data=CommonResponse.success(
+            msg='已经更新到最新！'
+        ).to_dict(), safe=False)
+    else:
         update = 'true'
         return JsonResponse(data=CommonResponse.success(
             msg='拉取更新日志成功！!',
             data={
                 'update': update,
-                'update_notes': get_update(master='remote/'),
+                'update_notes': get_update(master='origin/master'),
             }
         ).to_dict(), safe=False)
-    return JsonResponse(data=CommonResponse.success(
-        msg='已经更新到最新！',
-    ).to_dict(), safe=False)
+    # content = p.stdout.readlines()
+    # p_remote = subprocess.Popen('git log remote/origin/master -1', shell=True, stdout=subprocess.PIPE, )
+    # content_remote = p_remote.stdout.readlines()
+    # print(content)
+    # print(content_remote)
+    # if content_remote == content:
+    #     update = 'true'
+    #     return JsonResponse(data=CommonResponse.success(
+    #         msg='拉取更新日志成功！!',
+    #         data={
+    #             'update': update,
+    #             'update_notes': get_update(master='remote/'),
+    #         }
+    #     ).to_dict(), safe=False)
+    # return JsonResponse(data=CommonResponse.success(
+    #     msg='已经更新到最新！',
+    # ).to_dict(), safe=False)
 
 
 def do_update(request):
@@ -163,7 +182,6 @@ def do_update(request):
         print('更新')
         # print(os.system('cat ./update.sh'))
         subprocess.Popen('chmod +x ./update.sh', shell=True)
-
         p = subprocess.Popen('./update.sh', shell=True, stdout=subprocess.PIPE, bufsize=1)
         p.wait()
         out = p.stdout.readlines()
@@ -200,7 +218,7 @@ def do_restart(request):
             subprocess.Popen('chmod +x ./restart.sh', shell=True)
             subprocess.Popen('./restart.sh', shell=True)
             return JsonResponse(data=CommonResponse.success(
-                msg='重启指令发送成功！!'
+                msg='容器重启中！!'
             ).to_dict(), safe=False)
         return JsonResponse(data=CommonResponse.error(
             msg='未配置CONTAINER_NAME（容器名称）环境变量，请自行重启容器！!'
