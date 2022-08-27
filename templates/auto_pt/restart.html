@@ -9,7 +9,6 @@
     <el-card class="box-card">
         <div slot="header" class="clearfix">
             <span>
-
                 <el-popover
                         placement="top-start"
                         title="友情提示"
@@ -18,9 +17,12 @@
                         content="如果遇到无法更新的情况，您可以选择重建容器或者进入容器命令行到项目根目录执行`git pull`命令！">
                     <el-button slot="reference">更新提示</el-button>
                 </el-popover>
+                  <el-link type="success">{{ update_tips }}</el-link>
+
+
             </span>
             <span style="float: right;margin-top: -10px">
-                 <el-button type="primary" @click="get_update">获取更新</el-button>
+{#                 <el-button type="primary" @click="get_update">获取更新</el-button>#}
                  <el-button type="success" @click="do_update" v-if="update">更新</el-button>
                  <el-button type="danger" @click="do_restart" v-if="restart">重启</el-button>
             </span>
@@ -50,7 +52,7 @@
                         </el-timeline>
                     </el-card>
                 </el-col>
-                <el-col :span="12" v-if="update_log">
+                <el-col :span="12" v-if="update">
                     <el-card class="box-card" shadow="hover">
                         <div slot="header" class="clearfix">
                             <span>更新日志</span>
@@ -90,12 +92,27 @@
         // element: 指定用vue来管理页面中的哪个标签区域
         el: '#app',
         data: {
-            update_notes: '',
+            update_notes: {{ update_notes|safe }},
             local_logs: {{ local_logs|safe }},
             restart:{{ restart }},
-            update:{{ update }},
-            update_log: false,
+
+            update: false,
+            {#update_log: false,#}
             local_log_width: 24
+        },
+        created() {
+            this.update =
+            {{ update }}
+
+            if (this.update) {
+                this.local_log_width = 12
+
+            }
+            this.$message({
+                showClose: true,
+                message: "{{ update_tips }}",
+                type: 'success'
+            });
         },
         methods: {
             do_restart() {
@@ -143,7 +160,7 @@
                     if (res.data.code === 0) {
                         console.log(res.data)
                         this.update_notes = res.data.data.update_notes
-                        this.update_log = true
+                        {#this.update_log = true#}
                         this.local_log_width = 12
                         this.$message({
                             type: 'success',

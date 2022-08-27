@@ -123,16 +123,36 @@ def restart_container(request):
     # res = scraper.get('https://gitee.com/ngfchl/ptools/raw/master/update.md')
     # update_md = markdown.markdown(res.text, extensions=['tables'])
 
+    # 拉取更新元数据
+    update_log = subprocess.Popen('git remote update', shell=True)
+    update_log.wait()
+    # 获取本地更新日志第一条
+    p_local = subprocess.Popen('git log --oneline -1', shell=True, stdout=subprocess.PIPE, )
+    commit_local = p_local.stdout.readline().decode('utf8').strip()
+    # 获取远端仓库更新日志第一条
+    p_remote = subprocess.Popen('git log origin/master --oneline -1', shell=True, stdout=subprocess.PIPE, )
+    commit_remote = p_remote.stdout.readline().decode('utf8').strip()
+    print(commit_local, commit_remote)
+    # if 'HEAD' in commit and 'origin' in commit:
+    print(commit_remote == commit_local)
+    # 如果日志相同则更新到最新，否则显示远端更新日志
+    if commit_remote == commit_local:
+        update = 'false'
+        update_tips = '目前您使用的是最新版本！'
+    else:
+        update = 'true'
+        update_tips = '已有新版本，请根据需要升级！'
     restart = 'false'
-    update = 'false'
     if os.environ.get('CONTAINER_NAME'):
         restart = 'true'
     return render(request, 'auto_pt/restart.html',
                   context={
                       # 'update_md': update_md,
                       'local_logs': get_git_logs(),
+                      'update_notes': get_git_logs(master='origin/master'),
                       'restart': restart,
                       'update': update,
+                      'update_tips': update_tips,
                   })
 
 
