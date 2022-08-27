@@ -8,6 +8,7 @@ from django.db import transaction
 from django.http import JsonResponse
 from django.utils.html import format_html
 from import_export.admin import ImportExportModelAdmin
+from import_export.formats import base_formats
 from simpleui.admin import AjaxAdmin
 from transmission_rpc import Torrent
 
@@ -25,7 +26,7 @@ admin.site.index_title = '我在后台首页'
 
 @admin.register(Site)
 class SiteAdmin(ImportExportModelAdmin):  # instead of ModelAdmin
-    # formats = (base_formats.XLS, base_formats.CSV)
+    formats = (base_formats.XLS, base_formats.CSV,base_formats.JSON)
     # 显示字段
     list_display = (
         'name',
@@ -215,7 +216,7 @@ class StatusInlines(admin.TabularInline):
 
 @admin.register(MySite)
 class MySiteAdmin(ImportExportModelAdmin):  # instead of ModelAdmin
-    # formats = (base_formats.XLS, base_formats.CSV)
+    formats = (base_formats.XLS, base_formats.CSV,base_formats.JSON)
     # 显示字段
     list_display = (
         'sort_id',
@@ -468,7 +469,7 @@ class MySiteAdmin(ImportExportModelAdmin):  # instead of ModelAdmin
 
 @admin.register(SiteStatus)
 class SiteStatusAdmin(ImportExportModelAdmin):
-    # formats = (base_formats.XLS, base_formats.CSV)
+    formats = (base_formats.XLS, base_formats.CSV,base_formats.JSON)
     list_display = ['site',
                     # 'sign_in', 'my_level', 'invitation', 'seed', 'leech',
                     'uploaded', 'downloaded', 'ratio',
@@ -525,7 +526,7 @@ class SiteStatusAdmin(ImportExportModelAdmin):
 
 @admin.register(Downloader)
 class DownloaderAdmin(ImportExportModelAdmin, AjaxAdmin):  # instead of ModelAdmin
-    # formats = (base_formats.XLS, base_formats.CSV)
+    formats = (base_formats.XLS, base_formats.CSV,base_formats.JSON)
     # 显示字段
     list_display = ('name', 'category', 'reserved_space', 'created_at', 'updated_at')
     # 过滤字段
@@ -598,7 +599,7 @@ class DownloaderAdmin(ImportExportModelAdmin, AjaxAdmin):  # instead of ModelAdm
 
 @admin.register(TorrentInfo)
 class TorrentInfoAdmin(ImportExportModelAdmin, AjaxAdmin):  # instead of ModelAdmin
-    # formats = (base_formats.XLS, base_formats.CSV)
+    formats = (base_formats.XLS, base_formats.CSV,base_formats.JSON)
     # 显示字段
     list_display = (
         'name_href',

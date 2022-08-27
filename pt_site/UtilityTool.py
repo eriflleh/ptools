@@ -834,7 +834,7 @@ class PtSpider:
             # 获取字符串中的魔力值
             my_sp = ''.join(
                 details_html.xpath(site.my_sp_rule)
-            )
+            ).replace(',', '').strip()
             print('魔力：', details_html.xpath(site.my_sp_rule))
 
             if my_sp:

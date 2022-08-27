@@ -5,6 +5,7 @@ from apscheduler.triggers.cron import CronTrigger
 from django.contrib import admin, messages
 from django.http import JsonResponse
 from import_export.admin import ImportExportModelAdmin
+from import_export.formats import base_formats
 from simpleui.admin import AjaxAdmin
 
 from auto_pt.models import Task, TaskJob, Notify, OCR
@@ -18,7 +19,7 @@ from ptools.base import Trigger
 
 @admin.register(Task)
 class TaskAdmin(ImportExportModelAdmin):  # instead of ModelAdmin
-    # formats = (base_formats.XLS, base_formats.CSV)
+    formats = (base_formats.XLS, base_formats.CSV, base_formats.JSON)
     # 显示字段
     list_display = (
         'desc',
@@ -50,7 +51,7 @@ class TaskAdmin(ImportExportModelAdmin):  # instead of ModelAdmin
 
 @admin.register(TaskJob)
 class TaskJobAdmin(ImportExportModelAdmin):  # instead of ModelAdmin
-    # formats = (base_formats.XLS, base_formats.CSV)
+    formats = (base_formats.XLS, base_formats.CSV, base_formats.JSON)
     # 显示字段
     list_display = (
         'job_id',
@@ -128,7 +129,7 @@ class TaskJobAdmin(ImportExportModelAdmin):  # instead of ModelAdmin
 
 @admin.register(Notify)
 class NotifyAdmin(ImportExportModelAdmin, AjaxAdmin):
-    # formats = (base_formats.XLS, base_formats.CSV)
+    formats = (base_formats.XLS, base_formats.CSV, base_formats.JSON)
     list_display = [
         'name',
         'enable',
@@ -197,6 +198,8 @@ class NotifyAdmin(ImportExportModelAdmin, AjaxAdmin):
 
 @admin.register(OCR)
 class OCRAdmin(ImportExportModelAdmin):
+    formats = (base_formats.XLS, base_formats.CSV, base_formats.JSON)
+
     list_display = [
         'name',
         'enable',
