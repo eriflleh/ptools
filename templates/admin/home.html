@@ -4,40 +4,25 @@
 
     <el-row class="info-card">
 
-        {% if "SIMPLEUI_HOME_QUICK"|get_config != False %}
-
-            <el-col :span="15" :lg="15" :md="15" :sm="24" :xs="24">
-                <el-card class="box-card">
-                    <div slot="header" class="clearfix">
-                        <i class="fas fa-link"></i>
-                        <span v-text="getLanuage('Quick navigation')"></span>
-                    </div>
-                    <div class="clearfix">
-                        {% if "SIMPLEUI_HOME_QUICK"|get_config != False %}
-                            <div v-for="(c,j) in models" :key="c.name" class="quick-wrap">
-                                <a href="javascript:;" @click="openTab(c,(j+1)+'')">
-                                    <span class="icon" :class="c.icon"></span>
-                                    <span class="card-name" v-text="c.name"></span>
-                                </a>
-                            </div>
-                        {% endif %}
-                    </div>
-                </el-card>
-            </el-col>
-        {% endif %}
-        <el-col :span="9" :lg="9" :md="9" :sm="24" :xs="24">
+        <el-col :span="24" :lg="24" :md="24" :sm="24" :xs="24">
             <el-card class="box-card">
                 <div slot="header" class="clearfix">
-                        <span><i class="fab fa-stripe-s"></i>PTools <span
-                                v-text="getLanuage('Home page')"></span></span>
+                    <i class="fas fa-link"></i>
+                    <span v-text="getLanuage('Quick navigation')"></span>
                 </div>
-                <div class="float-wrap clearfix">
-                    <div style="text-align: center">
-                        <img src="/static/logo3.png" alt="" style="height: 210px">
-                        <div>v2022.08.13</div>
-                    </div>
+                <div class="clearfix">
+                    {% if "SIMPLEUI_HOME_QUICK"|get_config != False %}
+                        <div v-for="(c,j) in models" :key="c.name" class="quick-wrap">
+                            <a href="javascript:;" @click="openTab(c,(j+1)+'')">
+                                <span class="icon" :class="c.icon"></span>
+                                <span class="card-name" v-text="c.name"></span>
+                            </a>
+                        </div>
+                    {% endif %}
                 </div>
             </el-card>
+        </el-col>
+        </el-card>
         </el-col>
     </el-row>
 

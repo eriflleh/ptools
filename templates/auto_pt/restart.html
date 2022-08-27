@@ -153,34 +153,34 @@
                     });
                 });
             },
-            get_update() {
-                axios.get(
-                    "{% url "do_get_update" %}"
-                ).then(res => {
-                    if (res.data.code === 0) {
-                        console.log(res.data)
-                        this.update_notes = res.data.data.update_notes
-                        {#this.update_log = true#}
-                        this.local_log_width = 12
-                        this.$message({
-                            type: 'success',
-                            message: res.data.msg
-                        });
-                    } else {
-                        console.log(res)
-                        this.$message({
-                            type: 'warning',
-                            message: res.data.msg
-                        });
-                    }
-                }).catch(res => {
-                    console.log(res)
-                    this.$message({
-                        type: 'info',
-                        message: '获取更新失败！'
-                    });
-                });
-            },
+            {#get_update() {#}
+            {#    axios.get(#}
+            {#        "{% url "do_get_update" %}"#}
+            {#    ).then(res => {#}
+            {#        if (res.data.code === 0) {#}
+            {#            console.log(res.data)#}
+            {#            this.update_notes = res.data.data.update_notes#}
+            {#this.update_log = true#}
+            {#            this.local_log_width = 12#}
+            {#            this.$message({#}
+            {#                type: 'success',#}
+            {#                message: res.data.msg#}
+            {#            });#}
+            {#        } else {#}
+            {#            console.log(res)#}
+            {#            this.$message({#}
+            {#                type: 'warning',#}
+            {#                message: res.data.msg#}
+            {#            });#}
+            {#        }#}
+            {#    }).catch(res => {#}
+            {#        console.log(res)#}
+            {#        this.$message({#}
+            {#            type: 'info',#}
+            {#            message: '获取更新失败！'#}
+            {#        });#}
+            {#    });#}
+            {#{},#}
             do_update() {
                 this.$confirm('此操作会拉取软件更新软件,新版本不一定稳定，是否继续?', '提示', {
                     confirmButtonText: '确定',
