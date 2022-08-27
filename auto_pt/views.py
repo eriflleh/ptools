@@ -91,7 +91,7 @@ def do_sql(request):
     return JsonResponse('ok', safe=False)
 
 
-def get_update(master='', n=10):
+def get_git_logs(master='', n=10):
     # 获取最新的10条更新记录
     # master='' 本地 master='origin/master'  远程
     p = subprocess.Popen('git log {} -{}'.format(master, n), shell=True, stdout=subprocess.PIPE, )
@@ -130,7 +130,7 @@ def restart_container(request):
     return render(request, 'auto_pt/restart.html',
                   context={
                       # 'update_md': update_md,
-                      'update_notes': get_update(),
+                      'local_logs': get_git_logs(),
                       'restart': restart,
                       'update': update,
                   })
@@ -141,13 +141,22 @@ def do_get_update(request):
     # 拉取更新元数据
     update_log = subprocess.Popen('git remote update', shell=True)
     update_log.wait()
-    # 查看更新日志
-    p = subprocess.Popen('git log origin/master -1', shell=True, stdout=subprocess.PIPE, )
-    commit = p.stdout.readline().decode('utf8')
-    print(commit)
-    if 'HEAD' in commit and 'origin' in commit:
+    # 获取本地更新日志第一条
+    p_local = subprocess.Popen('git log --oneline -1', shell=True, stdout=subprocess.PIPE, )
+    commit_local = p_local.stdout.readline().decode('utf8').strip()
+    # 获取远端仓库更新日志第一条
+    p_remote = subprocess.Popen('git log origin/master --oneline -1', shell=True, stdout=subprocess.PIPE, )
+    commit_remote = p_remote.stdout.readline().decode('utf8').strip()
+    print(commit_local, commit_remote)
+    # if 'HEAD' in commit and 'origin' in commit:
+    print(commit_remote == commit_local)
+    # 如果日志相同则更新到最新，否则显示远端更新日志
+    if commit_remote == commit_local:
         return JsonResponse(data=CommonResponse.success(
-            msg='已经更新到最新！'
+            msg='已经更新到最新！',
+            data={
+                'update_notes': get_git_logs(master='origin/master'),
+            }
         ).to_dict(), safe=False)
     else:
         update = 'true'
@@ -155,26 +164,9 @@ def do_get_update(request):
             msg='拉取更新日志成功！!',
             data={
                 'update': update,
-                'update_notes': get_update(master='origin/master'),
+                'update_notes': get_git_logs(master='origin/master'),
             }
         ).to_dict(), safe=False)
-    # content = p.stdout.readlines()
-    # p_remote = subprocess.Popen('git log remote/origin/master -1', shell=True, stdout=subprocess.PIPE, )
-    # content_remote = p_remote.stdout.readlines()
-    # print(content)
-    # print(content_remote)
-    # if content_remote == content:
-    #     update = 'true'
-    #     return JsonResponse(data=CommonResponse.success(
-    #         msg='拉取更新日志成功！!',
-    #         data={
-    #             'update': update,
-    #             'update_notes': get_update(master='remote/'),
-    #         }
-    #     ).to_dict(), safe=False)
-    # return JsonResponse(data=CommonResponse.success(
-    #     msg='已经更新到最新！',
-    # ).to_dict(), safe=False)
 
 
 def do_update(request):
