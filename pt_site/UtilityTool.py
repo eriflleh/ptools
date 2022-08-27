@@ -785,10 +785,10 @@ class PtSpider:
                     msg=StatusCodeEnum.WEB_CONNECT_ERR.errmsg + '请检查网站访问是否正常？'
                 )
             # seed = len(seed_vol_list)
-            ratio = ''.join(details_html.xpath(site.ratio_rule)).replace(',', '').strip(']:').strip()
-            if ratio == '无限' or ratio == '∞' or ratio == '---':
-                # inf表示无限
-                ratio = 'inf'
+            ratio = ''.join(
+                details_html.xpath(site.ratio_rule)
+            ).replace(',', '').replace('无限', 'inf').replace('∞', 'inf').replace('---', 'inf').strip(']:').strip()
+
             downloaded = ''.join(
                 details_html.xpath(site.downloaded_rule)
             ).replace(':', '').replace('\xa0\xa0', '').strip(' ')
@@ -801,10 +801,7 @@ class PtSpider:
                 details_html.xpath(site.invitation_rule)
             ).strip(']:').replace('[', '').strip()
             invitation = re.sub("\D", "", invitation)
-            # print('正则只保留数字', invitation)
-            # invitation = ''.join(
-            #     details_html.xpath(site.invitation_rule)
-            # ).replace('[已签到]', '').replace('[签到]', '').strip(']:').replace('[', '').strip()
+
             time_join_1 = ''.join(
                 details_html.xpath(site.time_join_rule)
             ).split('(')[0].strip('\xa0').strip()
@@ -823,10 +820,10 @@ class PtSpider:
                 my_level = re.sub(u"([^\u0041-\u005a\u0061-\u007a])", "", my_level_1)
             # my_level = re.sub('[\u4e00-\u9fa5]', '', my_level_1)
             # print('正则去除中文：', my_level)
-            latest_active_1 = ''.join(
+            latest_active = ''.join(
                 details_html.xpath(site.latest_active_rule)
-            ).split('(')[0].strip('\xa0').strip()
-            latest_active = latest_active_1.replace('(', '').replace(')', '').strip()
+            ).strip('\xa0').strip()
+            # latest_active = latest_active_1.replace('(', '').replace(')', '').strip()
 
             # my_sp = ''.join(
             #     details_html.xpath(site.my_sp_rule)
@@ -885,10 +882,10 @@ class PtSpider:
             # print('下载数：', leech)
             try:
                 res_sp_hour = self.get_hour_sp(my_site=my_site)
-                if not res_sp_hour[1]:
-                    logging.error(my_site.site.name + '时魔获取失败！')
+                if res_sp_hour.code == StatusCodeEnum.OK.code:
+                    logging.error(my_site.site.name + res_sp_hour.msg)
                 else:
-                    my_site.sp_hour = res_sp_hour[0]
+                    my_site.sp_hour = res_sp_hour.data
                 # 保存上传下载等信息
                 my_site.save()
                 # 外键反向查询
@@ -927,5 +924,7 @@ class PtSpider:
         res_list = etree.HTML(res).xpath(site.hour_sp_rule)
         print('时魔字符串', res_list)
         if len(res_list) <= 0:
-            return '时魔获取失败！', False
-        return get_decimals(res_list[0]), True
+            CommonResponse.error(msg='时魔获取失败！')
+        return CommonResponse.success(
+            data=get_decimals(res_list[0])
+        )
