@@ -850,9 +850,6 @@ class PtSpider:
             # if '（' in my_bonus:
             #     my_bonus = my_bonus.split('（')[0]
 
-            if site.url == 'https://www.pttime.org/':
-                my_sp = re.findall('-?\d+.?\d+', my_sp)[-1]
-
             hr = ''.join(details_html.xpath(site.my_hr_rule)).split(' ')[0]
 
             my_hr = hr if hr else '0'

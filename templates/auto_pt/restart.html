@@ -8,7 +8,17 @@
 <div id="app">
     <el-card class="box-card">
         <div slot="header" class="clearfix">
-            <span>更新日志</span>
+            <span>
+
+                <el-popover
+                        placement="top-start"
+                        title="友情提示"
+                        width="200"
+                        trigger="hover"
+                        content="如果遇到无法更新的情况，您可以选择重建容器或者进入容器命令行到项目根目录执行`git pull`命令！">
+                    <el-button slot="reference">更新提示</el-button>
+                </el-popover>
+            </span>
             <span style="float: right;margin-top: -10px">
                  <el-button type="primary" @click="get_update">获取更新</el-button>
                  <el-button type="success" @click="do_update" v-if="update">更新</el-button>
@@ -16,12 +26,9 @@
             </span>
         </div>
         <div class="text item">
-            {#            <ul v-for="item in update_notes">#}
-            {#                <li v-html="item"></li>#}
-            {#            </ul>#}
             <el-row>
                 <el-col :span="local_log_width">
-                    <el-card class="box-card">
+                    <el-card class="box-card" shadow="hover">
                         <div slot="header" class="clearfix">
                             <span>本地日志</span>
                         </div>
@@ -34,7 +41,7 @@
                                     color="#0bbd87"
                                     {#                        :size="activity.size"#}
                                     :timestamp="update_note.date">
-                                <el-card>
+                                <el-card shadow="hover">
                                     <p v-for="content in update_note.data" v-html="content">
                                     </p>
                                 </el-card>
@@ -44,7 +51,7 @@
                     </el-card>
                 </el-col>
                 <el-col :span="12" v-if="update_log">
-                    <el-card class="box-card">
+                    <el-card class="box-card" shadow="hover">
                         <div slot="header" class="clearfix">
                             <span>更新日志</span>
                         </div>
@@ -57,7 +64,7 @@
                                     color="#0bbd87"
                                     {#                        :size="activity.size"#}
                                     :timestamp="update_note.date">
-                                <el-card>
+                                <el-card shadow="hover">
                                     <p v-for="content in update_note.data" v-html="content">
                                     </p>
                                 </el-card>

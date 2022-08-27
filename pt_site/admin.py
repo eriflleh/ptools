@@ -206,8 +206,8 @@ class StatusInlines(admin.TabularInline):
         return False
 
     # 禁止删除按钮
-    def has_delete_permission(self, request, obj=None):
-        return False
+    # def has_delete_permission(self, request, obj=None):
+    #     return False
 
     # 禁止修改按钮
     def has_change_permission(self, request, obj=None):
