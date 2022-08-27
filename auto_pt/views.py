@@ -109,7 +109,9 @@ def get_git_logs(master='', n=10):
             update_notes.append(info)
             info = {}
             list1 = string.split(':', 1)
-            info['date'] = list1[1].strip()
+            # 格式化时间
+            update_time = datetime.strptime(list1[1].strip(), '%a %b %d %X %Y +0800')
+            info['date'] = update_time.strftime('%Y-%m-%d %H:%M:%S')
             info['data'] = []
             continue
         info['data'].append(string.strip())
