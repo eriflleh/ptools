@@ -711,7 +711,7 @@ class PtSpider:
             # print('个人主页：', user_detail_res.content.decode('utf8'))
             # 解析HTML
             # print(user_detail_res.is_redirect)
-            details_html = etree.HTML(user_detail_res.content)
+            details_html = etree.HTML(converter.convert(user_detail_res.content))
             if 'school' in site.url:
                 text = details_html.xpath('//script/text()')
                 if len(text) > 0:
@@ -721,7 +721,7 @@ class PtSpider:
                         res = self.send_request(my_site=my_site, url=site.url + location.lstrip('/'), timeout=25)
                         details_html = etree.HTML(res.text)
                         # print(res.content)
-            seeding_html = etree.HTML(seeding_detail_res.text)
+            seeding_html = etree.HTML(converter.convert(seeding_detail_res.text))
             # leeching_html = etree.HTML(leeching_detail_res.text)
             # print(seeding_detail_res.content.decode('utf8'))
             return CommonResponse.success(data={
