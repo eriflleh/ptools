@@ -9,17 +9,15 @@
     <el-card class="box-card">
         <div slot="header" class="clearfix">
             <span>
+            <el-button type="primary">更新提示</el-button>
                 <el-popover
                         placement="top-start"
                         title="友情提示"
                         width="200"
                         trigger="hover"
                         content="如果遇到无法更新的情况，您可以选择重建容器或者进入容器命令行到项目根目录执行`git pull`命令！">
-                    <el-button slot="reference">更新提示</el-button>
+                        <el-link slot="reference" type="success">{{ update_tips }}</el-link>
                 </el-popover>
-                  <el-link type="success">{{ update_tips }}</el-link>
-
-
             </span>
             <span style="float: right;margin-top: -10px">
 {#                 <el-button type="primary" @click="get_update">获取更新</el-button>#}
@@ -95,9 +93,7 @@
             update_notes: {{ update_notes|safe }},
             local_logs: {{ local_logs|safe }},
             restart:{{ restart }},
-
             update: false,
-            {#update_log: false,#}
             local_log_width: 24
         },
         created() {
