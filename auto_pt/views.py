@@ -181,7 +181,7 @@ def restart_container(request):
         update_tips = '已有新版本，请根据需要升级！'
     return render(request, 'auto_pt/restart.html',
                   context={
-                      'delta': delta.total_seconds(),
+                      'delta': delta.seconds,
                       'local_logs': get_git_logs(),
                       'update_notes': get_git_logs(master='origin/master'),
                       'update': update,
