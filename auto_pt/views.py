@@ -3,7 +3,6 @@ import socket
 import subprocess
 from datetime import datetime
 
-import docker as docker
 import git
 from django.http import JsonResponse
 from django.shortcuts import render
@@ -216,18 +215,21 @@ def do_update(request):
 def do_restart(request):
     try:
         # 获取docker对象
-        client = docker.from_env()
+        # client = docker.from_env()
         # 从内部获取容器id
         cid = socket.gethostname()
         # 获取容器对象
         # container = client.containers.get(cid)
         # 重启容器
-        client.api.restart(cid)
+        # client.api.restart(cid)
         print('重启中')
+        subprocess.Popen('docker restart {}'.format(cid), shell=True)
+        # client.api.inspect_container(cid)
+        # StartedAt = client.api.inspect_container(cid).get('State').get('StartedAt')
         return JsonResponse(data=CommonResponse.error(
             msg='重启指令发送成功，容器重启中 ...'
         ).to_dict(), safe=False)
     except Exception as e:
         return JsonResponse(data=CommonResponse.error(
-            msg='重启指令发送失败!' + str(e)
+            msg='重启指令发送失败!' + str(e),
         ).to_dict(), safe=False)
