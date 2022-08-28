@@ -265,7 +265,7 @@
     "latest_active_rule": "//table/tr[4]/td[2]/span/@title",
     "uploaded_rule": "//tr[8]/td[2]/table/tr[2]/td[1]/text()",
     "downloaded_rule": "//tr[8]/td[2]//table/tr[2]/td[2]/text()",
-    "ratio_rule": "//tr[8]/td[2]/table/tr/td[1]/font/text()",
+    "ratio_rule": "//font[@class=\"color_ratio\"][1]/following-sibling::text()[1]",
     "my_sp_rule": "//a[@href=\"mybonus.php\"]/following-sibling::text()[1]",
     "hour_sp_rule": "//div[contains(text(),\"每小时\")]/text()[1]",
     "my_bonus_rule": "//tr[16]/td[2]/text()",
