@@ -1,8 +1,10 @@
 import json
-import os
+import socket
 import subprocess
 from datetime import datetime
 
+import docker as docker
+import git
 from django.db import connection
 from django.http import JsonResponse
 from django.shortcuts import render
@@ -56,7 +58,7 @@ def get_tasks(request):
 def exec_task(request):
     # res = AutoPt.auto_sign_in()
     # print(res)
-    tasks.auto_sign_in.delay()
+    # tasks.auto_sign_in
     return JsonResponse('ok!', safe=False)
 
 
@@ -68,12 +70,6 @@ def test_field(request):
 
 
 def test_notify(request):
-    """
-    app_id：28987
-    uid:	UID_jkMs0DaVVwOcBuFPQGzymjCwYVgH
-    应用名称：pt_helper
-    appToken：AT_ShUnRu2CJRcsqbbW540voVkjMZ1PKjGy
-    """
     # res = NotifyDispatch().send_text(text='66666')
 
     res = pt_spider.send_text('666')
@@ -87,6 +83,14 @@ def do_sql(request):
     #     with connection.cursor() as cursor:
     #         for statement in contents:
     #             res1 = cursor.execute(statement)
+    # print(threading.main_thread().getName())
+    try:
+        print(0)
+    except Exception as e:
+
+        print(e)
+    # autoreload.start_django(au)
+    # django_main_thread
 
     return JsonResponse('ok', safe=False)
 
@@ -120,75 +124,61 @@ def get_git_logs(master='', n=10):
     return update_notes
 
 
+def get_git_log(master='master', n=10):
+    repo = git.Repo(path='.')
+    # 拉取仓库更新记录元数据
+    repo.remote().update()
+    # 获取本地仓库commits更新记录
+    commits = list(repo.iter_commits(master, max_count=n))
+    # 获取远程仓库commits记录
+    # remote_commits = list(repo.iter_commits("origin/master", max_count=10))
+
+
+def get_update_logs():
+    repo = git.Repo(path='.')
+    # 拉取仓库更新记录元数据
+    repo.remote().update()
+    # 获取本地仓库commits更新记录
+    commits = list(repo.iter_commits('master', max_count=10))
+    # 获取远程仓库commits记录
+    remote_commits = list(repo.iter_commits("origin/master", max_count=10))
+    """
+        # commits = [str(commit) for commit in commits]
+        # remote_commits = [str(commit) for commit in remote_commits]
+        # # for commit in commits:
+        # #     print(commit.hexsha)
+        # #     print(commit.committed_datetime)
+        # #     print(commit.message)
+        # return render(request, 'auto_pt/restart.html',
+        #               context={
+        #                   # 'update_md': update_md,
+        #                   'local_logs': commits,
+        #                   'update_notes': remote_commits,
+        #                   'update': update,
+        #                   'update_tips': update_tips,
+        #               })
+    """
+    return commits[0].hexsha == remote_commits[0].hexsha
+
+
 def restart_container(request):
     # scraper = pt_spider.get_scraper()
     # res = scraper.get('https://gitee.com/ngfchl/ptools/raw/master/update.md')
     # update_md = markdown.markdown(res.text, extensions=['tables'])
-
-    # 拉取更新元数据
-    update_log = subprocess.Popen('git remote update', shell=True)
-    update_log.wait()
-    # 获取本地更新日志第一条
-    p_local = subprocess.Popen('git log --oneline -1', shell=True, stdout=subprocess.PIPE, )
-    commit_local = p_local.stdout.readline().decode('utf8').strip()
-    # 获取远端仓库更新日志第一条
-    p_remote = subprocess.Popen('git log origin/master --oneline -1', shell=True, stdout=subprocess.PIPE, )
-    commit_remote = p_remote.stdout.readline().decode('utf8').strip()
-    print(commit_local, commit_remote)
-    # if 'HEAD' in commit and 'origin' in commit:
-    print(commit_remote == commit_local)
-    # 如果日志相同则更新到最新，否则显示远端更新日志
-    if commit_remote == commit_local:
+    if get_update_logs():
         update = 'false'
         update_tips = '目前您使用的是最新版本！'
     else:
         update = 'true'
         update_tips = '已有新版本，请根据需要升级！'
-    restart = 'false'
-    if os.environ.get('CONTAINER_NAME'):
-        restart = 'true'
     return render(request, 'auto_pt/restart.html',
                   context={
                       # 'update_md': update_md,
                       'local_logs': get_git_logs(),
                       'update_notes': get_git_logs(master='origin/master'),
-                      'restart': restart,
                       'update': update,
-                      'update_tips': update_tips,
+                      'update_tips': update_tips
                   })
-
-#
-# def do_get_update(request):
-#     update = 'false'
-#     # 拉取更新元数据
-#     update_log = subprocess.Popen('git remote update', shell=True)
-#     update_log.wait()
-#     # 获取本地更新日志第一条
-#     p_local = subprocess.Popen('git log --oneline -1', shell=True, stdout=subprocess.PIPE, )
-#     commit_local = p_local.stdout.readline().decode('utf8').strip()
-#     # 获取远端仓库更新日志第一条
-#     p_remote = subprocess.Popen('git log origin/master --oneline -1', shell=True, stdout=subprocess.PIPE, )
-#     commit_remote = p_remote.stdout.readline().decode('utf8').strip()
-#     print(commit_local, commit_remote)
-#     # if 'HEAD' in commit and 'origin' in commit:
-#     print(commit_remote == commit_local)
-#     # 如果日志相同则更新到最新，否则显示远端更新日志
-#     if commit_remote == commit_local:
-#         return JsonResponse(data=CommonResponse.success(
-#             msg='已经更新到最新！',
-#             data={
-#                 'update_notes': get_git_logs(master='origin/master'),
-#             }
-#         ).to_dict(), safe=False)
-#     else:
-#         update = 'true'
-#         return JsonResponse(data=CommonResponse.success(
-#             msg='拉取更新日志成功！!',
-#             data={
-#                 'update': update,
-#                 'update_notes': get_git_logs(master='origin/master'),
-#             }
-#         ).to_dict(), safe=False)
 
 
 def do_update(request):
@@ -226,16 +216,17 @@ def do_update(request):
 
 def do_restart(request):
     try:
-        print('重启')
-        # print(os.system('pwd'))
-        if os.environ.get('CONTAINER_NAME'):
-            subprocess.Popen('chmod +x ./restart.sh', shell=True)
-            subprocess.Popen('./restart.sh', shell=True)
-            return JsonResponse(data=CommonResponse.success(
-                msg='容器重启中！!'
-            ).to_dict(), safe=False)
+        # 获取docker对象
+        client = docker.from_env()
+        # 从内部获取容器id
+        cid = socket.gethostname()
+        # 获取容器对象
+        # container = client.containers.get(cid)
+        # 重启容器
+        client.api.restart(cid)
+        print('重启中')
         return JsonResponse(data=CommonResponse.error(
-            msg='未配置CONTAINER_NAME（容器名称）环境变量，请自行重启容器！!'
+            msg='重启指令发送成功，容器重启中 ...'
         ).to_dict(), safe=False)
     except Exception as e:
         return JsonResponse(data=CommonResponse.error(
