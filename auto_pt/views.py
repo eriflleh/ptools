@@ -3,6 +3,7 @@ import socket
 import subprocess
 from datetime import datetime
 
+import docker
 import git
 from django.http import JsonResponse
 from django.shortcuts import render
@@ -163,6 +164,11 @@ def restart_container(request):
     # scraper = pt_spider.get_scraper()
     # res = scraper.get('https://gitee.com/ngfchl/ptools/raw/master/update.md')
     # update_md = markdown.markdown(res.text, extensions=['tables'])
+    # 获取docker对象
+    client = docker.from_env()
+    # 从内部获取容器id
+    cid = socket.gethostname()
+    started_at = client.api.inspect_container(cid).get('State').get('StartedAt')
     if get_update_logs():
         update = 'false'
         update_tips = '目前您使用的是最新版本！'
@@ -171,7 +177,7 @@ def restart_container(request):
         update_tips = '已有新版本，请根据需要升级！'
     return render(request, 'auto_pt/restart.html',
                   context={
-                      # 'update_md': update_md,
+                      'started_at': started_at,
                       'local_logs': get_git_logs(),
                       'update_notes': get_git_logs(master='origin/master'),
                       'update': update,
