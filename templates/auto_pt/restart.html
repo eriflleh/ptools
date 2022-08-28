@@ -142,11 +142,14 @@
                             message: res.data.msg
                         });
                     }
+                    this.$router.go(0)
                 }).catch(res => {
+                    this.$router.go(0)
                     this.$message({
                         type: 'error',
                         message: "重启失败！"
                     });
+
                 })
 
             }).catch(res => {
@@ -182,6 +185,7 @@
                         message: res.data.msg
                     });
                 }
+                this.$router.go(0)
             }).catch(res => {
                 console.log(res, 3)
                 this.$message({

@@ -183,6 +183,7 @@ SIMPLEUI_HOME_TITLE = 'PT一下你就知道'
 SIMPLEUI_HOME_ICON = 'fa fa-optin-monster'
 SIMPLEUI_HOME_INFO = False
 SIMPLEUI_LOGO = '/static/logo1.png'
+SIMPLEUI_INDEX = '/tasks/restart'
 # SIMPLEUI配置
 SIMPLEUI_CONFIG = {
     'system_keep': True,
