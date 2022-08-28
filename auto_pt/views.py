@@ -5,12 +5,11 @@ from datetime import datetime
 
 import docker as docker
 import git
-from django.db import connection
 from django.http import JsonResponse
 from django.shortcuts import render
 
 from pt_site import views as tasks
-from pt_site.models import SiteStatus, MySite
+from pt_site.models import SiteStatus, MySite, Site
 from pt_site.views import scheduler, pt_spider
 from ptools.base import CommonResponse
 
@@ -194,13 +193,21 @@ def do_update(request):
             result.append(i.decode('utf8'))
             print(result)
         # 更新数据库
-        with open('main_pt_site_site.sql', encoding='utf-8') as sql_file:
-            contents = sql_file.readlines()
-            print(contents[0])
-            with connection.cursor() as cursor:
-                for statement in contents:
-                    cursor.execute(statement)
+        # with open('main_pt_site_site.sql', encoding='utf-8') as sql_file:
+        #     contents = sql_file.readlines()
+        #     print(contents[0])
+        #     with connection.cursor() as cursor:
+        #         for statement in contents:
+        #             cursor.execute(statement)
         # Site.objects.raw()
+        # 更新数据库
+        with open('./pt_site_site.json', 'r') as f:
+            # print(f.readlines())
+            data = json.load(f)
+            print(data[2])
+        print(data[0].get('url'))
+        for site in data:
+            Site.objects.update_or_create(defaults=site, url=site.get('url'))
         return JsonResponse(data=CommonResponse.success(
             msg='更新成功！!',
             data=result
