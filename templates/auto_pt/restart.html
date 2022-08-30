@@ -134,8 +134,6 @@
                                 type: 'success',
                                 message: res.data.msg
                             });
-                            location.reload()
-
                         } else {
                             console.log(res)
                             this.$message({
@@ -143,7 +141,6 @@
                                 message: res.data.msg
                             });
                         }
-
                     }).catch(res => {
                         this.$message({
                             type: 'error',

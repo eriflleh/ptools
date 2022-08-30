@@ -174,7 +174,7 @@ def restart_container(request):
         utc_time = datetime.strptime(started_at, UTC_FORMAT)
         delta = (datetime.now() - utc_time).seconds
     except Exception as e:
-        delta = ''
+        delta = '请确认项目是否在容器中运行？'
     if get_update_logs():
         update = 'false'
         update_tips = '目前您使用的是最新版本！'
@@ -210,6 +210,7 @@ def do_update(request):
             print(data[2])
         print(data[0].get('url'))
         xpath_update = []
+        print('更新规则中，返回结果为True为新建，为False为更新，其他是错误了')
         for site in data:
             if site.get('pk'):
                 del site['pk']
