@@ -118,7 +118,10 @@ class PtSpider:
                         corp_id=notify.corpid,
                         secret=notify.corpsecret,
                         agent_id=notify.agentid, )
-                    res = notify_push.send_markdown(text)
+                    res = notify_push.send_text(
+                        text=text,
+                        to_uid=notify.touser if notify.touser else '@all'
+                    )
 
                     print(res)
 
