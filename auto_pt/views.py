@@ -209,20 +209,19 @@ def do_update(request):
             data = json.load(f)
             print(data[2])
         print(data[0].get('url'))
+        xpath_update = []
         for site in data:
-            print(site)
             if site.get('pk'):
                 del site['pk']
-            print(site)
             site_obj = Site.objects.update_or_create(defaults=site, url=site.get('url'))
+            xpath_update.append(site_obj)
             print(site_obj)
         return JsonResponse(data=CommonResponse.success(
             msg='更新成功！!',
-            data=result
-            # data={
-            #     # 'p': str(p.stdout.readlines()).strip("'").strip('[').strip(']').strip()
-            # }
-        ).to_dict(), safe=False)
+            data={
+                'result': result,
+                # 'xpath_update': xpath_update
+            }).to_dict(), safe=False)
     except Exception as e:
         return JsonResponse(data=CommonResponse.error(
             msg='更新指令发送失败!' + str(e)

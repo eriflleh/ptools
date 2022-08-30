@@ -107,10 +107,8 @@
             local_log_width: 24,
         },
         created() {
-
             if (this.update) {
                 this.local_log_width = 12
-
             }
             this.$message({
                 showClose: true,
@@ -171,7 +169,8 @@
                     ).then(res => {
                         if (res.data.code === 0) {
                             console.log(res, 1)
-                            this.update_log = res.data.data
+                            this.update_log = res.data.data.result
+                            {#console.log('规则更新记录', res.data.data.xpath_update)#}
                             this.$message({
                                 type: 'success',
                                 message: res.data.msg
