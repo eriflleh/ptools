@@ -203,6 +203,25 @@ def do_update(request):
         for i in out:
             result.append(i.decode('utf8'))
             print(result)
+        return JsonResponse(data=CommonResponse.success(
+            msg='更新成功！!',
+            data={
+                'result': result,
+                # 'xpath_update': xpath_update
+            }).to_dict(), safe=False)
+    except Exception as e:
+        return JsonResponse(data=CommonResponse.error(
+            msg='更新指令发送失败!' + str(e)
+        ).to_dict(), safe=False)
+
+
+def do_update_xpath(request):
+    try:
+        # 备份数据库
+        subprocess.Popen(
+            'cp /var/www/html/ptools/db/db.sqlite3 /var/www/html/ptools/db/db.sqlite3-$(date "+%Y%m%d%H%M%S")',
+            shell=True
+        )
         # 更新数据库
         with open('./pt_site_site.json', 'r') as f:
             # print(f.readlines())
@@ -215,17 +234,16 @@ def do_update(request):
             if site.get('pk'):
                 del site['pk']
             site_obj = Site.objects.update_or_create(defaults=site, url=site.get('url'))
-            xpath_update.append(site_obj)
             print(site_obj)
+            xpath_update.append(site_obj[0].name + ' 规则新增成功！' if site_obj[1] else '更新成功！')
         return JsonResponse(data=CommonResponse.success(
             msg='更新成功！!',
             data={
-                'result': result,
-                # 'xpath_update': xpath_update
+                'update_log': xpath_update
             }).to_dict(), safe=False)
     except Exception as e:
         return JsonResponse(data=CommonResponse.error(
-            msg='更新指令发送失败!' + str(e)
+            msg='更新失败!' + str(e)
         ).to_dict(), safe=False)
 
 

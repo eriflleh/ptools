@@ -22,9 +22,29 @@
             </span>
             <span style="float: right;margin-top: -10px">
 {#                 <el-button type="primary" @click="do_refresh">刷新页面</el-button>#}
-{#                 <el-button type="success" @click="do_update">更新</el-button>#}
-                 <el-button type="success" @click="do_update" v-if="update">更新</el-button>
-                 <el-button type="danger" @click="do_restart">重启</el-button>
+                <el-popover
+                        placement="top-start"
+                        {#                        title="友情提示"#}
+                        width="200"
+                        trigger="hover"
+                        content="此操作会覆盖已支持站点在本地数据库中的规则，不支持的站点无操作">
+                    <el-button slot="reference" type="success" @click="do_update_xpath">规则更新</el-button>
+                </el-popover>
+                 <el-popover
+                         placement="top-start"
+                         width="200"
+                         trigger="hover"
+                         content="此操作只更新代码，不更新规则，代码更新要生效必须重启！">
+                     <el-button slot="reference" type="success" @click="do_update" v-if="update">代码更新</el-button>
+                </el-popover>
+                 <el-popover
+                         placement="top-start"
+                         width="200"
+                         trigger="hover"
+                         content="只有在容器中部署才能使用本操作，其他环境部署无效">
+                     <el-button slot="reference" type="danger" @click="do_restart">重启容器</el-button>
+                </el-popover>
+
             </span>
         </div>
         <div class="text item">
@@ -118,7 +138,40 @@
         }
         ,
         methods: {
-            do_refresh() {
+            do_update_xpath() {
+                this.$confirm('此操作将覆盖本地规则,请提前备份，是否继续?', '提示', {
+                    confirmButtonText: '确定',
+                    cancelButtonText: '取消',
+                    type: 'warning'
+                }).then(() => {
+                    axios.get(
+                        "{% url "do_update_xpath" %}"
+                    ).then(res => {
+                        if (res.data.code === 0) {
+                            this.$message({
+                                type: 'success',
+                                message: res.data.msg
+                            });
+                            this.update_log = res.data.data.update_log
+                        } else {
+                            console.log(res)
+                            this.$message({
+                                type: 'warning',
+                                message: res.data.msg
+                            });
+                        }
+                    }).catch(res => {
+                        this.$message({
+                            type: 'error',
+                            message: "更新失败！"
+                        });
+                    })
+                }).catch(res => {
+                    this.$message({
+                        type: 'info',
+                        message: '已取消更新'
+                    });
+                });
             },
             do_restart() {
                 this.$confirm('此操作将重启容器，并更新软件, 是否继续?', '提示', {
@@ -174,8 +227,6 @@
                                 type: 'success',
                                 message: res.data.msg
                             });
-                            location.reload()
-
                         } else {
                             console.log(res, 2)
                             this.$message({
