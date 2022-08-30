@@ -210,8 +210,12 @@ def do_update(request):
             print(data[2])
         print(data[0].get('url'))
         for site in data:
-            del site['pk']
-            Site.objects.update_or_create(defaults=site, url=site.get('url'))
+            print(site)
+            if site.get('pk'):
+                del site['pk']
+            print(site)
+            site_obj = Site.objects.update_or_create(defaults=site, url=site.get('url'))
+            print(site_obj)
         return JsonResponse(data=CommonResponse.success(
             msg='更新成功！!',
             data=result
