@@ -11,6 +11,6 @@ urlpatterns = [
     path(r'restart', views.restart_container, name='restart_container'),
     path(r'do_restart', views.do_restart, name='do_restart'),
     path(r'do_update', views.do_update, name='do_update'),
-    # path(r'get_update', views.do_get_update, name='do_get_update'),
+    path(r'get_update', views.do_update_xpath, name='do_update_xpath'),
     path(r'do_sql', views.do_sql, name='do_sql'),
 ]
