@@ -219,7 +219,7 @@ class MySiteAdmin(ImportExportModelAdmin):  # instead of ModelAdmin
     # 显示字段
     list_display = (
         'sort_id',
-        'user_id',
+        # 'user_id',
         'site',
         'sign_in_state',
         # 'sign_in_today',
@@ -233,10 +233,11 @@ class MySiteAdmin(ImportExportModelAdmin):  # instead of ModelAdmin
         # 'latest_active',
         'time_join',
         'status_today',
+        'edit',
     )
     autocomplete_fields = ('site',)
     search_fields = ('site__name', 'site__url')
-    list_display_links = ['user_id']
+    list_display_links = ['edit']
     list_editable = ['sort_id']
     ordering = ('sort_id',)
     # empty_value_display = '**'
@@ -244,12 +245,18 @@ class MySiteAdmin(ImportExportModelAdmin):  # instead of ModelAdmin
         StatusInlines,
     )
 
+    def edit(self, obj: MySite):
+        return format_html(
+            # '<a href="/admin/pt_site/mysite/{}/change/" type="primary" target="_blank">编辑</a>',
+            '编辑')
+
+    edit.short_description = '操作'
+
     # 自定义更新时间，提醒今日是否更新
     def status_today(self, obj: MySite):
         is_update = obj.updated_at.date() == datetime.today().date()
-        return format_html('<img src="/static/admin/img/icon-{}.svg">{}',
-                           'yes' if is_update and obj.site.get_userinfo_support else 'no',
-                           obj.updated_at, )
+        return format_html('{}<img src="/static/admin/img/icon-{}.svg">', obj.updated_at.date(),
+                           'yes' if is_update and obj.site.get_userinfo_support else 'no')
 
     status_today.short_description = '更新时间'
 
