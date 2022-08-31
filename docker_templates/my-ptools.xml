@@ -1,0 +1,31 @@
+<?xml version="1.0"?>
+<Container version="2">
+  <Name>ptools</Name>
+  <Repository>ngfchl/ptools</Repository>
+  <Registry>https://hub.docker.com/r/ngfchl/ptools</Registry>
+  <Network>bridge</Network>
+  <MyIP/>
+  <Shell>sh</Shell>
+  <Privileged>false</Privileged>
+  <Support/>
+  <Project/>
+  <Overview/>
+  <Category/>
+  <WebUI>http://[IP]:[PORT:8000]</WebUI>
+  <TemplateURL/>
+  <Icon>https://gitee.com/ngfchl/ptools/raw/master/static/logo4.png</Icon>
+  <ExtraParams>--restart=always</ExtraParams>
+  <PostArgs>--restart=always</PostArgs>
+  <CPUset/>
+  <DateInstalled>1661933685</DateInstalled>
+  <DonateText/>
+  <DonateLink/>
+  <Requires>--restart=always</Requires>
+  <Config Name="&#x6570;&#x636E;&#x5E93;&#x6620;&#x5C04;" Target="/var/www/html/ptools/db" Default="/mnt/user/appdata/ptools/db" Mode="rw" Description="&#x6570;&#x636E;&#x5E93;&#x6620;&#x5C04;&#xFF0C;&#x4E5F;&#x53EF;&#x4EE5;&#x76F4;&#x63A5;&#x6620;&#x5C04;&#x5230;ptools&#x8FD9;&#x4E00;&#x5C42;&#xFF0C;&#x65B9;&#x4FBF;webui&#x4E2D;&#x70B9;&#x51FB;&#x66F4;&#x65B0;&#x5931;&#x8D25;&#x65F6;&#x4ECE;git&#x62C9;&#x53D6;&#x6700;&#x65B0;&#x4EE3;&#x7801;&#xFF0C;&#x5728;&#x547D;&#x4EE4;&#x884C;&#x4F7F;&#x7528;git&#x547D;&#x4EE4;&#x5373;&#x53EF;&#xFF0C;&#x719F;&#x6089;git&#x7684;&#x8FD8;&#x53EF;&#x4EE5;&#x8FD4;&#x56DE;&#x5230;&#x4E0A;&#x4E00;&#x7248;&#x672C;" Type="Path" Display="always" Required="false" Mask="false">/mnt/user/appdata/ptools/db</Config>
+  <Config Name="docker socket" Target="/var/run/docker.sock" Default="/var/run/docker.sock" Mode="rw" Description="docker socket&#xFF0C;&#x4F7F;&#x7528;&#x91CD;&#x542F;docker&#x529F;&#x80FD;&#x5FC5;&#x987B;&#x6709;" Type="Path" Display="always" Required="false" Mask="false">/var/run/docker.sock</Config>
+  <Config Name="&#x7528;&#x6237;&#x540D;" Target="DJANGO_SUPERUSER_USERNAME" Default="admin" Mode="" Description="&#x9ED8;&#x8BA4;admin&#xFF0C;&#x53EF;&#x4EE5;&#x4E0D;&#x4FEE;&#x6539;&#xFF0C;&#x8FDB;&#x7CFB;&#x7EDF;&#x540E;&#x4ECD;&#x53EF;&#x4FEE;&#x6539;&#x7528;&#x6237;&#x540D;&#x5BC6;&#x7801;" Type="Variable" Display="always" Required="false" Mask="false">admin</Config>
+  <Config Name="&#x5BC6;&#x7801;" Target="DJANGO_SUPERUSER_PASSWORD" Default="adminadmin" Mode="" Description="&#x9ED8;&#x8BA4;&#x5BC6;&#x7801;adminadmin&#xFF0C;&#x53EF;&#x4EE5;&#x4E0D;&#x8BBE;&#x7F6E;" Type="Variable" Display="always" Required="false" Mask="false">adminadmin</Config>
+  <Config Name="&#x81EA;&#x5B9A;&#x4E49;&#x7AEF;&#x53E3;" Target="DJANGO_WEB_PORT" Default="8000" Mode="" Description="&#x81EA;&#x5B9A;&#x4E49;&#x5BB9;&#x5668;&#x5185;&#x90E8;&#x8BBF;&#x95EE;&#x7AEF;&#x53E3;&#xFF0C;&#x7528;&#x4E8E;HOST&#x6A21;&#x5F0F;&#x4E0B;&#x4FEE;&#x6539;&#x7AEF;&#x53E3;&#x9632;&#x6B62;&#x51B2;&#x7A81;" Type="Variable" Display="always" Required="false" Mask="false"/>
+  <Config Name="&#x8BBF;&#x95EE;&#x7AEF;&#x53E3;" Target="8000" Default="8000" Mode="tcp" Description="&#x8BBF;&#x95EE;&#x7AEF;&#x53E3;&#x6620;&#x5C04;&#xFF0C;&#x9ED8;&#x8BA4;8000" Type="Port" Display="always" Required="false" Mask="false"/>
+  <Config Name="docker" Target="/usr/bin/docker" Default="/usr/bin/docker" Mode="rw" Description="&#x6620;&#x5C04;&#x5BBF;&#x4E3B;&#x673A;docker&#x6267;&#x884C;&#x6587;&#x4EF6;&#x8DEF;&#x5F84;" Type="Path" Display="always" Required="false" Mask="false"/>
+</Container>
