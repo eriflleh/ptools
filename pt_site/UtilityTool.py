@@ -315,12 +315,14 @@ class PtSpider:
         print('个人主页：', url)
         try:
             res = self.send_request(my_site=my_site, url=url)
-            print(res.text.encode('utf8'))
-            html = self.parse(res, '//script/text()')
-            print(html)
+            # print(res.text.encode('utf8'))
+            # html = self.parse(res, '//script/text()')
+            html = etree.HTML(res.content).xpath('//script/text()')
+            # print(html)
             text = ''.join(html).replace('\n', '').replace(' ', '')
             print(text)
-            signed_timestamp = re.search("\d{10}", text).group()
+            signed_timestamp = get_decimals(re.search("signed_timestamp:\"\d{10}", text).group())
+
             signed_token = re.search('[a-zA-Z0-9]{32}', text).group()
             params = {
                 'signed_timestamp': signed_timestamp,
@@ -328,12 +330,13 @@ class PtSpider:
             }
             print('signed_timestamp:', signed_timestamp)
             print('signed_token:', signed_token)
+
             resp = self.send_request(
                 my_site,
                 site.url + site.page_sign_in,
                 method=site.sign_in_method,
                 data=params)
-            print(resp)
+            print(resp.content)
             return CommonResponse.success(
                 status=StatusCodeEnum.OK,
                 msg=resp.content.decode('utf8')
@@ -379,11 +382,11 @@ class PtSpider:
         print(site.name + '开始签到')
         signin_today = my_site.signin_set.filter(updated_at__date__gte=datetime.today()).first()
         # 如果已有签到记录
-        if signin_today and signin_today.sign_in_today:
+        if signin_today and (signin_today.sign_in_today is True):
             # pass
             return CommonResponse.success(msg='已签到，请勿重复签到！')
         else:
-            signin_today = SignIn(site=my_site)
+            signin_today = SignIn(site=my_site, sign_in_today=False)
         url = site.url + site.page_sign_in.lstrip('/')
         # print(url)
         try:
