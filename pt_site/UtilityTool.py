@@ -304,6 +304,46 @@ class PtSpider:
             data=result.json()
         )
 
+    def sign_in_ttg(self, my_site: MySite):
+        """
+        TTG签到
+        :param my_site:
+        :return:
+        """
+        site = my_site.site
+        url = site.url + site.page_user.format(my_site.user_id)
+        print('个人主页：', url)
+        try:
+            res = self.send_request(my_site=my_site, url=url)
+            print(res.text.encode('utf8'))
+            html = self.parse(res, '//script/text()')
+            print(html)
+            text = ''.join(html).replace('\n', '').replace(' ', '')
+            print(text)
+            signed_timestamp = re.search("\d{10}", text).group()
+            signed_token = re.search('[a-zA-Z0-9]{32}', text).group()
+            params = {
+                'signed_timestamp': signed_timestamp,
+                'signed_token': signed_token
+            }
+            print('signed_timestamp:', signed_timestamp)
+            print('signed_token:', signed_token)
+            resp = self.send_request(
+                my_site,
+                site.url + site.page_sign_in,
+                method=site.sign_in_method,
+                data=params)
+            print(resp)
+            return CommonResponse.success(
+                status=StatusCodeEnum.OK,
+                msg=resp.content.decode('utf8')
+            )
+        except Exception as e:
+            return CommonResponse.success(
+                status=StatusCodeEnum.WEB_CONNECT_ERR,
+                msg=site.name + str(e)
+            )
+
     @staticmethod
     def get_user_torrent(html, rule):
         res_list = html.xpath(rule)
@@ -348,6 +388,12 @@ class PtSpider:
         # print(url)
         try:
             # with lock:
+            if 'totheglory' in site.url:
+                result = self.sign_in_ttg(my_site)
+                if result.code == StatusCodeEnum.OK.code:
+                    signin_today.sign_in_today = True
+                    signin_today.save()
+                return result
             if 'hdsky.me' in site.url:
                 result = self.sign_in_hdsky(my_site=my_site, captcha=site.sign_in_captcha)
                 if result.code == StatusCodeEnum.OK.code:
