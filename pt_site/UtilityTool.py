@@ -875,11 +875,9 @@ class PtSpider:
             latest_active = ''.join(
                 details_html.xpath(site.latest_active_rule)
             ).strip('\xa0').strip()
-            # latest_active = latest_active_1.replace('(', '').replace(')', '').strip()
+            if '(' in latest_active:
+                latest_active = latest_active.split('(')[0].strip()
 
-            # my_sp = ''.join(
-            #     details_html.xpath(site.my_sp_rule)
-            # ).replace(' ', '').replace('(', '').replace(')', '').replace(',', '').strip(']:').strip()
             # 获取字符串中的魔力值
             my_sp = ''.join(
                 details_html.xpath(site.my_sp_rule)
