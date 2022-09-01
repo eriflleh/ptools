@@ -158,9 +158,11 @@ class PtSpider:
                      data: dict = None,
                      timeout: int = 20,
                      delay: int = 15,
+                     headers=None,
                      proxies: dict = None):
         site = my_site.site
         scraper = self.get_scraper(delay=delay)
+        self.headers = headers
         for k, v in eval(site.sign_in_headers).items():
             self.headers[k] = v
         # print(self.headers)
@@ -493,6 +495,7 @@ class PtSpider:
                 text = self.parse(res, '//script/text()')
                 if len(text) > 0:
                     location = self.parse_school_location(text)
+                    print('学校签到链接：', location)
                     if 'addbouns.php' in location:
                         self.send_request(my_site=my_site, url=site.url + location.lstrip('/'))
                         signin_today.sign_in_today = True
@@ -764,7 +767,7 @@ class PtSpider:
             # 解析HTML
             # print(user_detail_res.is_redirect)
             details_html = etree.HTML(converter.convert(user_detail_res.content))
-            if 'school' in site.url:
+            if 'btschool' in site.url:
                 text = details_html.xpath('//script/text()')
                 if len(text) > 0:
                     location = self.parse_school_location(text)
@@ -932,7 +935,7 @@ class PtSpider:
             # print('下载数：', leech)
             try:
                 res_sp_hour = self.get_hour_sp(my_site=my_site)
-                if res_sp_hour.code == StatusCodeEnum.OK.code:
+                if res_sp_hour.code != StatusCodeEnum.OK.code:
                     logging.error(my_site.site.name + res_sp_hour.msg)
                 else:
                     my_site.sp_hour = res_sp_hour.data
@@ -963,18 +966,45 @@ class PtSpider:
     def get_hour_sp(self, my_site: MySite):
         """获取时魔"""
         site = my_site.site
-        response = self.send_request(
-            my_site=my_site,
-            url=site.url + site.page_mybonus,
-        )
-        res = converter.convert(response.content)
-        print('时魔响应', response.status_code)
-        # print('转为简体的时魔页面：', str(res))
-        # res_list = self.parse(res, site.hour_sp_rule)
-        res_list = etree.HTML(res).xpath(site.hour_sp_rule)
-        print('时魔字符串', res_list)
-        if len(res_list) <= 0:
-            CommonResponse.error(msg='时魔获取失败！')
-        return CommonResponse.success(
-            data=get_decimals(res_list[0])
-        )
+        try:
+            response = self.send_request(
+                my_site=my_site,
+                url=site.url + site.page_mybonus,
+            )
+            if 'btschool' in site.url:
+                """
+                # print(response.content.decode('utf8'))
+                url = self.parse(response, '//form[@id="challenge-form"]/@action[1]')
+                data = {
+                    'md': ''.join(self.parse(response, '//form[@id="challenge-form"]/input[@name="md"]/@value')),
+                    'r': ''.join(self.parse(response, '//form[@id="challenge-form"]/input[@name="r"]/@value'))
+                }
+                print(data)
+                print('学校时魔页面url：', url)
+                response = self.send_request(
+                    my_site=my_site,
+                    url=site.url + ''.join(url).lstrip('/'),
+                    method='post',
+                    # headers=headers,
+                    data=data
+                )
+                """
+
+            res = converter.convert(response.content)
+            print('时魔响应', response.content)
+            # print('转为简体的时魔页面：', str(res))
+            # res_list = self.parse(res, site.hour_sp_rule)
+            res_list = etree.HTML(res).xpath(site.hour_sp_rule)
+            print('时魔字符串', res_list)
+            if len(res_list) <= 0:
+                CommonResponse.error(msg='时魔获取失败！')
+            return CommonResponse.success(
+                data=get_decimals(res_list[0])
+            )
+        except Exception as e:
+            message = '时魔获取失败！'
+            logging.error(site.name + message)
+            return CommonResponse.success(
+                msg=message,
+                data=0
+            )
