@@ -234,12 +234,12 @@ def do_update_xpath(request):
         print(data[0].get('url'))
         xpath_update = []
         print('更新规则中，返回结果为True为新建，为False为更新，其他是错误了')
-        for site in data:
-            if site.get('pk'):
-                del site['pk']
-            site_obj = Site.objects.update_or_create(defaults=site, url=site.get('url'))
+        for site_rules in data:
+            if site_rules.get('pk'):
+                del site_rules['pk']
+            site_obj = Site.objects.update_or_create(defaults=site_rules, url=site_rules.get('url'))
             print(site_obj)
-            xpath_update.append(site_obj[0].name + (' 规则新增成功！' if site_obj[1] else '更新成功！'))
+            xpath_update.append(site_obj[0].name + (' 规则新增成功！' if site_obj[1] else '规则更新成功！'))
         return JsonResponse(data=CommonResponse.success(
             msg='更新成功！!',
             data={
