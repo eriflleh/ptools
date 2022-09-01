@@ -1,11 +1,10 @@
 import json
 import socket
 import subprocess
-from datetime import datetime
+from datetime import datetime, timedelta
 
 import docker
 import git
-import pytz
 from django.http import JsonResponse
 from django.shortcuts import render
 
@@ -171,11 +170,18 @@ def restart_container(request):
         # 从内部获取容器id
         cid = socket.gethostname()
         client.api.info()
-        started_at = client.api.inspect_container(cid).get('State').get('StartedAt')[:19]
-        utc_format = "%Y-%m-%dT%H:%M:%S:%fZ"
+        started_at = client.api.inspect_container(cid).get('State').get('StartedAt')[:-4] + 'Z'
+        utc_format = "%Y-%m-%dT%H:%M:%S.%fZ"
         restart = 'true'
-        delta = datetime.strptime(started_at, utc_format).astimezone(pytz.UTC)
+        utc_time = datetime.strptime(started_at, utc_format)
+        local_time = utc_time + timedelta(hours=8)
+        delta = datetime.now() - local_time
+        print(delta.seconds)
+        print(delta.total_seconds())
+        # delta = local_time.strftime('%Y-%m-%dT%H:%M:%S.%f')
+        # delta = delta.astimezone(pytz.timezone('Asia/Shanghai'))
     except Exception as e:
+        # raise
         restart = 'false'
         delta = '程序未在容器中启动？'
     if get_update_logs():
@@ -186,7 +192,7 @@ def restart_container(request):
         update_tips = '已有新版本，请根据需要升级！'
     return render(request, 'auto_pt/restart.html',
                   context={
-                      'delta': delta,
+                      'delta': str(delta.total_seconds()) + '秒',
                       'restart': restart,
                       'local_logs': get_git_logs(),
                       'update_notes': get_git_logs(master='origin/master'),
