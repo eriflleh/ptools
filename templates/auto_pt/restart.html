@@ -42,7 +42,7 @@
                          width="200"
                          trigger="hover"
                          content="只有在容器中部署才能使用本操作，其他环境部署无效">
-                     <el-button slot="reference" type="danger" @click="do_restart">重启容器</el-button>
+                     <el-button slot="reference" type="danger" @click="do_restart" v-if="{{ restart }}">重启容器</el-button>
                 </el-popover>
 
             </span>

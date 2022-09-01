@@ -5,6 +5,7 @@ from datetime import datetime
 
 import docker
 import git
+import pytz
 from django.http import JsonResponse
 from django.shortcuts import render
 
@@ -169,12 +170,14 @@ def restart_container(request):
         client = docker.from_env()
         # 从内部获取容器id
         cid = socket.gethostname()
+        client.api.info()
         started_at = client.api.inspect_container(cid).get('State').get('StartedAt')[:19]
-        UTC_FORMAT = "%Y-%m-%dT%H:%M:%S"
-        utc_time = datetime.strptime(started_at, UTC_FORMAT)
-        delta = (datetime.now() - utc_time).seconds
+        utc_format = "%Y-%m-%dT%H:%M:%S:%fZ"
+        restart = 'true'
+        delta = datetime.strptime(started_at, utc_format).astimezone(pytz.UTC)
     except Exception as e:
-        delta = '请确认项目是否在容器中运行？'
+        restart = 'false'
+        delta = '程序未在容器中启动？'
     if get_update_logs():
         update = 'false'
         update_tips = '目前您使用的是最新版本！'
@@ -184,6 +187,7 @@ def restart_container(request):
     return render(request, 'auto_pt/restart.html',
                   context={
                       'delta': delta,
+                      'restart': restart,
                       'local_logs': get_git_logs(),
                       'update_notes': get_git_logs(master='origin/master'),
                       'update': update,
@@ -235,7 +239,7 @@ def do_update_xpath(request):
                 del site['pk']
             site_obj = Site.objects.update_or_create(defaults=site, url=site.get('url'))
             print(site_obj)
-            xpath_update.append(site_obj[0].name + ' 规则新增成功！' if site_obj[1] else '更新成功！')
+            xpath_update.append(site_obj[0].name + (' 规则新增成功！' if site_obj[1] else '更新成功！'))
         return JsonResponse(data=CommonResponse.success(
             msg='更新成功！!',
             data={
