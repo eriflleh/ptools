@@ -388,7 +388,7 @@ class PtSpider:
             # pass
             return CommonResponse.success(msg='已签到，请勿重复签到！')
         else:
-            signin_today = SignIn(site=my_site, sign_in_today=False)
+            signin_today = SignIn(site=my_site, sign_in_today=False, sign_in_info='')
         url = site.url + site.page_sign_in.lstrip('/')
         # print(url)
         try:
@@ -397,6 +397,7 @@ class PtSpider:
                 result = self.sign_in_ttg(my_site)
                 if result.code == StatusCodeEnum.OK.code:
                     signin_today.sign_in_today = True
+                    signin_today.sign_in_info = result.msg
                     signin_today.save()
                 return result
             if 'hdsky.me' in site.url:
@@ -408,8 +409,9 @@ class PtSpider:
                         bonus = res_json.get('message')
                         days = (int(bonus) - 10) / 2 + 1
                         signin_today.sign_in_today = True
-                        signin_today.save()
                         message = '成功,已连续签到{}天,魔力值加{},明日继续签到可获取{}魔力值！'.format(days, bonus, bonus + 2)
+                        signin_today.sign_in_info = message
+                        signin_today.save()
                         return CommonResponse.success(
                             status=StatusCodeEnum.OK,
                             msg=message
@@ -421,10 +423,12 @@ class PtSpider:
                         )
                     elif res_json.get('message') == 'date_unmatch':
                         # 重复签到
+                        message = '您今天已经在其他地方签到了哦！'
                         signin_today.sign_in_today = True
+                        signin_today.sign_in_info = message
                         signin_today.save()
                         return CommonResponse.success(
-                            msg='今天已签到了哦！'
+                            msg=message
                         )
                     else:
                         # 签到失败
@@ -438,6 +442,7 @@ class PtSpider:
                                         data=eval(site.sign_in_params), )
                 if res.status_code == 200:
                     signin_today.sign_in_today = True
+                    signin_today.sign_in_info = res.content.decode('utf8')
                     signin_today.save()
                     return CommonResponse.success(msg=res.text)
                 elif res.status_code == 503:
@@ -478,13 +483,16 @@ class PtSpider:
                                                       data.get('days'),
                                                       data.get('total_days'))
                     signin_today.sign_in_today = True
+                    signin_today.sign_in_info = message
                     signin_today.save()
                     return CommonResponse.success(msg=message)
                 elif int(code) == 1:
+                    message = res.json().get('msg')
                     signin_today.sign_in_today = True
+                    signin_today.sign_in_info = message
                     signin_today.save()
                     return CommonResponse.success(
-                        msg=res.json().get('msg')
+                        msg=message
                     )
                 else:
                     return CommonResponse.error(
@@ -499,15 +507,15 @@ class PtSpider:
                     if 'addbouns.php' in location:
                         self.send_request(my_site=my_site, url=site.url + location.lstrip('/'))
                         signin_today.sign_in_today = True
+                        signin_today.sign_in_info = '签到成功！'
                         signin_today.save()
                         return CommonResponse.success(msg='签到成功！')
                     else:
                         return CommonResponse.success(
                             msg='请勿重复签到！'
                         )
-                signin_today.sign_in_today = True
-                signin_today.save()
-                return CommonResponse.success(msg='签到成功！')
+                else:
+                    return CommonResponse.error(msg='签到失败！')
                 # print(res.text)
             title_parse = self.parse(res, '//td[@id="outer"]//td[@class="embedded"]/h2/text()')
             content_parse = self.parse(res, '//td[@id="outer"]//td[@class="embedded"]/table/tr/td//text()')
@@ -521,6 +529,7 @@ class PtSpider:
             message = title + ',' + content
             # message = ''.join(title).strip()
             signin_today.sign_in_today = True
+            signin_today.sign_in_info = message
             signin_today.save()
             return CommonResponse.success(msg=message)
         except Exception as e:

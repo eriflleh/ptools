@@ -279,6 +279,7 @@ class SiteStatus(BaseEntity):
 class SignIn(BaseEntity):
     site = models.ForeignKey(verbose_name='站点名称', to=MySite, on_delete=models.CASCADE)
     sign_in_today = models.BooleanField(verbose_name='签到', default=False)
+    sign_in_info = models.CharField(verbose_name='信息', default='', max_length=256)
 
     class Meta:
         verbose_name = '签到'
