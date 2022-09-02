@@ -804,7 +804,7 @@ class PtSpider:
             message = my_site.site.name + '访问个人主页信息：失败！原因：' + str(e)
             logging.error(message)
             self.send_text(message)
-            raise
+            # raise
             return CommonResponse.error(msg=message)
 
     @staticmethod
