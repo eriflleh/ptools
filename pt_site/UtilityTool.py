@@ -855,6 +855,10 @@ class PtSpider:
             ratio = ''.join(
                 details_html.xpath(site.ratio_rule)
             ).replace(',', '').replace('无限', 'inf').replace('∞', 'inf').replace('---', 'inf').strip(']:').strip()
+            # 分享率告警通知
+            if float(ratio) <= 1:
+                message = '# <font color="red">' + site.name + ' 站点分享率告警：' + str(ratio) + '</font>  \n'
+                self.send_text(message)
 
             downloaded = ''.join(
                 details_html.xpath(site.downloaded_rule)
