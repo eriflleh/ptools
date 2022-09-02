@@ -968,7 +968,7 @@ class PtSpider:
             except Exception as e:
                 message = my_site.site.name + '解析个人主页信息：失败！原因：' + str(e)
                 logging.error(message)
-                raise
+                # raise
                 self.send_text(site.name + '解析个人主页信息：失败！原因：' + str(e))
                 return CommonResponse.error(msg=message)
 
