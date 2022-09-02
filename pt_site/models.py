@@ -77,7 +77,7 @@ class Site(BaseEntity):
                                  default='.//td[@class="embedded"]/a/b/text()',
                                  max_length=128)
     title_rule = models.CharField(verbose_name='种子标题',
-                                  default='.//tr/td[1]/text()',
+                                  default='.//td[@class="embedded"]/a/following::text()[1]',
                                   max_length=128)
     detail_url_rule = models.CharField(
         verbose_name='种子详情',
@@ -85,18 +85,18 @@ class Site(BaseEntity):
         max_length=128)
     category_rule = models.CharField(
         verbose_name='分类',
-        default='.//td[@class="rowfollow nowrap"][1]/a[1]/img/@class',
+        default='.//td[@class="rowfollow nowrap"][1]/a[1]/img/@title',
         max_length=128)
     poster_rule = models.CharField(
         verbose_name='海报',
         default='.//table/tr/td[1]/img/@src',
         max_length=128)
     magnet_url_rule = models.CharField(
-        verbose_name='下载链接',
-        default='.//td/a[contains(@href,"download")]/@href',
+        verbose_name='主页下载链接',
+        default='.//td/a[contains(@href,"download.php?id=")]/@href',
         max_length=128)
     download_url_rule = models.CharField(
-        verbose_name='种子链接',
+        verbose_name='详情页种子链接',
         default='.//a[contains(@href,"download.php?id=") and contains(@href,"passkey")]/@href',
         max_length=128)
     size_rule = models.CharField(verbose_name='文件大小',
@@ -108,7 +108,7 @@ class Site(BaseEntity):
         max_length=128)
     sale_rule = models.CharField(
         verbose_name='促销信息',
-        default='.//table/tr/td/img[contains(@class,"pro_")]/@alt',
+        default='.//div/img[contains(@class,"pro_")]/@alt',
         max_length=128
     )
     sale_expire_rule = models.CharField(
@@ -121,15 +121,15 @@ class Site(BaseEntity):
         max_length=128)
     seeders_rule = models.CharField(
         verbose_name='做种人数',
-        default='.//td[6]/b/a/text()',
+        default='.//a[contains(@href,"#seeders")]/text()',
         max_length=128)
     leechers_rule = models.CharField(
         verbose_name='下载人数',
-        default='.//td[7]/b/a/text()',
+        default='.//a[contains(@href,"#leechers")]/text()',
         max_length=128)
     completers_rule = models.CharField(
         verbose_name='完成人数',
-        default='.//td[8]/a/b/text()',
+        default='.//a[contains(@href,"viewsnatches.php?id=")]//text()',
         max_length=128)
     viewfilelist_rule = models.CharField(
         verbose_name='解析文件结构',
@@ -140,8 +140,8 @@ class Site(BaseEntity):
         default='.//tr/td[9]/nobr/text()',
         max_length=128)
     peer_speed_rule = models.CharField(
-        verbose_name='平均上传速度',
-        default='.//tr/td[5]/nobr/text()',
+        verbose_name='平均下载速度',
+        default='.//tr/td[7]/nobr/text()',
         max_length=128)
     remark = models.TextField(verbose_name='备注', default='', null=True, blank=True)
     # 状态信息XPath
@@ -199,8 +199,9 @@ class Site(BaseEntity):
                                  default='//img[@class="arrowup"]/following-sibling::text()[1]',
                                  max_length=128)
 
-    record_count_rule = models.CharField(verbose_name='种子记录数',
-                                         default='/html/body/b/text()',
+    record_count_rule = models.CharField(verbose_name='做种大小列表',
+                                         help_text='提取做种列表中文件大小计算总量',
+                                         default='.//td[3]/text()',
                                          max_length=128)
 
     seed_vol_rule = models.CharField(verbose_name='做种大小',
@@ -334,7 +335,7 @@ class TorrentInfo(BaseEntity):
     size = models.IntegerField(verbose_name='文件大小', default=0)
     state = models.BooleanField(max_length=16, verbose_name='推送状态', default=False)
     save_path = models.FilePathField(verbose_name='保存路径', default='/downloads/brush')
-    hr = models.BooleanField(verbose_name='H&R', default=False)
+    hr = models.BooleanField(verbose_name='H&R考核', default=True, help_text='绿色为通过或无需HR考核')
     sale_status = models.CharField(verbose_name='优惠状态', default='无促销', max_length=16)
     sale_expire = models.CharField(verbose_name='到期时间', default='无限期', max_length=32)
     on_release = models.CharField(verbose_name='发布时间', default='', max_length=32)

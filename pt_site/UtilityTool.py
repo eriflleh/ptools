@@ -618,27 +618,29 @@ class PtSpider:
                         if not sale_status:
                             continue
                         sale_status = ''.join(re.split(r'[^\x00-\xff]', sale_status))
-                        sale_status = sale_status.upper().replace('FREE', 'Free').replace(' ', '')
+                        sale_status = sale_status.upper().replace('FREE', 'Free').title().replace(' ', '')
                         # # 下载链接，下载链接已存在则跳过
                         href = ''.join(tr.xpath(site.magnet_url_rule))
-                        # print(href)
+                        print('href', href)
                         magnet_url = site.url + href.replace('&type=zip', '').replace(site.url, '')
                         if href.count('passkey') <= 0 and href.count('&sign=') <= 0:
                             download_url = magnet_url + '&passkey=' + my_site.passkey
                         else:
                             download_url = magnet_url
-                        # print(download_url)
-                        # print(magnet_url)
+                        print('download_url', download_url)
+                        print('magnet_url', magnet_url)
                         title_list = tr.xpath(site.title_rule)
                         print(title_list)
                         title = ''.join(title_list).strip().strip('剩余时间：').strip('剩餘時間：').strip('()')
 
                         # if sale_status == '2X':
                         #     sale_status = '2XFree'
-                        # # H&R 如果设置为不下载HR种子，且种子HR为真,跳过
-                        hr = True if ''.join(tr.xpath(site.hr_rule)) else False
+
+                        # 如果种子有HR，则为否 HR绿色表示无需，红色表示未通过HR考核
+                        hr = False if ''.join(tr.xpath(site.hr_rule)) else True
                         # print(torrent.hr)
-                        if hr and not site.hr:
+                        # H&R 种子有HR且站点设置不下载HR种子,跳过，
+                        if not hr and not site.hr:
                             continue
                         # # 促销到期时间
                         sale_expire = ''.join(tr.xpath(site.sale_expire_rule))
@@ -647,6 +649,7 @@ class PtSpider:
                             'http://www.oshen.win/',
                             'https://www.hitpt.com/',
                             'https://hdsky.me/',
+                            'https://pt.keepfrds.com/',
                         ]:
                             """
                             由于备胎等站优惠结束日期格式特殊，所以做特殊处理,使用正则表达式获取字符串中的时间
@@ -692,9 +695,9 @@ class PtSpider:
                         print('leechers：', leechers)
                         print('H&R：', hr)
                         print('completers：', completers)
-                        result = TorrentInfo.objects.update_or_create(download_url=download_url, defaults={
+                        result = TorrentInfo.objects.update_or_create(magnet_url=magnet_url, defaults={
                             'category': category,
-                            'magnet_url': magnet_url,
+                            'download_url': download_url,
                             'site': site,
                             'name': name,
                             'title': title,
