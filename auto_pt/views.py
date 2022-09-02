@@ -175,9 +175,8 @@ def restart_container(request):
         restart = 'true'
         utc_time = datetime.strptime(started_at, utc_format)
         local_time = utc_time + timedelta(hours=8)
-        delta = datetime.now() - local_time
-        print(delta.seconds)
-        print(delta.total_seconds())
+        delta = str((datetime.now() - local_time).seconds)+'秒'
+        print(delta)
         # delta = local_time.strftime('%Y-%m-%dT%H:%M:%S.%f')
         # delta = delta.astimezone(pytz.timezone('Asia/Shanghai'))
     except Exception as e:
@@ -192,7 +191,7 @@ def restart_container(request):
         update_tips = '已有新版本，请根据需要升级！'
     return render(request, 'auto_pt/restart.html',
                   context={
-                      'delta': str(delta.total_seconds()) + '秒',
+                      'delta': delta,
                       'restart': restart,
                       'local_logs': get_git_logs(),
                       'update_notes': get_git_logs(master='origin/master'),
@@ -233,10 +232,10 @@ def do_update_xpath(request):
             shell=True
         )
         # 更新数据库
-        with open('./pt_site_site.json', 'r') as f:
+        with open('./main_pt_site_site.json', 'r') as f:
             # print(f.readlines())
             data = json.load(f)
-            print(data[2])
+            # print(data[2])
         print(data[0].get('url'))
         xpath_update = []
         print('更新规则中，返回结果为True为新建，为False为更新，其他是错误了')
