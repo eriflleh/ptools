@@ -211,12 +211,7 @@ class PtSpider:
             imagestring = ''.join(re.findall('[A-Za-z0-9]+', res2)).strip()
             print('天空验证码：', imagestring, len(imagestring))
             # 识别错误就重来
-            times = 0
-            while len(imagestring) != 6 and times <= 5:
-                print('验证码长度：', len(imagestring), len(imagestring) == 6)
-                time.sleep(1)
-                self.ocr_captcha(img_url)
-                times += 1
+
             return CommonResponse.success(
                 status=StatusCodeEnum.OK,
                 data=imagestring,
@@ -285,10 +280,19 @@ class PtSpider:
             print('验证码图片链接：', img_get_url)
             # 获取OCR识别结果
             # imagestring = self.ocr_captcha(img_url=img_get_url)
-            ocr_result = self.ocr_captcha(img_get_url)
-            if ocr_result.code == StatusCodeEnum.OK.code:
-                imagestring = ocr_result.data
-            else:
+            times = 0
+            # imagestring = ''
+            ocr_result = None
+            while times <= 5:
+                ocr_result = self.ocr_captcha(img_get_url)
+                if ocr_result.code == StatusCodeEnum.OK.code:
+                    imagestring = ocr_result.data
+                    print('验证码长度：', len(imagestring), len(imagestring) == 6)
+                    if len(imagestring) == 6:
+                        break
+                times += 1
+                time.sleep(1)
+            if ocr_result.code != StatusCodeEnum.OK.code:
                 return ocr_result
             # 组装请求参数
             data = {
