@@ -158,7 +158,7 @@ class PtSpider:
                      data: dict = None,
                      timeout: int = 20,
                      delay: int = 15,
-                     headers=None,
+                     headers: dict = {},
                      proxies: dict = None):
         site = my_site.site
         scraper = self.get_scraper(delay=delay)
@@ -792,7 +792,7 @@ class PtSpider:
             message = my_site.site.name + '访问个人主页信息：失败！原因：' + str(e)
             logging.error(message)
             self.send_text(message)
-            # raise
+            raise
             return CommonResponse.error(msg=message)
 
     @staticmethod
@@ -959,7 +959,7 @@ class PtSpider:
             except Exception as e:
                 message = my_site.site.name + '解析个人主页信息：失败！原因：' + str(e)
                 logging.error(message)
-                # raise
+                raise
                 self.send_text(site.name + '解析个人主页信息：失败！原因：' + str(e))
                 return CommonResponse.error(msg=message)
 
@@ -991,7 +991,7 @@ class PtSpider:
                 """
 
             res = converter.convert(response.content)
-            print('时魔响应', response.content)
+            # print('时魔响应', response.content)
             # print('转为简体的时魔页面：', str(res))
             # res_list = self.parse(res, site.hour_sp_rule)
             res_list = etree.HTML(res).xpath(site.hour_sp_rule)
