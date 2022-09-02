@@ -1,0 +1,1 @@
+python manage.py dumpdata pt_site.site --indent 2 -o pt_site_site.json
