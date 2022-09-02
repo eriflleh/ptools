@@ -190,6 +190,7 @@ class PtSpider:
         # 获取百度识别结果
         ocr = OCR.objects.filter(enable=True).first()
         if not ocr:
+            logging.error('未设置百度OCR文本识别API，无法使用本功能！')
             return CommonResponse.error(
                 status=StatusCodeEnum.OCR_NO_CONFIG,
             )
@@ -416,11 +417,6 @@ class PtSpider:
                             status=StatusCodeEnum.OK,
                             msg=message
                         )
-                    elif res_json.get('message') == 'invalid_imagehash':
-                        # 验证码错误
-                        return CommonResponse.error(
-                            status=StatusCodeEnum.IMAGE_CODE_ERR,
-                        )
                     elif res_json.get('message') == 'date_unmatch':
                         # 重复签到
                         message = '您今天已经在其他地方签到了哦！'
@@ -430,11 +426,19 @@ class PtSpider:
                         return CommonResponse.success(
                             msg=message
                         )
+                    elif res_json.get('message') == 'invalid_imagehash':
+                        # 验证码错误
+                        return CommonResponse.error(
+                            status=StatusCodeEnum.IMAGE_CODE_ERR,
+                        )
                     else:
                         # 签到失败
                         return CommonResponse.error(
                             status=StatusCodeEnum.FAILED_SIGN_IN,
                         )
+                else:
+                    # 签到失败
+                    return result
             if 'hdarea.co' in site.url:
                 res = self.send_request(my_site=my_site,
                                         method=site.sign_in_method,
