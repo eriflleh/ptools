@@ -764,17 +764,10 @@ class PtSpider:
         # uploaded_detail_url = site.url + site.page_uploaded.lstrip('/').format(my_site.user_id)
         seeding_detail_url = site.url + site.page_seeding.lstrip('/').format(my_site.user_id)
         # completed_detail_url = site.url + site.page_completed.lstrip('/').format(my_site.user_id)
-        leeching_detail_url = site.url + site.page_leeching.lstrip('/').format(my_site.user_id)
+        # leeching_detail_url = site.url + site.page_leeching.lstrip('/').format(my_site.user_id)
         try:
             # 发送请求，做种信息与正在下载信息，个人主页
-            seeding_detail_res = self.send_request(my_site=my_site, url=seeding_detail_url, timeout=25)
-            # leeching_detail_res = self.send_request(my_site=my_site, url=leeching_detail_url, timeout=25)
             user_detail_res = self.send_request(my_site=my_site, url=user_detail_url, timeout=25)
-            if seeding_detail_res.status_code != 200:
-                return CommonResponse.error(
-                    status=StatusCodeEnum.WEB_CONNECT_ERR,
-                    msg=site.name + '做种信息访问错误，错误码：' + str(seeding_detail_res.status_code)
-                )
             # if leeching_detail_res.status_code != 200:
             #     return site.name + '种子下载信息获取错误，错误码：' + str(leeching_detail_res.status_code), False
             if user_detail_res.status_code != 200:
@@ -783,20 +776,33 @@ class PtSpider:
                     msg=site.name + '个人主页访问错误，错误码：' + str(user_detail_res.status_code)
                 )
             # print(user_detail_res.status_code)
-            # print('个人主页：', user_detail_res.content.decode('utf8'))
+            print('个人主页：', user_detail_res.content)
             # 解析HTML
             # print(user_detail_res.is_redirect)
-            details_html = etree.HTML(converter.convert(user_detail_res.content))
-            if 'btschool' in site.url:
-                text = details_html.xpath('//script/text()')
-                if len(text) > 0:
-                    location = self.parse_school_location(text)
-                    print('学校重定向链接：', location)
-                    if '__SAKURA' in location:
-                        res = self.send_request(my_site=my_site, url=site.url + location.lstrip('/'), timeout=25)
-                        details_html = etree.HTML(res.text)
-                        # print(res.content)
-            seeding_html = etree.HTML(converter.convert(seeding_detail_res.text))
+
+            if 'totheglory' in site.url:
+                # ttg的信息都是直接加载的，不需要再访问其他网页，直接解析就好
+                details_html = etree.HTML(user_detail_res.content)
+                seeding_html = details_html.xpath('//div[@id="ka2"]/table')[0]
+            else:
+                details_html = etree.HTML(converter.convert(user_detail_res.content))
+                if 'btschool' in site.url:
+                    text = details_html.xpath('//script/text()')
+                    if len(text) > 0:
+                        location = self.parse_school_location(text)
+                        print('学校重定向链接：', location)
+                        if '__SAKURA' in location:
+                            res = self.send_request(my_site=my_site, url=site.url + location.lstrip('/'), timeout=25)
+                            details_html = etree.HTML(res.text)
+                            # print(res.content)
+                seeding_detail_res = self.send_request(my_site=my_site, url=seeding_detail_url, timeout=25)
+                # leeching_detail_res = self.send_request(my_site=my_site, url=leeching_detail_url, timeout=25)
+                if seeding_detail_res.status_code != 200:
+                    return CommonResponse.error(
+                        status=StatusCodeEnum.WEB_CONNECT_ERR,
+                        msg=site.name + '做种信息访问错误，错误码：' + str(seeding_detail_res.status_code)
+                    )
+                seeding_html = etree.HTML(converter.convert(seeding_detail_res.text))
             # leeching_html = etree.HTML(leeching_detail_res.text)
             # print(seeding_detail_res.content.decode('utf8'))
             return CommonResponse.success(data={
@@ -864,7 +870,8 @@ class PtSpider:
                 details_html.xpath(site.ratio_rule)
             ).replace(',', '').replace('无限', 'inf').replace('∞', 'inf').replace('---', 'inf').strip(']:').strip()
             # 分享率告警通知
-            if float(ratio) <= 1:
+            print('ratio', ratio)
+            if ratio != 'inf' and float(ratio) <= 1:
                 message = '# <font color="red">' + site.name + ' 站点分享率告警：' + str(ratio) + '</font>  \n'
                 self.send_text(message)
 
