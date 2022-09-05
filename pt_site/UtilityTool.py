@@ -883,14 +883,6 @@ class PtSpider:
                     msg=StatusCodeEnum.WEB_CONNECT_ERR.errmsg + '请检查网站访问是否正常？'
                 )
             # seed = len(seed_vol_list)
-            ratio = ''.join(
-                details_html.xpath(site.ratio_rule)
-            ).replace(',', '').replace('无限', 'inf').replace('∞', 'inf').replace('---', 'inf').strip(']:').strip()
-            # 分享率告警通知
-            print('ratio', ratio)
-            if ratio != 'inf' and float(ratio) <= 1:
-                message = '# <font color="red">' + site.name + ' 站点分享率告警：' + str(ratio) + '</font>  \n'
-                self.send_text(message)
 
             downloaded = ''.join(
                 details_html.xpath(site.downloaded_rule)
@@ -982,11 +974,26 @@ class PtSpider:
             # print('上传数：', seed)
             # print('下载数：', leech)
             try:
+                ratio = ''.join(
+                    details_html.xpath(site.ratio_rule)
+                ).replace(',', '').replace('无限', 'inf').replace('∞', 'inf').replace('---', 'inf').strip(']:').strip()
+                # 分享率告警通知
+                print('ratio', ratio)
+                if ratio != 'inf' and float(ratio) <= 1:
+                    message = '# <font color="red">' + site.name + ' 站点分享率告警：' + str(ratio) + '</font>  \n'
+                    self.send_text(message)
+                # 检查邮件
                 mail_str = ''.join(details_html.xpath(site.mailbox_rule))
-                mail_count = re.findall('\d', mail_str)[-1]
-                if int(mail_count) > 0:
-                    template = '### <font color="red">{} 有{}条新短消息，请注意及时查收！</font>'
-                    self.send_text(template.format(site.name, mail_count))
+                notice_str = ''.join(details_html.xpath(site.notice_rule))
+                if mail_str or notice_str:
+                    mail_count = re.sub(u"([^\u0030-\u0039])", "", mail_str)
+                    notice_count = re.sub(u"([^\u0030-\u0039])", "", notice_str)
+                    mail_count = int(mail_count) if mail_count else 0
+                    notice_count = int(notice_count) if notice_count else 0
+                    if mail_count + notice_count > 0:
+                        template = '### <font color="red">{} 有{}条新短消息，请注意及时查收！</font>'
+                        self.send_text(template.format(site.name, mail_count + notice_count))
+
                 res_sp_hour = self.get_hour_sp(my_site=my_site)
                 if res_sp_hour.code != StatusCodeEnum.OK.code:
                     logging.error(my_site.site.name + res_sp_hour.msg)
@@ -1012,7 +1019,7 @@ class PtSpider:
             except Exception as e:
                 message = my_site.site.name + '解析个人主页信息：失败！原因：' + str(e)
                 logging.error(message)
-                # raise
+                raise
                 self.send_text(site.name + '解析个人主页信息：失败！原因：' + str(e))
                 return CommonResponse.error(msg=message)
 

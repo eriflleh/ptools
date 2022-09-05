@@ -209,9 +209,13 @@ class Site(BaseEntity):
                                      help_text='需对数据做处理',
                                      max_length=128)
     mailbox_rule = models.CharField(verbose_name='邮件规则',
-                                    default='//a[@href="messages.php"]/following-sibling::text()[1]',
+                                    default='//a[@href="messages.php"]/font/text()',
                                     help_text='获取新邮件',
                                     max_length=128)
+    notice_rule = models.CharField(verbose_name='公告规则',
+                                   default='//a[@href="index.php"]/font/text()[1]',
+                                   help_text='获取新公告',
+                                   max_length=128)
     # HASH RULE
     hash_rule = models.CharField(verbose_name='种子HASH',
                                  default='//tr[11]//td[@class="no_border_wide"][2]/text()',
