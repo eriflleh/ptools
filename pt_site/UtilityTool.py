@@ -863,11 +863,12 @@ class PtSpider:
             for seed_vol in seed_vol_list:
                 # print(etree.tostring(seed_vol))
                 vol = ''.join(seed_vol.xpath('.//text()'))
-            # print(vol)
-            if not len(vol) <= 0:
-                seed_vol_all += FileSizeConvert.parse_2_byte(vol)
-            else:
-                seed_vol_all = 0
+                # print(vol)
+                if not len(vol) <= 0:
+                    seed_vol_all += FileSizeConvert.parse_2_byte(vol)
+                else:
+                    # seed_vol_all = 0
+                    pass
             print('做种体积：', FileSizeConvert.parse_2_file_size(seed_vol_all))
             # print(''.join(seed_vol_list).strip().split('：'))
             # print(title)
@@ -1011,7 +1012,7 @@ class PtSpider:
             except Exception as e:
                 message = my_site.site.name + '解析个人主页信息：失败！原因：' + str(e)
                 logging.error(message)
-                raise
+                # raise
                 self.send_text(site.name + '解析个人主页信息：失败！原因：' + str(e))
                 return CommonResponse.error(msg=message)
 
