@@ -166,7 +166,6 @@ def update_page(request):
         client = docker.from_env()
         # 从内部获取容器id
         cid = socket.gethostname()
-        client.api.info()
         started_at = client.api.inspect_container(cid).get('State').get('StartedAt')[:-4] + 'Z'
         utc_format = "%Y-%m-%dT%H:%M:%S.%fZ"
         restart = 'true'
@@ -239,25 +238,39 @@ def restart_container(request):
 
 def do_update(request):
     try:
-        print('更新')
+        print('开始拉取更新')
         # print(os.system('cat ./update.sh'))
         subprocess.Popen('chmod +x ./update.sh', shell=True)
         p = subprocess.Popen('./update.sh', shell=True, stdout=subprocess.PIPE, bufsize=1)
         p.wait()
         out = p.stdout.readlines()
-        result = []
         for i in out:
-            result.append(i.decode('utf8'))
-            print(result)
-        return JsonResponse(data=CommonResponse.success(
-            msg='更新成功！!',
-            data={
-                'result': result,
-                # 'xpath_update': xpath_update
-            }).to_dict(), safe=False)
+            print(i.decode('utf8'))
+        # 更新Xpath规则
+        print('拉取更新完毕，开始更新Xpath规则')
+        with open('./main_pt_site_site.json', 'r') as f:
+            # print(f.readlines())
+            data = json.load(f)
+            # print(data[2])
+            # print(data[0].get('url'))
+            # xpath_update = []
+            print('更新规则中，返回结果为True为新建，为False为更新，其他是错误了')
+            for site_rules in data:
+                if site_rules.get('pk'):
+                    del site_rules['pk']
+                site_obj = Site.objects.update_or_create(defaults=site_rules, url=site_rules.get('url'))
+                print(site_obj[0].name + (' 规则新增成功！' if site_obj[1] else '规则更新成功！'))
+        print('更新完毕，开始重启')
+        cid = socket.gethostname()
+        subprocess.Popen('docker restart {}'.format(cid), shell=True)
+        # client.api.inspect_container(cid)
+        # StartedAt = client.api.inspect_container(cid).get('State').get('StartedAt')
+        return JsonResponse(data=CommonResponse.error(
+            msg='更新成功，重启指令发送成功，容器重启中 ...'
+        ).to_dict(), safe=False)
     except Exception as e:
         return JsonResponse(data=CommonResponse.error(
-            msg='更新指令发送失败!' + str(e)
+            msg='更新失败!' + str(e)
         ).to_dict(), safe=False)
 
 

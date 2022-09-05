@@ -23,7 +23,7 @@
                 </el-popover>
             </span>
             <span style="float: right;margin-top: -10px">
-                 <el-button slot="reference" type="danger" @click="do_restart" v-if="{{ restart }}">重启更新</el-button>
+                 <el-button slot="reference" type="danger" @click="do_update" v-if="{{ restart }}">重启更新</el-button>
             </span>
         </div>
         <div class="text item">
@@ -110,41 +110,46 @@
         }
         ,
         methods: {
-            do_restart() {
-                this.$confirm('此操作将重启容器，并更新软件, 是否继续?', '提示', {
+            do_update() {
+                this.$confirm('此操作会拉取软件更新软件,并重启容器，是否继续?', '提示', {
                     confirmButtonText: '确定',
                     cancelButtonText: '取消',
                     type: 'warning'
                 }).then(() => {
                     axios.get(
-                        "{% url "do_restart" %}"
+                        "{% url "do_update" %}"
                     ).then(res => {
                         if (res.data.code === 0) {
+                            console.log(res, 1)
+                            this.update_log = res.data.data.result
+                            {#console.log('规则更新记录', res.data.data.xpath_update)#}
                             this.$message({
                                 type: 'success',
                                 message: res.data.msg
                             });
                         } else {
-                            console.log(res)
+                            console.log(res, 2)
                             this.$message({
                                 type: 'warning',
                                 message: res.data.msg
                             });
                         }
                     }).catch(res => {
+                        console.log(res, 3)
                         this.$message({
                             type: 'error',
-                            message: "重启失败！"
+                            message: "更新失败！"
                         });
                     })
+
                 }).catch(res => {
-                    {#console.log(res)#}
+                    console.log(res)
                     this.$message({
-                        type: 'info',
-                        message: '已取消重启'
+                        type: 'warning',
+                        message: '已取消更新'
                     });
                 });
-            },
+            }
         }
     });
 </script>
