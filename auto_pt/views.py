@@ -141,22 +141,6 @@ def get_update_logs():
     commits = list(repo.iter_commits('master', max_count=10))
     # 获取远程仓库commits记录
     remote_commits = list(repo.iter_commits("origin/master", max_count=10))
-    """
-        # commits = [str(commit) for commit in commits]
-        # remote_commits = [str(commit) for commit in remote_commits]
-        # # for commit in commits:
-        # #     print(commit.hexsha)
-        # #     print(commit.committed_datetime)
-        # #     print(commit.message)
-        # return render(request, 'auto_pt/restart.html',
-        #               context={
-        #                   # 'update_md': update_md,
-        #                   'local_logs': commits,
-        #                   'update_notes': remote_commits,
-        #                   'update': update,
-        #                   'update_tips': update_tips,
-        #               })
-    """
     return commits[0].hexsha == remote_commits[0].hexsha
 
 
@@ -196,46 +180,6 @@ def update_page(request):
                   })
 
 
-def restart_container(request):
-    # scraper = pt_spider.get_scraper()
-    # res = scraper.get('https://gitee.com/ngfchl/ptools/raw/master/update.md')
-    # update_md = markdown.markdown(res.text, extensions=['tables'])
-    # 获取docker对象
-    try:
-        client = docker.from_env()
-        # 从内部获取容器id
-        cid = socket.gethostname()
-        client.api.info()
-        started_at = client.api.inspect_container(cid).get('State').get('StartedAt')[:-4] + 'Z'
-        utc_format = "%Y-%m-%dT%H:%M:%S.%fZ"
-        restart = 'true'
-        utc_time = datetime.strptime(started_at, utc_format)
-        local_time = utc_time + timedelta(hours=8)
-        delta = str((datetime.now() - local_time).seconds) + '秒'
-        print(delta)
-        # delta = local_time.strftime('%Y-%m-%dT%H:%M:%S.%f')
-        # delta = delta.astimezone(pytz.timezone('Asia/Shanghai'))
-    except Exception as e:
-        # raise
-        restart = 'false'
-        delta = '程序未在容器中启动？'
-    if get_update_logs():
-        update = 'false'
-        update_tips = '目前您使用的是最新版本！'
-    else:
-        update = 'true'
-        update_tips = '已有新版本，请根据需要升级！'
-    return render(request, 'auto_pt/restart.html',
-                  context={
-                      'delta': delta,
-                      'restart': restart,
-                      'local_logs': get_git_logs(),
-                      'update_notes': get_git_logs(master='origin/master'),
-                      'update': update,
-                      'update_tips': update_tips
-                  })
-
-
 def do_update(request):
     try:
         print('开始拉取更新')
@@ -261,45 +205,15 @@ def do_update(request):
                 site_obj = Site.objects.update_or_create(defaults=site_rules, url=site_rules.get('url'))
                 print(site_obj[0].name + (' 规则新增成功！' if site_obj[1] else '规则更新成功！'))
         print('更新完毕，开始重启')
-        cid = socket.gethostname()
-        subprocess.Popen('docker restart {}'.format(cid), shell=True)
+        do_restart(request)
+        # cid = socket.gethostname()
+        # reboot = subprocess.Popen('docker restart {}'.format(cid), shell=True, stdout=subprocess.PIPE, )
+        # out = reboot.stdout.readline().decode('utf8')
         # client.api.inspect_container(cid)
         # StartedAt = client.api.inspect_container(cid).get('State').get('StartedAt')
         return JsonResponse(data=CommonResponse.error(
             msg='更新成功，重启指令发送成功，容器重启中 ...'
         ).to_dict(), safe=False)
-    except Exception as e:
-        return JsonResponse(data=CommonResponse.error(
-            msg='更新失败!' + str(e)
-        ).to_dict(), safe=False)
-
-
-def do_update_xpath(request):
-    try:
-        # 备份数据库
-        subprocess.Popen(
-            'cp /var/www/html/ptools/db/db.sqlite3 /var/www/html/ptools/db/db.sqlite3-$(date "+%Y%m%d%H%M%S")',
-            shell=True
-        )
-        # 更新数据库
-        with open('./main_pt_site_site.json', 'r') as f:
-            # print(f.readlines())
-            data = json.load(f)
-            # print(data[2])
-        print(data[0].get('url'))
-        xpath_update = []
-        print('更新规则中，返回结果为True为新建，为False为更新，其他是错误了')
-        for site_rules in data:
-            if site_rules.get('pk'):
-                del site_rules['pk']
-            site_obj = Site.objects.update_or_create(defaults=site_rules, url=site_rules.get('url'))
-            print(site_obj)
-            xpath_update.append(site_obj[0].name + (' 规则新增成功！' if site_obj[1] else '规则更新成功！'))
-        return JsonResponse(data=CommonResponse.success(
-            msg='更新成功！!',
-            data={
-                'update_log': xpath_update
-            }).to_dict(), safe=False)
     except Exception as e:
         return JsonResponse(data=CommonResponse.error(
             msg='更新失败!' + str(e)
@@ -317,11 +231,13 @@ def do_restart(request):
         # 重启容器
         # client.api.restart(cid)
         print('重启中')
-        subprocess.Popen('docker restart {}'.format(cid), shell=True)
+        reboot = subprocess.Popen('docker restart {}'.format(cid), shell=True, stdout=subprocess.PIPE, )
+        out = reboot.stdout.readline().decode('utf8')
+        print(out)
         # client.api.inspect_container(cid)
         # StartedAt = client.api.inspect_container(cid).get('State').get('StartedAt')
         return JsonResponse(data=CommonResponse.error(
-            msg='重启指令发送成功，容器重启中 ...'
+            msg='重启指令发送成功，容器重启中 ...' + out
         ).to_dict(), safe=False)
     except Exception as e:
         return JsonResponse(data=CommonResponse.error(

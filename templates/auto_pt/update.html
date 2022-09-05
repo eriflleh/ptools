@@ -23,7 +23,7 @@
                 </el-popover>
             </span>
             <span style="float: right;margin-top: -10px">
-                 <el-button slot="reference" type="danger" @click="do_update" v-if="{{ restart }}">重启更新</el-button>
+                 <el-button slot="reference" type="danger" @click="do_update" v-if="{{ update }}">重启更新</el-button>
                  <el-button slot="reference" type="danger" @click="do_restart" v-else>重启</el-button>
             </span>
         </div>

@@ -9,9 +9,7 @@ urlpatterns = [
     path(r'test_field', views.test_field, name='test_field'),
     path(r'test_notify', views.test_notify, name='test_notify'),
     path(r'update', views.update_page, name='update_page'),
-    path(r'restart', views.restart_container, name='restart_container'),
     path(r'do_restart', views.do_restart, name='do_restart'),
     path(r'do_update', views.do_update, name='do_update'),
-    path(r'get_update', views.do_update_xpath, name='do_update_xpath'),
     path(r'do_sql', views.do_sql, name='do_sql'),
 ]
