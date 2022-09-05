@@ -828,6 +828,22 @@ class PtSpider:
         list2 = ''.join(list1).split('=', 1)[1]
         return list2.strip(';').strip('"')
 
+    @staticmethod
+    def parse_message_num(messages: str):
+        """
+
+        :param messages:
+        :return:
+        """
+        list1 = messages.split('(')
+        if len(list1) > 1:
+            count = re.sub(u"([^(\u0030-\u0039])", "", list1[1])
+        elif len(list1) == 1:
+            count = messages
+        else:
+            count = 0
+        return int(count)
+
     def parse_status_html(self, my_site: MySite, result: dict):
         """解析个人状态"""
         with lock:
@@ -841,15 +857,15 @@ class PtSpider:
             seed_vol_list = seeding_html.xpath(site.seed_vol_rule)
             if len(seed_vol_list) > 0:
                 seed_vol_list.pop(0)
-                print('seeding_vol', len(seed_vol_list))
-                # 做种体积
-                seed_vol_all = 0
-                for seed_vol in seed_vol_list:
-                    # print(etree.tostring(seed_vol))
-                    vol = ''.join(seed_vol.xpath('.//text()'))
-                    # print(vol)
-                    if not len(vol) <= 0:
-                        seed_vol_all += FileSizeConvert.parse_2_byte(vol)
+            print('seeding_vol', len(seed_vol_list))
+            # 做种体积
+            seed_vol_all = 0
+            for seed_vol in seed_vol_list:
+                # print(etree.tostring(seed_vol))
+                vol = ''.join(seed_vol.xpath('.//text()'))
+            # print(vol)
+            if not len(vol) <= 0:
+                seed_vol_all += FileSizeConvert.parse_2_byte(vol)
             else:
                 seed_vol_all = 0
             print('做种体积：', FileSizeConvert.parse_2_file_size(seed_vol_all))
@@ -965,6 +981,11 @@ class PtSpider:
             # print('上传数：', seed)
             # print('下载数：', leech)
             try:
+                mail_str = ''.join(details_html.xpath(site.mailbox_rule))
+                mail_count = re.findall('\d', mail_str)[-1]
+                if int(mail_count) > 0:
+                    template = '### <font color="red">{} 有{}条新短消息，请注意及时查收！</font>'
+                    self.send_text(template.format(site.name, mail_count))
                 res_sp_hour = self.get_hour_sp(my_site=my_site)
                 if res_sp_hour.code != StatusCodeEnum.OK.code:
                     logging.error(my_site.site.name + res_sp_hour.msg)
@@ -990,7 +1011,7 @@ class PtSpider:
             except Exception as e:
                 message = my_site.site.name + '解析个人主页信息：失败！原因：' + str(e)
                 logging.error(message)
-                # raise
+                raise
                 self.send_text(site.name + '解析个人主页信息：失败！原因：' + str(e))
                 return CommonResponse.error(msg=message)
 

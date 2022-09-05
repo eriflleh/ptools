@@ -4,6 +4,7 @@
     "created_at": "2022-07-17 10:22:03.474139",
     "updated_at": "2022-08-28 20:13:23.781881",
     "name": "阿童木",
+    "url": "https://hdatmos.club/",
     "logo": "favicon.ico",
     "sign_in_support": 1,
     "get_torrent_support": 1,
@@ -33,7 +34,6 @@
     "limit_speed": 100,
     "torrents_rule": "//table[@class=\"torrents\"]/tr",
     "name_rule": ".//td[@class=\"embedded\"]/a/b/text()",
-    "title_rule": ".//tr/td[1]/text()",
     "detail_url_rule": ".//td[@class=\"embedded\"]/a[contains(@href,\"detail\")]/@href",
     "category_rule": ".//td[@class=\"rowfollow nowrap\"][1]/a[1]/img/@class",
     "poster_rule": ".//table/tr/td[1]/img/@src",
@@ -68,13 +68,14 @@
     "seed_vol_rule": "//tr/td[3]",
     "mailbox_rule": "//a[@href=\"messages.php\"]/following-sibling::text()[1]",
     "hash_rule": "//tr[10]//td[@class=\"no_border_wide\"][2]/text()",
-    "url": "https://hdatmos.club/"
+    "title_rule": ".//tr/td[1]/text()"
   },
   {
     "id": 2,
     "created_at": "2022-07-17 10:24:21.376256",
     "updated_at": "2022-08-28 20:13:23.784846",
     "name": "猪猪网",
+    "url": "https://piggo.me/",
     "logo": "favicon.ico",
     "sign_in_support": 1,
     "get_torrent_support": 1,
@@ -104,7 +105,6 @@
     "limit_speed": 100,
     "torrents_rule": "//table[@class=\"torrents\"]/tr",
     "name_rule": ".//td[@class=\"embedded\"]/a/b/text()",
-    "title_rule": ".//tr/td[@class=\"embedded\"][1]/text()",
     "detail_url_rule": ".//td[@class=\"embedded\"]/a[contains(@href,\"detail\")]/@href",
     "category_rule": ".//td[@class=\"rowfollow nowrap\"][1]/a[1]/img/@class",
     "poster_rule": ".//table/tr/td[1]/img/@src",
@@ -139,13 +139,14 @@
     "seed_vol_rule": "//tr/td[4]",
     "mailbox_rule": "//a[@href=\"messages.php\"]/following-sibling::text()[1]",
     "hash_rule": "//tr[13]/td[2]/table/tbody/tr/td[1]/text()",
-    "url": "https://piggo.me/"
+    "title_rule": ".//tr/td[@class=\"embedded\"][1]/text()"
   },
   {
     "id": 3,
     "created_at": "2022-07-17 10:24:59.754465",
     "updated_at": "2022-08-28 20:13:23.786841",
     "name": "BT学校",
+    "url": "https://pt.btschool.club/",
     "logo": "favicon.ico",
     "sign_in_support": 1,
     "get_torrent_support": 1,
@@ -175,7 +176,6 @@
     "limit_speed": 100,
     "torrents_rule": "//table[@class=\"torrents\"]/tr",
     "name_rule": ".//td[@class=\"embedded\"]/a/b/text()",
-    "title_rule": ".//tr/td[1]/text()",
     "detail_url_rule": ".//td[@class=\"embedded\"]/a[contains(@href,\"detail\")]/@href",
     "category_rule": ".//td[@class=\"rowfollow nowrap\"][1]/a[1]/img/@class",
     "poster_rule": ".//table/tr/td[1]/img/@src",
@@ -210,13 +210,14 @@
     "seed_vol_rule": "//tr/td[3]",
     "mailbox_rule": "//a[@href=\"messages.php\"]/following-sibling::text()[1]",
     "hash_rule": "//tr[13]/td[2]/table/tbody/tr/td[1]/text()",
-    "url": "https://pt.btschool.club/"
+    "title_rule": ".//tr/td[1]/text()"
   },
   {
     "id": 5,
     "created_at": "2022-07-17 10:27:30.380723",
     "updated_at": "2022-08-28 20:13:23.788820",
     "name": "1PT",
+    "url": "https://1ptba.com/",
     "logo": "favicon.ico",
     "sign_in_support": 1,
     "get_torrent_support": 1,
@@ -246,7 +247,6 @@
     "limit_speed": 100,
     "torrents_rule": "//table[@class=\"torrents\"]/tr",
     "name_rule": ".//td[@class=\"embedded\"]/a/b/text()",
-    "title_rule": ".//tr/td[1]/text()",
     "detail_url_rule": ".//td[@class=\"embedded\"]/a[contains(@href,\"detail\")]/@href",
     "category_rule": ".//td[@class=\"rowfollow nowrap\"][1]/a[1]/img/@class",
     "poster_rule": ".//table/tr/td[1]/img/@src",
@@ -281,13 +281,14 @@
     "seed_vol_rule": "//tr/td[4]",
     "mailbox_rule": "//a[@href=\"messages.php\"]/following-sibling::text()[1]",
     "hash_rule": "//tr[13]/td[2]/table/tbody/tr/td[1]/text()",
-    "url": "https://1ptba.com/"
+    "title_rule": ".//tr/td[1]/text()"
   },
   {
     "id": 7,
     "created_at": "2022-07-20 10:03:44.047931",
     "updated_at": "2022-08-28 20:13:23.790789",
     "name": "A-Soul",
+    "url": "https://pt.asf.ink/",
     "logo": "favicon.ico",
     "sign_in_support": 0,
     "get_torrent_support": 0,
@@ -317,7 +318,6 @@
     "limit_speed": 100,
     "torrents_rule": "//table[@class=\"torrents\"]/tr",
     "name_rule": ".//td[@class=\"embedded\"]/a/b/text()",
-    "title_rule": ".//tr/td[1]/text()",
     "detail_url_rule": ".//td[@class=\"embedded\"]/a[contains(@href,\"detail\")]/@href",
     "category_rule": ".//td[@class=\"rowfollow nowrap\"][1]/a[1]/img/@class",
     "poster_rule": ".//table/tr/td[1]/img/@src",
@@ -352,13 +352,14 @@
     "seed_vol_rule": "//tr/td[3]",
     "mailbox_rule": "//a[@href=\"messages.php\"]/following-sibling::text()[1]",
     "hash_rule": "//tr[13]/td[2]/table/tbody/tr/td[1]/text()",
-    "url": "https://pt.asf.ink/"
+    "title_rule": ".//tr/td[1]/text()"
   },
   {
     "id": 8,
     "created_at": "2022-07-20 10:05:03.493380",
     "updated_at": "2022-08-28 20:13:23.792775",
     "name": "CarPT",
+    "url": "https://carpt.net/",
     "logo": "favicon.ico",
     "sign_in_support": 1,
     "get_torrent_support": 1,
@@ -388,7 +389,6 @@
     "limit_speed": 100,
     "torrents_rule": "//table[@class=\"torrents\"]/tr",
     "name_rule": ".//td[@class=\"embedded\"]/a/b/text()",
-    "title_rule": ".//tr/td[1]/text()",
     "detail_url_rule": ".//td[@class=\"embedded\"]/a[contains(@href,\"detail\")]/@href",
     "category_rule": ".//td[@class=\"rowfollow nowrap\"][1]/a[1]/img/@class",
     "poster_rule": ".//table/tr/td[1]/img/@src",
@@ -423,13 +423,14 @@
     "seed_vol_rule": "//tr/td[4]",
     "mailbox_rule": "//a[@href=\"messages.php\"]/following-sibling::text()[1]",
     "hash_rule": "//tr[13]/td[2]/table/tbody/tr/td[1]/text()",
-    "url": "https://carpt.net/"
+    "title_rule": ".//tr/td[1]/text()"
   },
   {
     "id": 9,
     "created_at": "2022-07-20 10:06:16.029788",
     "updated_at": "2022-08-28 20:13:23.794709",
     "name": "HDArea",
+    "url": "https://www.hdarea.co/",
     "logo": "favicon.ico",
     "sign_in_support": 1,
     "get_torrent_support": 1,
@@ -459,7 +460,6 @@
     "limit_speed": 100,
     "torrents_rule": "//table[@class=\"torrents\"]/tr",
     "name_rule": ".//td[@class=\"embedded\"]/a/b/text()",
-    "title_rule": ".//tr/td[1]/text()",
     "detail_url_rule": ".//td[@class=\"embedded\"]/a[contains(@href,\"detail\")]/@href",
     "category_rule": ".//td[@class=\"rowfollow nowrap\"][1]/a[1]/img/@class",
     "poster_rule": ".//table/tr/td[1]/img/@src",
@@ -494,14 +494,15 @@
     "seed_vol_rule": "//tr/td[3]",
     "mailbox_rule": "//a[@href=\"messages.php\"]/following-sibling::text()[1]",
     "hash_rule": "//tr[13]/td[2]/table/tbody/tr/td[1]/text()",
-    "url": "https://www.hdarea.co/"
+    "title_rule": ".//tr/td[1]/text()"
   },
   {
     "id": 10,
     "created_at": "2022-07-20 10:07:13.505127",
-    "updated_at": "2022-08-28 20:13:23.796591",
+    "updated_at": "2022-09-05 13:48:54.105081",
     "name": "红豆饭",
-    "logo": "favicon.ico",
+    "url": "https://hdfans.org/",
+    "logo": "http://favicon.ico",
     "sign_in_support": 1,
     "get_torrent_support": 1,
     "get_userinfo_support": 1,
@@ -530,7 +531,6 @@
     "limit_speed": 100,
     "torrents_rule": "//table[@class=\"torrents\"]/tr",
     "name_rule": ".//td[@class=\"embedded\"]/a/b/text()",
-    "title_rule": ".//tr/td[1]/text()",
     "detail_url_rule": ".//td[@class=\"embedded\"]/a[contains(@href,\"detail\")]/@href",
     "category_rule": ".//td[@class=\"rowfollow nowrap\"][1]/a[1]/img/@class",
     "poster_rule": ".//table/tr/td[1]/img/@src",
@@ -548,30 +548,31 @@
     "viewpeerlist_rule": ".//tr/td[9]/nobr/text()",
     "peer_speed_rule": ".//tr/td[5]/nobr/text()",
     "remark": "",
-    "invitation_rule": "//table/tr[2]/td[2]/a/text()",
-    "time_join_rule": "//table/tr[4]/td[2]/span/@title",
-    "latest_active_rule": "//table/tr[5]/td[2]/span/@title",
-    "uploaded_rule": "//tr[8]/td[2]/table/tr[2]/td[1]/text()",
-    "downloaded_rule": "//tr[8]/td[2]//table/tr[2]/td[2]/text()",
-    "ratio_rule": "//tr[8]/td[2]/table/tr/td[1]/font/text()",
-    "my_sp_rule": "//tr[14]/td[2]/text()",
-    "hour_sp_rule": "//div[contains(text(),\"每小时\")]/text()[1]",
-    "my_bonus_rule": "//tr[15]/td[2]/text()",
-    "my_level_rule": "//tr/td/span/span/a/@class",
-    "my_hr_rule": "//table/tr[114]/td[2]/text()",
+    "invitation_rule": "//a[contains(@href,\"invite.php?id=\")]/following-sibling::text()[1]",
+    "time_join_rule": "//td[contains(text(),\"加入\")]/following-sibling::td[1]//span/@title",
+    "latest_active_rule": "//td[contains(text(),\"最近动向\")]/following-sibling::td[1]//span/@title",
+    "uploaded_rule": "//font[@class=\"color_uploaded\"]/following-sibling::text()[1]",
+    "downloaded_rule": "//font[@class=\"color_downloaded\"]/following-sibling::text()[1]",
+    "ratio_rule": "//font[@class=\"color_ratio\"][1]/following-sibling::text()[1]",
+    "my_sp_rule": "//a[@href=\"mybonus.php\"]/following-sibling::text()[1]",
+    "hour_sp_rule": "//div[contains(text(),\"每小时能获取\")]/text()[1]",
+    "my_bonus_rule": "//font[@class=\"color_bonus\" and contains(text(),\"积分\")]/following-sibling::text()[1]",
+    "my_level_rule": "//span[@class=\"medium\"]/span[@class=\"nowrap\"][1]/a[contains(@class,\"_Name\")]/@class",
+    "my_hr_rule": "//a[@href=\"myhr.php\"]/text()",
     "leech_rule": "//img[@class=\"arrowdown\"][1]/following-sibling::text()[1]",
-    "seed_rule": "/html/body/b/text()",
+    "seed_rule": "//img[@class=\"arrowup\"][1]/following-sibling::text()[1]",
     "record_count_rule": "/html/body/b/text()",
-    "seed_vol_rule": "//tr/td[3]",
+    "seed_vol_rule": "//tr/td[4]",
     "mailbox_rule": "//a[@href=\"messages.php\"]/following-sibling::text()[1]",
     "hash_rule": "//tr[13]/td[2]/table/tbody/tr/td[1]/text()",
-    "url": "https://hdfans.org/"
+    "title_rule": ".//tr/td[1]/text()"
   },
   {
     "id": 11,
     "created_at": "2022-07-20 10:08:12.726271",
     "updated_at": "2022-08-28 20:13:23.798595",
     "name": "天空",
+    "url": "https://hdsky.me/",
     "logo": "favicon.ico",
     "sign_in_support": 1,
     "get_torrent_support": 1,
@@ -601,7 +602,6 @@
     "limit_speed": 100,
     "torrents_rule": "//table[contains(@class,\"torrents\")]/tr",
     "name_rule": ".//td[@class=\"embedded\"]/a/b/text()",
-    "title_rule": ".//tr/td[1]/text()",
     "detail_url_rule": ".//td[@class=\"embedded\"]/a[contains(@href,\"detail\")]/@href",
     "category_rule": ".//td[@class=\"rowfollow nowrap\"][1]/a[1]/img/@class",
     "poster_rule": ".//table/tr/td[1]/img/@src",
@@ -636,13 +636,14 @@
     "seed_vol_rule": "//tr/td[3]",
     "mailbox_rule": "//a[@href=\"messages.php\"]/following-sibling::text()[1]",
     "hash_rule": "//tr[13]/td[2]/table/tbody/tr/td[1]/text()",
-    "url": "https://hdsky.me/"
+    "title_rule": ".//tr/td[1]/text()"
   },
   {
     "id": 12,
     "created_at": "2022-07-20 10:09:18.723334",
     "updated_at": "2022-08-28 20:13:23.800546",
     "name": "时光",
+    "url": "https://hdtime.org/",
     "logo": "favicon.ico",
     "sign_in_support": 1,
     "get_torrent_support": 1,
@@ -672,7 +673,6 @@
     "limit_speed": 100,
     "torrents_rule": "//table[@class=\"torrents\"]/tr",
     "name_rule": ".//td[@class=\"embedded\"]/a/b/text()",
-    "title_rule": ".//tr/td[1]/text()",
     "detail_url_rule": ".//td[@class=\"embedded\"]/a[contains(@href,\"detail\")]/@href",
     "category_rule": ".//td[@class=\"rowfollow nowrap\"][1]/a[1]/img/@class",
     "poster_rule": ".//table/tr/td[1]/img/@src",
@@ -707,13 +707,14 @@
     "seed_vol_rule": "//tr/td[4]",
     "mailbox_rule": "//a[@href=\"messages.php\"]/following-sibling::text()[1]",
     "hash_rule": "//tr[13]/td[2]/table/tbody/tr/td[1]/text()",
-    "url": "https://hdtime.org/"
+    "title_rule": ".//tr/td[1]/text()"
   },
   {
     "id": 13,
     "created_at": "2022-07-20 10:09:59.938469",
     "updated_at": "2022-08-28 20:13:23.802504",
     "name": "Zone",
+    "url": "https://hdzone.me/",
     "logo": "favicon.ico",
     "sign_in_support": 1,
     "get_torrent_support": 1,
@@ -743,7 +744,6 @@
     "limit_speed": 100,
     "torrents_rule": "//table[@class=\"torrents\"]/tr",
     "name_rule": ".//td[@class=\"embedded\"]/a/b/text()",
-    "title_rule": ".//tr/td[1]/text()",
     "detail_url_rule": ".//td[@class=\"embedded\"]/a[contains(@href,\"detail\")]/@href",
     "category_rule": ".//td[@class=\"rowfollow nowrap\"][1]/a[1]/img/@class",
     "poster_rule": ".//table/tr/td[1]/img/@src",
@@ -778,13 +778,14 @@
     "seed_vol_rule": "//tr/td[3]",
     "mailbox_rule": "//a[@href=\"messages.php\"]/following-sibling::text()[1]",
     "hash_rule": "//tr[13]/td[2]/table/tbody/tr/td[1]/text()",
-    "url": "https://hdzone.me/"
+    "title_rule": ".//tr/td[1]/text()"
   },
   {
     "id": 14,
     "created_at": "2022-07-20 10:11:12.180150",
     "updated_at": "2022-08-28 20:13:23.804464",
     "name": "冬樱",
+    "url": "https://wintersakura.net/",
     "logo": "favicon.ico",
     "sign_in_support": 1,
     "get_torrent_support": 1,
@@ -814,7 +815,6 @@
     "limit_speed": 100,
     "torrents_rule": "//table[@class=\"torrents\"]/tr",
     "name_rule": ".//td[@class=\"embedded\"]/a/b/text()",
-    "title_rule": ".//tr/td[1]/text()",
     "detail_url_rule": ".//td[@class=\"embedded\"]/a[contains(@href,\"detail\")]/@href",
     "category_rule": ".//td[@class=\"rowfollow nowrap\"][1]/a[1]/img/@class",
     "poster_rule": ".//table/tr/td[1]/img/@src",
@@ -849,13 +849,14 @@
     "seed_vol_rule": "//tr/td[4]",
     "mailbox_rule": "//a[@href=\"messages.php\"]/following-sibling::text()[1]",
     "hash_rule": "//tr[13]/td[2]/table/tbody/tr/td[1]/text()",
-    "url": "https://wintersakura.net/"
+    "title_rule": ".//tr/td[1]/text()"
   },
   {
     "id": 15,
     "created_at": "2022-07-20 10:12:13.107949",
     "updated_at": "2022-08-28 20:13:23.806657",
     "name": "蚂蚁",
+    "url": "http://hdmayi.com/",
     "logo": "favicon.ico",
     "sign_in_support": 1,
     "get_torrent_support": 1,
@@ -885,7 +886,6 @@
     "limit_speed": 100,
     "torrents_rule": "//table[@class=\"torrents\"]/tr",
     "name_rule": ".//td[@class=\"embedded\"]/a/b/text()",
-    "title_rule": ".//tr/td[1]/text()",
     "detail_url_rule": ".//td[@class=\"embedded\"]/a[contains(@href,\"detail\")]/@href",
     "category_rule": ".//td[@class=\"rowfollow nowrap\"][1]/a[1]/img/@class",
     "poster_rule": ".//table/tr/td[1]/img/@src",
@@ -920,13 +920,14 @@
     "seed_vol_rule": "//tr/td[3]",
     "mailbox_rule": "//a[@href=\"messages.php\"]/following-sibling::text()[1]",
     "hash_rule": "//tr[13]/td[2]/table/tbody/tr/td[1]/text()",
-    "url": "http://hdmayi.com/"
+    "title_rule": ".//tr/td[1]/text()"
   },
   {
     "id": 16,
     "created_at": "2022-07-20 10:13:15.407226",
     "updated_at": "2022-08-28 20:13:23.808932",
     "name": "农场",
+    "url": "https://pt.0ff.cc/",
     "logo": "favicon.ico",
     "sign_in_support": 1,
     "get_torrent_support": 1,
@@ -956,7 +957,6 @@
     "limit_speed": 100,
     "torrents_rule": "//table[@class=\"torrents\"]/tr",
     "name_rule": ".//td[@class=\"embedded\"]/a/b/text()",
-    "title_rule": ".//tr/td[1]/text()",
     "detail_url_rule": ".//td[@class=\"embedded\"]/a[contains(@href,\"detail\")]/@href",
     "category_rule": ".//td[@class=\"rowfollow nowrap\"][1]/a[1]/img/@class",
     "poster_rule": ".//table/tr/td[1]/img/@src",
@@ -991,13 +991,14 @@
     "seed_vol_rule": "//tr/td[4]",
     "mailbox_rule": "//a[@href=\"messages.php\"]/following-sibling::text()[1]",
     "hash_rule": "//tr[13]/td[2]/table/tbody/tr/td[1]/text()",
-    "url": "https://pt.0ff.cc/"
+    "title_rule": ".//tr/td[1]/text()"
   },
   {
     "id": 17,
     "created_at": "2022-07-20 10:15:59.584262",
     "updated_at": "2022-08-28 20:13:23.811113",
     "name": "铂金学院",
+    "url": "https://ptchina.org/",
     "logo": "favicon.ico",
     "sign_in_support": 1,
     "get_torrent_support": 1,
@@ -1027,7 +1028,6 @@
     "limit_speed": 100,
     "torrents_rule": "//table[@class=\"torrents\"]/tr",
     "name_rule": ".//td[@class=\"embedded\"]/a/b/text()",
-    "title_rule": ".//tr/td[1]/text()",
     "detail_url_rule": ".//td[@class=\"embedded\"]/a[contains(@href,\"detail\")]/@href",
     "category_rule": ".//td[@class=\"rowfollow nowrap\"][1]/a[1]/img/@class",
     "poster_rule": ".//table/tr/td[1]/img/@src",
@@ -1062,13 +1062,14 @@
     "seed_vol_rule": "//tr/td[4]",
     "mailbox_rule": "//a[@href=\"messages.php\"]/following-sibling::text()[1]",
     "hash_rule": "//tr[13]/td[2]/table/tbody/tr/td[1]/text()",
-    "url": "https://ptchina.org/"
+    "title_rule": ".//tr/td[1]/text()"
   },
   {
     "id": 18,
     "created_at": "2022-07-20 10:58:58.928918",
     "updated_at": "2022-08-28 20:13:23.813159",
     "name": "马杀鸡",
+    "url": "https://pt.msg.vg/",
     "logo": "favicon.ico",
     "sign_in_support": 0,
     "get_torrent_support": 1,
@@ -1098,7 +1099,6 @@
     "limit_speed": 100,
     "torrents_rule": "//table[@class=\"torrents\"]/tr",
     "name_rule": ".//td[@class=\"embedded\"]/a/b/text()",
-    "title_rule": ".//tr/td[1]/text()",
     "detail_url_rule": ".//td[@class=\"embedded\"]/a[contains(@href,\"detail\")]/@href",
     "category_rule": ".//td[@class=\"rowfollow nowrap\"][1]/a[1]/img/@class",
     "poster_rule": ".//table/tr/td[1]/img/@src",
@@ -1133,13 +1133,14 @@
     "seed_vol_rule": "//tr/td[3]",
     "mailbox_rule": "//a[@href=\"messages.php\"]/following-sibling::text()[1]",
     "hash_rule": "//tr[13]/td[2]/table/tbody/tr/td[1]/text()",
-    "url": "https://pt.msg.vg/"
+    "title_rule": ".//tr/td[1]/text()"
   },
   {
     "id": 19,
     "created_at": "2022-07-20 11:03:57.583569",
     "updated_at": "2022-08-28 20:13:23.815312",
     "name": "时间",
+    "url": "https://www.pttime.org/",
     "logo": "favicon.ico",
     "sign_in_support": 1,
     "get_torrent_support": 1,
@@ -1169,7 +1170,6 @@
     "limit_speed": 100,
     "torrents_rule": "//table[@class=\"torrents\"]/tr",
     "name_rule": ".//td[@class=\"embedded\"]/a/b/text()",
-    "title_rule": ".//tr/td[@class=\"embedded\"][1]/text()",
     "detail_url_rule": ".//td[@class=\"embedded\"]/a[contains(@href,\"detail\")]/b/parent::a/@href",
     "category_rule": ".//td[@class=\"rowfollow nowrap\"][1]/a[1]/img/@alt",
     "poster_rule": ".//table/tr/td[1]/img/@src",
@@ -1204,13 +1204,14 @@
     "seed_vol_rule": "//tr/td[3]",
     "mailbox_rule": "//a[@href=\"messages.php\"]/following-sibling::text()[1]",
     "hash_rule": "//tr[13]/td[2]/table/tbody/tr/td[1]/text()",
-    "url": "https://www.pttime.org/"
+    "title_rule": ".//tr/td[@class=\"embedded\"][1]/text()"
   },
   {
     "id": 20,
     "created_at": "2022-07-20 11:06:11.901583",
     "updated_at": "2022-08-28 20:13:23.817504",
     "name": "欧申",
+    "url": "http://www.oshen.win/",
     "logo": "favicon.ico",
     "sign_in_support": 0,
     "get_torrent_support": 1,
@@ -1240,7 +1241,6 @@
     "limit_speed": 100,
     "torrents_rule": "//table[@class=\"torrents\"]/tr",
     "name_rule": ".//td[@class=\"embedded\"]/a/b/text()",
-    "title_rule": ".//tr/td[1]/text()",
     "detail_url_rule": ".//td[@class=\"embedded\"]/a[contains(@href,\"detail\")]/@href",
     "category_rule": ".//td[@class=\"rowfollow nowrap\"][1]/a[1]/img/@alt",
     "poster_rule": ".//table/tr/td[1]/img/@src",
@@ -1275,13 +1275,14 @@
     "seed_vol_rule": "//tr/td[3]",
     "mailbox_rule": "//a[@href=\"messages.php\"]/following-sibling::text()[1]",
     "hash_rule": "//tr[13]/td[2]/table/tbody/tr/td[1]/text()",
-    "url": "http://www.oshen.win/"
+    "title_rule": ".//tr/td[1]/text()"
   },
   {
     "id": 21,
     "created_at": "2022-07-20 11:12:51.331275",
     "updated_at": "2022-08-28 20:13:23.819679",
     "name": "海棠",
+    "url": "https://www.htpt.cc/",
     "logo": "favicon.ico",
     "sign_in_support": 1,
     "get_torrent_support": 1,
@@ -1311,7 +1312,6 @@
     "limit_speed": 100,
     "torrents_rule": "//table[@class=\"torrents\"]/tr",
     "name_rule": ".//td[@class=\"embedded\"]/a/b/text()",
-    "title_rule": ".//tr/td[1]/text()",
     "detail_url_rule": ".//td[@class=\"embedded\"]/a[contains(@href,\"detail\")]/@href",
     "category_rule": ".//td[@class=\"rowfollow nowrap\"][1]/a[1]/img/@alt",
     "poster_rule": ".//table/tr/td[1]/img/@src",
@@ -1346,13 +1346,14 @@
     "seed_vol_rule": "//tr/td[3]",
     "mailbox_rule": "//a[@href=\"messages.php\"]/following-sibling::text()[1]",
     "hash_rule": "//tr[13]/td[2]/table/tbody/tr/td[1]/text()",
-    "url": "https://www.htpt.cc/"
+    "title_rule": ".//tr/td[1]/text()"
   },
   {
     "id": 22,
     "created_at": "2022-07-20 11:17:25.992570",
     "updated_at": "2022-08-28 20:13:23.822137",
     "name": "烧包",
+    "url": "https://ptsbao.club/",
     "logo": "favicon.ico",
     "sign_in_support": 0,
     "get_torrent_support": 1,
@@ -1382,7 +1383,6 @@
     "limit_speed": 100,
     "torrents_rule": "//table[@class=\"torrents\"]/tbody/tr",
     "name_rule": ".//td[@class=\"embedded\"]/a/@title",
-    "title_rule": ".//td[@class=\"embedded\"][1]/text()",
     "detail_url_rule": ".//td[@class=\"embedded\"]/a[contains(@href,\"detail\")]/@href",
     "category_rule": ".//td[@class=\"rowfollow nowrap\"][1]/a[1]/img/@alt",
     "poster_rule": ".//table/tr/td[2]/img/@src",
@@ -1417,13 +1417,14 @@
     "seed_vol_rule": "//tr/td[3]",
     "mailbox_rule": "//a[@href=\"messages.php\"]/following-sibling::text()[1]",
     "hash_rule": "//tr[13]/td[2]/table/tbody/tr/td[1]/text()",
-    "url": "https://ptsbao.club/"
+    "title_rule": ".//td[@class=\"embedded\"][1]/text()"
   },
   {
     "id": 23,
     "created_at": "2022-07-20 11:25:55.869829",
     "updated_at": "2022-08-28 20:13:23.824753",
     "name": "百川",
+    "url": "https://www.hitpt.com/",
     "logo": "favicon.ico",
     "sign_in_support": 0,
     "get_torrent_support": 1,
@@ -1453,7 +1454,6 @@
     "limit_speed": 100,
     "torrents_rule": "//table[@class=\"torrents\"]/tr",
     "name_rule": ".//td[@class=\"embedded\"]/a/b/text()",
-    "title_rule": ".//tr/td[1]/text()",
     "detail_url_rule": ".//td[@class=\"embedded\"]/a[contains(@href,\"detail\")]/@href",
     "category_rule": ".//td[@class=\"rowfollow nowrap\"][1]/a[1]/img/@alt",
     "poster_rule": ".//table/tr/td[1]/img/@src",
@@ -1488,13 +1488,14 @@
     "seed_vol_rule": "//tr/td[3]",
     "mailbox_rule": "//a[@href=\"messages.php\"]/following-sibling::text()[1]",
     "hash_rule": "//tr[13]/td[2]/table/tbody/tr/td[1]/text()",
-    "url": "https://www.hitpt.com/"
+    "title_rule": ".//tr/td[1]/text()"
   },
   {
     "id": 24,
     "created_at": "2022-07-20 11:27:42.866938",
     "updated_at": "2022-08-28 20:13:23.827076",
     "name": "聆音",
+    "url": "https://pt.soulvoice.club/",
     "logo": "favicon.ico",
     "sign_in_support": 1,
     "get_torrent_support": 1,
@@ -1524,7 +1525,6 @@
     "limit_speed": 100,
     "torrents_rule": "//table[@class=\"torrents\"]/tr",
     "name_rule": ".//td[@class=\"embedded\"]/a/b/text()",
-    "title_rule": ".//tr/td[1]/text()",
     "detail_url_rule": ".//td[@class=\"embedded\"]/a[contains(@href,\"detail\")]/@href",
     "category_rule": ".//td[@class=\"rowfollow nowrap\"][1]/a[1]/img/@alt",
     "poster_rule": ".//table/tr/td[1]/img/@src",
@@ -1559,13 +1559,14 @@
     "seed_vol_rule": "//tr/td[3]",
     "mailbox_rule": "//a[@href=\"messages.php\"]/following-sibling::text()[1]",
     "hash_rule": "//tr[13]/td[2]/table/tbody/tr/td[1]/text()",
-    "url": "https://pt.soulvoice.club/"
+    "title_rule": ".//tr/td[1]/text()"
   },
   {
     "id": 25,
     "created_at": "2022-07-20 11:28:54.234633",
     "updated_at": "2022-08-28 20:13:23.829348",
     "name": "备胎",
+    "url": "https://www.beitai.pt/",
     "logo": "favicon.ico",
     "sign_in_support": 0,
     "get_torrent_support": 1,
@@ -1595,7 +1596,6 @@
     "limit_speed": 100,
     "torrents_rule": "//table[@class=\"torrents\"]/tr",
     "name_rule": ".//td[@class=\"embedded\"]/a/b/text()",
-    "title_rule": ".//tr/td[1]/text()",
     "detail_url_rule": ".//td[@class=\"embedded\"]/a[contains(@href,\"detail\")]/@href",
     "category_rule": ".//td[@class=\"rowfollow nowrap\"][1]/a[1]/img/@alt",
     "poster_rule": ".//table/tr/td[1]/img/@src",
@@ -1630,13 +1630,14 @@
     "seed_vol_rule": "//tr/td[3]",
     "mailbox_rule": "//a[@href=\"messages.php\"]/following-sibling::text()[1]",
     "hash_rule": "//tr[13]/td[2]/table/tbody/tr/td[1]/text()",
-    "url": "https://www.beitai.pt/"
+    "title_rule": ".//tr/td[1]/text()"
   },
   {
     "id": 26,
     "created_at": "2022-07-20 23:48:14.437030",
     "updated_at": "2022-08-28 20:13:23.831647",
     "name": "观众",
+    "url": "https://audiences.me/",
     "logo": "favicon.ico",
     "sign_in_support": 1,
     "get_torrent_support": 1,
@@ -1666,7 +1667,6 @@
     "limit_speed": 100,
     "torrents_rule": "//table[contains(@class,\"torrents\")]/tr",
     "name_rule": ".//td[@class=\"embedded\"]/a/b/text()",
-    "title_rule": ".//tr[contains(@class,\"sticky\")]/td[@class=\"embedded\"]/span[last()]/text()",
     "detail_url_rule": ".//td[@class=\"embedded\"]/a[contains(@href,\"detail\")]/@href",
     "category_rule": ".//td[@class=\"rowfollow nowrap\"][1]/a[1]/img/@alt",
     "poster_rule": ".//table/tr/td[1]/img/@src",
@@ -1701,13 +1701,14 @@
     "seed_vol_rule": "//tr/td[3]",
     "mailbox_rule": "//a[@href=\"messages.php\"]/following-sibling::text()[1]",
     "hash_rule": "//tr[13]/td[2]/table/tbody/tr/td[1]/text()",
-    "url": "https://audiences.me/"
+    "title_rule": ".//tr[contains(@class,\"sticky\")]/td[@class=\"embedded\"]/span[last()]/text()"
   },
   {
     "id": 28,
     "created_at": "2022-07-20 23:51:03.848016",
     "updated_at": "2022-08-28 20:13:23.833660",
     "name": "丐帮",
+    "url": "https://gainbound.net/",
     "logo": "favicon.ico",
     "sign_in_support": 1,
     "get_torrent_support": 1,
@@ -1737,7 +1738,6 @@
     "limit_speed": 100,
     "torrents_rule": "//table[@class=\"torrents\"]/tr",
     "name_rule": ".//td[@class=\"embedded\"]/a/b/text()",
-    "title_rule": ".//tr/td[1]/text()",
     "detail_url_rule": ".//td[@class=\"embedded\"]/a[contains(@href,\"detail\")]/@href",
     "category_rule": ".//td[@class=\"rowfollow nowrap\"][1]/a[1]/img/@alt",
     "poster_rule": ".//table/tr/td[1]/img/@src",
@@ -1772,13 +1772,14 @@
     "seed_vol_rule": "//tr/td[4]",
     "mailbox_rule": "//a[@href=\"messages.php\"]/following-sibling::text()[1]",
     "hash_rule": "//tr[13]/td[2]/table/tbody/tr/td[1]/text()",
-    "url": "https://gainbound.net/"
+    "title_rule": ".//tr/td[1]/text()"
   },
   {
     "id": 29,
     "created_at": "2022-07-20 23:51:54.709973",
     "updated_at": "2022-08-28 20:13:23.835618",
     "name": "海胆",
+    "url": "https://www.haidan.video/",
     "logo": "favicon.ico",
     "sign_in_support": 1,
     "get_torrent_support": 0,
@@ -1808,7 +1809,6 @@
     "limit_speed": 100,
     "torrents_rule": "//table[@class=\"torrents\"]/tr",
     "name_rule": ".//td[@class=\"embedded\"]/a/b/text()",
-    "title_rule": ".//tr/td[1]/text()",
     "detail_url_rule": ".//td[@class=\"embedded\"]/a[contains(@href,\"detail\")]/@href",
     "category_rule": ".//td[@class=\"rowfollow nowrap\"][1]/a[1]/img/@alt",
     "poster_rule": ".//table/tr/td[1]/img/@src",
@@ -1843,13 +1843,14 @@
     "seed_vol_rule": "//tr/td[3]",
     "mailbox_rule": "//a[@href=\"messages.php\"]/following-sibling::text()[1]",
     "hash_rule": "//tr[13]/td[2]/table/tbody/tr/td[1]/text()",
-    "url": "https://www.haidan.video/"
+    "title_rule": ".//tr/td[1]/text()"
   },
   {
     "id": 30,
     "created_at": "2022-07-20 23:52:34.568529",
     "updated_at": "2022-08-28 20:13:23.837561",
     "name": "HD杜比",
+    "url": "https://www.hddolby.com/",
     "logo": "favicon.ico",
     "sign_in_support": 1,
     "get_torrent_support": 1,
@@ -1879,7 +1880,6 @@
     "limit_speed": 100,
     "torrents_rule": "//table[@class=\"torrents\"]/tr",
     "name_rule": ".//td[@class=\"embedded\"]/a/b/text()",
-    "title_rule": ".//tr/td[@class=\"embedded\"]/span[last()]/text()",
     "detail_url_rule": ".//td[@class=\"embedded\"]/a[contains(@href,\"detail\")]/@href",
     "category_rule": ".//td[@class=\"rowfollow nowrap\"][1]/a[1]/img/@alt",
     "poster_rule": ".//table/tr/td[1]/img/@src",
@@ -1914,13 +1914,14 @@
     "seed_vol_rule": "//tr/td[3]",
     "mailbox_rule": "//a[@href=\"messages.php\"]/following-sibling::text()[1]",
     "hash_rule": "//tr[13]/td[2]/table/tbody/tr/td[1]/text()",
-    "url": "https://www.hddolby.com/"
+    "title_rule": ".//tr/td[@class=\"embedded\"]/span[last()]/text()"
   },
   {
     "id": 31,
     "created_at": "2022-07-20 23:53:30.271660",
     "updated_at": "2022-08-28 20:13:23.839544",
     "name": "海带",
+    "url": "https://www.hd.ai/",
     "logo": "favicon.ico",
     "sign_in_support": 0,
     "get_torrent_support": 1,
@@ -1950,7 +1951,6 @@
     "limit_speed": 100,
     "torrents_rule": "//table[@class=\"layui-table\"]/tr",
     "name_rule": ".//td/div/a/b/text()",
-    "title_rule": ".//td[4]/div/text()",
     "detail_url_rule": ".//td/div/a/@href",
     "category_rule": "//td[3]/div/img/@title",
     "poster_rule": ".//table/tr/td[1]/img/@src",
@@ -1985,13 +1985,14 @@
     "seed_vol_rule": "//tr/td[3]",
     "mailbox_rule": "//a[@href=\"messages.php\"]/following-sibling::text()[1]",
     "hash_rule": "//tr[13]/td[2]/table/tbody/tr/td[1]/text()",
-    "url": "https://www.hd.ai/"
+    "title_rule": ".//td[4]/div/text()"
   },
   {
     "id": 32,
     "created_at": "2022-07-20 23:55:26.251727",
     "updated_at": "2022-08-28 20:13:23.841559",
     "name": "MTeam",
+    "url": "https://kp.m-team.cc/",
     "logo": "favicon.ico",
     "sign_in_support": 0,
     "get_torrent_support": 1,
@@ -2021,7 +2022,6 @@
     "limit_speed": 100,
     "torrents_rule": "//table[@class=\"torrents\"]/tr",
     "name_rule": ".//td[@class=\"embedded\"]/a/b/text()",
-    "title_rule": ".//tr/td[@class=\"embedded\"][1]/text()",
     "detail_url_rule": ".//td[@class=\"embedded\"]/a[contains(@href,\"detail\")]/@href",
     "category_rule": ".//td[@class=\"rowfollow nowrap\"][1]/a[1]/img/@alt",
     "poster_rule": ".//table/tr/td[1]/img/@src",
@@ -2056,13 +2056,14 @@
     "seed_vol_rule": "//tr/td[3]",
     "mailbox_rule": "//a[@href=\"messages.php\"]/following-sibling::text()[1]",
     "hash_rule": "//tr[13]/td[2]/table/tbody/tr/td[1]/text()",
-    "url": "https://kp.m-team.cc/"
+    "title_rule": ".//tr/td[@class=\"embedded\"][1]/text()"
   },
   {
     "id": 33,
     "created_at": "2022-07-20 23:56:40.615457",
     "updated_at": "2022-08-28 20:13:23.843517",
     "name": "芒果",
+    "url": "https://www.3wmg.com/",
     "logo": "favicon.ico",
     "sign_in_support": 1,
     "get_torrent_support": 1,
@@ -2092,7 +2093,6 @@
     "limit_speed": 100,
     "torrents_rule": "//table[@class=\"torrents\"]/tr",
     "name_rule": ".//td[@class=\"embedded\"]/a/b/text()",
-    "title_rule": ".//tr/td[1]/text()",
     "detail_url_rule": ".//td[@class=\"embedded\"]/a[contains(@href,\"detail\")]/@href",
     "category_rule": ".//td[@class=\"rowfollow nowrap\"][1]/a[1]/img/@alt",
     "poster_rule": ".//table/tr/td[1]/img/@src",
@@ -2127,13 +2127,14 @@
     "seed_vol_rule": "//tr/td[3]",
     "mailbox_rule": "//a[@href=\"messages.php\"]/following-sibling::text()[1]",
     "hash_rule": "//tr[13]/td[2]/table/tbody/tr/td[1]/text()",
-    "url": "https://www.3wmg.com/"
+    "title_rule": ".//tr/td[1]/text()"
   },
   {
     "id": 34,
     "created_at": "2022-07-23 19:05:57.166639",
     "updated_at": "2022-08-28 20:13:23.845475",
     "name": "海豹GPW",
+    "url": "https://greatposterwall.com/",
     "logo": "favicon.ico",
     "sign_in_support": 0,
     "get_torrent_support": 0,
@@ -2163,7 +2164,6 @@
     "limit_speed": 100,
     "torrents_rule": "//table[@class=\"torrents\"]/tr",
     "name_rule": ".//td[@class=\"embedded\"]/a/b/text()",
-    "title_rule": ".//tr/td[1]/text()",
     "detail_url_rule": ".//td[@class=\"embedded\"]/a[contains(@href,\"detail\")]/@href",
     "category_rule": ".//td[@class=\"rowfollow nowrap\"]/a/img/@title",
     "poster_rule": ".//table/tr/td[1]/img/@src",
@@ -2198,13 +2198,14 @@
     "seed_vol_rule": "//td[@id=\"seeding-size-value\"]/@data-value",
     "mailbox_rule": "//a[@href=\"messages.php\"]/following-sibling::text()[1]",
     "hash_rule": "//tr[13]/td[2]/table/tbody/tr/td[1]/text()",
-    "url": "https://greatposterwall.com/"
+    "title_rule": ".//tr/td[1]/text()"
   },
   {
     "id": 35,
     "created_at": "2022-07-23 19:10:24.853356",
     "updated_at": "2022-09-01 08:40:02.389462",
     "name": "白兔hares",
+    "url": "https://club.hares.top/",
     "logo": "http://favicon.ico",
     "sign_in_support": 1,
     "get_torrent_support": 1,
@@ -2234,7 +2235,6 @@
     "limit_speed": 100,
     "torrents_rule": "//table[@class=\"torrents layui-table\"]/tr",
     "name_rule": ".//td[2]/div[1]/div[1]/div[2]/div/a/@title",
-    "title_rule": ".//td[2]/div[1]/div[1]/p/text()",
     "detail_url_rule": ".//td[2]/div[1]/div[1]/div[2]/div/a/@href",
     "category_rule": ".//td[1]/a/img/@title",
     "poster_rule": ".//td[2]/div[1]/div[1]/div[1]/a/@rel",
@@ -2269,13 +2269,14 @@
     "seed_vol_rule": "//tr/td[3]",
     "mailbox_rule": "//a[@href=\"messages.php\"]/font/text()",
     "hash_rule": "//tr[13]/td[2]/table/tbody/tr/td[1]/text()",
-    "url": "https://club.hares.top/"
+    "title_rule": ".//td[2]/div[1]/div[1]/p/text()"
   },
   {
     "id": 36,
     "created_at": "2022-07-27 12:59:12.234035",
     "updated_at": "2022-09-01 08:43:54.589370",
     "name": "老师",
+    "url": "https://www.nicept.net/",
     "logo": "http://favicon.ico",
     "sign_in_support": 1,
     "get_torrent_support": 1,
@@ -2305,7 +2306,6 @@
     "limit_speed": 100,
     "torrents_rule": "//table[@class=\"torrents\"]/tr",
     "name_rule": ".//td[@class=\"embedded\"]/a/b/text()",
-    "title_rule": ".//tr/td[@class=\"embedded\"][1]/text()",
     "detail_url_rule": ".//td[@class=\"embedded\"]/a[contains(@href,\"detail\")]/@href",
     "category_rule": ".//td[@class=\"rowfollow nowrap\"]/a/img/@title",
     "poster_rule": ".//table/tr/td[1]/img/@src",
@@ -2340,13 +2340,14 @@
     "seed_vol_rule": "//tr/td[4]",
     "mailbox_rule": "//a[@href=\"messages.php\"]/following-sibling::text()[1]",
     "hash_rule": "//tr[13]/td[2]/table/tbody/tr/td[1]/text()",
-    "url": "https://www.nicept.net/"
+    "title_rule": ".//tr/td[@class=\"embedded\"][1]/text()"
   },
   {
     "id": 37,
     "created_at": "2022-07-27 13:01:11.697971",
     "updated_at": "2022-09-01 08:50:58.853791",
     "name": "艾薇",
+    "url": "http://avgv.cc/",
     "logo": "http://favicon.ico",
     "sign_in_support": 0,
     "get_torrent_support": 1,
@@ -2376,7 +2377,6 @@
     "limit_speed": 100,
     "torrents_rule": "//table[@class=\"torrents\"]/tr",
     "name_rule": ".//td[@class=\"embedded\"]/a/b/text()",
-    "title_rule": ".//tr/td[@class=\"embedded\"][1]/text()",
     "detail_url_rule": ".//td[@class=\"embedded\"]/a[contains(@href,\"detail\")]/@href",
     "category_rule": ".//td[@class=\"rowfollow nowrap\"]/a/img/@title",
     "poster_rule": ".//table/tr/td[1]/img/@src",
@@ -2411,13 +2411,14 @@
     "seed_vol_rule": "//tr/td[3]",
     "mailbox_rule": "//a[@href=\"messages.php\"]/following-sibling::text()[1]",
     "hash_rule": "//tr[13]/td[2]/table/tbody/tr/td[1]/text()",
-    "url": "http://avgv.cc/"
+    "title_rule": ".//tr/td[@class=\"embedded\"][1]/text()"
   },
   {
     "id": 38,
     "created_at": "2022-08-02 10:14:26.854705",
     "updated_at": "2022-08-28 20:13:23.853927",
     "name": "明教",
+    "url": "https://hdpt.xyz/",
     "logo": "favicon.ico",
     "sign_in_support": 1,
     "get_torrent_support": 1,
@@ -2447,7 +2448,6 @@
     "limit_speed": 100,
     "torrents_rule": "//table[@class=\"torrents\"]/tr",
     "name_rule": ".//td[@class=\"embedded\"]/a/b/text()",
-    "title_rule": ".//tr/td[1]/text()",
     "detail_url_rule": ".//table/tr/td[3]/a[1]/@href",
     "category_rule": ".//td[@class=\"rowfollow nowrap\"][1]/a[1]/img/@class",
     "poster_rule": ".//table/tr/td[1]/img/@src",
@@ -2482,13 +2482,14 @@
     "seed_vol_rule": "//tr/td[4]",
     "mailbox_rule": "//a[@href=\"messages.php\"]/following-sibling::text()[1]",
     "hash_rule": "//tr[10]//td[@class=\"no_border_wide\"][2]/text()",
-    "url": "https://hdpt.xyz/"
+    "title_rule": ".//tr/td[1]/text()"
   },
   {
     "id": 39,
     "created_at": "2022-08-12 23:29:07.033862",
     "updated_at": "2022-08-28 20:13:23.855852",
     "name": "铂金家",
+    "url": "https://pthome.net/",
     "logo": "https://pthome.net/favicon.ico",
     "sign_in_support": 1,
     "get_torrent_support": 1,
@@ -2518,7 +2519,6 @@
     "limit_speed": 100,
     "torrents_rule": "//table[contains(@class,\"torrents\")]/tr",
     "name_rule": ".//td[@class=\"embedded\"]/a/b/text()",
-    "title_rule": ".//tr/td[1]/span[4]/text()",
     "detail_url_rule": ".//td[@class=\"embedded\"]/a[contains(@href,\"detail\")]/@href",
     "category_rule": ".//td[@class=\"rowfollow nowrap\"][1]/a[1]/img/@class",
     "poster_rule": ".//table/tr/td[1]/img/@src",
@@ -2553,13 +2553,14 @@
     "seed_vol_rule": "//tr/td[3]",
     "mailbox_rule": "//a[@href=\"messages.php\"]/following-sibling::text()[1]",
     "hash_rule": "//tr[11]//td[@class=\"no_border_wide\"][2]/text()",
-    "url": "https://pthome.net/"
+    "title_rule": ".//tr/td[1]/span[4]/text()"
   },
   {
     "id": 40,
     "created_at": "2022-08-14 09:14:51.194443",
     "updated_at": "2022-08-28 20:13:23.857941",
     "name": "ipt",
+    "url": "https://iptorrents.com/",
     "logo": "https://iptorrents.com/favicon.ico",
     "sign_in_support": 0,
     "get_torrent_support": 0,
@@ -2589,7 +2590,6 @@
     "limit_speed": 100,
     "torrents_rule": "//table[@class=\"torrents\"]/tr",
     "name_rule": ".//td[@class=\"embedded\"]/a/b/text()",
-    "title_rule": ".//tr/td[1]/text()",
     "detail_url_rule": ".//td[@class=\"embedded\"]/a[contains(@href,\"detail\")]/@href",
     "category_rule": ".//td[@class=\"rowfollow nowrap\"][1]/a[1]/img/@class",
     "poster_rule": ".//table/tr/td[1]/img/@src",
@@ -2624,13 +2624,14 @@
     "seed_vol_rule": "//tr/td[3]",
     "mailbox_rule": "//a[@href=\"messages.php\"]/following-sibling::text()[1]",
     "hash_rule": "//tr[11]//td[@class=\"no_border_wide\"][2]/text()",
-    "url": "https://iptorrents.com/"
+    "title_rule": ".//tr/td[1]/text()"
   },
   {
     "id": 41,
     "created_at": "2022-08-18 00:39:11.082251",
     "updated_at": "2022-08-28 20:13:23.860026",
     "name": "梓喵",
+    "url": "https://azusa.ru/",
     "logo": "favicon.ico",
     "sign_in_support": 1,
     "get_torrent_support": 1,
@@ -2660,7 +2661,6 @@
     "limit_speed": 100,
     "torrents_rule": "//table[@class=\"torrents\"]/tr",
     "name_rule": ".//td[@class=\"embedded\"]/a/b/text()",
-    "title_rule": ".//tr/td[1]/text()",
     "detail_url_rule": ".//td[@class=\"embedded\"]/a[contains(@href,\"detail\")]/@href",
     "category_rule": ".//td[@class=\"rowfollow nowrap\"][1]/a[1]/img/@class",
     "poster_rule": ".//table/tr/td[1]/img/@src",
@@ -2695,13 +2695,14 @@
     "seed_vol_rule": "//tr/td[4]",
     "mailbox_rule": "//a[@href=\"messages.php\"]/following-sibling::text()[1]",
     "hash_rule": "//tr[11]//td[@class=\"no_border_wide\"][2]/text()",
-    "url": "https://azusa.ru/"
+    "title_rule": ".//tr/td[1]/text()"
   },
   {
     "id": 42,
     "created_at": "2022-08-18 00:46:55.688591",
     "updated_at": "2022-08-28 20:13:23.862214",
     "name": "HD城市",
+    "url": "https://hdcity.city/",
     "logo": "favicon.ico",
     "sign_in_support": 1,
     "get_torrent_support": 1,
@@ -2731,7 +2732,6 @@
     "limit_speed": 100,
     "torrents_rule": "//center/div/div/div[contains(@class,\"trblock\")]",
     "name_rule": "./div[@class=\"trtop\"]/a//text()[1]",
-    "title_rule": "./div[@class=\"trm\"]/div/div[@class=\"trbi\"]/a/span/text()",
     "detail_url_rule": "./div[@class=\"trtop\"]/a/@href",
     "category_rule": "./div/div[@class=\"trti\"]/a/span/text()",
     "poster_rule": "./div[@class=\"trm\"]/div/div/img/@src",
@@ -2766,13 +2766,14 @@
     "seed_vol_rule": "//tr/td[3]",
     "mailbox_rule": "//a[@href=\"messages\"]/text()[1]",
     "hash_rule": "//div[@class=\"blockcontent\"]/b[text()=\"Hash 值:\"]/following-sibling::text()",
-    "url": "https://hdcity.city/"
+    "title_rule": "./div[@class=\"trm\"]/div/div[@class=\"trbi\"]/a/span/text()"
   },
   {
     "id": 43,
     "created_at": "2022-08-19 23:20:30.164315",
     "updated_at": "2022-08-28 20:13:23.864437",
     "name": "HDVIDEO",
+    "url": "http://hdvideo.one/",
     "logo": "http://hdvideo.one/favicon.ico",
     "sign_in_support": 1,
     "get_torrent_support": 1,
@@ -2802,7 +2803,6 @@
     "limit_speed": 100,
     "torrents_rule": "//table[@class=\"torrents\"]/tr",
     "name_rule": ".//td[@class=\"embedded\"]/a/b/text()",
-    "title_rule": ".//tr/td[1]/text()",
     "detail_url_rule": ".//td[@class=\"embedded\"]/a[contains(@href,\"detail\")]/@href",
     "category_rule": ".//td[@class=\"rowfollow nowrap\"][1]/a[1]/img/@class",
     "poster_rule": ".//table/tr/td[1]/img/@src",
@@ -2837,13 +2837,14 @@
     "seed_vol_rule": "//tr/td[4]",
     "mailbox_rule": "//a[@href=\"messages.php\"]/following-sibling::text()[1]",
     "hash_rule": "//tr[11]//td[@class=\"no_border_wide\"][2]/text()",
-    "url": "http://hdvideo.one/"
+    "title_rule": ".//tr/td[1]/text()"
   },
   {
     "id": 44,
     "created_at": "2022-08-23 16:41:38.669257",
     "updated_at": "2022-08-28 20:13:23.866343",
     "name": "月月Frds",
+    "url": "https://pt.keepfrds.com/",
     "logo": "https://pt.keepfrds.com/static/favicon-64x64.png",
     "sign_in_support": 0,
     "get_torrent_support": 1,
@@ -2873,7 +2874,6 @@
     "limit_speed": 100,
     "torrents_rule": "//table[@class=\"torrents\"]/tr",
     "name_rule": ".//td[@class=\"embedded\"]/a/b/text()",
-    "title_rule": ".//tr/td[1]/text()",
     "detail_url_rule": ".//td[@class=\"embedded\"]/a[contains(@href,\"detail\")]/@href",
     "category_rule": ".//td[@class=\"rowfollow nowrap\"][1]/a[1]/img/@class",
     "poster_rule": ".//table/tr/td[1]/img/@src",
@@ -2908,13 +2908,14 @@
     "seed_vol_rule": "//tr/td[3]",
     "mailbox_rule": "//a[@href=\"messages.php\"]/following-sibling::text()[1]",
     "hash_rule": "//tr[11]//td[@class=\"no_border_wide\"][2]/text()",
-    "url": "https://pt.keepfrds.com/"
+    "title_rule": ".//tr/td[1]/text()"
   },
   {
     "id": 45,
     "created_at": "2022-08-26 20:52:18.452034",
     "updated_at": "2022-08-28 20:13:23.868301",
     "name": "U2",
+    "url": "https://u2.dmhy.org/",
     "logo": "http://favor.ico",
     "sign_in_support": 0,
     "get_torrent_support": 0,
@@ -2944,7 +2945,6 @@
     "limit_speed": 100,
     "torrents_rule": "//table[@class=\"torrents\"]/tr",
     "name_rule": ".//td[@class=\"embedded\"]/a/b/text()",
-    "title_rule": ".//tr/td[1]/text()",
     "detail_url_rule": ".//td[@class=\"embedded\"]/a[contains(@href,\"detail\")]/@href",
     "category_rule": ".//td[@class=\"rowfollow nowrap\"][1]/a[1]/img/@class",
     "poster_rule": ".//table/tr/td[1]/img/@src",
@@ -2979,13 +2979,14 @@
     "seed_vol_rule": "//tr/td[3]",
     "mailbox_rule": "//a[@href=\"messages.php\"]/following-sibling::text()[1]",
     "hash_rule": "//tr[11]//td[@class=\"no_border_wide\"][2]/text()",
-    "url": "https://u2.dmhy.org/"
+    "title_rule": ".//tr/td[1]/text()"
   },
   {
     "id": 46,
     "created_at": "2022-08-26 20:53:50.259439",
     "updated_at": "2022-08-31 13:36:12.867898",
     "name": "TTG",
+    "url": "https://totheglory.im/",
     "logo": "http://favicon.ico",
     "sign_in_support": 1,
     "get_torrent_support": 0,
@@ -3015,7 +3016,6 @@
     "limit_speed": 100,
     "torrents_rule": "//table[@class=\"torrents\"]/tr",
     "name_rule": ".//td[@class=\"embedded\"]/a/b/text()",
-    "title_rule": ".//tr/td[1]/text()",
     "detail_url_rule": ".//td[@class=\"embedded\"]/a[contains(@href,\"detail\")]/@href",
     "category_rule": ".//td[@class=\"rowfollow nowrap\"][1]/a[1]/img/@class",
     "poster_rule": ".//table/tr/td[1]/img/@src",
@@ -3050,13 +3050,14 @@
     "seed_vol_rule": "//tr/td[3]",
     "mailbox_rule": "//a[@href=\"messages.php\"]/following-sibling::text()[1]",
     "hash_rule": "//tr[11]//td[@class=\"no_border_wide\"][2]/text()",
-    "url": "https://totheglory.im/"
+    "title_rule": ".//tr/td[1]/text()"
   },
   {
     "id": 47,
     "created_at": "2022-08-26 20:54:35.357465",
     "updated_at": "2022-08-28 20:13:23.872153",
     "name": "蝶粉",
+    "url": "https://discfan.net/",
     "logo": "http://favicon.ico",
     "sign_in_support": 1,
     "get_torrent_support": 0,
@@ -3086,7 +3087,6 @@
     "limit_speed": 100,
     "torrents_rule": "//table[@class=\"torrents\"]/tr",
     "name_rule": ".//td[@class=\"embedded\"]/a/b/text()",
-    "title_rule": ".//tr/td[1]/text()",
     "detail_url_rule": ".//td[@class=\"embedded\"]/a[contains(@href,\"detail\")]/@href",
     "category_rule": ".//td[@class=\"rowfollow nowrap\"][1]/a[1]/img/@class",
     "poster_rule": ".//table/tr/td[1]/img/@src",
@@ -3121,13 +3121,14 @@
     "seed_vol_rule": "//tr/td[3]",
     "mailbox_rule": "//a[@href=\"messages.php\"]/following-sibling::text()[1]",
     "hash_rule": "//tr[11]//td[@class=\"no_border_wide\"][2]/text()",
-    "url": "https://discfan.net/"
+    "title_rule": ".//tr/td[1]/text()"
   },
   {
     "id": 48,
     "created_at": "2022-08-26 20:55:42.110159",
     "updated_at": "2022-08-28 20:13:23.874156",
     "name": "joyhd",
+    "url": "https://www.joyhd.net/",
     "logo": "http://favicon.ico",
     "sign_in_support": 0,
     "get_torrent_support": 0,
@@ -3157,7 +3158,6 @@
     "limit_speed": 100,
     "torrents_rule": "//table[@class=\"torrents\"]/tr",
     "name_rule": ".//td[@class=\"embedded\"]/a/b/text()",
-    "title_rule": ".//tr/td[1]/text()",
     "detail_url_rule": ".//td[@class=\"embedded\"]/a[contains(@href,\"detail\")]/@href",
     "category_rule": ".//td[@class=\"rowfollow nowrap\"][1]/a[1]/img/@class",
     "poster_rule": ".//table/tr/td[1]/img/@src",
@@ -3192,13 +3192,14 @@
     "seed_vol_rule": "//tr/td[3]",
     "mailbox_rule": "//a[@href=\"messages.php\"]/following-sibling::text()[1]",
     "hash_rule": "//tr[11]//td[@class=\"no_border_wide\"][2]/text()",
-    "url": "https://www.joyhd.net/"
+    "title_rule": ".//tr/td[1]/text()"
   },
   {
     "id": 49,
     "created_at": "2022-08-27 17:32:01.405726",
     "updated_at": "2022-08-28 20:13:23.876105",
     "name": "彩虹岛",
+    "url": "https://chdbits.co/",
     "logo": "http://favicon.ico",
     "sign_in_support": 1,
     "get_torrent_support": 0,
@@ -3228,7 +3229,6 @@
     "limit_speed": 100,
     "torrents_rule": "//table[@class=\"torrents\"]/tr",
     "name_rule": ".//td[@class=\"embedded\"]/a/b/text()",
-    "title_rule": ".//tr/td[1]/text()",
     "detail_url_rule": ".//td[@class=\"embedded\"]/a[contains(@href,\"detail\")]/@href",
     "category_rule": ".//td[@class=\"rowfollow nowrap\"][1]/a[1]/img/@class",
     "poster_rule": ".//table/tr/td[1]/img/@src",
@@ -3263,13 +3263,14 @@
     "seed_vol_rule": "//tr/td[3]",
     "mailbox_rule": "//a[@href=\"messages.php\"]/following-sibling::text()[1]",
     "hash_rule": "//tr[11]//td[@class=\"no_border_wide\"][2]/text()",
-    "url": "https://chdbits.co/"
+    "title_rule": ".//tr/td[1]/text()"
   },
   {
     "id": 50,
     "created_at": "2022-08-27 17:36:00.453971",
     "updated_at": "2022-08-28 20:13:23.878149",
     "name": "好多油",
+    "url": "https://pt.hdupt.com/",
     "logo": "http://favicon.ico",
     "sign_in_support": 1,
     "get_torrent_support": 0,
@@ -3299,7 +3300,6 @@
     "limit_speed": 100,
     "torrents_rule": "//table[@class=\"torrents\"]/tr",
     "name_rule": ".//td[@class=\"embedded\"]/a/b/text()",
-    "title_rule": ".//tr/td[1]/text()",
     "detail_url_rule": ".//td[@class=\"embedded\"]/a[contains(@href,\"detail\")]/@href",
     "category_rule": ".//td[@class=\"rowfollow nowrap\"][1]/a[1]/img/@class",
     "poster_rule": ".//table/tr/td[1]/img/@src",
@@ -3334,13 +3334,14 @@
     "seed_vol_rule": "//tr/td[3]",
     "mailbox_rule": "//a[@href=\"messages.php\"]/following-sibling::text()[1]",
     "hash_rule": "//tr[11]//td[@class=\"no_border_wide\"][2]/text()",
-    "url": "https://pt.hdupt.com/"
+    "title_rule": ".//tr/td[1]/text()"
   },
   {
     "id": 51,
     "created_at": "2022-08-27 17:43:57.903295",
     "updated_at": "2022-08-28 20:13:23.880108",
     "name": "我堡",
+    "url": "https://ourbits.club/",
     "logo": "http://favicon.ico",
     "sign_in_support": 1,
     "get_torrent_support": 0,
@@ -3370,7 +3371,6 @@
     "limit_speed": 100,
     "torrents_rule": "//table[@class=\"torrents\"]/tr",
     "name_rule": ".//td[@class=\"embedded\"]/a/b/text()",
-    "title_rule": ".//tr/td[1]/text()",
     "detail_url_rule": ".//td[@class=\"embedded\"]/a[contains(@href,\"detail\")]/@href",
     "category_rule": ".//td[@class=\"rowfollow nowrap\"][1]/a[1]/img/@class",
     "poster_rule": ".//table/tr/td[1]/img/@src",
@@ -3405,13 +3405,14 @@
     "seed_vol_rule": "//tr/td[3]",
     "mailbox_rule": "//a[@href=\"messages.php\"]/following-sibling::text()[1]",
     "hash_rule": "//tr[11]//td[@class=\"no_border_wide\"][2]/text()",
-    "url": "https://ourbits.club/"
+    "title_rule": ".//tr/td[1]/text()"
   },
   {
     "id": 52,
     "created_at": "2022-08-27 18:16:09.224686",
     "updated_at": "2022-08-28 20:13:23.882118",
     "name": "家园",
+    "url": "https://hdhome.org/",
     "logo": "http://favicon.ico",
     "sign_in_support": 1,
     "get_torrent_support": 0,
@@ -3441,7 +3442,6 @@
     "limit_speed": 100,
     "torrents_rule": "//table[@class=\"torrents\"]/tr",
     "name_rule": ".//td[@class=\"embedded\"]/a/b/text()",
-    "title_rule": ".//tr/td[1]/text()",
     "detail_url_rule": ".//td[@class=\"embedded\"]/a[contains(@href,\"detail\")]/@href",
     "category_rule": ".//td[@class=\"rowfollow nowrap\"][1]/a[1]/img/@class",
     "poster_rule": ".//table/tr/td[1]/img/@src",
@@ -3476,13 +3476,14 @@
     "seed_vol_rule": "//tr/td[3]",
     "mailbox_rule": "//a[@href=\"messages.php\"]/following-sibling::text()[1]",
     "hash_rule": "//tr[11]//td[@class=\"no_border_wide\"][2]/text()",
-    "url": "https://hdhome.org/"
+    "title_rule": ".//tr/td[1]/text()"
   },
   {
     "id": 53,
     "created_at": "2022-08-27 18:18:44.023818",
     "updated_at": "2022-08-28 20:13:23.884245",
     "name": "不可说",
+    "url": "https://springsunday.net/",
     "logo": "http://favicon.ico",
     "sign_in_support": 1,
     "get_torrent_support": 0,
@@ -3512,7 +3513,6 @@
     "limit_speed": 100,
     "torrents_rule": "//table[@class=\"torrents\"]/tr",
     "name_rule": ".//td[@class=\"embedded\"]/a/b/text()",
-    "title_rule": ".//tr/td[1]/text()",
     "detail_url_rule": ".//td[@class=\"embedded\"]/a[contains(@href,\"detail\")]/@href",
     "category_rule": ".//td[@class=\"rowfollow nowrap\"][1]/a[1]/img/@class",
     "poster_rule": ".//table/tr/td[1]/img/@src",
@@ -3547,13 +3547,14 @@
     "seed_vol_rule": "//tr/td[3]",
     "mailbox_rule": "//a[@href=\"messages.php\"]/following-sibling::text()[1]",
     "hash_rule": "//tr[11]//td[@class=\"no_border_wide\"][2]/text()",
-    "url": "https://springsunday.net/"
+    "title_rule": ".//tr/td[1]/text()"
   },
   {
     "id": 54,
     "created_at": "2022-08-27 18:24:32.917709",
     "updated_at": "2022-08-28 20:13:23.886229",
     "name": "OpenCD",
+    "url": "https://open.cd/",
     "logo": "http://favicon.ico",
     "sign_in_support": 1,
     "get_torrent_support": 0,
@@ -3583,7 +3584,6 @@
     "limit_speed": 100,
     "torrents_rule": "//table[@class=\"torrents\"]/tr",
     "name_rule": ".//td[@class=\"embedded\"]/a/b/text()",
-    "title_rule": ".//tr/td[1]/text()",
     "detail_url_rule": ".//td[@class=\"embedded\"]/a[contains(@href,\"detail\")]/@href",
     "category_rule": ".//td[@class=\"rowfollow nowrap\"][1]/a[1]/img/@class",
     "poster_rule": ".//table/tr/td[1]/img/@src",
@@ -3618,13 +3618,14 @@
     "seed_vol_rule": "//tr/td[3]",
     "mailbox_rule": "//a[@href=\"messages.php\"]/following-sibling::text()[1]",
     "hash_rule": "//tr[11]//td[@class=\"no_border_wide\"][2]/text()",
-    "url": "https://open.cd/"
+    "title_rule": ".//tr/td[1]/text()"
   },
   {
     "id": 55,
     "created_at": "2022-08-27 21:57:23.449068",
     "updated_at": "2022-08-28 20:13:23.888186",
     "name": "这是猫站",
+    "url": "https://pterclub.com/",
     "logo": "http://favicon.ico",
     "sign_in_support": 1,
     "get_torrent_support": 0,
@@ -3654,7 +3655,6 @@
     "limit_speed": 100,
     "torrents_rule": "//table[@class=\"torrents\"]/tr",
     "name_rule": ".//td[@class=\"embedded\"]/a/b/text()",
-    "title_rule": ".//tr/td[1]/text()",
     "detail_url_rule": ".//td[@class=\"embedded\"]/a[contains(@href,\"detail\")]/@href",
     "category_rule": ".//td[@class=\"rowfollow nowrap\"][1]/a[1]/img/@class",
     "poster_rule": ".//table/tr/td[1]/img/@src",
@@ -3689,13 +3689,14 @@
     "seed_vol_rule": "//tr/td[3]",
     "mailbox_rule": "//a[@href=\"messages.php\"]/following-sibling::text()[1]",
     "hash_rule": "//tr[11]//td[@class=\"no_border_wide\"][2]/text()",
-    "url": "https://pterclub.com/"
+    "title_rule": ".//tr/td[1]/text()"
   },
   {
     "id": 56,
     "created_at": "2022-08-27 21:57:47.858789",
     "updated_at": "2022-08-28 20:13:23.890151",
     "name": "柠檬",
+    "url": "https://lemonhd.org/",
     "logo": "http://favicon.ico",
     "sign_in_support": 1,
     "get_torrent_support": 1,
@@ -3725,7 +3726,6 @@
     "limit_speed": 100,
     "torrents_rule": "//table[@class=\"torrents\"]/tr",
     "name_rule": ".//td[@class=\"embedded\"]/a/b/text()",
-    "title_rule": ".//tr/td[1]/text()",
     "detail_url_rule": ".//td[@class=\"embedded\"]/a[contains(@href,\"detail\")]/@href",
     "category_rule": ".//td[@class=\"rowfollow nowrap\"][1]/a[1]/img/@class",
     "poster_rule": ".//table/tr/td[1]/img/@src",
@@ -3760,13 +3760,14 @@
     "seed_vol_rule": "//tr/td[3]",
     "mailbox_rule": "//a[@href=\"messages.php\"]/following-sibling::text()[1]",
     "hash_rule": "//tr[11]//td[@class=\"no_border_wide\"][2]/text()",
-    "url": "https://lemonhd.org/"
+    "title_rule": ".//tr/td[1]/text()"
   },
   {
     "id": 57,
     "created_at": "2022-08-27 21:58:11.379100",
     "updated_at": "2022-08-28 20:13:23.892058",
     "name": "南洋",
+    "url": "https://nanyangpt.com/",
     "logo": "http://favicon.ico",
     "sign_in_support": 1,
     "get_torrent_support": 1,
@@ -3796,7 +3797,6 @@
     "limit_speed": 100,
     "torrents_rule": "//table[@class=\"torrents\"]/tr",
     "name_rule": ".//td[@class=\"embedded\"]/a/b/text()",
-    "title_rule": ".//tr/td[1]/text()",
     "detail_url_rule": ".//td[@class=\"embedded\"]/a[contains(@href,\"detail\")]/@href",
     "category_rule": ".//td[@class=\"rowfollow nowrap\"][1]/a[1]/img/@class",
     "poster_rule": ".//table/tr/td[1]/img/@src",
@@ -3831,6 +3831,6 @@
     "seed_vol_rule": "//tr/td[3]",
     "mailbox_rule": "//a[@href=\"messages.php\"]/following-sibling::text()[1]",
     "hash_rule": "//tr[11]//td[@class=\"no_border_wide\"][2]/text()",
-    "url": "https://nanyangpt.com/"
+    "title_rule": ".//tr/td[1]/text()"
   }
 ]
