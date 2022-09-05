@@ -160,6 +160,43 @@ def get_update_logs():
     return commits[0].hexsha == remote_commits[0].hexsha
 
 
+def update_page(request):
+    try:
+        # 获取docker对象
+        client = docker.from_env()
+        # 从内部获取容器id
+        cid = socket.gethostname()
+        client.api.info()
+        started_at = client.api.inspect_container(cid).get('State').get('StartedAt')[:-4] + 'Z'
+        utc_format = "%Y-%m-%dT%H:%M:%S.%fZ"
+        restart = 'true'
+        utc_time = datetime.strptime(started_at, utc_format)
+        local_time = utc_time + timedelta(hours=8)
+        delta = str((datetime.now() - local_time).seconds) + '秒'
+        print(delta)
+        # delta = local_time.strftime('%Y-%m-%dT%H:%M:%S.%f')
+        # delta = delta.astimezone(pytz.timezone('Asia/Shanghai'))
+    except Exception as e:
+        # raise
+        restart = 'false'
+        delta = '程序未在容器中启动？'
+    if get_update_logs():
+        update = 'false'
+        update_tips = '目前您使用的是最新版本！'
+    else:
+        update = 'true'
+        update_tips = '已有新版本，请根据需要升级！'
+    return render(request, 'auto_pt/update.html',
+                  context={
+                      'delta': delta,
+                      'restart': restart,
+                      'local_logs': get_git_logs(),
+                      'update_notes': get_git_logs(master='origin/master'),
+                      'update': update,
+                      'update_tips': update_tips
+                  })
+
+
 def restart_container(request):
     # scraper = pt_spider.get_scraper()
     # res = scraper.get('https://gitee.com/ngfchl/ptools/raw/master/update.md')
@@ -175,7 +212,7 @@ def restart_container(request):
         restart = 'true'
         utc_time = datetime.strptime(started_at, utc_format)
         local_time = utc_time + timedelta(hours=8)
-        delta = str((datetime.now() - local_time).seconds)+'秒'
+        delta = str((datetime.now() - local_time).seconds) + '秒'
         print(delta)
         # delta = local_time.strftime('%Y-%m-%dT%H:%M:%S.%f')
         # delta = delta.astimezone(pytz.timezone('Asia/Shanghai'))

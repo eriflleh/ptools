@@ -210,6 +210,10 @@ SIMPLEUI_CONFIG = {
             'name': '重启更新',
             'icon': 'far fa-surprise',
             'url': '/tasks/restart'
+        }, {
+            'name': '更新',
+            'icon': 'far fa-surprise',
+            'url': '/tasks/update'
         }, ]
     }]
 }

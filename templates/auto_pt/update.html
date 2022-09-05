@@ -1,0 +1,150 @@
+{% load static %}
+
+<!-- 引入样式 -->
+
+<link rel="stylesheet" href="{% static 'admin/simpleui-x/elementui/theme-chalk/index.css' %}">
+<!-- 引入组件库 -->
+
+<div id="app">
+    <el-card class="box-card">
+        <div slot="header" class="clearfix">
+            <span>
+            <el-button type="primary">更新提示</el-button>
+                <el-popover
+                        placement="top-start"
+                        title="友情提示"
+                        width="300"
+                        trigger="hover"
+                        content="如果遇到无法更新的情况，您可以选择重建容器或者进入容器命令行到项目根目录执行`git pull`命令！">
+                        <el-link slot="reference"
+                                 type="success">{{ update_tips }}
+                            <span v-if="{{ restart }}"> + 容器已运行：{{ delta }}</span>
+                        </el-link>
+                </el-popover>
+            </span>
+            <span style="float: right;margin-top: -10px">
+                 <el-button slot="reference" type="danger" @click="do_restart" v-if="{{ restart }}">重启更新</el-button>
+            </span>
+        </div>
+        <div class="text item">
+            <el-row>
+                <el-col :span="local_log_width">
+                    <el-card class="box-card" shadow="hover">
+                        <div slot="header" class="clearfix">
+                            <span>本地日志</span>
+                        </div>
+                        <el-timeline>
+                            <el-timeline-item
+                                    v-for="(update_note, index) in local_logs"
+                                    :key="index"
+                                    icon="el-icon-refresh"
+                                    type="success"
+                                    color="#0bbd87"
+                                    {# :size="activity.size" #}
+                                    :timestamp="update_note.date">
+                                <el-card shadow="hover">
+                                    <p v-for="content in update_note.data" v-html="content">
+                                    </p>
+                                </el-card>
+
+                            </el-timeline-item>
+                        </el-timeline>
+                    </el-card>
+                </el-col>
+                <el-col :span="12" v-if="update">
+                    <el-card class="box-card" shadow="hover">
+                        <div slot="header" class="clearfix">
+                            <span>更新日志</span>
+                        </div>
+                        <el-timeline>
+                            <el-timeline-item
+                                    v-for="(update_note, index) in update_notes"
+                                    :key="index"
+                                    {# :icon="activity.icon" #}
+                                    {# :type="activity.type" #}
+                                    color="#0bbd87"
+                                    {# :size="activity.size" #}
+                                    :timestamp="update_note.date">
+                                <el-card shadow="hover">
+                                    <p v-for="content in update_note.data" v-html="content">
+                                    </p>
+                                </el-card>
+
+                            </el-timeline-item>
+                        </el-timeline>
+                    </el-card>
+                </el-col>
+            </el-row>
+
+        </div>
+    </el-card>
+</div>
+
+<script src="{% static 'admin/simpleui-x/js/vue.min.js' %}"></script>
+<script src="{% static 'admin/simpleui-x/elementui/index.js' %}"></script>
+<script src="{% static 'admin/simpleui-x/js/axios.min.js' %}"></script>
+
+<script type="text/javascript">
+    // 配置对象 options
+    const vm = new Vue({
+        // 配置选项(option)
+        // element: 指定用vue来管理页面中的哪个标签区域
+        el: '#app',
+        data: {
+            update_notes: {{  update_notes | safe   }},
+            local_logs: {{   local_logs | safe   }},
+            {#local_log: [],#}
+            {#update_log: [],#}
+            update: {{ update }},
+            local_log_width: 24,
+        },
+        created() {
+            if (this.update) {
+                this.local_log_width = 12
+            }
+            this.$message({
+                showClose: true,
+                message: "{{ update_tips }}",
+                type: 'success'
+            });
+        }
+        ,
+        methods: {
+            do_restart() {
+                this.$confirm('此操作将重启容器，并更新软件, 是否继续?', '提示', {
+                    confirmButtonText: '确定',
+                    cancelButtonText: '取消',
+                    type: 'warning'
+                }).then(() => {
+                    axios.get(
+                        "{% url "do_restart" %}"
+                    ).then(res => {
+                        if (res.data.code === 0) {
+                            this.$message({
+                                type: 'success',
+                                message: res.data.msg
+                            });
+                        } else {
+                            console.log(res)
+                            this.$message({
+                                type: 'warning',
+                                message: res.data.msg
+                            });
+                        }
+                    }).catch(res => {
+                        this.$message({
+                            type: 'error',
+                            message: "重启失败！"
+                        });
+                    })
+                }).catch(res => {
+                    {#console.log(res)#}
+                    this.$message({
+                        type: 'info',
+                        message: '已取消重启'
+                    });
+                });
+            },
+        }
+    });
+</script>
