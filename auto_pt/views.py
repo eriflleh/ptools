@@ -9,6 +9,7 @@ from django.http import JsonResponse
 from django.shortcuts import render
 
 from pt_site import views as tasks
+from pt_site.UtilityTool import FileSizeConvert
 from pt_site.models import SiteStatus, MySite, Site
 from pt_site.views import scheduler, pt_spider
 from ptools.base import CommonResponse
@@ -192,6 +193,18 @@ def do_update(request):
             print(i.decode('utf8'))
         # 更新Xpath规则
         print('拉取更新完毕，开始更新Xpath规则')
+        # 字符串型的数据量转化为int型
+        status_list = SiteStatus.objects.all()
+        for status in status_list:
+            if not status.downloaded:
+                status.downloaded = 0
+            if not status.uploaded:
+                status.uploaded = 0
+            if type(status.downloaded) == str and 'B' in status.downloaded:
+                status.downloaded = FileSizeConvert.parse_2_byte(status.downloaded)
+            if type(status.uploaded) == str and 'B' in status.uploaded:
+                status.uploaded = FileSizeConvert.parse_2_byte(status.uploaded)
+            status.save()
         with open('./main_pt_site_site.json', 'r') as f:
             # print(f.readlines())
             data = json.load(f)
@@ -218,6 +231,7 @@ def do_update(request):
             msg='更新成功，重启指令发送成功，容器重启中 ...' if flag else '更新成功，未映射docker路径请手动重启容器 ...'
         ).to_dict(), safe=False)
     except Exception as e:
+        raise
         return JsonResponse(data=CommonResponse.error(
             msg='更新失败!' + str(e)
         ).to_dict(), safe=False)

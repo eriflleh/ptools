@@ -154,6 +154,7 @@ class SiteAdmin(ImportExportModelAdmin):  # instead of ModelAdmin
                 'seed_vol_rule',
                 'my_hr_rule',
                 'mailbox_rule',
+                'notice_rule',
                 'time_join_rule',
                 'latest_active_rule',
             ),
@@ -195,6 +196,7 @@ class StatusInlines(admin.TabularInline):
         'my_sp', 'my_bonus', 'seed_vol',
         'updated_at'
     ]
+    classes = ['collapse']
     readonly_fields = ['updated_at']
     ordering = ['-updated_at']
     # 自定义模板，删除外键显示
@@ -207,6 +209,32 @@ class StatusInlines(admin.TabularInline):
     # 禁止删除按钮
     # def has_delete_permission(self, request, obj=None):
     #     return False
+
+    # 禁止修改按钮
+    def has_change_permission(self, request, obj=None):
+        return False
+
+
+class SignInInlines(admin.StackedInline):
+    model = SignIn
+    fields = [
+        'sign_in_today', 'sign_in_info',
+        'updated_at'
+    ]
+    classes = ['collapse']
+    readonly_fields = ['updated_at']
+    ordering = ['-updated_at']
+
+    # 自定义模板，删除外键显示
+    # template = 'admin/pt_site/inline_status/tabular.html'
+
+    # 禁止添加按钮
+    def has_add_permission(self, request, obj=None):
+        return False
+
+    # 禁止删除按钮
+    def has_delete_permission(self, request, obj=None):
+        return False
 
     # 禁止修改按钮
     def has_change_permission(self, request, obj=None):
@@ -243,6 +271,7 @@ class MySiteAdmin(ImportExportModelAdmin):  # instead of ModelAdmin
     # empty_value_display = '**'
     inlines = (
         StatusInlines,
+        SignInInlines
     )
 
     def edit(self, obj: MySite):
@@ -458,29 +487,22 @@ class MySiteAdmin(ImportExportModelAdmin):  # instead of ModelAdmin
     fieldsets = (
         ['用户信息', {
             'fields': (
-                ('site',),
+                ('site', 'sign_in', 'hr', 'search'),
                 ('user_id', 'passkey',),
                 'cookie',
-                # 'time_join'
-            ),
-        }],
-        ['用户设置', {
-            'fields': (
-                ('sign_in', 'hr',),
-                ('search',),
             ),
         }],
     )
 
 
+"""
 @admin.register(SiteStatus)
 class SiteStatusAdmin(ImportExportModelAdmin):
     formats = (base_formats.XLS, base_formats.CSV, base_formats.JSON)
     list_display = ['site',
-                    # 'sign_in', 'my_level', 'invitation', 'seed', 'leech',
-                    'uploaded', 'downloaded', 'ratio',
+                    'upload', 'download', 'ratio',
                     'my_sp', 'my_bonus',
-                    # 'my_hr', 'time_join', 'latest_active',
+                    'seed_vol',
                     'updated_at']
     list_filter = ['site', 'updated_at']
 
@@ -488,6 +510,16 @@ class SiteStatusAdmin(ImportExportModelAdmin):
 
     ordering = ['site__sort_id']
     autocomplete_fields = ('site',)
+
+    # 自定义更新时间，提醒今日是否更新
+    def upload(self, obj: SiteStatus):
+        return FileSizeConvert.parse_2_file_size(obj.uploaded)
+
+    def download(self, obj: SiteStatus):
+        return FileSizeConvert.parse_2_file_size(obj.downloaded)
+
+    upload.short_description = '上传量'
+    download.short_description = '下载量'
 
     # 禁止添加按钮
     def has_add_permission(self, request):
@@ -528,6 +560,7 @@ class SiteStatusAdmin(ImportExportModelAdmin):
     #         # print(request.META)
     #
     #     return super(SiteStatusAdmin, self).changelist_view(request, extra_context=extra_context)
+"""
 
 
 @admin.register(Downloader)

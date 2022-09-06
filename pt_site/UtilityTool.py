@@ -891,10 +891,11 @@ class PtSpider:
             downloaded = ''.join(
                 details_html.xpath(site.downloaded_rule)
             ).replace(':', '').replace('\xa0\xa0', '').strip(' ')
-
+            downloaded = FileSizeConvert.parse_2_byte(downloaded)
             uploaded = ''.join(
                 details_html.xpath(site.uploaded_rule)
             ).replace(':', '').strip(' ')
+            uploaded = FileSizeConvert.parse_2_byte(uploaded)
 
             invitation = ''.join(
                 details_html.xpath(site.invitation_rule)
@@ -1011,8 +1012,8 @@ class PtSpider:
                 result = SiteStatus.objects.update_or_create(site=my_site, updated_at__date__gte=datetime.today(),
                                                              defaults={
                                                                  'ratio': float(ratio) if ratio else 0,
-                                                                 'downloaded': downloaded,
-                                                                 'uploaded': uploaded,
+                                                                 'downloaded': int(downloaded),
+                                                                 'uploaded': int(uploaded),
                                                                  'my_sp': float(my_sp),
                                                                  'my_bonus': float(my_bonus) if my_bonus != '' else 0,
                                                                  # 做种体积
