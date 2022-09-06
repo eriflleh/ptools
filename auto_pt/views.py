@@ -205,14 +205,17 @@ def do_update(request):
                 site_obj = Site.objects.update_or_create(defaults=site_rules, url=site_rules.get('url'))
                 print(site_obj[0].name + (' 规则新增成功！' if site_obj[1] else '规则更新成功！'))
         print('更新完毕，开始重启')
-        do_restart(request)
+        print(request.GET.get('restart'))
+        flag = request.GET.get('restart') == 'true'
+        if flag:
+            do_restart(request)
         # cid = socket.gethostname()
         # reboot = subprocess.Popen('docker restart {}'.format(cid), shell=True, stdout=subprocess.PIPE, )
         # out = reboot.stdout.readline().decode('utf8')
         # client.api.inspect_container(cid)
         # StartedAt = client.api.inspect_container(cid).get('State').get('StartedAt')
         return JsonResponse(data=CommonResponse.error(
-            msg='更新成功，重启指令发送成功，容器重启中 ...'
+            msg='更新成功，重启指令发送成功，容器重启中 ...' if flag else '更新成功，未映射docker路径请手动重启容器 ...'
         ).to_dict(), safe=False)
     except Exception as e:
         return JsonResponse(data=CommonResponse.error(

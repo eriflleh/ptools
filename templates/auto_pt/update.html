@@ -23,8 +23,34 @@
                 </el-popover>
             </span>
             <span style="float: right;margin-top: -10px">
-                 <el-button slot="reference" type="danger" @click="do_update" v-if="{{ update }}">重启更新</el-button>
-                 <el-button slot="reference" type="danger" @click="do_restart" v-else>重启</el-button>
+                <el-popover
+                        placement="top-start"
+                        title="友情提示"
+                        width="300"
+                        trigger="hover"
+                        content="更新之前会自动备份数据库，更新完毕后会自动重启容器！">
+                 <el-button slot="reference" type="danger" @click="do_update({{ restart }})"
+                            v-if="update && restart"
+                 >重启更新</el-button>
+                </el-popover>
+                    <el-popover
+                            placement="top-start"
+                            title="友情提示"
+                            width="300"
+                            trigger="hover"
+                            content="没啥特殊功能，就是重启下容器！">
+                 <el-button slot="reference" type="danger" @click="do_restart" v-if="!update && restart">重启</el-button>
+                    </el-popover>
+                 <el-popover
+                         placement="top-start"
+                         title="友情提示"
+                         width="300"
+                         trigger="hover"
+                         content="未映射docker路径，更新完毕后请手动重启容器！">
+                    <el-button slot="reference" type="danger" @click="do_update({{ restart }})"
+                               v-if="update && !restart"
+                    >更新</el-button>
+                 </el-popover>
             </span>
         </div>
         <div class="text item">
@@ -95,7 +121,7 @@
             update_notes: {{  update_notes | safe   }},
             local_logs: {{   local_logs | safe   }},
             {#local_log: [],#}
-            {#update_log: [],#}
+            restart: {{ restart }},
             update: {{ update }},
             local_log_width: 24,
         },
@@ -148,14 +174,19 @@
                 });
             },
 
-            do_update() {
+            do_update(restart) {
+                console.log(restart)
                 this.$confirm('此操作会拉取软件更新软件,并重启容器，是否继续?', '提示', {
                     confirmButtonText: '确定',
                     cancelButtonText: '取消',
                     type: 'warning'
                 }).then(() => {
                     axios.get(
-                        "{% url "do_update" %}"
+                        "{% url "do_update" %}", {
+                            params: {
+                                restart: restart
+                            }
+                        }
                     ).then(res => {
                         if (res.data.code === 0) {
                             console.log(res, 1)
