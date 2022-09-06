@@ -34,6 +34,7 @@
     "limit_speed": 100,
     "torrents_rule": "//table[@class=\"torrents\"]/tr",
     "name_rule": ".//td[@class=\"embedded\"]/a/b/text()",
+    "title_rule": ".//tr/td[1]/text()",
     "detail_url_rule": ".//td[@class=\"embedded\"]/a[contains(@href,\"detail\")]/@href",
     "category_rule": ".//td[@class=\"rowfollow nowrap\"][1]/a[1]/img/@class",
     "poster_rule": ".//table/tr/td[1]/img/@src",
@@ -66,17 +67,17 @@
     "seed_rule": "/html/body/b/text()",
     "record_count_rule": "/html/body/b/text()",
     "seed_vol_rule": "//tr/td[3]",
-    "mailbox_rule": "//a[@href=\"messages.php\"]/following-sibling::text()[1]",
     "hash_rule": "//tr[10]//td[@class=\"no_border_wide\"][2]/text()",
-    "title_rule": ".//tr/td[1]/text()"
+    "notice_rule": "//a[@href=\"index.php\"]/font/text()[1]",
+    "mailbox_rule": "//a[@href=\"messages.php\"]/font/text()[1]"
   },
   {
     "id": 2,
     "created_at": "2022-07-17 10:24:21.376256",
-    "updated_at": "2022-08-28 20:13:23.784846",
+    "updated_at": "2022-09-05 19:42:56.276408",
     "name": "猪猪网",
     "url": "https://piggo.me/",
-    "logo": "favicon.ico",
+    "logo": "http://favicon.ico",
     "sign_in_support": 1,
     "get_torrent_support": 1,
     "get_userinfo_support": 1,
@@ -105,6 +106,7 @@
     "limit_speed": 100,
     "torrents_rule": "//table[@class=\"torrents\"]/tr",
     "name_rule": ".//td[@class=\"embedded\"]/a/b/text()",
+    "title_rule": ".//tr/td[@class=\"embedded\"][1]/text()",
     "detail_url_rule": ".//td[@class=\"embedded\"]/a[contains(@href,\"detail\")]/@href",
     "category_rule": ".//td[@class=\"rowfollow nowrap\"][1]/a[1]/img/@class",
     "poster_rule": ".//table/tr/td[1]/img/@src",
@@ -122,24 +124,24 @@
     "viewpeerlist_rule": ".//tr/td[9]/nobr/text()",
     "peer_speed_rule": ".//tr/td[5]/nobr/text()",
     "remark": "",
-    "invitation_rule": "//table/tr[2]/td[2]/a/text()",
-    "time_join_rule": "//table/tr[3]/td[2]/span/@title",
-    "latest_active_rule": "//table/tr[4]/td[2]/span/@title",
-    "uploaded_rule": "//tr[8]/td[2]/table/tr[2]/td[1]/text()",
-    "downloaded_rule": "//tr[8]/td[2]//table/tr[2]/td[2]/text()",
-    "ratio_rule": "//tr[8]/td[2]/table/tr/td[1]/font/text()",
-    "my_sp_rule": "//tr[16]/td[2]/text()",
+    "invitation_rule": "//a[contains(@href,\"invite.php?id=\")]/following-sibling::text()[1]",
+    "time_join_rule": "//td[contains(text(),\"加入\")]/following-sibling::td[1]//span/@title",
+    "latest_active_rule": "//td[contains(text(),\"最近动向\")]/following-sibling::td[1]//span/@title",
+    "uploaded_rule": "//font[@class=\"color_uploaded\"]/following-sibling::text()[1]",
+    "downloaded_rule": "//font[@class=\"color_downloaded\"]/following-sibling::text()[1]",
+    "ratio_rule": "//font[@class=\"color_ratio\"][1]/following-sibling::text()[1]",
+    "my_sp_rule": "//a[@href=\"mybonus.php\"]/following-sibling::text()[1]",
     "hour_sp_rule": "//div[contains(text(),\"每小时\")]/text()[1]",
-    "my_bonus_rule": "//tr[17]/td[2]/text()",
-    "my_level_rule": "//tr/td/span/span/a/@class",
-    "my_hr_rule": "//tr[14]/td[2]/a/text()",
+    "my_bonus_rule": "//font[@class=\"color_bonus\" and contains(text(),\"积分\")]/following-sibling::text()[1]",
+    "my_level_rule": "//span[@class=\"medium\"]/span[@class=\"nowrap\"][1]/a[contains(@class,\"_Name\")]/@class",
+    "my_hr_rule": "//a[@href=\"myhr.php\"]/text()",
     "leech_rule": "//img[@class=\"arrowdown\"][1]/following-sibling::text()[1]",
-    "seed_rule": "/html/body/b/text()",
+    "seed_rule": "//img[@class=\"arrowup\"][1]/following-sibling::text()[1]",
     "record_count_rule": "/html/body/b/text()",
     "seed_vol_rule": "//tr/td[4]",
-    "mailbox_rule": "//a[@href=\"messages.php\"]/following-sibling::text()[1]",
     "hash_rule": "//tr[13]/td[2]/table/tbody/tr/td[1]/text()",
-    "title_rule": ".//tr/td[@class=\"embedded\"][1]/text()"
+    "notice_rule": "//a[@href=\"index.php\"]/font/text()[1]",
+    "mailbox_rule": "//a[@href=\"messages.php\"]/font/text()[1]"
   },
   {
     "id": 3,
@@ -176,6 +178,7 @@
     "limit_speed": 100,
     "torrents_rule": "//table[@class=\"torrents\"]/tr",
     "name_rule": ".//td[@class=\"embedded\"]/a/b/text()",
+    "title_rule": ".//tr/td[1]/text()",
     "detail_url_rule": ".//td[@class=\"embedded\"]/a[contains(@href,\"detail\")]/@href",
     "category_rule": ".//td[@class=\"rowfollow nowrap\"][1]/a[1]/img/@class",
     "poster_rule": ".//table/tr/td[1]/img/@src",
@@ -208,9 +211,9 @@
     "seed_rule": "/html/body/b/text()",
     "record_count_rule": "/html/body/b/text()",
     "seed_vol_rule": "//tr/td[3]",
-    "mailbox_rule": "//a[@href=\"messages.php\"]/following-sibling::text()[1]",
     "hash_rule": "//tr[13]/td[2]/table/tbody/tr/td[1]/text()",
-    "title_rule": ".//tr/td[1]/text()"
+    "notice_rule": "//a[@href=\"index.php\"]/font/text()[1]",
+    "mailbox_rule": "//a[@href=\"messages.php\"]/font/text()[1]"
   },
   {
     "id": 5,
@@ -247,6 +250,7 @@
     "limit_speed": 100,
     "torrents_rule": "//table[@class=\"torrents\"]/tr",
     "name_rule": ".//td[@class=\"embedded\"]/a/b/text()",
+    "title_rule": ".//tr/td[1]/text()",
     "detail_url_rule": ".//td[@class=\"embedded\"]/a[contains(@href,\"detail\")]/@href",
     "category_rule": ".//td[@class=\"rowfollow nowrap\"][1]/a[1]/img/@class",
     "poster_rule": ".//table/tr/td[1]/img/@src",
@@ -279,9 +283,9 @@
     "seed_rule": "/html/body/b/text()",
     "record_count_rule": "/html/body/b/text()",
     "seed_vol_rule": "//tr/td[4]",
-    "mailbox_rule": "//a[@href=\"messages.php\"]/following-sibling::text()[1]",
     "hash_rule": "//tr[13]/td[2]/table/tbody/tr/td[1]/text()",
-    "title_rule": ".//tr/td[1]/text()"
+    "notice_rule": "//a[@href=\"index.php\"]/font/text()[1]",
+    "mailbox_rule": "//a[@href=\"messages.php\"]/font/text()[1]"
   },
   {
     "id": 7,
@@ -318,6 +322,7 @@
     "limit_speed": 100,
     "torrents_rule": "//table[@class=\"torrents\"]/tr",
     "name_rule": ".//td[@class=\"embedded\"]/a/b/text()",
+    "title_rule": ".//tr/td[1]/text()",
     "detail_url_rule": ".//td[@class=\"embedded\"]/a[contains(@href,\"detail\")]/@href",
     "category_rule": ".//td[@class=\"rowfollow nowrap\"][1]/a[1]/img/@class",
     "poster_rule": ".//table/tr/td[1]/img/@src",
@@ -350,9 +355,9 @@
     "seed_rule": "/html/body/b/text()",
     "record_count_rule": "/html/body/b/text()",
     "seed_vol_rule": "//tr/td[3]",
-    "mailbox_rule": "//a[@href=\"messages.php\"]/following-sibling::text()[1]",
     "hash_rule": "//tr[13]/td[2]/table/tbody/tr/td[1]/text()",
-    "title_rule": ".//tr/td[1]/text()"
+    "notice_rule": "//a[@href=\"index.php\"]/font/text()[1]",
+    "mailbox_rule": "//a[@href=\"messages.php\"]/font/text()[1]"
   },
   {
     "id": 8,
@@ -389,6 +394,7 @@
     "limit_speed": 100,
     "torrents_rule": "//table[@class=\"torrents\"]/tr",
     "name_rule": ".//td[@class=\"embedded\"]/a/b/text()",
+    "title_rule": ".//tr/td[1]/text()",
     "detail_url_rule": ".//td[@class=\"embedded\"]/a[contains(@href,\"detail\")]/@href",
     "category_rule": ".//td[@class=\"rowfollow nowrap\"][1]/a[1]/img/@class",
     "poster_rule": ".//table/tr/td[1]/img/@src",
@@ -421,9 +427,9 @@
     "seed_rule": "//img[@class=\"arrowup\"][1]/following-sibling::text()[1]",
     "record_count_rule": "/html/body/b/text()",
     "seed_vol_rule": "//tr/td[4]",
-    "mailbox_rule": "//a[@href=\"messages.php\"]/following-sibling::text()[1]",
     "hash_rule": "//tr[13]/td[2]/table/tbody/tr/td[1]/text()",
-    "title_rule": ".//tr/td[1]/text()"
+    "notice_rule": "//a[@href=\"index.php\"]/font/text()[1]",
+    "mailbox_rule": "//a[@href=\"messages.php\"]/font/text()[1]"
   },
   {
     "id": 9,
@@ -460,6 +466,7 @@
     "limit_speed": 100,
     "torrents_rule": "//table[@class=\"torrents\"]/tr",
     "name_rule": ".//td[@class=\"embedded\"]/a/b/text()",
+    "title_rule": ".//tr/td[1]/text()",
     "detail_url_rule": ".//td[@class=\"embedded\"]/a[contains(@href,\"detail\")]/@href",
     "category_rule": ".//td[@class=\"rowfollow nowrap\"][1]/a[1]/img/@class",
     "poster_rule": ".//table/tr/td[1]/img/@src",
@@ -492,9 +499,9 @@
     "seed_rule": "/html/body/b/text()",
     "record_count_rule": "/html/body/b/text()",
     "seed_vol_rule": "//tr/td[3]",
-    "mailbox_rule": "//a[@href=\"messages.php\"]/following-sibling::text()[1]",
     "hash_rule": "//tr[13]/td[2]/table/tbody/tr/td[1]/text()",
-    "title_rule": ".//tr/td[1]/text()"
+    "notice_rule": "//a[@href=\"index.php\"]/font/text()[1]",
+    "mailbox_rule": "//a[@href=\"messages.php\"]/font/text()[1]"
   },
   {
     "id": 10,
@@ -531,6 +538,7 @@
     "limit_speed": 100,
     "torrents_rule": "//table[@class=\"torrents\"]/tr",
     "name_rule": ".//td[@class=\"embedded\"]/a/b/text()",
+    "title_rule": ".//tr/td[1]/text()",
     "detail_url_rule": ".//td[@class=\"embedded\"]/a[contains(@href,\"detail\")]/@href",
     "category_rule": ".//td[@class=\"rowfollow nowrap\"][1]/a[1]/img/@class",
     "poster_rule": ".//table/tr/td[1]/img/@src",
@@ -563,9 +571,9 @@
     "seed_rule": "//img[@class=\"arrowup\"][1]/following-sibling::text()[1]",
     "record_count_rule": "/html/body/b/text()",
     "seed_vol_rule": "//tr/td[4]",
-    "mailbox_rule": "//a[@href=\"messages.php\"]/following-sibling::text()[1]",
     "hash_rule": "//tr[13]/td[2]/table/tbody/tr/td[1]/text()",
-    "title_rule": ".//tr/td[1]/text()"
+    "notice_rule": "//a[@href=\"index.php\"]/font/text()[1]",
+    "mailbox_rule": "//a[@href=\"messages.php\"]/font/text()[1]"
   },
   {
     "id": 11,
@@ -602,6 +610,7 @@
     "limit_speed": 100,
     "torrents_rule": "//table[contains(@class,\"torrents\")]/tr",
     "name_rule": ".//td[@class=\"embedded\"]/a/b/text()",
+    "title_rule": ".//tr/td[1]/text()",
     "detail_url_rule": ".//td[@class=\"embedded\"]/a[contains(@href,\"detail\")]/@href",
     "category_rule": ".//td[@class=\"rowfollow nowrap\"][1]/a[1]/img/@class",
     "poster_rule": ".//table/tr/td[1]/img/@src",
@@ -634,9 +643,9 @@
     "seed_rule": "//img[@class=\"arrowup\"]/following-sibling::text()[1]",
     "record_count_rule": "/html/body/b/text()",
     "seed_vol_rule": "//tr/td[3]",
-    "mailbox_rule": "//a[@href=\"messages.php\"]/following-sibling::text()[1]",
     "hash_rule": "//tr[13]/td[2]/table/tbody/tr/td[1]/text()",
-    "title_rule": ".//tr/td[1]/text()"
+    "notice_rule": "//a[@href=\"index.php\"]/font/text()[1]",
+    "mailbox_rule": "//a[@href=\"messages.php\"]/font/text()[1]"
   },
   {
     "id": 12,
@@ -673,6 +682,7 @@
     "limit_speed": 100,
     "torrents_rule": "//table[@class=\"torrents\"]/tr",
     "name_rule": ".//td[@class=\"embedded\"]/a/b/text()",
+    "title_rule": ".//tr/td[1]/text()",
     "detail_url_rule": ".//td[@class=\"embedded\"]/a[contains(@href,\"detail\")]/@href",
     "category_rule": ".//td[@class=\"rowfollow nowrap\"][1]/a[1]/img/@class",
     "poster_rule": ".//table/tr/td[1]/img/@src",
@@ -705,9 +715,9 @@
     "seed_rule": "/html/body/b/text()",
     "record_count_rule": "/html/body/b/text()",
     "seed_vol_rule": "//tr/td[4]",
-    "mailbox_rule": "//a[@href=\"messages.php\"]/following-sibling::text()[1]",
     "hash_rule": "//tr[13]/td[2]/table/tbody/tr/td[1]/text()",
-    "title_rule": ".//tr/td[1]/text()"
+    "notice_rule": "//a[@href=\"index.php\"]/font/text()[1]",
+    "mailbox_rule": "//a[@href=\"messages.php\"]/font/text()[1]"
   },
   {
     "id": 13,
@@ -744,6 +754,7 @@
     "limit_speed": 100,
     "torrents_rule": "//table[@class=\"torrents\"]/tr",
     "name_rule": ".//td[@class=\"embedded\"]/a/b/text()",
+    "title_rule": ".//tr/td[1]/text()",
     "detail_url_rule": ".//td[@class=\"embedded\"]/a[contains(@href,\"detail\")]/@href",
     "category_rule": ".//td[@class=\"rowfollow nowrap\"][1]/a[1]/img/@class",
     "poster_rule": ".//table/tr/td[1]/img/@src",
@@ -776,9 +787,9 @@
     "seed_rule": "/html/body/b/text()",
     "record_count_rule": "/html/body/b/text()",
     "seed_vol_rule": "//tr/td[3]",
-    "mailbox_rule": "//a[@href=\"messages.php\"]/following-sibling::text()[1]",
     "hash_rule": "//tr[13]/td[2]/table/tbody/tr/td[1]/text()",
-    "title_rule": ".//tr/td[1]/text()"
+    "notice_rule": "//a[@href=\"index.php\"]/font/text()[1]",
+    "mailbox_rule": "//a[@href=\"messages.php\"]/font/text()[1]"
   },
   {
     "id": 14,
@@ -815,6 +826,7 @@
     "limit_speed": 100,
     "torrents_rule": "//table[@class=\"torrents\"]/tr",
     "name_rule": ".//td[@class=\"embedded\"]/a/b/text()",
+    "title_rule": ".//tr/td[1]/text()",
     "detail_url_rule": ".//td[@class=\"embedded\"]/a[contains(@href,\"detail\")]/@href",
     "category_rule": ".//td[@class=\"rowfollow nowrap\"][1]/a[1]/img/@class",
     "poster_rule": ".//table/tr/td[1]/img/@src",
@@ -847,9 +859,9 @@
     "seed_rule": "/html/body/b/text()",
     "record_count_rule": "/html/body/b/text()",
     "seed_vol_rule": "//tr/td[4]",
-    "mailbox_rule": "//a[@href=\"messages.php\"]/following-sibling::text()[1]",
     "hash_rule": "//tr[13]/td[2]/table/tbody/tr/td[1]/text()",
-    "title_rule": ".//tr/td[1]/text()"
+    "notice_rule": "//a[@href=\"index.php\"]/font/text()[1]",
+    "mailbox_rule": "//a[@href=\"messages.php\"]/font/text()[1]"
   },
   {
     "id": 15,
@@ -886,6 +898,7 @@
     "limit_speed": 100,
     "torrents_rule": "//table[@class=\"torrents\"]/tr",
     "name_rule": ".//td[@class=\"embedded\"]/a/b/text()",
+    "title_rule": ".//tr/td[1]/text()",
     "detail_url_rule": ".//td[@class=\"embedded\"]/a[contains(@href,\"detail\")]/@href",
     "category_rule": ".//td[@class=\"rowfollow nowrap\"][1]/a[1]/img/@class",
     "poster_rule": ".//table/tr/td[1]/img/@src",
@@ -918,9 +931,9 @@
     "seed_rule": "//img[@class=\"arrowup\"][1]/following-sibling::text()[1]",
     "record_count_rule": "/html/body/b/text()",
     "seed_vol_rule": "//tr/td[3]",
-    "mailbox_rule": "//a[@href=\"messages.php\"]/following-sibling::text()[1]",
     "hash_rule": "//tr[13]/td[2]/table/tbody/tr/td[1]/text()",
-    "title_rule": ".//tr/td[1]/text()"
+    "notice_rule": "//a[@href=\"index.php\"]/font/text()[1]",
+    "mailbox_rule": "//a[@href=\"messages.php\"]/font/text()[1]"
   },
   {
     "id": 16,
@@ -957,6 +970,7 @@
     "limit_speed": 100,
     "torrents_rule": "//table[@class=\"torrents\"]/tr",
     "name_rule": ".//td[@class=\"embedded\"]/a/b/text()",
+    "title_rule": ".//tr/td[1]/text()",
     "detail_url_rule": ".//td[@class=\"embedded\"]/a[contains(@href,\"detail\")]/@href",
     "category_rule": ".//td[@class=\"rowfollow nowrap\"][1]/a[1]/img/@class",
     "poster_rule": ".//table/tr/td[1]/img/@src",
@@ -989,9 +1003,9 @@
     "seed_rule": "//img[@class=\"arrowup\"][1]/following-sibling::text()[1]",
     "record_count_rule": "/html/body/b/text()",
     "seed_vol_rule": "//tr/td[4]",
-    "mailbox_rule": "//a[@href=\"messages.php\"]/following-sibling::text()[1]",
     "hash_rule": "//tr[13]/td[2]/table/tbody/tr/td[1]/text()",
-    "title_rule": ".//tr/td[1]/text()"
+    "notice_rule": "//a[@href=\"index.php\"]/font/text()[1]",
+    "mailbox_rule": "//a[@href=\"messages.php\"]/font/text()[1]"
   },
   {
     "id": 17,
@@ -1028,6 +1042,7 @@
     "limit_speed": 100,
     "torrents_rule": "//table[@class=\"torrents\"]/tr",
     "name_rule": ".//td[@class=\"embedded\"]/a/b/text()",
+    "title_rule": ".//tr/td[1]/text()",
     "detail_url_rule": ".//td[@class=\"embedded\"]/a[contains(@href,\"detail\")]/@href",
     "category_rule": ".//td[@class=\"rowfollow nowrap\"][1]/a[1]/img/@class",
     "poster_rule": ".//table/tr/td[1]/img/@src",
@@ -1060,9 +1075,9 @@
     "seed_rule": "//img[@class=\"arrowup\"]/following-sibling::text()[1]",
     "record_count_rule": "/html/body/b/text()",
     "seed_vol_rule": "//tr/td[4]",
-    "mailbox_rule": "//a[@href=\"messages.php\"]/following-sibling::text()[1]",
     "hash_rule": "//tr[13]/td[2]/table/tbody/tr/td[1]/text()",
-    "title_rule": ".//tr/td[1]/text()"
+    "notice_rule": "//a[@href=\"index.php\"]/font/text()[1]",
+    "mailbox_rule": "//a[@href=\"messages.php\"]/font/text()[1]"
   },
   {
     "id": 18,
@@ -1099,6 +1114,7 @@
     "limit_speed": 100,
     "torrents_rule": "//table[@class=\"torrents\"]/tr",
     "name_rule": ".//td[@class=\"embedded\"]/a/b/text()",
+    "title_rule": ".//tr/td[1]/text()",
     "detail_url_rule": ".//td[@class=\"embedded\"]/a[contains(@href,\"detail\")]/@href",
     "category_rule": ".//td[@class=\"rowfollow nowrap\"][1]/a[1]/img/@class",
     "poster_rule": ".//table/tr/td[1]/img/@src",
@@ -1131,9 +1147,9 @@
     "seed_rule": "//img[@class=\"arrowup\"][1]/following-sibling::text()[1]",
     "record_count_rule": "/html/body/b/text()",
     "seed_vol_rule": "//tr/td[3]",
-    "mailbox_rule": "//a[@href=\"messages.php\"]/following-sibling::text()[1]",
     "hash_rule": "//tr[13]/td[2]/table/tbody/tr/td[1]/text()",
-    "title_rule": ".//tr/td[1]/text()"
+    "notice_rule": "//a[@href=\"index.php\"]/font/text()[1]",
+    "mailbox_rule": "//a[@href=\"messages.php\"]/font/text()[1]"
   },
   {
     "id": 19,
@@ -1170,6 +1186,7 @@
     "limit_speed": 100,
     "torrents_rule": "//table[@class=\"torrents\"]/tr",
     "name_rule": ".//td[@class=\"embedded\"]/a/b/text()",
+    "title_rule": ".//tr/td[@class=\"embedded\"][1]/text()",
     "detail_url_rule": ".//td[@class=\"embedded\"]/a[contains(@href,\"detail\")]/b/parent::a/@href",
     "category_rule": ".//td[@class=\"rowfollow nowrap\"][1]/a[1]/img/@alt",
     "poster_rule": ".//table/tr/td[1]/img/@src",
@@ -1202,9 +1219,9 @@
     "seed_rule": "//i[@class=\"arrowup icon pt-shangsheng fcr\"]/following-sibling::text()[1]",
     "record_count_rule": "/html/body/b/text()",
     "seed_vol_rule": "//tr/td[3]",
-    "mailbox_rule": "//a[@href=\"messages.php\"]/following-sibling::text()[1]",
     "hash_rule": "//tr[13]/td[2]/table/tbody/tr/td[1]/text()",
-    "title_rule": ".//tr/td[@class=\"embedded\"][1]/text()"
+    "notice_rule": "//a[@href=\"index.php\"]/font/text()[1]",
+    "mailbox_rule": "//a[@href=\"messages.php\"]/font/text()[1]"
   },
   {
     "id": 20,
@@ -1241,6 +1258,7 @@
     "limit_speed": 100,
     "torrents_rule": "//table[@class=\"torrents\"]/tr",
     "name_rule": ".//td[@class=\"embedded\"]/a/b/text()",
+    "title_rule": ".//tr/td[1]/text()",
     "detail_url_rule": ".//td[@class=\"embedded\"]/a[contains(@href,\"detail\")]/@href",
     "category_rule": ".//td[@class=\"rowfollow nowrap\"][1]/a[1]/img/@alt",
     "poster_rule": ".//table/tr/td[1]/img/@src",
@@ -1273,9 +1291,9 @@
     "seed_rule": "//img[@class=\"arrowup\"][1]/following-sibling::text()[1]",
     "record_count_rule": "/html/body/b/text()",
     "seed_vol_rule": "//tr/td[3]",
-    "mailbox_rule": "//a[@href=\"messages.php\"]/following-sibling::text()[1]",
     "hash_rule": "//tr[13]/td[2]/table/tbody/tr/td[1]/text()",
-    "title_rule": ".//tr/td[1]/text()"
+    "notice_rule": "//a[@href=\"index.php\"]/font/text()[1]",
+    "mailbox_rule": "//a[@href=\"messages.php\"]/font/text()[1]"
   },
   {
     "id": 21,
@@ -1312,6 +1330,7 @@
     "limit_speed": 100,
     "torrents_rule": "//table[@class=\"torrents\"]/tr",
     "name_rule": ".//td[@class=\"embedded\"]/a/b/text()",
+    "title_rule": ".//tr/td[1]/text()",
     "detail_url_rule": ".//td[@class=\"embedded\"]/a[contains(@href,\"detail\")]/@href",
     "category_rule": ".//td[@class=\"rowfollow nowrap\"][1]/a[1]/img/@alt",
     "poster_rule": ".//table/tr/td[1]/img/@src",
@@ -1344,9 +1363,9 @@
     "seed_rule": "//img[@class=\"arrowup\"][1]/following-sibling::text()[1]",
     "record_count_rule": "/html/body/b/text()",
     "seed_vol_rule": "//tr/td[3]",
-    "mailbox_rule": "//a[@href=\"messages.php\"]/following-sibling::text()[1]",
     "hash_rule": "//tr[13]/td[2]/table/tbody/tr/td[1]/text()",
-    "title_rule": ".//tr/td[1]/text()"
+    "notice_rule": "//a[@href=\"index.php\"]/font/text()[1]",
+    "mailbox_rule": "//a[@href=\"messages.php\"]/font/text()[1]"
   },
   {
     "id": 22,
@@ -1383,6 +1402,7 @@
     "limit_speed": 100,
     "torrents_rule": "//table[@class=\"torrents\"]/tbody/tr",
     "name_rule": ".//td[@class=\"embedded\"]/a/@title",
+    "title_rule": ".//td[@class=\"embedded\"][1]/text()",
     "detail_url_rule": ".//td[@class=\"embedded\"]/a[contains(@href,\"detail\")]/@href",
     "category_rule": ".//td[@class=\"rowfollow nowrap\"][1]/a[1]/img/@alt",
     "poster_rule": ".//table/tr/td[2]/img/@src",
@@ -1415,9 +1435,9 @@
     "seed_rule": "//img[@class=\"arrowup\"][1]/following-sibling::text()[1]",
     "record_count_rule": "/html/body/b/text()",
     "seed_vol_rule": "//tr/td[3]",
-    "mailbox_rule": "//a[@href=\"messages.php\"]/following-sibling::text()[1]",
     "hash_rule": "//tr[13]/td[2]/table/tbody/tr/td[1]/text()",
-    "title_rule": ".//td[@class=\"embedded\"][1]/text()"
+    "notice_rule": "//a[@href=\"index.php\"]/font/text()[1]",
+    "mailbox_rule": "//a[@href=\"messages.php\"]/font/text()[1]"
   },
   {
     "id": 23,
@@ -1454,6 +1474,7 @@
     "limit_speed": 100,
     "torrents_rule": "//table[@class=\"torrents\"]/tr",
     "name_rule": ".//td[@class=\"embedded\"]/a/b/text()",
+    "title_rule": ".//tr/td[1]/text()",
     "detail_url_rule": ".//td[@class=\"embedded\"]/a[contains(@href,\"detail\")]/@href",
     "category_rule": ".//td[@class=\"rowfollow nowrap\"][1]/a[1]/img/@alt",
     "poster_rule": ".//table/tr/td[1]/img/@src",
@@ -1486,9 +1507,9 @@
     "seed_rule": "//img[@class=\"arrowup\"][1]/following-sibling::text()[1]",
     "record_count_rule": "/html/body/b/text()",
     "seed_vol_rule": "//tr/td[3]",
-    "mailbox_rule": "//a[@href=\"messages.php\"]/following-sibling::text()[1]",
     "hash_rule": "//tr[13]/td[2]/table/tbody/tr/td[1]/text()",
-    "title_rule": ".//tr/td[1]/text()"
+    "notice_rule": "//a[@href=\"index.php\"]/font/text()[1]",
+    "mailbox_rule": "//a[@href=\"messages.php\"]/font/text()[1]"
   },
   {
     "id": 24,
@@ -1525,6 +1546,7 @@
     "limit_speed": 100,
     "torrents_rule": "//table[@class=\"torrents\"]/tr",
     "name_rule": ".//td[@class=\"embedded\"]/a/b/text()",
+    "title_rule": ".//tr/td[1]/text()",
     "detail_url_rule": ".//td[@class=\"embedded\"]/a[contains(@href,\"detail\")]/@href",
     "category_rule": ".//td[@class=\"rowfollow nowrap\"][1]/a[1]/img/@alt",
     "poster_rule": ".//table/tr/td[1]/img/@src",
@@ -1557,9 +1579,9 @@
     "seed_rule": "//img[@class=\"arrowup\"][1]/following-sibling::text()[1]",
     "record_count_rule": "/html/body/b/text()",
     "seed_vol_rule": "//tr/td[3]",
-    "mailbox_rule": "//a[@href=\"messages.php\"]/following-sibling::text()[1]",
     "hash_rule": "//tr[13]/td[2]/table/tbody/tr/td[1]/text()",
-    "title_rule": ".//tr/td[1]/text()"
+    "notice_rule": "//a[@href=\"index.php\"]/font/text()[1]",
+    "mailbox_rule": "//a[@href=\"messages.php\"]/font/text()[1]"
   },
   {
     "id": 25,
@@ -1596,6 +1618,7 @@
     "limit_speed": 100,
     "torrents_rule": "//table[@class=\"torrents\"]/tr",
     "name_rule": ".//td[@class=\"embedded\"]/a/b/text()",
+    "title_rule": ".//tr/td[1]/text()",
     "detail_url_rule": ".//td[@class=\"embedded\"]/a[contains(@href,\"detail\")]/@href",
     "category_rule": ".//td[@class=\"rowfollow nowrap\"][1]/a[1]/img/@alt",
     "poster_rule": ".//table/tr/td[1]/img/@src",
@@ -1628,9 +1651,9 @@
     "seed_rule": "//img[@class=\"arrowup\"][1]/following-sibling::text()[1]",
     "record_count_rule": "/html/body/b/text()",
     "seed_vol_rule": "//tr/td[3]",
-    "mailbox_rule": "//a[@href=\"messages.php\"]/following-sibling::text()[1]",
     "hash_rule": "//tr[13]/td[2]/table/tbody/tr/td[1]/text()",
-    "title_rule": ".//tr/td[1]/text()"
+    "notice_rule": "//a[@href=\"index.php\"]/font/text()[1]",
+    "mailbox_rule": "//a[@href=\"messages.php\"]/font/text()[1]"
   },
   {
     "id": 26,
@@ -1667,6 +1690,7 @@
     "limit_speed": 100,
     "torrents_rule": "//table[contains(@class,\"torrents\")]/tr",
     "name_rule": ".//td[@class=\"embedded\"]/a/b/text()",
+    "title_rule": ".//tr[contains(@class,\"sticky\")]/td[@class=\"embedded\"]/span[last()]/text()",
     "detail_url_rule": ".//td[@class=\"embedded\"]/a[contains(@href,\"detail\")]/@href",
     "category_rule": ".//td[@class=\"rowfollow nowrap\"][1]/a[1]/img/@alt",
     "poster_rule": ".//table/tr/td[1]/img/@src",
@@ -1699,9 +1723,9 @@
     "seed_rule": "//img[@class=\"arrowup\"][1]/following-sibling::text()[1]",
     "record_count_rule": "/html/body/b/text()",
     "seed_vol_rule": "//tr/td[3]",
-    "mailbox_rule": "//a[@href=\"messages.php\"]/following-sibling::text()[1]",
     "hash_rule": "//tr[13]/td[2]/table/tbody/tr/td[1]/text()",
-    "title_rule": ".//tr[contains(@class,\"sticky\")]/td[@class=\"embedded\"]/span[last()]/text()"
+    "notice_rule": "//a[@href=\"index.php\"]/font/text()[1]",
+    "mailbox_rule": "//a[@href=\"messages.php\"]/font/text()[1]"
   },
   {
     "id": 28,
@@ -1738,6 +1762,7 @@
     "limit_speed": 100,
     "torrents_rule": "//table[@class=\"torrents\"]/tr",
     "name_rule": ".//td[@class=\"embedded\"]/a/b/text()",
+    "title_rule": ".//tr/td[1]/text()",
     "detail_url_rule": ".//td[@class=\"embedded\"]/a[contains(@href,\"detail\")]/@href",
     "category_rule": ".//td[@class=\"rowfollow nowrap\"][1]/a[1]/img/@alt",
     "poster_rule": ".//table/tr/td[1]/img/@src",
@@ -1770,9 +1795,9 @@
     "seed_rule": "//img[@class=\"arrowup\"][1]/following-sibling::text()[1]",
     "record_count_rule": "/html/body/b/text()",
     "seed_vol_rule": "//tr/td[4]",
-    "mailbox_rule": "//a[@href=\"messages.php\"]/following-sibling::text()[1]",
     "hash_rule": "//tr[13]/td[2]/table/tbody/tr/td[1]/text()",
-    "title_rule": ".//tr/td[1]/text()"
+    "notice_rule": "//a[@href=\"index.php\"]/font/text()[1]",
+    "mailbox_rule": "//a[@href=\"messages.php\"]/font/text()[1]"
   },
   {
     "id": 29,
@@ -1809,6 +1834,7 @@
     "limit_speed": 100,
     "torrents_rule": "//table[@class=\"torrents\"]/tr",
     "name_rule": ".//td[@class=\"embedded\"]/a/b/text()",
+    "title_rule": ".//tr/td[1]/text()",
     "detail_url_rule": ".//td[@class=\"embedded\"]/a[contains(@href,\"detail\")]/@href",
     "category_rule": ".//td[@class=\"rowfollow nowrap\"][1]/a[1]/img/@alt",
     "poster_rule": ".//table/tr/td[1]/img/@src",
@@ -1841,9 +1867,9 @@
     "seed_rule": "//img[@class=\"arrowup\"][1]/following-sibling::text()[1]",
     "record_count_rule": "/html/body/b/text()",
     "seed_vol_rule": "//tr/td[3]",
-    "mailbox_rule": "//a[@href=\"messages.php\"]/following-sibling::text()[1]",
     "hash_rule": "//tr[13]/td[2]/table/tbody/tr/td[1]/text()",
-    "title_rule": ".//tr/td[1]/text()"
+    "notice_rule": "//a[@href=\"index.php\"]/font/text()[1]",
+    "mailbox_rule": "//a[@href=\"messages.php\"]/font/text()[1]"
   },
   {
     "id": 30,
@@ -1880,6 +1906,7 @@
     "limit_speed": 100,
     "torrents_rule": "//table[@class=\"torrents\"]/tr",
     "name_rule": ".//td[@class=\"embedded\"]/a/b/text()",
+    "title_rule": ".//tr/td[@class=\"embedded\"]/span[last()]/text()",
     "detail_url_rule": ".//td[@class=\"embedded\"]/a[contains(@href,\"detail\")]/@href",
     "category_rule": ".//td[@class=\"rowfollow nowrap\"][1]/a[1]/img/@alt",
     "poster_rule": ".//table/tr/td[1]/img/@src",
@@ -1912,9 +1939,9 @@
     "seed_rule": "//img[@class=\"arrowup\"][1]/following-sibling::text()[1]",
     "record_count_rule": "/html/body/b/text()",
     "seed_vol_rule": "//tr/td[3]",
-    "mailbox_rule": "//a[@href=\"messages.php\"]/following-sibling::text()[1]",
     "hash_rule": "//tr[13]/td[2]/table/tbody/tr/td[1]/text()",
-    "title_rule": ".//tr/td[@class=\"embedded\"]/span[last()]/text()"
+    "notice_rule": "//a[@href=\"index.php\"]/font/text()[1]",
+    "mailbox_rule": "//a[@href=\"messages.php\"]/font/text()[1]"
   },
   {
     "id": 31,
@@ -1951,6 +1978,7 @@
     "limit_speed": 100,
     "torrents_rule": "//table[@class=\"layui-table\"]/tr",
     "name_rule": ".//td/div/a/b/text()",
+    "title_rule": ".//td[4]/div/text()",
     "detail_url_rule": ".//td/div/a/@href",
     "category_rule": "//td[3]/div/img/@title",
     "poster_rule": ".//table/tr/td[1]/img/@src",
@@ -1983,9 +2011,9 @@
     "seed_rule": "//img[@class=\"arrowup\"][1]/following-sibling::text()[1]",
     "record_count_rule": "/html/body/b/text()",
     "seed_vol_rule": "//tr/td[3]",
-    "mailbox_rule": "//a[@href=\"messages.php\"]/following-sibling::text()[1]",
     "hash_rule": "//tr[13]/td[2]/table/tbody/tr/td[1]/text()",
-    "title_rule": ".//td[4]/div/text()"
+    "notice_rule": "//a[@href=\"index.php\"]/font/text()[1]",
+    "mailbox_rule": "//a[@href=\"messages.php\"]/font/text()[1]"
   },
   {
     "id": 32,
@@ -2022,6 +2050,7 @@
     "limit_speed": 100,
     "torrents_rule": "//table[@class=\"torrents\"]/tr",
     "name_rule": ".//td[@class=\"embedded\"]/a/b/text()",
+    "title_rule": ".//tr/td[@class=\"embedded\"][1]/text()",
     "detail_url_rule": ".//td[@class=\"embedded\"]/a[contains(@href,\"detail\")]/@href",
     "category_rule": ".//td[@class=\"rowfollow nowrap\"][1]/a[1]/img/@alt",
     "poster_rule": ".//table/tr/td[1]/img/@src",
@@ -2054,9 +2083,9 @@
     "seed_rule": "//img[@class=\"arrowup\"][1]/following-sibling::text()[1]",
     "record_count_rule": "/html/body/b/text()",
     "seed_vol_rule": "//tr/td[3]",
-    "mailbox_rule": "//a[@href=\"messages.php\"]/following-sibling::text()[1]",
     "hash_rule": "//tr[13]/td[2]/table/tbody/tr/td[1]/text()",
-    "title_rule": ".//tr/td[@class=\"embedded\"][1]/text()"
+    "notice_rule": "//a[@href=\"index.php\"]/font/text()[1]",
+    "mailbox_rule": "//a[@href=\"messages.php\"]/font/text()[1]"
   },
   {
     "id": 33,
@@ -2093,6 +2122,7 @@
     "limit_speed": 100,
     "torrents_rule": "//table[@class=\"torrents\"]/tr",
     "name_rule": ".//td[@class=\"embedded\"]/a/b/text()",
+    "title_rule": ".//tr/td[1]/text()",
     "detail_url_rule": ".//td[@class=\"embedded\"]/a[contains(@href,\"detail\")]/@href",
     "category_rule": ".//td[@class=\"rowfollow nowrap\"][1]/a[1]/img/@alt",
     "poster_rule": ".//table/tr/td[1]/img/@src",
@@ -2125,9 +2155,9 @@
     "seed_rule": "//img[@class=\"arrowup\" and @alt=\"Torrents seeding\"][1]/following-sibling::text()[1]",
     "record_count_rule": "/html/body/b/text()",
     "seed_vol_rule": "//tr/td[3]",
-    "mailbox_rule": "//a[@href=\"messages.php\"]/following-sibling::text()[1]",
     "hash_rule": "//tr[13]/td[2]/table/tbody/tr/td[1]/text()",
-    "title_rule": ".//tr/td[1]/text()"
+    "notice_rule": "//a[@href=\"index.php\"]/font/text()[1]",
+    "mailbox_rule": "//a[@href=\"messages.php\"]/font/text()[1]"
   },
   {
     "id": 34,
@@ -2164,6 +2194,7 @@
     "limit_speed": 100,
     "torrents_rule": "//table[@class=\"torrents\"]/tr",
     "name_rule": ".//td[@class=\"embedded\"]/a/b/text()",
+    "title_rule": ".//tr/td[1]/text()",
     "detail_url_rule": ".//td[@class=\"embedded\"]/a[contains(@href,\"detail\")]/@href",
     "category_rule": ".//td[@class=\"rowfollow nowrap\"]/a/img/@title",
     "poster_rule": ".//table/tr/td[1]/img/@src",
@@ -2196,9 +2227,9 @@
     "seed_rule": "//td[@id=\"seeding-count-value\"]/@data-value",
     "record_count_rule": "/html/body/b/text()",
     "seed_vol_rule": "//td[@id=\"seeding-size-value\"]/@data-value",
-    "mailbox_rule": "//a[@href=\"messages.php\"]/following-sibling::text()[1]",
     "hash_rule": "//tr[13]/td[2]/table/tbody/tr/td[1]/text()",
-    "title_rule": ".//tr/td[1]/text()"
+    "notice_rule": "//a[@href=\"index.php\"]/font/text()[1]",
+    "mailbox_rule": "//a[@href=\"messages.php\"]/font/text()[1]"
   },
   {
     "id": 35,
@@ -2235,6 +2266,7 @@
     "limit_speed": 100,
     "torrents_rule": "//table[@class=\"torrents layui-table\"]/tr",
     "name_rule": ".//td[2]/div[1]/div[1]/div[2]/div/a/@title",
+    "title_rule": ".//td[2]/div[1]/div[1]/p/text()",
     "detail_url_rule": ".//td[2]/div[1]/div[1]/div[2]/div/a/@href",
     "category_rule": ".//td[1]/a/img/@title",
     "poster_rule": ".//td[2]/div[1]/div[1]/div[1]/a/@rel",
@@ -2267,9 +2299,9 @@
     "seed_rule": "//img[@class=\"arrowup\"][1]/following-sibling::text()[1]",
     "record_count_rule": "/html/body/b/text()",
     "seed_vol_rule": "//tr/td[3]",
-    "mailbox_rule": "//a[@href=\"messages.php\"]/font/text()",
     "hash_rule": "//tr[13]/td[2]/table/tbody/tr/td[1]/text()",
-    "title_rule": ".//td[2]/div[1]/div[1]/p/text()"
+    "notice_rule": "//a[@href=\"index.php\"]/font/text()[1]",
+    "mailbox_rule": "//a[@href=\"messages.php\"]/font/text()[1]"
   },
   {
     "id": 36,
@@ -2306,6 +2338,7 @@
     "limit_speed": 100,
     "torrents_rule": "//table[@class=\"torrents\"]/tr",
     "name_rule": ".//td[@class=\"embedded\"]/a/b/text()",
+    "title_rule": ".//tr/td[@class=\"embedded\"][1]/text()",
     "detail_url_rule": ".//td[@class=\"embedded\"]/a[contains(@href,\"detail\")]/@href",
     "category_rule": ".//td[@class=\"rowfollow nowrap\"]/a/img/@title",
     "poster_rule": ".//table/tr/td[1]/img/@src",
@@ -2323,24 +2356,24 @@
     "viewpeerlist_rule": ".//tr/td[9]/nobr/text()",
     "peer_speed_rule": ".//tr/td[5]/nobr/text()",
     "remark": "",
-    "invitation_rule": "//td[@class=\"embedded\"]/table/tr[2]/td[2]/a/text()",
+    "invitation_rule": "//a[contains(@href,\"invite.php?id=\")]/following-sibling::text()[1]",
     "time_join_rule": "//td[contains(text(),\"加入\")]/following-sibling::td[1]//span/@title",
     "latest_active_rule": "//td[contains(text(),\"最近动向\")]/following-sibling::td[1]//span/@title",
-    "uploaded_rule": "//tr[7]/td[2]/table/tr[2]/td[1]/text()",
-    "downloaded_rule": "//tr[7]/td[2]/table/tr[2]/td[2]/text()",
-    "ratio_rule": "//tr[7]/td[2]/table/tr[1]/td[1]/font/text()",
-    "my_sp_rule": "//td[@class=\"embedded\"]/table/tr[13]/td[2]/text()",
+    "uploaded_rule": "//font[@class=\"color_uploaded\"]/following-sibling::text()[1]",
+    "downloaded_rule": "//font[@class=\"color_downloaded\"]/following-sibling::text()[1]",
+    "ratio_rule": "//font[@class=\"color_ratio\"][1]/following-sibling::text()[1]",
+    "my_sp_rule": "//a[@href=\"mybonus.php\"]/following-sibling::text()[1]",
     "hour_sp_rule": "//div[contains(text(),\"每小时\")]/text()[1]",
-    "my_bonus_rule": "//td[@class=\"embedded\"]/table/tr[14]/td[2]/text()",
-    "my_level_rule": "//tr/td/span/span/a/@class",
-    "my_hr_rule": "//*[@id=\"outer\"]/table/tbody/tr/td/table/tbody/tr[14]/td[2]/text()",
+    "my_bonus_rule": "//font[@class=\"color_bonus\" and contains(text(),\"积分\")]/following-sibling::text()[1]",
+    "my_level_rule": "//span[@class=\"medium\"]/span[@class=\"nowrap\"][1]/a[contains(@class,\"_Name\")]/@class",
+    "my_hr_rule": "//a[@href=\"myhr.php\"]/text()",
     "leech_rule": "//img[@class=\"arrowdown\"][1]/following-sibling::text()[1]",
     "seed_rule": "//img[@class=\"arrowup\"][1]/following-sibling::text()[1]",
     "record_count_rule": "/html/body/b/text()",
     "seed_vol_rule": "//tr/td[4]",
-    "mailbox_rule": "//a[@href=\"messages.php\"]/following-sibling::text()[1]",
     "hash_rule": "//tr[13]/td[2]/table/tbody/tr/td[1]/text()",
-    "title_rule": ".//tr/td[@class=\"embedded\"][1]/text()"
+    "notice_rule": "//a[@href=\"index.php\"]/font/text()[1]",
+    "mailbox_rule": "//a[@href=\"messages.php\"]/font/text()[1]"
   },
   {
     "id": 37,
@@ -2377,6 +2410,7 @@
     "limit_speed": 100,
     "torrents_rule": "//table[@class=\"torrents\"]/tr",
     "name_rule": ".//td[@class=\"embedded\"]/a/b/text()",
+    "title_rule": ".//tr/td[@class=\"embedded\"][1]/text()",
     "detail_url_rule": ".//td[@class=\"embedded\"]/a[contains(@href,\"detail\")]/@href",
     "category_rule": ".//td[@class=\"rowfollow nowrap\"]/a/img/@title",
     "poster_rule": ".//table/tr/td[1]/img/@src",
@@ -2409,9 +2443,9 @@
     "seed_rule": "//img[@class=\"arrowup\"][1]/following-sibling::text()[1]",
     "record_count_rule": "/html/body/b/text()",
     "seed_vol_rule": "//tr/td[3]",
-    "mailbox_rule": "//a[@href=\"messages.php\"]/following-sibling::text()[1]",
     "hash_rule": "//tr[13]/td[2]/table/tbody/tr/td[1]/text()",
-    "title_rule": ".//tr/td[@class=\"embedded\"][1]/text()"
+    "notice_rule": "//a[@href=\"index.php\"]/font/text()[1]",
+    "mailbox_rule": "//a[@href=\"messages.php\"]/font/text()[1]"
   },
   {
     "id": 38,
@@ -2448,6 +2482,7 @@
     "limit_speed": 100,
     "torrents_rule": "//table[@class=\"torrents\"]/tr",
     "name_rule": ".//td[@class=\"embedded\"]/a/b/text()",
+    "title_rule": ".//tr/td[1]/text()",
     "detail_url_rule": ".//table/tr/td[3]/a[1]/@href",
     "category_rule": ".//td[@class=\"rowfollow nowrap\"][1]/a[1]/img/@class",
     "poster_rule": ".//table/tr/td[1]/img/@src",
@@ -2480,9 +2515,9 @@
     "seed_rule": "//img[@class=\"arrowup\"][1]/following-sibling::text()[1]",
     "record_count_rule": "/html/body/b/text()",
     "seed_vol_rule": "//tr/td[4]",
-    "mailbox_rule": "//a[@href=\"messages.php\"]/following-sibling::text()[1]",
     "hash_rule": "//tr[10]//td[@class=\"no_border_wide\"][2]/text()",
-    "title_rule": ".//tr/td[1]/text()"
+    "notice_rule": "//a[@href=\"index.php\"]/font/text()[1]",
+    "mailbox_rule": "//a[@href=\"messages.php\"]/font/text()[1]"
   },
   {
     "id": 39,
@@ -2519,6 +2554,7 @@
     "limit_speed": 100,
     "torrents_rule": "//table[contains(@class,\"torrents\")]/tr",
     "name_rule": ".//td[@class=\"embedded\"]/a/b/text()",
+    "title_rule": ".//tr/td[1]/span[4]/text()",
     "detail_url_rule": ".//td[@class=\"embedded\"]/a[contains(@href,\"detail\")]/@href",
     "category_rule": ".//td[@class=\"rowfollow nowrap\"][1]/a[1]/img/@class",
     "poster_rule": ".//table/tr/td[1]/img/@src",
@@ -2551,9 +2587,9 @@
     "seed_rule": "//img[@class=\"arrowup\"][1]/following-sibling::text()[1]",
     "record_count_rule": "/html/body/b/text()",
     "seed_vol_rule": "//tr/td[3]",
-    "mailbox_rule": "//a[@href=\"messages.php\"]/following-sibling::text()[1]",
     "hash_rule": "//tr[11]//td[@class=\"no_border_wide\"][2]/text()",
-    "title_rule": ".//tr/td[1]/span[4]/text()"
+    "notice_rule": "//a[@href=\"index.php\"]/font/text()[1]",
+    "mailbox_rule": "//a[@href=\"messages.php\"]/font/text()[1]"
   },
   {
     "id": 40,
@@ -2590,6 +2626,7 @@
     "limit_speed": 100,
     "torrents_rule": "//table[@class=\"torrents\"]/tr",
     "name_rule": ".//td[@class=\"embedded\"]/a/b/text()",
+    "title_rule": ".//tr/td[1]/text()",
     "detail_url_rule": ".//td[@class=\"embedded\"]/a[contains(@href,\"detail\")]/@href",
     "category_rule": ".//td[@class=\"rowfollow nowrap\"][1]/a[1]/img/@class",
     "poster_rule": ".//table/tr/td[1]/img/@src",
@@ -2622,9 +2659,9 @@
     "seed_rule": "//tr[19]/td/a/text()",
     "record_count_rule": "/html/body/b/text()",
     "seed_vol_rule": "//tr/td[3]",
-    "mailbox_rule": "//a[@href=\"messages.php\"]/following-sibling::text()[1]",
     "hash_rule": "//tr[11]//td[@class=\"no_border_wide\"][2]/text()",
-    "title_rule": ".//tr/td[1]/text()"
+    "notice_rule": "//a[@href=\"index.php\"]/font/text()[1]",
+    "mailbox_rule": "//a[@href=\"messages.php\"]/font/text()[1]"
   },
   {
     "id": 41,
@@ -2661,6 +2698,7 @@
     "limit_speed": 100,
     "torrents_rule": "//table[@class=\"torrents\"]/tr",
     "name_rule": ".//td[@class=\"embedded\"]/a/b/text()",
+    "title_rule": ".//tr/td[1]/text()",
     "detail_url_rule": ".//td[@class=\"embedded\"]/a[contains(@href,\"detail\")]/@href",
     "category_rule": ".//td[@class=\"rowfollow nowrap\"][1]/a[1]/img/@class",
     "poster_rule": ".//table/tr/td[1]/img/@src",
@@ -2693,17 +2731,17 @@
     "seed_rule": "/html/body/b/text()",
     "record_count_rule": "/html/body/b/text()",
     "seed_vol_rule": "//tr/td[4]",
-    "mailbox_rule": "//a[@href=\"messages.php\"]/following-sibling::text()[1]",
     "hash_rule": "//tr[11]//td[@class=\"no_border_wide\"][2]/text()",
-    "title_rule": ".//tr/td[1]/text()"
+    "notice_rule": "//a[@href=\"index.php\"]/font/text()[1]",
+    "mailbox_rule": "//a[@href=\"messages.php\"]/font/text()[1]"
   },
   {
     "id": 42,
     "created_at": "2022-08-18 00:46:55.688591",
-    "updated_at": "2022-08-28 20:13:23.862214",
+    "updated_at": "2022-09-05 20:29:40.810296",
     "name": "HD城市",
     "url": "https://hdcity.city/",
-    "logo": "favicon.ico",
+    "logo": "http://favicon.ico",
     "sign_in_support": 1,
     "get_torrent_support": 1,
     "get_userinfo_support": 1,
@@ -2732,6 +2770,7 @@
     "limit_speed": 100,
     "torrents_rule": "//center/div/div/div[contains(@class,\"trblock\")]",
     "name_rule": "./div[@class=\"trtop\"]/a//text()[1]",
+    "title_rule": "./div[@class=\"trm\"]/div/div[@class=\"trbi\"]/a/span/text()",
     "detail_url_rule": "./div[@class=\"trtop\"]/a/@href",
     "category_rule": "./div/div[@class=\"trti\"]/a/span/text()",
     "poster_rule": "./div[@class=\"trm\"]/div/div/img/@src",
@@ -2764,9 +2803,9 @@
     "seed_rule": "//a[@href=\"userdetails\"]/span[@title=\"当前做种\"]/text()[1]",
     "record_count_rule": "/html/body/b/text()",
     "seed_vol_rule": "//tr/td[3]",
-    "mailbox_rule": "//a[@href=\"messages\"]/text()[1]",
     "hash_rule": "//div[@class=\"blockcontent\"]/b[text()=\"Hash 值:\"]/following-sibling::text()",
-    "title_rule": "./div[@class=\"trm\"]/div/div[@class=\"trbi\"]/a/span/text()"
+    "notice_rule": "//a[@href=\"index.php\"]/font/text()[1]",
+    "mailbox_rule": "//li/a/i[@id=\"rmsg\"]/following::text()[1]"
   },
   {
     "id": 43,
@@ -2803,6 +2842,7 @@
     "limit_speed": 100,
     "torrents_rule": "//table[@class=\"torrents\"]/tr",
     "name_rule": ".//td[@class=\"embedded\"]/a/b/text()",
+    "title_rule": ".//tr/td[1]/text()",
     "detail_url_rule": ".//td[@class=\"embedded\"]/a[contains(@href,\"detail\")]/@href",
     "category_rule": ".//td[@class=\"rowfollow nowrap\"][1]/a[1]/img/@class",
     "poster_rule": ".//table/tr/td[1]/img/@src",
@@ -2835,9 +2875,9 @@
     "seed_rule": "//img[@class=\"arrowup\"]/following-sibling::text()[1]",
     "record_count_rule": "/html/body/b/text()",
     "seed_vol_rule": "//tr/td[4]",
-    "mailbox_rule": "//a[@href=\"messages.php\"]/following-sibling::text()[1]",
     "hash_rule": "//tr[11]//td[@class=\"no_border_wide\"][2]/text()",
-    "title_rule": ".//tr/td[1]/text()"
+    "notice_rule": "//a[@href=\"index.php\"]/font/text()[1]",
+    "mailbox_rule": "//a[@href=\"messages.php\"]/font/text()[1]"
   },
   {
     "id": 44,
@@ -2874,6 +2914,7 @@
     "limit_speed": 100,
     "torrents_rule": "//table[@class=\"torrents\"]/tr",
     "name_rule": ".//td[@class=\"embedded\"]/a/b/text()",
+    "title_rule": ".//tr/td[1]/text()",
     "detail_url_rule": ".//td[@class=\"embedded\"]/a[contains(@href,\"detail\")]/@href",
     "category_rule": ".//td[@class=\"rowfollow nowrap\"][1]/a[1]/img/@class",
     "poster_rule": ".//table/tr/td[1]/img/@src",
@@ -2906,9 +2947,9 @@
     "seed_rule": "//img[@class=\"arrowup\"]/following-sibling::text()[1]",
     "record_count_rule": "/html/body/b/text()",
     "seed_vol_rule": "//tr/td[3]",
-    "mailbox_rule": "//a[@href=\"messages.php\"]/following-sibling::text()[1]",
     "hash_rule": "//tr[11]//td[@class=\"no_border_wide\"][2]/text()",
-    "title_rule": ".//tr/td[1]/text()"
+    "notice_rule": "//a[@href=\"index.php\"]/font/text()[1]",
+    "mailbox_rule": "//a[@href=\"messages.php\"]/font/text()[1]"
   },
   {
     "id": 45,
@@ -2945,6 +2986,7 @@
     "limit_speed": 100,
     "torrents_rule": "//table[@class=\"torrents\"]/tr",
     "name_rule": ".//td[@class=\"embedded\"]/a/b/text()",
+    "title_rule": ".//tr/td[1]/text()",
     "detail_url_rule": ".//td[@class=\"embedded\"]/a[contains(@href,\"detail\")]/@href",
     "category_rule": ".//td[@class=\"rowfollow nowrap\"][1]/a[1]/img/@class",
     "poster_rule": ".//table/tr/td[1]/img/@src",
@@ -2977,9 +3019,9 @@
     "seed_rule": "//img[@class=\"arrowup\"]/following-sibling::text()[1]",
     "record_count_rule": "/html/body/b/text()",
     "seed_vol_rule": "//tr/td[3]",
-    "mailbox_rule": "//a[@href=\"messages.php\"]/following-sibling::text()[1]",
     "hash_rule": "//tr[11]//td[@class=\"no_border_wide\"][2]/text()",
-    "title_rule": ".//tr/td[1]/text()"
+    "notice_rule": "//a[@href=\"index.php\"]/font/text()[1]",
+    "mailbox_rule": "//a[@href=\"messages.php\"]/font/text()[1]"
   },
   {
     "id": 46,
@@ -3016,6 +3058,7 @@
     "limit_speed": 100,
     "torrents_rule": "//table[@class=\"torrents\"]/tr",
     "name_rule": ".//td[@class=\"embedded\"]/a/b/text()",
+    "title_rule": ".//tr/td[1]/text()",
     "detail_url_rule": ".//td[@class=\"embedded\"]/a[contains(@href,\"detail\")]/@href",
     "category_rule": ".//td[@class=\"rowfollow nowrap\"][1]/a[1]/img/@class",
     "poster_rule": ".//table/tr/td[1]/img/@src",
@@ -3048,9 +3091,9 @@
     "seed_rule": "//img[@class=\"arrowup\"]/following-sibling::text()[1]",
     "record_count_rule": "/html/body/b/text()",
     "seed_vol_rule": "//tr/td[3]",
-    "mailbox_rule": "//a[@href=\"messages.php\"]/following-sibling::text()[1]",
     "hash_rule": "//tr[11]//td[@class=\"no_border_wide\"][2]/text()",
-    "title_rule": ".//tr/td[1]/text()"
+    "notice_rule": "//a[@href=\"index.php\"]/font/text()[1]",
+    "mailbox_rule": "//a[@href=\"messages.php\"]/font/text()[1]"
   },
   {
     "id": 47,
@@ -3087,6 +3130,7 @@
     "limit_speed": 100,
     "torrents_rule": "//table[@class=\"torrents\"]/tr",
     "name_rule": ".//td[@class=\"embedded\"]/a/b/text()",
+    "title_rule": ".//tr/td[1]/text()",
     "detail_url_rule": ".//td[@class=\"embedded\"]/a[contains(@href,\"detail\")]/@href",
     "category_rule": ".//td[@class=\"rowfollow nowrap\"][1]/a[1]/img/@class",
     "poster_rule": ".//table/tr/td[1]/img/@src",
@@ -3119,9 +3163,9 @@
     "seed_rule": "//img[@class=\"arrowup\"]/following-sibling::text()[1]",
     "record_count_rule": "/html/body/b/text()",
     "seed_vol_rule": "//tr/td[3]",
-    "mailbox_rule": "//a[@href=\"messages.php\"]/following-sibling::text()[1]",
     "hash_rule": "//tr[11]//td[@class=\"no_border_wide\"][2]/text()",
-    "title_rule": ".//tr/td[1]/text()"
+    "notice_rule": "//a[@href=\"index.php\"]/font/text()[1]",
+    "mailbox_rule": "//a[@href=\"messages.php\"]/font/text()[1]"
   },
   {
     "id": 48,
@@ -3158,6 +3202,7 @@
     "limit_speed": 100,
     "torrents_rule": "//table[@class=\"torrents\"]/tr",
     "name_rule": ".//td[@class=\"embedded\"]/a/b/text()",
+    "title_rule": ".//tr/td[1]/text()",
     "detail_url_rule": ".//td[@class=\"embedded\"]/a[contains(@href,\"detail\")]/@href",
     "category_rule": ".//td[@class=\"rowfollow nowrap\"][1]/a[1]/img/@class",
     "poster_rule": ".//table/tr/td[1]/img/@src",
@@ -3190,9 +3235,9 @@
     "seed_rule": "//img[@class=\"arrowup\"]/following-sibling::text()[1]",
     "record_count_rule": "/html/body/b/text()",
     "seed_vol_rule": "//tr/td[3]",
-    "mailbox_rule": "//a[@href=\"messages.php\"]/following-sibling::text()[1]",
     "hash_rule": "//tr[11]//td[@class=\"no_border_wide\"][2]/text()",
-    "title_rule": ".//tr/td[1]/text()"
+    "notice_rule": "//a[@href=\"index.php\"]/font/text()[1]",
+    "mailbox_rule": "//a[@href=\"messages.php\"]/font/text()[1]"
   },
   {
     "id": 49,
@@ -3229,6 +3274,7 @@
     "limit_speed": 100,
     "torrents_rule": "//table[@class=\"torrents\"]/tr",
     "name_rule": ".//td[@class=\"embedded\"]/a/b/text()",
+    "title_rule": ".//tr/td[1]/text()",
     "detail_url_rule": ".//td[@class=\"embedded\"]/a[contains(@href,\"detail\")]/@href",
     "category_rule": ".//td[@class=\"rowfollow nowrap\"][1]/a[1]/img/@class",
     "poster_rule": ".//table/tr/td[1]/img/@src",
@@ -3261,9 +3307,9 @@
     "seed_rule": "//img[@class=\"arrowup\"]/following-sibling::text()[1]",
     "record_count_rule": "/html/body/b/text()",
     "seed_vol_rule": "//tr/td[3]",
-    "mailbox_rule": "//a[@href=\"messages.php\"]/following-sibling::text()[1]",
     "hash_rule": "//tr[11]//td[@class=\"no_border_wide\"][2]/text()",
-    "title_rule": ".//tr/td[1]/text()"
+    "notice_rule": "//a[@href=\"index.php\"]/font/text()[1]",
+    "mailbox_rule": "//a[@href=\"messages.php\"]/font/text()[1]"
   },
   {
     "id": 50,
@@ -3300,6 +3346,7 @@
     "limit_speed": 100,
     "torrents_rule": "//table[@class=\"torrents\"]/tr",
     "name_rule": ".//td[@class=\"embedded\"]/a/b/text()",
+    "title_rule": ".//tr/td[1]/text()",
     "detail_url_rule": ".//td[@class=\"embedded\"]/a[contains(@href,\"detail\")]/@href",
     "category_rule": ".//td[@class=\"rowfollow nowrap\"][1]/a[1]/img/@class",
     "poster_rule": ".//table/tr/td[1]/img/@src",
@@ -3332,9 +3379,9 @@
     "seed_rule": "//img[@class=\"arrowup\"]/following-sibling::text()[1]",
     "record_count_rule": "/html/body/b/text()",
     "seed_vol_rule": "//tr/td[3]",
-    "mailbox_rule": "//a[@href=\"messages.php\"]/following-sibling::text()[1]",
     "hash_rule": "//tr[11]//td[@class=\"no_border_wide\"][2]/text()",
-    "title_rule": ".//tr/td[1]/text()"
+    "notice_rule": "//a[@href=\"index.php\"]/font/text()[1]",
+    "mailbox_rule": "//a[@href=\"messages.php\"]/font/text()[1]"
   },
   {
     "id": 51,
@@ -3371,6 +3418,7 @@
     "limit_speed": 100,
     "torrents_rule": "//table[@class=\"torrents\"]/tr",
     "name_rule": ".//td[@class=\"embedded\"]/a/b/text()",
+    "title_rule": ".//tr/td[1]/text()",
     "detail_url_rule": ".//td[@class=\"embedded\"]/a[contains(@href,\"detail\")]/@href",
     "category_rule": ".//td[@class=\"rowfollow nowrap\"][1]/a[1]/img/@class",
     "poster_rule": ".//table/tr/td[1]/img/@src",
@@ -3403,9 +3451,9 @@
     "seed_rule": "//img[@class=\"arrowup\"]/following-sibling::text()[1]",
     "record_count_rule": "/html/body/b/text()",
     "seed_vol_rule": "//tr/td[3]",
-    "mailbox_rule": "//a[@href=\"messages.php\"]/following-sibling::text()[1]",
     "hash_rule": "//tr[11]//td[@class=\"no_border_wide\"][2]/text()",
-    "title_rule": ".//tr/td[1]/text()"
+    "notice_rule": "//a[@href=\"index.php\"]/font/text()[1]",
+    "mailbox_rule": "//a[@href=\"messages.php\"]/font/text()[1]"
   },
   {
     "id": 52,
@@ -3442,6 +3490,7 @@
     "limit_speed": 100,
     "torrents_rule": "//table[@class=\"torrents\"]/tr",
     "name_rule": ".//td[@class=\"embedded\"]/a/b/text()",
+    "title_rule": ".//tr/td[1]/text()",
     "detail_url_rule": ".//td[@class=\"embedded\"]/a[contains(@href,\"detail\")]/@href",
     "category_rule": ".//td[@class=\"rowfollow nowrap\"][1]/a[1]/img/@class",
     "poster_rule": ".//table/tr/td[1]/img/@src",
@@ -3474,9 +3523,9 @@
     "seed_rule": "//img[@class=\"arrowup\"]/following-sibling::text()[1]",
     "record_count_rule": "/html/body/b/text()",
     "seed_vol_rule": "//tr/td[3]",
-    "mailbox_rule": "//a[@href=\"messages.php\"]/following-sibling::text()[1]",
     "hash_rule": "//tr[11]//td[@class=\"no_border_wide\"][2]/text()",
-    "title_rule": ".//tr/td[1]/text()"
+    "notice_rule": "//a[@href=\"index.php\"]/font/text()[1]",
+    "mailbox_rule": "//a[@href=\"messages.php\"]/font/text()[1]"
   },
   {
     "id": 53,
@@ -3513,6 +3562,7 @@
     "limit_speed": 100,
     "torrents_rule": "//table[@class=\"torrents\"]/tr",
     "name_rule": ".//td[@class=\"embedded\"]/a/b/text()",
+    "title_rule": ".//tr/td[1]/text()",
     "detail_url_rule": ".//td[@class=\"embedded\"]/a[contains(@href,\"detail\")]/@href",
     "category_rule": ".//td[@class=\"rowfollow nowrap\"][1]/a[1]/img/@class",
     "poster_rule": ".//table/tr/td[1]/img/@src",
@@ -3545,9 +3595,9 @@
     "seed_rule": "//img[@class=\"arrowup\"]/following-sibling::text()[1]",
     "record_count_rule": "/html/body/b/text()",
     "seed_vol_rule": "//tr/td[3]",
-    "mailbox_rule": "//a[@href=\"messages.php\"]/following-sibling::text()[1]",
     "hash_rule": "//tr[11]//td[@class=\"no_border_wide\"][2]/text()",
-    "title_rule": ".//tr/td[1]/text()"
+    "notice_rule": "//a[@href=\"index.php\"]/font/text()[1]",
+    "mailbox_rule": "//a[@href=\"messages.php\"]/font/text()[1]"
   },
   {
     "id": 54,
@@ -3584,6 +3634,7 @@
     "limit_speed": 100,
     "torrents_rule": "//table[@class=\"torrents\"]/tr",
     "name_rule": ".//td[@class=\"embedded\"]/a/b/text()",
+    "title_rule": ".//tr/td[1]/text()",
     "detail_url_rule": ".//td[@class=\"embedded\"]/a[contains(@href,\"detail\")]/@href",
     "category_rule": ".//td[@class=\"rowfollow nowrap\"][1]/a[1]/img/@class",
     "poster_rule": ".//table/tr/td[1]/img/@src",
@@ -3616,9 +3667,9 @@
     "seed_rule": "//img[@class=\"arrowup\"]/following-sibling::text()[1]",
     "record_count_rule": "/html/body/b/text()",
     "seed_vol_rule": "//tr/td[3]",
-    "mailbox_rule": "//a[@href=\"messages.php\"]/following-sibling::text()[1]",
     "hash_rule": "//tr[11]//td[@class=\"no_border_wide\"][2]/text()",
-    "title_rule": ".//tr/td[1]/text()"
+    "notice_rule": "//a[@href=\"index.php\"]/font/text()[1]",
+    "mailbox_rule": "//a[@href=\"messages.php\"]/font/text()[1]"
   },
   {
     "id": 55,
@@ -3655,6 +3706,7 @@
     "limit_speed": 100,
     "torrents_rule": "//table[@class=\"torrents\"]/tr",
     "name_rule": ".//td[@class=\"embedded\"]/a/b/text()",
+    "title_rule": ".//tr/td[1]/text()",
     "detail_url_rule": ".//td[@class=\"embedded\"]/a[contains(@href,\"detail\")]/@href",
     "category_rule": ".//td[@class=\"rowfollow nowrap\"][1]/a[1]/img/@class",
     "poster_rule": ".//table/tr/td[1]/img/@src",
@@ -3687,9 +3739,9 @@
     "seed_rule": "//img[@class=\"arrowup\"]/following-sibling::text()[1]",
     "record_count_rule": "/html/body/b/text()",
     "seed_vol_rule": "//tr/td[3]",
-    "mailbox_rule": "//a[@href=\"messages.php\"]/following-sibling::text()[1]",
     "hash_rule": "//tr[11]//td[@class=\"no_border_wide\"][2]/text()",
-    "title_rule": ".//tr/td[1]/text()"
+    "notice_rule": "//a[@href=\"index.php\"]/font/text()[1]",
+    "mailbox_rule": "//a[@href=\"messages.php\"]/font/text()[1]"
   },
   {
     "id": 56,
@@ -3726,6 +3778,7 @@
     "limit_speed": 100,
     "torrents_rule": "//table[@class=\"torrents\"]/tr",
     "name_rule": ".//td[@class=\"embedded\"]/a/b/text()",
+    "title_rule": ".//tr/td[1]/text()",
     "detail_url_rule": ".//td[@class=\"embedded\"]/a[contains(@href,\"detail\")]/@href",
     "category_rule": ".//td[@class=\"rowfollow nowrap\"][1]/a[1]/img/@class",
     "poster_rule": ".//table/tr/td[1]/img/@src",
@@ -3758,9 +3811,9 @@
     "seed_rule": "//img[@class=\"arrowup\"]/following-sibling::text()[1]",
     "record_count_rule": "/html/body/b/text()",
     "seed_vol_rule": "//tr/td[3]",
-    "mailbox_rule": "//a[@href=\"messages.php\"]/following-sibling::text()[1]",
     "hash_rule": "//tr[11]//td[@class=\"no_border_wide\"][2]/text()",
-    "title_rule": ".//tr/td[1]/text()"
+    "notice_rule": "//a[@href=\"index.php\"]/font/text()[1]",
+    "mailbox_rule": "//a[@href=\"messages.php\"]/font/text()[1]"
   },
   {
     "id": 57,
@@ -3797,6 +3850,7 @@
     "limit_speed": 100,
     "torrents_rule": "//table[@class=\"torrents\"]/tr",
     "name_rule": ".//td[@class=\"embedded\"]/a/b/text()",
+    "title_rule": ".//tr/td[1]/text()",
     "detail_url_rule": ".//td[@class=\"embedded\"]/a[contains(@href,\"detail\")]/@href",
     "category_rule": ".//td[@class=\"rowfollow nowrap\"][1]/a[1]/img/@class",
     "poster_rule": ".//table/tr/td[1]/img/@src",
@@ -3829,8 +3883,8 @@
     "seed_rule": "//img[@class=\"arrowup\"]/following-sibling::text()[1]",
     "record_count_rule": "/html/body/b/text()",
     "seed_vol_rule": "//tr/td[3]",
-    "mailbox_rule": "//a[@href=\"messages.php\"]/following-sibling::text()[1]",
     "hash_rule": "//tr[11]//td[@class=\"no_border_wide\"][2]/text()",
-    "title_rule": ".//tr/td[1]/text()"
+    "notice_rule": "//a[@href=\"index.php\"]/font/text()[1]",
+    "mailbox_rule": "//a[@href=\"messages.php\"]/font/text()[1]"
   }
 ]
