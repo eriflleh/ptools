@@ -703,10 +703,9 @@ class PtSpider:
                         print('leechers：', leechers)
                         print('H&R：', hr)
                         print('completers：', completers)
-                        result = TorrentInfo.objects.update_or_create(magnet_url=magnet_url, defaults={
+                        result = TorrentInfo.objects.update_or_create(magnet_url=magnet_url, site=site, defaults={
                             'category': category,
                             'download_url': download_url,
-                            'site': site,
                             'name': name,
                             'title': title,
                             'poster_url': poster_url,  # 海报链接
@@ -979,7 +978,7 @@ class PtSpider:
                 ).replace(',', '').replace('无限', 'inf').replace('∞', 'inf').replace('---', 'inf').strip(']:').strip()
                 # 分享率告警通知
                 print('ratio', ratio)
-                if ratio != 'inf' and float(ratio) <= 1:
+                if ratio and ratio != 'inf' and float(ratio) <= 1:
                     message = '# <font color="red">' + site.name + ' 站点分享率告警：' + str(ratio) + '</font>  \n'
                     self.send_text(message)
                 # 检查邮件
@@ -1019,8 +1018,8 @@ class PtSpider:
             except Exception as e:
                 message = my_site.site.name + '解析个人主页信息：失败！原因：' + str(e)
                 logging.error(message)
-                raise
-                self.send_text(site.name + '解析个人主页信息：失败！原因：' + str(e))
+                self.send_text('# <font color="red">' + message + '</font>  \n')
+                # raise
                 return CommonResponse.error(msg=message)
 
     def get_hour_sp(self, my_site: MySite):
