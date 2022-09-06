@@ -387,7 +387,7 @@ class PtSpider:
         """签到"""
         site = my_site.site
         print(site.name + '开始签到')
-        signin_today = my_site.signin_set.filter(updated_at__date__gte=datetime.today()).first()
+        signin_today = my_site.signin_set.filter(created_at__date__gte=datetime.today()).first()
         # 如果已有签到记录
         if signin_today and (signin_today.sign_in_today is True):
             # pass
@@ -1009,7 +1009,7 @@ class PtSpider:
                 # 外键反向查询
                 # status = my_site.sitestatus_set.filter(updated_at__date__gte=datetime.datetime.today())
                 # print(status)
-                result = SiteStatus.objects.update_or_create(site=my_site, updated_at__date__gte=datetime.today(),
+                result = SiteStatus.objects.update_or_create(site=my_site, created_at__date__gte=datetime.today(),
                                                              defaults={
                                                                  'ratio': float(ratio) if ratio else 0,
                                                                  'downloaded': int(downloaded),
@@ -1025,7 +1025,7 @@ class PtSpider:
                 message = my_site.site.name + '解析个人主页信息：失败！原因：' + str(e)
                 logging.error(message)
                 self.send_text('# <font color="red">' + message + '</font>  \n')
-                # raise
+                raise
                 return CommonResponse.error(msg=message)
 
     def get_hour_sp(self, my_site: MySite):

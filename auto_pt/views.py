@@ -231,7 +231,7 @@ def do_update(request):
             msg='更新成功，重启指令发送成功，容器重启中 ...' if flag else '更新成功，未映射docker路径请手动重启容器 ...'
         ).to_dict(), safe=False)
     except Exception as e:
-        raise
+        # raise
         return JsonResponse(data=CommonResponse.error(
             msg='更新失败!' + str(e)
         ).to_dict(), safe=False)
