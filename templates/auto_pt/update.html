@@ -56,17 +56,17 @@
         </div>
         <div class="text item">
             <el-row>
-                <el-col :span="local_log_width" :xs="24" :md="24">
+                                <el-col :span="12" v-if="update" :xs="24">
                     <el-card class="box-card" shadow="hover">
                         <div slot="header" class="clearfix">
-                            <span>本地日志</span>
+                            <span>更新日志</span>
                         </div>
                         <el-timeline>
                             <el-timeline-item
-                                    v-for="(update_note, index) in local_logs"
+                                    v-for="(update_note, index) in update_notes"
                                     :key="index"
-                                    icon="el-icon-refresh"
-                                    type="success"
+                                    {# :icon="activity.icon" #}
+                                    {# :type="activity.type" #}
                                     color="#0bbd87"
                                     {# :size="activity.size" #}
                                     :timestamp="update_note.date">
@@ -79,17 +79,18 @@
                         </el-timeline>
                     </el-card>
                 </el-col>
-                <el-col :span="12" v-if="update" :xs="24" :md="24">
+
+                <el-col :span="local_log_width" :xs="24">
                     <el-card class="box-card" shadow="hover">
                         <div slot="header" class="clearfix">
-                            <span>更新日志</span>
+                            <span>本地日志</span>
                         </div>
                         <el-timeline>
                             <el-timeline-item
-                                    v-for="(update_note, index) in update_notes"
+                                    v-for="(update_note, index) in local_logs"
                                     :key="index"
-                                    {# :icon="activity.icon" #}
-                                    {# :type="activity.type" #}
+                                    icon="el-icon-refresh"
+                                    type="success"
                                     color="#0bbd87"
                                     {# :size="activity.size" #}
                                     :timestamp="update_note.date">
