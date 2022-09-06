@@ -3,12 +3,13 @@
 <!-- 引入样式 -->
 
 <link rel="stylesheet" href="{% static 'admin/simpleui-x/elementui/theme-chalk/index.css' %}">
+{#<link rel="stylesheet" href="{% static 'admin/simpleui-x/elementui/theme-chalk/display.css' %}">#}
 <!-- 引入组件库 -->
 
 <div id="app">
     <el-card class="box-card">
         <div slot="header" class="clearfix">
-            <span>
+            <span class="hidden-md-and-down">
             <el-button type="primary">更新提示</el-button>
                 <el-popover
                         placement="top-start"
@@ -22,7 +23,7 @@
                         </el-link>
                 </el-popover>
             </span>
-            <span style="float: right;margin-top: -10px">
+            <span>
                 <el-popover
                         placement="top-start"
                         title="友情提示"
@@ -55,7 +56,7 @@
         </div>
         <div class="text item">
             <el-row>
-                <el-col :span="local_log_width">
+                <el-col :span="local_log_width" :xs="24" :md="24">
                     <el-card class="box-card" shadow="hover">
                         <div slot="header" class="clearfix">
                             <span>本地日志</span>
@@ -78,7 +79,7 @@
                         </el-timeline>
                     </el-card>
                 </el-col>
-                <el-col :span="12" v-if="update">
+                <el-col :span="12" v-if="update" :xs="24" :md="24">
                     <el-card class="box-card" shadow="hover">
                         <div slot="header" class="clearfix">
                             <span>更新日志</span>
