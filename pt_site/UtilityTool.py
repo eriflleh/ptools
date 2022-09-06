@@ -395,7 +395,7 @@ class PtSpider:
         else:
             signin_today = SignIn(site=my_site, sign_in_today=False, sign_in_info='')
         url = site.url + site.page_sign_in.lstrip('/')
-        # print(url)
+        print('签到链接：', url)
         try:
             # with lock:
             if 'totheglory' in site.url:
@@ -507,7 +507,7 @@ class PtSpider:
                         status=StatusCodeEnum.FAILED_SIGN_IN
                     )
             if 'btschool' in site.url:
-                # print(res.content.decode('utf-8'))
+                print(res.content.decode('utf-8'))
                 text = self.parse(res, '//script/text()')
                 if len(text) > 0:
                     location = self.parse_school_location(text)
@@ -522,24 +522,29 @@ class PtSpider:
                         return CommonResponse.success(
                             msg='请勿重复签到！'
                         )
+                elif res.status_code == 200:
+                    return CommonResponse.success(msg='签到成功！')
                 else:
                     return CommonResponse.error(msg='签到失败！')
                 # print(res.text)
-            title_parse = self.parse(res, '//td[@id="outer"]//td[@class="embedded"]/h2/text()')
-            content_parse = self.parse(res, '//td[@id="outer"]//td[@class="embedded"]/table/tr/td//text()')
-            if len(content_parse) <= 0:
-                title_parse = self.parse(res, '//td[@id="outer"]//td[@class="embedded"]/b[1]/text()')
-                content_parse = self.parse(res, '//td[@id="outer"]//td[@class="embedded"]/text()[1]')
-            title = ''.join(title_parse).strip()
-            # print(content_parse)
-            content = ''.join(content_parse).strip().replace('\n', '')
-            # print(content)
-            message = title + ',' + content
-            # message = ''.join(title).strip()
-            signin_today.sign_in_today = True
-            signin_today.sign_in_info = message
-            signin_today.save()
-            return CommonResponse.success(msg=message)
+            if res.status_code == 200:
+                title_parse = self.parse(res, '//td[@id="outer"]//td[@class="embedded"]/h2/text()')
+                content_parse = self.parse(res, '//td[@id="outer"]//td[@class="embedded"]/table/tr/td//text()')
+                if len(content_parse) <= 0:
+                    title_parse = self.parse(res, '//td[@id="outer"]//td[@class="embedded"]/b[1]/text()')
+                    content_parse = self.parse(res, '//td[@id="outer"]//td[@class="embedded"]/text()[1]')
+                title = ''.join(title_parse).strip()
+                # print(content_parse)
+                content = ''.join(content_parse).strip().replace('\n', '')
+                # print(content)
+                message = title + ',' + content
+                # message = ''.join(title).strip()
+                signin_today.sign_in_today = True
+                signin_today.sign_in_info = message
+                signin_today.save()
+                return CommonResponse.success(msg=message)
+            else:
+                return CommonResponse.error(msg='请确认签到是否成功？？网页返回码：' + str(res.status_code))
         except Exception as e:
             # raise
             self.send_text(site.name + '签到失败！原因：' + str(e))
@@ -775,7 +780,7 @@ class PtSpider:
                     msg=site.name + '个人主页访问错误，错误码：' + str(user_detail_res.status_code)
                 )
             # print(user_detail_res.status_code)
-            print('个人主页：', user_detail_res.content)
+            # print('个人主页：', user_detail_res.content)
             # 解析HTML
             # print(user_detail_res.is_redirect)
 
