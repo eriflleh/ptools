@@ -560,6 +560,7 @@ class PtSpider:
         # print(url)
         try:
             response = self.send_request(my_site, url)
+            print(site.name, response.status_code)
             if response.status_code == 200:
                 return CommonResponse.success(data=response)
             elif response.status_code == 503:
@@ -575,7 +576,7 @@ class PtSpider:
         count = 0
         new_count = 0
         site = my_site.site
-        print(response)
+        # print(response.text.encode('utf8'))
         try:
             with lock:
                 if site.url == 'https://www.hd.ai/':
@@ -627,7 +628,7 @@ class PtSpider:
                         # print(tr)
                         # print(etree.tostring(tr))
                         sale_status = ''.join(tr.xpath(site.sale_rule))
-                        # print('sale_status:', sale_status)
+                        print('sale_status:', sale_status)
                         if not sale_status:
                             continue
                         sale_status = ''.join(re.split(r'[^\x00-\xff]', sale_status))
@@ -736,7 +737,7 @@ class PtSpider:
                     return CommonResponse.error(msg='抓取失败或无促销种子！')
                 return CommonResponse.success(data=(new_count, count))
         except Exception as e:
-            # raise
+            raise
             self.send_text(site.name + '解析种子信息：失败！原因：' + str(e))
             return CommonResponse.error(msg='解析种子页面失败！' + str(e))
 
@@ -1025,7 +1026,7 @@ class PtSpider:
                 message = my_site.site.name + '解析个人主页信息：失败！原因：' + str(e)
                 logging.error(message)
                 self.send_text('# <font color="red">' + message + '</font>  \n')
-                raise
+                # raise
                 return CommonResponse.error(msg=message)
 
     def get_hour_sp(self, my_site: MySite):
