@@ -221,9 +221,8 @@ def do_update(request):
         print(request.GET.get('restart'))
         flag = request.GET.get('restart') == 'true'
         if flag:
-            do_restart(request)
-        # cid = socket.gethostname()
-        # reboot = subprocess.Popen('docker restart {}'.format(cid), shell=True, stdout=subprocess.PIPE, )
+            cid = socket.gethostname()
+            subprocess.Popen('docker restart {}'.format(cid), shell=True, stdout=subprocess.PIPE, )
         # out = reboot.stdout.readline().decode('utf8')
         # client.api.inspect_container(cid)
         # StartedAt = client.api.inspect_container(cid).get('State').get('StartedAt')
@@ -249,12 +248,12 @@ def do_restart(request):
         # client.api.restart(cid)
         print('重启中')
         reboot = subprocess.Popen('docker restart {}'.format(cid), shell=True, stdout=subprocess.PIPE, )
-        out = reboot.stdout.readline().decode('utf8')
-        print(out)
+        # out = reboot.stdout.readline().decode('utf8')
+        # print(out)
         # client.api.inspect_container(cid)
         # StartedAt = client.api.inspect_container(cid).get('State').get('StartedAt')
         return JsonResponse(data=CommonResponse.error(
-            msg='重启指令发送成功，容器重启中 ...' + out
+            msg='重启指令发送成功，容器重启中 ...'
         ).to_dict(), safe=False)
     except Exception as e:
         return JsonResponse(data=CommonResponse.error(
