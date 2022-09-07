@@ -75,7 +75,7 @@ class PtSpider:
     """爬虫"""
 
     def __init__(self, browser='chrome', platform='darwin',
-                 user_agent='Mozilla/5.0 (Macintosh; Intel Mac OS X 10_14_4) AppleWebKit/537.36 (KHTML, like Gecko)',
+                 user_agent='Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/105.0.0.0 Safari/537.36 Edg/105.0.1343.27',
                  *args, **kwargs):
         self.browser = browser
         self.platform = platform
@@ -523,6 +523,9 @@ class PtSpider:
                             msg='请勿重复签到！'
                         )
                 elif res.status_code == 200:
+                    signin_today.sign_in_today = True
+                    signin_today.sign_in_info = '签到成功！'
+                    signin_today.save()
                     return CommonResponse.success(msg='签到成功！')
                 else:
                     return CommonResponse.error(msg='签到失败！')
@@ -737,7 +740,7 @@ class PtSpider:
                     return CommonResponse.error(msg='抓取失败或无促销种子！')
                 return CommonResponse.success(data=(new_count, count))
         except Exception as e:
-            raise
+            # raise
             self.send_text(site.name + '解析种子信息：失败！原因：' + str(e))
             return CommonResponse.error(msg='解析种子页面失败！' + str(e))
 
