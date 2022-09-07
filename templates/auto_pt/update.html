@@ -9,54 +9,51 @@
 <div id="app">
     <el-card class="box-card">
         <div slot="header" class="clearfix">
-            <span class="hidden-md-and-down">
-            <el-button type="primary">更新提示</el-button>
-                <el-popover
-                        placement="top-start"
-                        title="友情提示"
-                        width="300"
-                        trigger="hover"
-                        content="如果遇到无法更新的情况，您可以选择重建容器或者进入容器命令行到项目根目录执行`git pull`命令！">
-                        <el-link slot="reference"
-                                 type="success">{{ update_tips }}
-                            <span v-if="{{ restart }}"> + 容器已运行：{{ delta }}</span>
-                        </el-link>
-                </el-popover>
-            </span>
-            <span>
-                <el-popover
-                        placement="top-start"
-                        title="友情提示"
-                        width="300"
-                        trigger="hover"
-                        content="更新之前会自动备份数据库，更新完毕后会自动重启容器！">
-                 <el-button slot="reference" type="danger" @click="do_update({{ restart }})"
-                            v-if="update && restart"
-                 >重启更新</el-button>
-                </el-popover>
-                    <el-popover
-                            placement="top-start"
-                            title="友情提示"
-                            width="300"
-                            trigger="hover"
-                            content="没啥特殊功能，就是重启下容器！">
-                 <el-button slot="reference" type="danger" @click="do_restart" v-if="!update && restart">重启</el-button>
-                    </el-popover>
-                 <el-popover
-                         placement="top-start"
-                         title="友情提示"
-                         width="300"
-                         trigger="hover"
-                         content="未映射docker路径，更新完毕后请手动重启容器！">
-                    <el-button slot="reference" type="danger" @click="do_update({{ restart }})"
-                               v-if="update && !restart"
-                    >更新</el-button>
-                 </el-popover>
-            </span>
+            <el-popover
+                    placement="top-start"
+                    title="友情提示"
+                    width="300"
+                    trigger="hover"
+                    content="更新之前会自动备份数据库，更新完毕后会自动重启容器！">
+                <el-button slot="reference" type="danger" @click="do_update({{ restart }})"
+                           v-if="update && restart"
+                >重启更新
+                </el-button>
+            </el-popover>
+            <el-popover
+                    placement="top-start"
+                    title="友情提示"
+                    width="300"
+                    trigger="hover"
+                    content="没啥特殊功能，就是重启下容器！">
+                <el-button slot="reference" type="danger" @click="do_restart" v-if="!update && restart">重启</el-button>
+            </el-popover>
+            <el-popover
+                    placement="top-start"
+                    title="友情提示"
+                    width="300"
+                    trigger="hover"
+                    content="未映射docker路径，更新完毕后请手动重启容器！">
+                <el-button slot="reference" type="danger" @click="do_update({{ restart }})"
+                           v-if="update && !restart"
+                >更新
+                </el-button>
+            </el-popover>
+            <el-popover
+                    placement="top-start"
+                    title="友情提示"
+                    width="300"
+                    trigger="hover"
+                    content="如果遇到无法更新的情况，您可以选择重建容器或者进入容器命令行到项目根目录执行`git pull`命令！">
+                <el-link slot="reference"
+                         type="success">{{ update_tips }}
+                    <span v-if="{{ restart }}"> + 容器已运行：{{ delta }}</span>
+                </el-link>
+            </el-popover>
         </div>
         <div class="text item">
             <el-row>
-                                <el-col :span="12" v-if="update" :xs="24">
+                <el-col :span="12" v-if="update" :xs="24">
                     <el-card class="box-card" shadow="hover">
                         <div slot="header" class="clearfix">
                             <span>更新日志</span>
@@ -160,13 +157,7 @@
                                 message: res.data.msg
                             });
                         }
-                    }).catch(res => {
-                        this.$message({
-                            type: 'error',
-                            message: "重启失败！"
-                        });
                     })
-
                 }).catch(res => {
                     {#console.log(res)#}
                     this.$message({
