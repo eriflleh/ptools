@@ -11,7 +11,7 @@ from django.db import transaction
 from django.db.models import QuerySet
 from lxml import etree
 from pypushdeer import PushDeer
-from requests import Response
+from requests import Response, ReadTimeout
 from urllib3.exceptions import NewConnectionError
 from wechat_push import WechatPush
 from wxpusher import WxPusher
@@ -821,7 +821,11 @@ class PtSpider:
         except NewConnectionError as nce:
             return CommonResponse.error(
                 status=StatusCodeEnum.WEB_CONNECT_ERR,
-                msg='链接网站失败，请检查网站是否维护状态？？')
+                msg='打开网站失败，请检查网站是否维护？？')
+        except ReadTimeout as e:
+            return CommonResponse.error(
+                status=StatusCodeEnum.WEB_CONNECT_ERR,
+                msg='网站访问超时，请检查网站是否维护？？')
         except Exception as e:
             message = my_site.site.name + '访问个人主页信息：失败！原因：' + str(e)
             logging.error(message)
