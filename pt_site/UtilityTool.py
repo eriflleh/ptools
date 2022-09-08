@@ -209,7 +209,7 @@ class PtSpider:
             res2 = res1.get('words_result')[0].get('words')
             # 去除杂乱字符
             imagestring = ''.join(re.findall('[A-Za-z0-9]+', res2)).strip()
-            print('天空验证码：', imagestring, len(imagestring))
+            print('百度OCR天空验证码：', imagestring, len(imagestring))
             # 识别错误就重来
 
             return CommonResponse.success(
@@ -219,39 +219,11 @@ class PtSpider:
         except Exception as e:
             print(str(e))
             # raise
-            self.send_text('OCR识别失败：' + str(e))
+            self.send_text('百度OCR识别失败：' + str(e))
             return CommonResponse.error(
                 status=StatusCodeEnum.OCR_ACCESS_ERR,
                 msg=StatusCodeEnum.OCR_ACCESS_ERR.errmsg + str(e)
             )
-
-    """ paddleocr本地识别出问题，暂时放弃
-        def paddle_ocr(self, img_src: str):
-        # paddle_ocr调用识别验证码,本地识别没有合适的结果再向百度OCR请求
-            paddle = PaddleOCR(use_angle_cls=True, lang='en')
-            try:
-                # result = paddle.ocr(img_src, cls=True)
-                result = paddle.ocr(img_src)
-                times = 0
-                print(result)
-                for line in result:
-                    code = line[-1][0].strip()
-                    print(code)
-                    if len(code) != 6 and times <= 5:
-                        times += 1
-                        # print(times)
-                        self.paddle_ocr(img_src)
-                    # else:
-                    if len(code) == 6:
-                        return CommonResponse.success(
-                            data=code
-                        )
-                        # 如果本地OCR失败就是用百度OCR
-                return self.ocr_captcha(img_url=img_src)
-            except Exception as e:
-                print(str(e))
-                return CommonResponse.error(msg='本地OCR识别失败！' + str(e))
-    """
 
     def sign_in_hdsky(self, my_site: MySite, captcha=False):
         """HDSKY签到"""
@@ -284,6 +256,7 @@ class PtSpider:
             # imagestring = ''
             ocr_result = None
             while times <= 5:
+                # ocr_result = self.ocr_captcha(img_get_url)
                 ocr_result = self.ocr_captcha(img_get_url)
                 if ocr_result.code == StatusCodeEnum.OK.code:
                     imagestring = ocr_result.data
