@@ -6,7 +6,7 @@ from concurrent.futures.thread import ThreadPoolExecutor
 from apscheduler.schedulers.background import BackgroundScheduler
 from django_apscheduler.jobstores import DjangoJobStore
 
-from pt_site.UtilityTool import PtSpider, MessageTemplate
+from pt_site.UtilityTool import PtSpider, MessageTemplate, FileSizeConvert
 from pt_site.models import MySite
 from ptools.base import StatusCodeEnum
 
@@ -62,8 +62,8 @@ try:
                         my_site.sp_hour,
                         status.my_bonus,
                         status.ratio,
-                        status.downloaded,
-                        status.uploaded,
+                        FileSizeConvert.parse_2_file_size(status.downloaded),
+                        FileSizeConvert.parse_2_file_size(status.uploaded),
                         my_site.seed,
                         my_site.leech,
                         my_site.invitation,
