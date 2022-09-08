@@ -37,17 +37,14 @@ ADD ./start.sh /var/www/html
 # 给start.sh可执行权限
 RUN chmod +x /var/www/html/start.sh
 
-# 安装redis
-RUN sed -i 's/deb.debian.org/mirrors.ustc.edu.cn/g' /etc/apt/sources.list
+# 更换USTC源，并安装gcc，git
+RUN sed -i 's/deb.debian.org/mirrors.ustc.edu.cn/g' /etc/apt/sources.list &&
+  apt update &&
+    yes|apt install gcc git &&
+     apt-get autoclean
 
-#RUN apt update
-#RUN yes|apt install libgl1-mesa-glx
-#RUN yes|apt install redis-server
-
-#VOLUME ["/var/www/html/ptools/db"]
 VOLUME ["/var/www/html/ptools"]
 
 EXPOSE  $DJANGO_WEB_PORT
-#ENTRYPOINT ["redis-server","/etc/redis/redis.conf"]
-#ENTRYPOINT ["/bin/bash", "first.sh"]
+
 ENTRYPOINT ["/bin/bash", "/var/www/html/start.sh"]
