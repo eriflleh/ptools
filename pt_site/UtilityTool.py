@@ -492,6 +492,9 @@ class PtSpider:
                         signin_today.save()
                         return CommonResponse.success(msg='签到成功！')
                     else:
+                        signin_today.sign_in_today = True
+                        signin_today.sign_in_info = '签到成功！'
+                        signin_today.save()
                         return CommonResponse.success(
                             msg='请勿重复签到！'
                         )
