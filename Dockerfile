@@ -1,7 +1,7 @@
 # myproject/Dockerfile
 
 # 建立 python3.9 环境
-FROM python:3.9.13
+FROM python:3.9-slim
 
 # 镜像作者大江狗
 MAINTAINER ngfchl ngfchl@126.com
