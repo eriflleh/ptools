@@ -19,6 +19,7 @@ class Site(BaseEntity):
     # 主要页面
     page_default = models.CharField(verbose_name='默认搜索页面', default='torrents.php', max_length=64)
     page_sign_in = models.CharField(verbose_name='默认签到链接', default='attendance.php', max_length=64)
+    page_control_panel = models.CharField(verbose_name='控制面板', default='usercp.php', max_length=64)
     page_detail = models.CharField(verbose_name='详情页面链接', default='details.php?id={}', max_length=64)
     page_download = models.CharField(verbose_name='默认下载链接', default='download.php?id={}', max_length=64)
     page_user = models.CharField(verbose_name='用户信息链接', default='userdetails.php?id={}', max_length=64)
@@ -183,7 +184,17 @@ class Site(BaseEntity):
         max_length=128)
     my_level_rule = models.CharField(
         verbose_name='用户等级',
-        default='//span[@class="medium"]/span[@class="nowrap"]/a[contains(@class,"_Name")]/@class',
+        default='//a[contains(@class,"_Name") and contains(@href,"userdetails.php?id=1")]/@class',
+        max_length=128
+    )
+    my_passkey_rule = models.CharField(
+        verbose_name='Passkey',
+        default='//td[contains(text(),"密钥")]/following-sibling::td[1]/text()',
+        max_length=128
+    )
+    my_uid_rule = models.CharField(
+        verbose_name='用户ID',
+        default='//a[contains(@class,"_Name") and contains(@href,"userdetails.php?id=")]/@href',
         max_length=128
     )
     my_hr_rule = models.CharField(

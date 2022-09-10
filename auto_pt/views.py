@@ -12,7 +12,7 @@ from pt_site import views as tasks
 from pt_site.UtilityTool import FileSizeConvert
 from pt_site.models import SiteStatus, MySite, Site
 from pt_site.views import scheduler, pt_spider
-from ptools.base import CommonResponse
+from ptools.base import CommonResponse, StatusCodeEnum
 
 
 def add_task(request):
@@ -78,21 +78,78 @@ def test_notify(request):
 
 
 def do_sql(request):
-    # with open('main_pt_site_site.sql', encoding='utf-8') as file_obj:
-    #     contents = file_obj.readlines()
-    #     with connection.cursor() as cursor:
-    #         for statement in contents:
-    #             res1 = cursor.execute(statement)
-    # print(threading.main_thread().getName())
-    try:
-        print(0)
-    except Exception as e:
-
-        print(e)
-    # autoreload.start_django(au)
-    # django_main_thread
-
     return JsonResponse('ok', safe=False)
+
+
+def import_from_ptpp(request):
+    if request.method == 'GET':
+        return render(request, 'auto_pt/import_ptpp.html')
+    else:
+        # print(request.body)
+        data_list = json.loads(request.body).get('ptpp')
+        datas = json.loads(data_list)
+        print('content', len(datas))
+        # success_messages = []
+        # error_messages = []
+        message_list = []
+        # print(datas)
+        cookies = []
+        cookie = {
+            'domain': '',
+            'cookies': ''
+        }
+        for index, data in enumerate(datas):
+            domain = data.get('domain').lstrip('.').lstrip('www.')
+            # print('domain', domain)
+            value = data.get('name') + '=' + data.get('value') + ';'
+            # print('value', value)
+            if not cookie.get('domain'):
+                cookie['domain'] = domain
+                cookie['cookies'] = value
+            elif domain in cookie.get('domain'):
+                # new_value = cookie['cookies'] + value
+                # cookie['cookies'] = new_value
+                cookie['cookies'] += value
+                # print('new_value', cookie['cookies'])
+            else:
+                cookie['cookies'] = cookie['cookies'].lstrip(';')
+                cookies.append(cookie)
+                # print(len(cookies))
+                # cookie = {}
+                # cookie['domain'] = domain
+                # cookie['cookies'] = value
+                cookie = {'domain': domain, 'cookies': value}
+            if index == len(datas) - 1:
+                cookies.append(cookie)
+                # print('cookie:', cookie)
+                print('cookies,', len(cookies))
+        for data in cookies:
+            try:
+                print(data)
+                res = pt_spider.get_uid_and_passkey(data)
+                msg = res.msg
+                print(msg)
+                if res.code == StatusCodeEnum.OK.code:
+                    message_list.append({
+                        'msg': msg,
+                        'tag': 'success'
+                    })
+                else:
+                    # error_messages.append(msg)
+                    message_list.append({
+                        'msg': msg,
+                        'tag': 'error'
+                    })
+            except Exception as e:
+                message = '{} 站点导入失败！{}  \n'.format(data.get('domain'), str(e))
+                message_list.append({
+                    'msg': message,
+                    'tag': 'warning'
+                })
+                raise
+        return JsonResponse(CommonResponse.success(data={
+            'messages': message_list
+        }).to_dict(), safe=False)
 
 
 def get_git_logs(master='', n=10):

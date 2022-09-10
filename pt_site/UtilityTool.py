@@ -17,7 +17,7 @@ from wechat_push import WechatPush
 from wxpusher import WxPusher
 
 from auto_pt.models import Notify, OCR
-from pt_site.models import MySite, SignIn, TorrentInfo, SiteStatus
+from pt_site.models import MySite, SignIn, TorrentInfo, SiteStatus, Site
 from ptools.base import TorrentBaseInfo, PushConfig, CommonResponse, StatusCodeEnum
 
 
@@ -94,6 +94,9 @@ class PtSpider:
         for i in list_mid:
             # 以第一个选中的字符分割1次，
             list2 = i.split('=', 1)
+            print(list2)
+            if list2[0] == '':
+                continue
             dist_dict[list2[0]] = list2[1]
         return dist_dict
 
@@ -224,6 +227,40 @@ class PtSpider:
                 status=StatusCodeEnum.OCR_ACCESS_ERR,
                 msg=StatusCodeEnum.OCR_ACCESS_ERR.errmsg + str(e)
             )
+
+    def get_uid_and_passkey(self, cookie: dict):
+        site = Site.objects.filter(url__contains=cookie.get('domain')).first()
+        # print('查询站点信息：',site)
+        if not site:
+            return CommonResponse.error(msg='尚未支持此站点：' + cookie.get('domain'))
+        my_site = MySite.objects.filter(site=site).first()
+        # print('查询我的站点：',my_site)
+        # 如果有更新cookie，如果没有继续创建
+        if not my_site:
+            my_site = MySite(
+                site=site,
+                cookie=cookie.get('cookies')
+            )
+            url = site.url + site.page_control_panel
+            # print(my_site.cookie)
+            print(url)
+            response = self.send_request(my_site=my_site, url=url)
+            # print(response.content.decode('utf8'))
+            user_details = self.parse(response, site.my_uid_rule)
+            print(user_details)
+            user_details_href = user_details[0]
+            passkey = self.parse(response, site.my_passkey_rule)[0]
+            uid = re.sub(r'\D', '', user_details_href)
+            print(uid, passkey)
+            my_site.user_id = uid
+            my_site.passkey = passkey
+            my_site.save()
+            print(site.name, uid, passkey)
+            return CommonResponse.success(msg=site.name + ' 信息导入成功！')
+        else:
+            my_site.cookie = cookie.get('cookies').rstrip(';')
+            my_site.save()
+            return CommonResponse.success(msg=site.name + ' 信息更新成功！')
 
     def sign_in_hdsky(self, my_site: MySite, captcha=False):
         """HDSKY签到"""

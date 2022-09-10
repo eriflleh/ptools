@@ -1,0 +1,157 @@
+{% load static %}
+
+<!DOCTYPE html>
+<html>
+<head>
+    {% include 'admin/includes/css-part.html' %}
+    <style>
+        #content {
+            background-color: dimgrey;
+            color: whitesmoke;
+            border: 2px solid dimgrey;
+            border-radius: 3px;
+            line-height: 20px;
+            font-size: 16px;
+            width: 100%;
+            height: 500px;
+            padding: 5px;
+            overflow-y: scroll;
+            word-break: break-all;
+        }
+    </style>
+</head>
+<body>
+<div id="ptpp">
+    <el-card class="box-card">
+        <div slot="header" class="clearfix">
+            <span>
+                <input type="file" class="upload-demo" @change="showFile($event)"/>
+            </span>
+            <el-button style="float: right;" type="success" @click="do_import">导入</el-button>
+            {#            <el-upload#}
+            {#                    :show-file-list="false"#}
+            {#                    :on-change="showFile($event)"#}
+            {#                    :auto-upload="false">#}
+            {#                <el-button type="success">点击上传</el-button>#}
+            {#            </el-upload>#}
+        </div>
+        <div class="text item">
+            <textarea id="content" readonly v-model="ptpp"></textarea>
+        </div>
+
+    </el-card>
+</div>
+
+{% include 'admin/includes/js-part.html' %}
+<script src="{% static 'admin/simpleui-x/js/axios.min.js' %}"></script>
+
+<script type="text/javascript">
+
+    const vm = new Vue({
+        el: '#ptpp',
+        data() {
+            return {
+                ptpp: ''
+            }
+        },
+        watch: {},
+        methods: {
+            do_format() {
+                let ptpp = JSON.parse(this.ptpp)
+                this.ptpp = JSON.stringify(ptpp, null, "    ")
+
+            },
+            showFile(input) {
+                //支持chrome IE10
+                try {
+
+                    if (window.FileReader) {
+                        var file = input.target.files[0];
+                        var reader = new FileReader();
+                        reader.onload = ((event) => {
+                            //显示文件
+                            let ptpp = JSON.parse(event.target.result);
+                            this.ptpp = JSON.stringify(ptpp, null, "    ")
+                            {#console.log(event.target.result)#}
+                        })
+                        console.info(file)
+                        console.info(reader);
+                        reader.readAsText(file);
+                    } else {
+                        this.$message({
+                            type: 'warning',
+                            message: '可能不支持您的浏览器？？？请使用Chrome或Edge！'
+                        });
+                    }
+                } catch (e) {
+                    this.$message({
+                        type: 'warning',
+                        message: 'PTPP数据必须为标准JSON格式，请检查数据是否有误？？？'
+                    });
+                }
+            },
+            do_import() {
+                var self = this;
+                {#console.log(this.ptpp)#}
+                if (this.ptpp === '') {
+                    this.$message({
+                        type: 'warning',
+                        message: '数据获取失败，请检查数据文件是否有误？？？'
+                    });
+                }
+                this.$confirm('确认导入数据 ？', '提示', {
+                    confirmButtonText: '确定',
+                    cancelButtonText: '取消',
+                    type: 'warning'
+                }).then(() => {
+                    axios.post(
+                        "{% url "import_from_ptpp" %}",
+                        {
+                            'ptpp': this.ptpp
+                        }).then(res => {
+                        if (res.data.code === 0) {
+                            let messages = res.data.data.messages
+                            Array.from(messages).forEach(item => {
+                                var duration = 0
+                                switch (item.tag) {
+                                    case 'success':
+                                        duration = 1500;
+                                        break;
+                                    case 'warning':
+                                        duration = 0;
+                                        break;
+                                    case 'error':
+                                        duration = 0;
+                                        break;
+                                }
+                                setTimeout(function () {
+                                    console.log(duration)
+                                    self.$notify({
+                                        title: '提示',
+                                        message: item.msg,
+                                        type: item.tag,
+                                        dangerouslyUseHTMLString: true,
+                                        duration: duration
+                                    });
+                                }, 200);
+                            })
+                        } else {
+                            console.log(res)
+                            this.$message({
+                                type: 'warning',
+                                message: res.data.msg
+                            });
+                        }
+                    })
+                }).catch(() => {
+                    this.$message({
+                        type: 'info',
+                        message: '已取消'
+                    });
+                });
+            }
+        }
+    })
+</script>
+</body>
+</html>

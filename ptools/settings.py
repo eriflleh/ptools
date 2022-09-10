@@ -204,12 +204,16 @@ SIMPLEUI_CONFIG = {
         }]
     }, {
         'app': 'update',
-        'name': '更新',
-        'icon': 'fas fa-code',
+        'name': '更新&导入',
+        'icon': 'el-icon-attract',
         'models': [{
-            'name': '更新',
-            'icon': 'far fa-surprise',
+            'name': '代码更新',
+            'icon': 'el-icon-refresh',
             'url': '/tasks/update'
+        }, {
+            'name': '站点导入',
+            'icon': 'el-icon-s-open',
+            'url': '/tasks/import_from_ptpp'
         }, ]
     }]
 }
