@@ -141,6 +141,8 @@ class SiteAdmin(ImportExportModelAdmin):  # instead of ModelAdmin
         ['站点信息规则', {
             'classes': ('collapse',),  # CSS
             'fields': (
+                'my_uid_rule',
+                'my_passkey_rule',
                 'my_level_rule',
                 'ratio_rule',
                 'my_sp_rule',
