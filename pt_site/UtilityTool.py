@@ -231,7 +231,7 @@ class PtSpider:
     def parse_ptpp_cookies(self, datas):
         cookies = []
         for data in datas:
-            domain = data.get('url')
+            domain = data.get('host')
             cookie_list = data.get('cookies')
             cookie_str = ''
             for cookie in cookie_list:

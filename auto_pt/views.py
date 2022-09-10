@@ -106,12 +106,11 @@ def import_from_ptpp(request):
         data_list = json.loads(request.body).get('ptpp')
         datas = json.loads(data_list)
         print('content', len(datas))
-        cookies = pt_spider.parse_ptpp_cookies()
+        cookies = pt_spider.parse_ptpp_cookies(datas)
         # success_messages = []
         # error_messages = []
         message_list = []
         # print(datas)
-
 
         for data in cookies:
             try:
