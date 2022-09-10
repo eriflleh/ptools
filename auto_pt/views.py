@@ -78,6 +78,22 @@ def test_notify(request):
 
 
 def do_sql(request):
+    with open('./cookies.json', 'r') as f:
+        # print(f.readlines())
+        datas = json.load(f)
+        cookies = []
+        for data in datas:
+            domain = data.get('url')
+            cookie_list = data.get('cookies')
+            cookie_str = ''
+            for cookie in cookie_list:
+                cookie_str += cookie.get('name') + '=' + cookie.get('value') + ';'
+            print(domain, cookie_str)
+            cookies.append({
+                'domain': domain,
+                'cookies': cookie_str.rstrip(';')
+            })
+        print(len(cookies))
     return JsonResponse('ok', safe=False)
 
 
@@ -85,44 +101,18 @@ def import_from_ptpp(request):
     if request.method == 'GET':
         return render(request, 'auto_pt/import_ptpp.html')
     else:
+
         # print(request.body)
         data_list = json.loads(request.body).get('ptpp')
         datas = json.loads(data_list)
         print('content', len(datas))
+        cookies = pt_spider.parse_ptpp_cookies()
         # success_messages = []
         # error_messages = []
         message_list = []
         # print(datas)
-        cookies = []
-        cookie = {
-            'domain': '',
-            'cookies': ''
-        }
-        for index, data in enumerate(datas):
-            domain = data.get('domain').lstrip('.').lstrip('www.')
-            # print('domain', domain)
-            value = data.get('name') + '=' + data.get('value') + ';'
-            # print('value', value)
-            if not cookie.get('domain'):
-                cookie['domain'] = domain
-                cookie['cookies'] = value
-            elif domain in cookie.get('domain'):
-                # new_value = cookie['cookies'] + value
-                # cookie['cookies'] = new_value
-                cookie['cookies'] += value
-                # print('new_value', cookie['cookies'])
-            else:
-                cookie['cookies'] = cookie['cookies'].lstrip(';')
-                cookies.append(cookie)
-                # print(len(cookies))
-                # cookie = {}
-                # cookie['domain'] = domain
-                # cookie['cookies'] = value
-                cookie = {'domain': domain, 'cookies': value}
-            if index == len(datas) - 1:
-                cookies.append(cookie)
-                # print('cookie:', cookie)
-                print('cookies,', len(cookies))
+
+
         for data in cookies:
             try:
                 print(data)

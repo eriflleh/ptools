@@ -228,6 +228,59 @@ class PtSpider:
                 msg=StatusCodeEnum.OCR_ACCESS_ERR.errmsg + str(e)
             )
 
+    def parse_ptpp_cookies(self, datas):
+        cookies = []
+        for data in datas:
+            domain = data.get('url')
+            cookie_list = data.get('cookies')
+            cookie_str = ''
+            for cookie in cookie_list:
+                cookie_str += cookie.get('name') + '=' + cookie.get('value') + ';'
+            print(domain, cookie_str)
+            cookies.append({
+                'domain': domain,
+                'cookies': cookie_str.rstrip(';')
+            })
+        return cookies
+
+    def parse_cookie_expire(self, datas):
+        """
+        使用魔改版的一键延长COOKIE有效期备份文件
+        :param datas:
+        :return:
+        """
+        cookies = []
+        cookie = {
+            'domain': '',
+            'cookies': ''
+        }
+        for index, data in enumerate(datas):
+            domain = data.get('domain').lstrip('.').lstrip('www.')
+            # print('domain', domain)
+            value = data.get('name') + '=' + data.get('value') + ';'
+            # print('value', value)
+            if not cookie.get('domain'):
+                cookie['domain'] = domain
+                cookie['cookies'] = value
+            elif domain in cookie.get('domain'):
+                # new_value = cookie['cookies'] + value
+                # cookie['cookies'] = new_value
+                cookie['cookies'] += value
+                # print('new_value', cookie['cookies'])
+            else:
+                cookie['cookies'] = cookie['cookies'].rstrip(';')
+                cookies.append(cookie)
+                # print(len(cookies))
+                # cookie = {}
+                # cookie['domain'] = domain
+                # cookie['cookies'] = value
+                cookie = {'domain': domain, 'cookies': value}
+            if index == len(datas) - 1:
+                cookies.append(cookie)
+                # print('cookie:', cookie)
+                print('cookies,', len(cookies))
+        return cookies
+
     def get_uid_and_passkey(self, cookie: dict):
         site = Site.objects.filter(url__contains=cookie.get('domain')).first()
         # print('查询站点信息：',site)
