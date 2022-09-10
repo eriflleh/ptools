@@ -230,18 +230,25 @@ class PtSpider:
 
     def parse_ptpp_cookies(self, datas):
         cookies = []
-        for data in datas:
-            domain = data.get('host')
-            cookie_list = data.get('cookies')
-            cookie_str = ''
-            for cookie in cookie_list:
-                cookie_str += cookie.get('name') + '=' + cookie.get('value') + ';'
-            print(domain, cookie_str)
-            cookies.append({
-                'domain': domain,
-                'cookies': cookie_str.rstrip(';')
-            })
-        return cookies
+        try:
+            if datas[0].get('domain'):
+                print(datas[0].get('domain'))
+                return CommonResponse.success(data=self.parse_cookie_expire(datas))
+            for data in datas:
+                domain = data.get('host')
+                cookie_list = data.get('cookies')
+                cookie_str = ''
+                for cookie in cookie_list:
+                    cookie_str += cookie.get('name') + '=' + cookie.get('value') + ';'
+                print(domain, cookie_str)
+                cookies.append({
+                    'domain': domain,
+                    'cookies': cookie_str.rstrip(';')
+                })
+                return CommonResponse.success(data=cookies)
+        except Exception as e:
+            raise
+            return CommonResponse.error(msg='Cookies解析失败，请确认导入了正确的cookies备份文件！')
 
     def parse_cookie_expire(self, datas):
         """

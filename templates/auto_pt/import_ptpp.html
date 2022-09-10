@@ -25,7 +25,7 @@
     <el-card class="box-card">
         <div slot="header" class="clearfix">
             <span>
-                <input type="file" class="upload-demo" @change="showFile($event)"/>
+                <input type="file" v-model="cookies" class="upload-demo" @change="showFile($event)"/>
             </span>
             <el-button style="float: right;" type="success" @click="do_import">导入</el-button>
             {#            <el-upload#}
@@ -51,7 +51,8 @@
         el: '#ptpp',
         data() {
             return {
-                ptpp: ''
+                ptpp: '',
+                cookies: ''
             }
         },
         watch: {},
@@ -64,7 +65,6 @@
             showFile(input) {
                 //支持chrome IE10
                 try {
-
                     if (window.FileReader) {
                         var file = input.target.files[0];
                         var reader = new FileReader();
@@ -74,6 +74,7 @@
                             this.ptpp = JSON.stringify(ptpp, null, "    ")
                             {#console.log(event.target.result)#}
                         })
+                        console.log(this.cookies)
                         console.info(file)
                         console.info(reader);
                         reader.readAsText(file);
@@ -135,17 +136,23 @@
                                     });
                                 }, 200);
                             })
-
+                            //清空PTPP
+                            this.ptpp = ''
+                            this.cookies = ''
+                            {#this.location.refresh()#}
                         } else {
-                            console.log(res)
                             this.$message({
-                                type: 'warning',
+                                type: 'error',
                                 message: res.data.msg
                             });
                         }
-                        //清空PTPP
-                        this.ptpp = ''
+                    }).catch(() => {
+                        this.$message({
+                            type: 'warning',
+                            message: '访问出错！'
+                        });
                     })
+
                 }).catch(() => {
                     this.$message({
                         type: 'info',
