@@ -135,6 +135,7 @@
                                     });
                                 }, 200);
                             })
+
                         } else {
                             console.log(res)
                             this.$message({
@@ -142,6 +143,8 @@
                                 message: res.data.msg
                             });
                         }
+                        //清空PTPP
+                        this.ptpp = ''
                     })
                 }).catch(() => {
                     this.$message({
