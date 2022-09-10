@@ -12,11 +12,8 @@
             event.preventDefault();
             if (submitted) {
                 const answer = window.confirm(gettext('You have already submitted this form. Are you sure you want to submit it again?'));
-                if (!answer) {
-                    return;
-                }
-            }
-            ;
+                if (!answer) {return;}
+            };
             event.target.submit();
             submitted = true;
         });

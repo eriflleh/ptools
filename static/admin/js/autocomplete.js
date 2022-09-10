@@ -21,7 +21,7 @@
         return this;
     };
 
-    $(function () {
+    $(function() {
         // Initialize all autocomplete widgets except the one in the template
         // form used when a new formset is added.
         $('.admin-autocomplete').not('[name*=__prefix__]').djangoAdminSelect2();
