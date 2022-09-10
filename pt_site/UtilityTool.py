@@ -247,7 +247,7 @@ class PtSpider:
                 })
                 return CommonResponse.success(data=cookies)
         except Exception as e:
-            raise
+            # raise
             return CommonResponse.error(msg='Cookies解析失败，请确认导入了正确的cookies备份文件！')
 
     def parse_cookie_expire(self, datas):

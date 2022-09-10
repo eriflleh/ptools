@@ -237,7 +237,7 @@ def do_update(request):
         print('开始拉取更新')
         # print(os.system('cat ./update.sh'))
         subprocess.Popen('chmod +x ./update.sh', shell=True)
-        p = subprocess.Popen('./update.sh', shell=True, stdout=subprocess.PIPE, bufsize=1)
+        p = subprocess.Popen('./update.sh', shell=True, stdout=subprocess.PIPE)
         p.wait()
         out = p.stdout.readlines()
         for i in out:
