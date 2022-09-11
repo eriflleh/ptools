@@ -96,7 +96,7 @@ class CommonResponse:
 class DownloaderCategory(models.TextChoices):
     # 下载器名称
     # Deluge = 'De', 'Deluge'
-    # Transmission = 'Tr', 'Transmission'
+    Transmission = 'Tr', 'Transmission'
     qBittorrent = 'Qb', 'qBittorrent'
 
 
