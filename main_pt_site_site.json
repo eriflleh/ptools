@@ -3219,8 +3219,8 @@
     "mailbox_rule": "//a[@href=\"messages.php\"]/font[contains(text(),\"条\")]/text()[1]",
     "hash_rule": "//tr[11]//td[@class=\"no_border_wide\"][2]/text()",
     "notice_rule": "//a[@href=\"index.php\"]/font/text()[1]",
-    "my_passkey_rule": "//td[contains(text(),\"密钥\")]/following-sibling::td[1]/text()",
-    "my_uid_rule": "//table[@id=\"info_block\"]//span/a[contains(@class,\"_Name\") and contains(@href,\"userdetails.php?id=\")]/@href",
+    "my_passkey_rule": "//td[contains(text(),\"Passkey\")]/following-sibling::td[1]/text()",
+    "my_uid_rule": "//h1/a[contains(@href,\"userdetails.php?id=\")]/@href",
     "page_control_panel": "usercp.php",
     "my_level_rule": "//span[@class=\"medium\"]/span[@class=\"nowrap\"]/a[contains(@class,\"_Name\")]/@class"
   },
