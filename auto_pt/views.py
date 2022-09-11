@@ -1,6 +1,7 @@
 import json
 import socket
 import subprocess
+import sys
 from datetime import datetime, timedelta
 
 import docker
@@ -78,22 +79,8 @@ def test_notify(request):
 
 
 def do_sql(request):
-    with open('./cookies.json', 'r') as f:
-        # print(f.readlines())
-        datas = json.load(f)
-        cookies = []
-        for data in datas:
-            domain = data.get('url')
-            cookie_list = data.get('cookies')
-            cookie_str = ''
-            for cookie in cookie_list:
-                cookie_str += cookie.get('name') + '=' + cookie.get('value') + ';'
-            print(domain, cookie_str)
-            cookies.append({
-                'domain': domain,
-                'cookies': cookie_str.rstrip(';')
-            })
-        print(len(cookies))
+    print('exit')
+    sys.exit(3)
     return JsonResponse('ok', safe=False)
 
 
@@ -165,7 +152,7 @@ def get_git_logs(master='', n=10):
             info = {}
             list1 = string.split(':', 1)
             # 格式化时间
-            update_time = datetime.strptime(list1[1].strip(), '%a %b %d %X %Y +0800')
+            update_time = datetime.strptime(list1[1].strip(), '%a %b %d %H:%M:%S %Y %z')
             info['date'] = update_time.strftime('%Y-%m-%d %H:%M:%S')
             info['data'] = []
             continue
@@ -209,6 +196,7 @@ def update_page(request):
         local_time = utc_time + timedelta(hours=8)
         delta = str((datetime.now() - local_time).seconds) + '秒'
         print(delta)
+        # delta = '666'
         # delta = local_time.strftime('%Y-%m-%dT%H:%M:%S.%f')
         # delta = delta.astimezone(pytz.timezone('Asia/Shanghai'))
     except Exception as e:
