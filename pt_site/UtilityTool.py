@@ -245,7 +245,7 @@ class PtSpider:
                     'domain': domain,
                     'cookies': cookie_str.rstrip(';')
                 })
-                return CommonResponse.success(data=cookies)
+            return CommonResponse.success(data=cookies)
         except Exception as e:
             # raise
             return CommonResponse.error(msg='Cookies解析失败，请确认导入了正确的cookies备份文件！')
