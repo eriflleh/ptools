@@ -46,3 +46,8 @@ def test_import(request):
         return JsonResponse(CommonResponse.success(data={
             'messages': message_list
         }).to_dict(), safe=False)
+
+
+def handle_json(request):
+    if request.method == 'GET':
+        return render(request, 'pt_test/test_json.html')

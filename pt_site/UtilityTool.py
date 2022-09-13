@@ -7,6 +7,8 @@ from datetime import datetime
 
 import aip
 import cloudscraper
+import dateutil.parser
+
 import opencc
 from django.db import transaction
 from django.db.models import QuerySet
@@ -233,10 +235,12 @@ class PtSpider:
         # 解析前端传来的数据
         datas = json.loads(data_list.get('cookies'))
         info_list = json.loads(data_list.get('info'))
+        userdata_list = json.loads(data_list.get('userdata'))
         cookies = []
         try:
             for data, info in zip(datas, info_list):
                 cookie_list = data.get('cookies')
+                host = data.get('host')
                 cookie_str = ''
                 for cookie in cookie_list:
                     cookie_str += cookie.get('name') + '=' + cookie.get('value') + ';'
@@ -245,49 +249,72 @@ class PtSpider:
                     'url': data.get('url'),
                     'info': info.get('user'),
                     'passkey': info.get('passkey'),
-                    'cookies': cookie_str.rstrip(';')
+                    'cookies': cookie_str.rstrip(';'),
+                    'userdatas': userdata_list.get(host)
                 })
             print(len(cookies))
-            print(cookies)
+            # print(cookies)
             return CommonResponse.success(data=cookies)
         except Exception as e:
             # raise
             return CommonResponse.error(msg='Cookies解析失败，请确认导入了正确的cookies备份文件！')
 
     def get_uid_and_passkey(self, cookie: dict):
-        site = Site.objects.filter(url__contains=cookie.get('url')).first()
+        url = cookie.get('url')
+        site = Site.objects.filter(url__contains=url).first()
         # print('查询站点信息：',site)
         if not site:
-            return CommonResponse.error(msg='尚未支持此站点：' + cookie.get('url'))
+            return CommonResponse.error(msg='尚未支持此站点：' + url)
         my_site = MySite.objects.filter(site=site).first()
         # print('查询我的站点：',my_site)
         # 如果有更新cookie，如果没有继续创建
-        my_level = re.sub(u'([^a-zA-Z_ ])', "", cookie.get('info').get('levelName'))
-
-        if not my_site:
-            my_site = MySite(
-                site=site,
-                cookie=cookie.get('cookies'),
-                passkey=cookie.get('passkey'),
-                user_id=cookie.get('info').get('id'),
-                my_level=my_level,
-                time_join=cookie.get('info').get('joinTime'),
-                seed=cookie.get('info').get('seeding'),
-                mail=cookie.get('info').get('messageCount')
-            )
-            my_site.save()
-            # status = SiteStatus(
-            #     my_site=my_site,
-            #     uploaded=cookie.get('uploaded'),
-            #     downloaded=cookie.get('downloaded'),
-            #     my_sp=cookie.get('bonus'),
-            #     seed_vol=cookie.get('seedingSize'),
-            # )
-            return CommonResponse.success(msg=site.name + ' 信息导入成功！')
+        my_level_str = cookie.get('info').get('levelName')
+        if my_level_str:
+            my_level = re.sub(u'([^a-zA-Z_ ])', "", my_level_str)
         else:
-            my_site.cookie = cookie.get('cookies').rstrip(';')
-            my_site.save()
-            return CommonResponse.success(msg=site.name + ' 信息更新成功！')
+            my_level = ' '
+        userdatas = cookie.get('userdatas')
+        if not my_site:
+            time_stamp = cookie.get('info').get('joinTime')
+            if time_stamp:
+                time_join = time.strftime('%Y-%m-%d %H:%M:%S', time.localtime(time_stamp / 1000))
+            else:
+                time_join = None
+            result = MySite.objects.update_or_create(site=site, defaults={
+                'cookie': cookie.get('cookies'),
+                'passkey': cookie.get('passkey'),
+                'user_id': cookie.get('info').get('id'),
+                'my_level': my_level if my_level else ' ',
+                'time_join': time_join,
+                'seed': cookie.get('info').get('seeding') if cookie.get('info').get('seeding') else 0,
+                'mail': cookie.get('info').get('messageCount') if cookie.get('info').get('messageCount') else 0,
+            })
+            my_site = result[0]
+            for key, value in userdatas.items():
+                print(key)
+                downloaded = value.get('downloaded')
+                uploaded = value.get('uploaded')
+                seeding_size = value.get('seedingSize')
+                my_sp = value.get('bonus')
+                if not value.get(
+                        'id') or key == 'latest' or not downloaded or not uploaded or not seeding_size or not my_sp:
+                    continue
+                create_time = dateutil.parser.parse(key).date()
+                res_status = SiteStatus.objects.update_or_create(
+                    site=my_site,
+                    created_at__date=create_time,
+                    defaults={
+                        'uploaded': uploaded,
+                        'downloaded': downloaded,
+                        'my_sp': my_sp,
+                        'seed_vol': seeding_size,
+                    })
+                res_status[0].created_at = create_time
+                res_status[0].save()
+                print(res_status)
+            return CommonResponse.success(
+                msg=site.name + (' 信息导入成功！' if result[1] else ' 信息更新成功！')
+            )
 
     def sign_in_hdsky(self, my_site: MySite, captcha=False):
         """HDSKY签到"""
@@ -451,7 +478,8 @@ class PtSpider:
                         bonus = res_json.get('message')
                         days = (int(bonus) - 10) / 2 + 1
                         signin_today.sign_in_today = True
-                        message = '成功,已连续签到{}天,魔力值加{},明日继续签到可获取{}魔力值！'.format(days, bonus, bonus + 2)
+                        message = '成功,已连续签到{}天,魔力值加{},明日继续签到可获取{}魔力值！'.format(days, bonus,
+                                                                                                      bonus + 2)
                         signin_today.sign_in_info = message
                         signin_today.save()
                         return CommonResponse.success(

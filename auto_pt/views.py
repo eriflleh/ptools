@@ -90,13 +90,13 @@ def import_from_ptpp(request):
         res = pt_spider.parse_ptpp_cookies(data_list)
         if res.code == StatusCodeEnum.OK.code:
             cookies = res.data
-            print(cookies)
+            # print(cookies)
         else:
             return JsonResponse(res.to_dict(), safe=False)
         message_list = []
         for data in cookies:
             try:
-                print(data)
+                # print(data)
                 res = pt_spider.get_uid_and_passkey(data)
                 msg = res.msg
                 print(msg)
@@ -117,6 +117,7 @@ def import_from_ptpp(request):
                     'msg': message,
                     'tag': 'warning'
                 })
+                raise
         return JsonResponse(CommonResponse.success(data={
             'messages': message_list
         }).to_dict(), safe=False)

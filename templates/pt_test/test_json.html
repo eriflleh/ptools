@@ -71,15 +71,21 @@
         </div>
         <div class="text item">
             <el-row>
-                <el-col :span="12" style="text-align: center">
-                    <h3>用户信息</h3>
-                    <textarea id="content" readonly v-model="user.info"></textarea>
-                </el-col>
+                {#                <el-col :span="12" style="text-align: center">#}
+                {#                    <h3>用户信息</h3>#}
+                {#                    <textarea id="content" readonly v-model="user.info"></textarea>#}
+                {#                </el-col>#}
+                {#                <el-col :span="12" style="text-align: center">#}
+                {#                    <h3>网站Cookies</h3>#}
+                {#                    <textarea id="content" readonly v-model="user.cookies"></textarea>#}
+                {#                </el-col>#}
                 <el-col :span="12" style="text-align: center">
                     <h3>网站Cookies</h3>
-                    <textarea id="content" readonly v-model="user.cookies"></textarea>
+                    <textarea id="content" v-model="user.userdata"></textarea>
                 </el-col>
+                <el-button type="danger" @click="handleJson">handle</el-button>
             </el-row>
+
         </div>
 
 
@@ -108,9 +114,20 @@
         },
         watch: {},
         methods: {
-            do_format() {
-                let ptpp = JSON.parse(this.ptpp)
-                this.ptpp = JSON.stringify(ptpp, null, "    ")
+            handleJson() {
+                {#let ptpp = JSON.parse(this.user.userdata)#}
+                {#console.log(ptpp)#}
+                {#this.user.userdata = JSON.stringify(ptpp, null, "    ")#}
+                let userdata = JSON.stringify(this.user.userdata)
+                {#console.log(this.user.userdata)#}
+                {#console.log(JSON.parse(userdata).length)#}
+                for (const key in userdata) {
+                    console.log(key)
+                    const element = userdata[key];
+                    console.log("------->" + element)
+                    console.log(element[0])
+                }
+
 
             },
             changeFile(input) {
@@ -140,7 +157,7 @@
                                         this.user.info = JSON.stringify(ptpp.sites, null, "    ")
                                     })
                             }
-                            if (fileName.includes("userdatas.json")) {
+                            if (fileName.includes("userdatas")) {
                                 console.log(fileName)
                                 res.file(obj.name)
                                     .async('text')

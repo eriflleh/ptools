@@ -196,11 +196,11 @@ class StatusInlines(admin.TabularInline):
     fields = [
         'uploaded', 'downloaded', 'ratio',
         'my_sp', 'my_bonus', 'seed_vol',
-        'updated_at'
+        'created_at'
     ]
     classes = ['collapse']
-    readonly_fields = ['updated_at']
-    ordering = ['-updated_at']
+    readonly_fields = ['created_at']
+    ordering = ['-created_at']
     # 自定义模板，删除外键显示
     template = 'admin/pt_site/inline_status/tabular.html'
 
@@ -221,11 +221,11 @@ class SignInInlines(admin.StackedInline):
     model = SignIn
     fields = [
         'sign_in_today', 'sign_in_info',
-        'updated_at'
+        'created_at'
     ]
     classes = ['collapse']
-    readonly_fields = ['updated_at']
-    ordering = ['-updated_at']
+    readonly_fields = ['created_at']
+    ordering = ['-created_at']
 
     # 自定义模板，删除外键显示
     # template = 'admin/pt_site/inline_status/tabular.html'
