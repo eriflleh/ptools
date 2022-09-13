@@ -243,7 +243,7 @@ class PtSpider:
                 # print(domain, cookie_str)
                 cookies.append({
                     'url': data.get('url'),
-                    'uid': info.get('user').get('id'),
+                    'info': info.get('user'),
                     'passkey': info.get('passkey'),
                     'cookies': cookie_str.rstrip(';')
                 })
@@ -262,14 +262,27 @@ class PtSpider:
         my_site = MySite.objects.filter(site=site).first()
         # print('查询我的站点：',my_site)
         # 如果有更新cookie，如果没有继续创建
+        my_level = re.sub(u'([^a-zA-Z_ ])', "", cookie.get('info').get('levelName'))
+
         if not my_site:
             my_site = MySite(
                 site=site,
                 cookie=cookie.get('cookies'),
-                user_id=cookie.get('uid'),
                 passkey=cookie.get('passkey'),
+                user_id=cookie.get('info').get('id'),
+                my_level=my_level,
+                time_join=cookie.get('info').get('joinTime'),
+                seed=cookie.get('info').get('seeding'),
+                mail=cookie.get('info').get('messageCount')
             )
             my_site.save()
+            # status = SiteStatus(
+            #     my_site=my_site,
+            #     uploaded=cookie.get('uploaded'),
+            #     downloaded=cookie.get('downloaded'),
+            #     my_sp=cookie.get('bonus'),
+            #     seed_vol=cookie.get('seedingSize'),
+            # )
             return CommonResponse.success(msg=site.name + ' 信息导入成功！')
         else:
             my_site.cookie = cookie.get('cookies').rstrip(';')
