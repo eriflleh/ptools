@@ -28,6 +28,7 @@ urlpatterns = [
     path('', index),
     path(r'admin/', admin.site.urls),
     path(r'tasks/', include("auto_pt.urls"), name='tasks'),  #
-    path(r'site/', include("pt_site.urls"), name='tasks')  #
+    path(r'site/', include("pt_site.urls"), name='tasks'),  #
+    path(r'test/', include("pt_test.urls"), name='test'),  #
 
 ]

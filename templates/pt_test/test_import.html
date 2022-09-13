@@ -1,0 +1,293 @@
+{% load static %}
+
+<!DOCTYPE html>
+<html>
+<head>
+    {% include 'admin/includes/css-part.html' %}
+    <style>
+        #content {
+            background-color: dimgrey;
+            color: whitesmoke;
+            border: 2px solid dimgrey;
+            border-radius: 3px;
+            line-height: 20px;
+            font-size: 16px;
+            width: 90%;
+            height: 500px;
+            padding: 5px;
+            overflow-y: scroll;
+            word-break: break-all;
+        }
+
+        .ui-upload {
+            font-size: 14px;
+            width: 80px;
+            height: 30px;
+            line-height: 30px;
+            text-align: center;
+            position: relative;
+            cursor: pointer;
+            color: #fff;
+            background: #00abff;
+            border-radius: 3px;
+            overflow: hidden;
+            display: inline-block;
+            text-decoration: none;
+        }
+
+        .ui-upload input {
+            position: absolute;
+            font-size: 100px;
+            right: 0;
+            top: 0;
+            opacity: 0;
+            filter: alpha(opacity=0);
+            cursor: pointer
+        }
+    </style>
+</head>
+<body>
+<div id="ptpp">
+    {#    <input id="uploadFile" type="file" @change="changeFile($event)"/>#}
+
+    <el-card class="box-card">
+        <div slot="header" class="clearfix">
+            <label class="ui-upload">选取文件
+                <input type="file" v-model="zip" @change="showFile($event)"/>
+            </label>
+            {#            <el-upload#}
+            {#                    id="upload"#}
+            {#                    style="width: 50%"#}
+            {#                    :show-file-list="false"#}
+            {#                    @http-request="showFile($event)"#}
+            {#                    :on-change="showFile"#}
+            {#                    :before-upload="showFile($event)"#}
+            {#                    :accept="zip"#}
+            {#                    :limit="1"#}
+            {#                    :auto-upload="false">#}
+            {#                <el-button slot="trigger" type="primary" @change="showFile($event)">选取文件</el-button>#}
+            {#            </el-upload>#}
+            <el-button style="float: right;" size="small" type="success" @click="do_import">导入</el-button>
+        </div>
+        <div class="text item">
+            <el-row>
+                <el-col :span="12" style="text-align: center">
+                    <h3>用户信息</h3>
+                    <textarea id="content" readonly v-model="user.info"></textarea>
+                </el-col>
+                <el-col :span="12" style="text-align: center">
+                    <h3>网站Cookies</h3>
+                    <textarea id="content" readonly v-model="user.cookies"></textarea>
+                </el-col>
+            </el-row>
+        </div>
+
+
+    </el-card>
+</div>
+
+{% include 'admin/includes/js-part.html' %}
+<script src="{% static 'admin/simpleui-x/js/axios.min.js' %}"></script>
+<script src="{% static 'js/FileSaver.min.js' %}"></script>
+<script src="{% static 'js/jszip.min.js' %}"></script>
+
+<script type="text/javascript">
+
+    const vm = new Vue({
+        el: '#ptpp',
+        data() {
+            return {
+                user: {
+                    info: '',
+                    cookies: ''
+                },
+                import: true,
+                zip: ''
+            }
+        },
+        watch: {},
+        methods: {
+            do_format() {
+                let ptpp = JSON.parse(this.ptpp)
+                this.ptpp = JSON.stringify(ptpp, null, "    ")
+
+            },
+            changeFile(input) {
+                let file = input.target.files[0];
+                JSZip.loadAsync(file).then((res) => {
+                    console.log(res.files);
+                    res.forEach((ele, obj) => {
+                        if (!obj.dir) {
+                            // 压缩包内文件名称
+                            let fileName = obj.name;
+
+                            if (fileName.includes("cookie")) {
+                                console.log(fileName)
+                                res.file(obj.name)
+                                    .async('text')
+                                    .then(response => {
+                                        let ptpp = JSON.parse(response);
+                                        this.user.cookies = JSON.stringify(ptpp, null, "    ")
+                                    })
+                            }
+                            if (fileName.includes("options")) {
+                                console.log(fileName)
+                                res.file(obj.name)
+                                    .async('text')
+                                    .then(response => {
+                                        let ptpp = JSON.parse(response);
+                                        this.user.info = JSON.stringify(ptpp.sites, null, "    ")
+                                    })
+                            }
+
+                        }
+                    })
+                })
+            }
+            ,
+            showFile(input) {
+                //支持chrome IE10
+                try {
+                    if (window.FileReader) {
+                        let file = input.target.files[0];
+                        if (!file.type.includes('zip')) {
+                            console.log(file.type)
+                            this.$message({
+                                type: 'warning',
+                                message: '请选择正确的ZIP文件！！！'
+                            });
+                            return
+                        }
+                        let file_list = [];
+                        JSZip.loadAsync(file).then((res) => {
+                            {#console.log(res.files.item(0));#}
+
+                            res.forEach((ele, obj) => {
+                                if (!obj.dir) {
+                                    // 压缩包内文件名称
+                                    let fileName = obj.name;
+                                    file_list.push(fileName)
+                                    if (fileName.includes("cookie")) {
+                                        console.log(fileName)
+                                        res.file(obj.name)
+                                            .async('text')
+                                            .then(response => {
+                                                let ptpp = JSON.parse(response);
+                                                this.user.cookies = JSON.stringify(ptpp, null, "    ")
+                                            })
+                                    }
+                                    if (fileName.includes("options")) {
+                                        console.log(fileName)
+                                        res.file(obj.name)
+                                            .async('text')
+                                            .then(response => {
+                                                let ptpp = JSON.parse(response);
+                                                this.user.info = JSON.stringify(ptpp.sites, null, "    ")
+                                            })
+                                    }
+
+                                }
+                            })
+                            console.log(file_list)
+                            if (!file_list.includes('cookies.json') || !file_list.includes('options.json')) {
+                                this.$message({
+                                    type: 'warning',
+                                    message: '请检查压缩包内是否包含cookies.json和options.json两个文件！'
+                                });
+                            }
+                        })
+
+                    } else {
+                        this.$message({
+                            type: 'warning',
+                            message: '可能不支持您的浏览器？？？请使用Chrome或Edge！'
+                        });
+                    }
+                } catch (e) {
+                    this.$message({
+                        type: 'warning',
+                        message: 'PTPP数据必须为标准JSON格式，请检查数据是否有误？？？'
+                    });
+                }
+            }
+            ,
+            do_import() {
+                var self = this;
+                {#console.log(this.ptpp)#}
+                if (this.user.info === '' || this.user.cookies === '') {
+                    this.$message({
+                        type: 'warning',
+                        message: '请检查压缩包内文件是否齐全？至少要包含cookies.json和options.json两个文件'
+                    });
+                    return
+                }
+                if (this.ptpp === '') {
+                    this.$message({
+                        type: 'warning',
+                        message: '数据获取失败，请检查数据文件是否有误？？？'
+                    });
+                }
+                this.$confirm('确认导入数据 ？', '提示', {
+                    confirmButtonText: '确定',
+                    cancelButtonText: '取消',
+                    type: 'warning'
+                }).then(() => {
+                    axios.post(
+                        "{% url "test_import" %}",
+                        {
+                            'user': this.user
+                        }).then(res => {
+                        if (res.data.code === 0) {
+                            let messages = res.data.data.messages
+                            Array.from(messages).forEach(item => {
+                                var duration = 0
+                                switch (item.tag) {
+                                    case 'success':
+                                        duration = 1500;
+                                        break;
+                                    case 'warning':
+                                        duration = 0;
+                                        break;
+                                    case 'error':
+                                        duration = 0;
+                                        break;
+                                }
+                                setTimeout(function () {
+                                    console.log(duration)
+                                    self.$notify({
+                                        title: '提示',
+                                        message: item.msg,
+                                        type: item.tag,
+                                        dangerouslyUseHTMLString: true,
+                                        duration: duration
+                                    });
+                                }, 200);
+                            })
+                            //清空PTPP
+                            this.ptpp = ''
+                            this.zip = ''
+                        } else {
+                            this.$message({
+                                type: 'error',
+                                message: res.data.msg
+                            });
+                        }
+                    }).catch(() => {
+                        this.$message({
+                            type: 'warning',
+                            message: '访问出错！'
+                        });
+                    })
+
+                }).catch(() => {
+                    this.$message({
+                        type: 'info',
+                        message: '已取消'
+                    });
+                });
+            }
+        }
+    })
+</script>
+</body>
+</html>

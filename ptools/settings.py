@@ -48,6 +48,7 @@ INSTALLED_APPS = [
     'import_export',
     'django_apscheduler',
     'pt_site',
+    'pt_test',
     'auto_pt',
 ]
 
