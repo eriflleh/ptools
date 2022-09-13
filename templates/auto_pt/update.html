@@ -15,7 +15,7 @@
                     width="300"
                     trigger="hover"
                     content="更新之前会自动备份数据库，更新完毕后会自动重启容器！">
-                <el-button slot="reference" type="danger" @click="do_update({{ restart }})"
+                <el-button slot="reference" type="danger" @click="do_update"
                            v-if="update && restart"
                 >重启更新
                 </el-button>
@@ -34,9 +34,8 @@
                     width="300"
                     trigger="hover"
                     content="未映射docker路径，更新完毕后请手动重启容器！">
-                <el-button slot="reference" type="danger" @click="do_update({{ restart }})"
-                           v-if="update && !restart"
-                >更新
+                <el-button slot="reference" type="danger" @click="do_update"
+                           v-if="update && !restart">更新
                 </el-button>
             </el-popover>
             <el-popover
@@ -120,13 +119,17 @@
             update_notes: {{  update_notes | safe   }},
             local_logs: {{   local_logs | safe   }},
             {#local_log: [],#}
-            restart: {{ restart }},
+            restart: true,
             update: {{ update }},
             local_log_width: 24,
+            cid:{{ cid }}
         },
         created() {
             if (this.update) {
                 this.local_log_width = 12
+            }
+            if (this.cid === '') {
+                this.restart = false
             }
             this.$message({
                 showClose: true,
@@ -167,8 +170,7 @@
                 });
             },
 
-            do_update(restart) {
-                console.log(restart)
+            do_update() {
                 this.$confirm('此操作会拉取软件更新软件,并重启容器，是否继续?', '提示', {
                     confirmButtonText: '确定',
                     cancelButtonText: '取消',
@@ -177,7 +179,7 @@
                     axios.get(
                         "{% url "do_update" %}", {
                             params: {
-                                restart: restart
+                                cid: this.cid
                             }
                         }
                     ).then(res => {

@@ -1,7 +1,7 @@
 import json
 import socket
 import subprocess
-from datetime import datetime, timedelta
+from datetime import datetime
 
 import docker
 import git
@@ -9,10 +9,12 @@ from django.http import JsonResponse
 from django.shortcuts import render
 
 from pt_site import views as tasks
-from pt_site.UtilityTool import FileSizeConvert
 from pt_site.models import SiteStatus, MySite, Site
 from pt_site.views import scheduler, pt_spider
 from ptools.base import CommonResponse, StatusCodeEnum
+
+# 获取docker对象
+client = docker.from_env()
 
 
 def add_task(request):
@@ -174,25 +176,15 @@ def get_update_logs():
 
 
 def update_page(request):
-    try:
-        # 获取docker对象
-        client = docker.from_env()
-        # 从内部获取容器id
-        cid = socket.gethostname()
-        started_at = client.api.inspect_container(cid).get('State').get('StartedAt')[:-4] + 'Z'
-        utc_format = "%Y-%m-%dT%H:%M:%S.%fZ"
-        restart = 'true'
-        utc_time = datetime.strptime(started_at, utc_format)
-        local_time = utc_time + timedelta(hours=8)
-        delta = str((datetime.now() - local_time).seconds) + '秒'
-        print(delta)
-        # delta = '666'
-        # delta = local_time.strftime('%Y-%m-%dT%H:%M:%S.%f')
-        # delta = delta.astimezone(pytz.timezone('Asia/Shanghai'))
-    except Exception as e:
-        # raise
-        restart = 'false'
-        delta = '程序未在容器中启动？'
+    cid = ''
+    restart = 'false'
+    delta = '程序未在容器中启动？'
+    # 从内部获取容器id
+    for c in client.containers.list():
+        if 'ngfchl/ptools' in c.get('Image'):
+            cid = c.get('Id')
+            delta = c.get('Status')
+            restart = 'true'
     if get_update_logs():
         update = 'false'
         update_tips = '目前您使用的是最新版本！'
@@ -201,6 +193,7 @@ def update_page(request):
         update_tips = '已有新版本，请根据需要升级！'
     return render(request, 'auto_pt/update.html',
                   context={
+                      'cid': cid,
                       'delta': delta,
                       'restart': restart,
                       'local_logs': get_git_logs(),
@@ -223,17 +216,17 @@ def do_update(request):
         # 更新Xpath规则
         print('拉取更新完毕，开始更新Xpath规则')
         # 字符串型的数据量转化为int型
-        status_list = SiteStatus.objects.all()
-        for status in status_list:
-            if not status.downloaded:
-                status.downloaded = 0
-            if not status.uploaded:
-                status.uploaded = 0
-            if type(status.downloaded) == str and 'B' in status.downloaded:
-                status.downloaded = FileSizeConvert.parse_2_byte(status.downloaded)
-            if type(status.uploaded) == str and 'B' in status.uploaded:
-                status.uploaded = FileSizeConvert.parse_2_byte(status.uploaded)
-            status.save()
+        # status_list = SiteStatus.objects.all()
+        # for status in status_list:
+        #     if not status.downloaded:
+        #         status.downloaded = 0
+        #     if not status.uploaded:
+        #         status.uploaded = 0
+        #     if type(status.downloaded) == str and 'B' in status.downloaded:
+        #         status.downloaded = FileSizeConvert.parse_2_byte(status.downloaded)
+        #     if type(status.uploaded) == str and 'B' in status.uploaded:
+        #         status.uploaded = FileSizeConvert.parse_2_byte(status.uploaded)
+        #     status.save()
         with open('./main_pt_site_site.json', 'r') as f:
             # print(f.readlines())
             data = json.load(f)
@@ -249,10 +242,9 @@ def do_update(request):
                 site_obj = Site.objects.update_or_create(defaults=site_rules, url=site_rules.get('url'))
                 print(site_obj[0].name + (' 规则新增成功！' if site_obj[1] else '规则更新成功！'))
         print('更新完毕，开始重启')
-        print(request.GET.get('restart'))
-        flag = request.GET.get('restart') == 'true'
+        cid = request.GET.get('cid')
+        flag = (cid == '')
         if flag:
-            cid = socket.gethostname()
             subprocess.Popen('docker restart {}'.format(cid), shell=True, stdout=subprocess.PIPE, )
         # out = reboot.stdout.readline().decode('utf8')
         # client.api.inspect_container(cid)
