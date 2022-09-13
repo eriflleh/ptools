@@ -244,7 +244,7 @@ def do_update(request):
         print('更新完毕，开始重启')
         cid = request.GET.get('cid')
         flag = (cid == '')
-        if flag:
+        if not flag:
             subprocess.Popen('docker restart {}'.format(cid), shell=True, stdout=subprocess.PIPE, )
         # out = reboot.stdout.readline().decode('utf8')
         # client.api.inspect_container(cid)
