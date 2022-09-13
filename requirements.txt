@@ -22,6 +22,7 @@ OpenCC==1.1.4
 packaging==21.3
 pyparsing==3.0.9
 pypushdeer==0.0.3
+python-dateutil==2.8.2
 pytz==2022.2.1
 pytz-deprecation-shim==0.1.0.post0
 qbittorrent-api==2022.8.37
