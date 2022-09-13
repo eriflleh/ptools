@@ -1,3 +1,4 @@
+import json
 import logging
 import re
 import threading
@@ -228,94 +229,47 @@ class PtSpider:
                 msg=StatusCodeEnum.OCR_ACCESS_ERR.errmsg + str(e)
             )
 
-    def parse_ptpp_cookies(self, datas):
+    def parse_ptpp_cookies(self, data_list):
+        # 解析前端传来的数据
+        datas = json.loads(data_list.get('cookies'))
+        info_list = json.loads(data_list.get('info'))
         cookies = []
         try:
-            if datas[0].get('domain'):
-                print(datas[0].get('domain'))
-                return CommonResponse.success(data=self.parse_cookie_expire(datas))
-            for data in datas:
-                domain = data.get('host')
+            for data, info in zip(datas, info_list):
                 cookie_list = data.get('cookies')
                 cookie_str = ''
                 for cookie in cookie_list:
                     cookie_str += cookie.get('name') + '=' + cookie.get('value') + ';'
-                print(domain, cookie_str)
+                # print(domain, cookie_str)
                 cookies.append({
-                    'domain': domain,
+                    'url': data.get('url'),
+                    'uid': info.get('user').get('id'),
+                    'passkey': info.get('passkey'),
                     'cookies': cookie_str.rstrip(';')
                 })
+            print(len(cookies))
+            print(cookies)
             return CommonResponse.success(data=cookies)
         except Exception as e:
             # raise
             return CommonResponse.error(msg='Cookies解析失败，请确认导入了正确的cookies备份文件！')
 
-    def parse_cookie_expire(self, datas):
-        """
-        使用魔改版的一键延长COOKIE有效期备份文件
-        :param datas:
-        :return:
-        """
-        cookies = []
-        cookie = {
-            'domain': '',
-            'cookies': ''
-        }
-        for index, data in enumerate(datas):
-            domain = data.get('domain').lstrip('.').lstrip('www.')
-            # print('domain', domain)
-            value = data.get('name') + '=' + data.get('value') + ';'
-            # print('value', value)
-            if not cookie.get('domain'):
-                cookie['domain'] = domain
-                cookie['cookies'] = value
-            elif domain in cookie.get('domain'):
-                # new_value = cookie['cookies'] + value
-                # cookie['cookies'] = new_value
-                cookie['cookies'] += value
-                # print('new_value', cookie['cookies'])
-            else:
-                cookie['cookies'] = cookie['cookies'].rstrip(';')
-                cookies.append(cookie)
-                # print(len(cookies))
-                # cookie = {}
-                # cookie['domain'] = domain
-                # cookie['cookies'] = value
-                cookie = {'domain': domain, 'cookies': value}
-            if index == len(datas) - 1:
-                cookies.append(cookie)
-                # print('cookie:', cookie)
-                print('cookies,', len(cookies))
-        return cookies
-
     def get_uid_and_passkey(self, cookie: dict):
-        site = Site.objects.filter(url__contains=cookie.get('domain')).first()
+        site = Site.objects.filter(url__contains=cookie.get('url')).first()
         # print('查询站点信息：',site)
         if not site:
-            return CommonResponse.error(msg='尚未支持此站点：' + cookie.get('domain'))
+            return CommonResponse.error(msg='尚未支持此站点：' + cookie.get('url'))
         my_site = MySite.objects.filter(site=site).first()
         # print('查询我的站点：',my_site)
         # 如果有更新cookie，如果没有继续创建
         if not my_site:
             my_site = MySite(
                 site=site,
-                cookie=cookie.get('cookies')
+                cookie=cookie.get('cookies'),
+                user_id=cookie.get('uid'),
+                passkey=cookie.get('passkey'),
             )
-            url = site.url + site.page_control_panel
-            # print(my_site.cookie)
-            print(url)
-            response = self.send_request(my_site=my_site, url=url)
-            # print(response.content.decode('utf8'))
-            user_details = self.parse(response, site.my_uid_rule)
-            print(user_details)
-            user_details_href = user_details[0]
-            passkey = self.parse(response, site.my_passkey_rule)[0]
-            uid = re.sub(r'\D', '', user_details_href)
-            print(uid, passkey)
-            my_site.user_id = uid
-            my_site.passkey = passkey
             my_site.save()
-            print(site.name, uid, passkey)
             return CommonResponse.success(msg=site.name + ' 信息导入成功！')
         else:
             my_site.cookie = cookie.get('cookies').rstrip(';')

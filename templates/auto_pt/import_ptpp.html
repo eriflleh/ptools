@@ -12,11 +12,37 @@
             border-radius: 3px;
             line-height: 20px;
             font-size: 16px;
-            width: 100%;
+            width: 90%;
             height: 500px;
             padding: 5px;
             overflow-y: scroll;
             word-break: break-all;
+        }
+
+        .ui-upload {
+            font-size: 14px;
+            width: 80px;
+            height: 30px;
+            line-height: 30px;
+            text-align: center;
+            position: relative;
+            cursor: pointer;
+            color: #fff;
+            background: #00abff;
+            border-radius: 3px;
+            overflow: hidden;
+            display: inline-block;
+            text-decoration: none;
+        }
+
+        .ui-upload input {
+            position: absolute;
+            font-size: 100px;
+            right: 0;
+            top: 0;
+            opacity: 0;
+            filter: alpha(opacity=0);
+            cursor: pointer
         }
     </style>
 </head>
@@ -24,26 +50,32 @@
 <div id="ptpp">
     <el-card class="box-card">
         <div slot="header" class="clearfix">
-            <span>
-                <input type="file" v-model="cookies" class="upload-demo" @change="showFile($event)"/>
-            </span>
-            <el-button style="float: right;" type="success" @click="do_import">导入</el-button>
-            {#            <el-upload#}
-            {#                    :show-file-list="false"#}
-            {#                    :on-change="showFile($event)"#}
-            {#                    :auto-upload="false">#}
-            {#                <el-button type="success">点击上传</el-button>#}
-            {#            </el-upload>#}
+            <label class="ui-upload">选取文件
+                <input type="file" v-model="zip" @change="showFile($event)"/>
+            </label>
+            <el-button style="float: right;" size="small" type="success" @click="do_import">导入</el-button>
         </div>
         <div class="text item">
-            <textarea id="content" readonly v-model="ptpp"></textarea>
+            <el-row>
+                <el-col :span="12" style="text-align: center">
+                    <h3>用户信息</h3>
+                    <textarea id="content" readonly v-model="user.info"></textarea>
+                </el-col>
+                <el-col :span="12" style="text-align: center">
+                    <h3>网站Cookies</h3>
+                    <textarea id="content" readonly v-model="user.cookies"></textarea>
+                </el-col>
+            </el-row>
         </div>
+
 
     </el-card>
 </div>
 
 {% include 'admin/includes/js-part.html' %}
 <script src="{% static 'admin/simpleui-x/js/axios.min.js' %}"></script>
+<script src="{% static 'js/FileSaver.min.js' %}"></script>
+<script src="{% static 'js/jszip.min.js' %}"></script>
 
 <script type="text/javascript">
 
@@ -51,33 +83,68 @@
         el: '#ptpp',
         data() {
             return {
-                ptpp: '',
-                cookies: ''
+                user: {
+                    info: '',
+                    cookies: ''
+                },
+                import: true,
+                zip: ''
             }
         },
         watch: {},
         methods: {
-            do_format() {
-                let ptpp = JSON.parse(this.ptpp)
-                this.ptpp = JSON.stringify(ptpp, null, "    ")
-
-            },
             showFile(input) {
                 //支持chrome IE10
                 try {
                     if (window.FileReader) {
-                        var file = input.target.files[0];
-                        var reader = new FileReader();
-                        reader.onload = ((event) => {
-                            //显示文件
-                            let ptpp = JSON.parse(event.target.result);
-                            this.ptpp = JSON.stringify(ptpp, null, "    ")
-                            {#console.log(event.target.result)#}
+                        let file = input.target.files[0];
+                        if (!file.type.includes('zip')) {
+                            console.log(file.type)
+                            this.$message({
+                                type: 'warning',
+                                message: '请选择正确的ZIP文件！！！'
+                            });
+                            return
+                        }
+                        let file_list = [];
+                        JSZip.loadAsync(file).then((res) => {
+                            {#console.log(res.files.item(0));#}
+
+                            res.forEach((ele, obj) => {
+                                if (!obj.dir) {
+                                    // 压缩包内文件名称
+                                    let fileName = obj.name;
+                                    file_list.push(fileName)
+                                    if (fileName.includes("cookie")) {
+                                        console.log(fileName)
+                                        res.file(obj.name)
+                                            .async('text')
+                                            .then(response => {
+                                                let ptpp = JSON.parse(response);
+                                                this.user.cookies = JSON.stringify(ptpp, null, "    ")
+                                            })
+                                    }
+                                    if (fileName.includes("options")) {
+                                        console.log(fileName)
+                                        res.file(obj.name)
+                                            .async('text')
+                                            .then(response => {
+                                                let ptpp = JSON.parse(response);
+                                                this.user.info = JSON.stringify(ptpp.sites, null, "    ")
+                                            })
+                                    }
+
+                                }
+                            })
+                            console.log(file_list)
+                            if (!file_list.includes('cookies.json') || !file_list.includes('options.json')) {
+                                this.$message({
+                                    type: 'warning',
+                                    message: '请检查压缩包内是否包含cookies.json和options.json两个文件！'
+                                });
+                            }
                         })
-                        console.log(this.cookies)
-                        console.info(file)
-                        console.info(reader);
-                        reader.readAsText(file);
+
                     } else {
                         this.$message({
                             type: 'warning',
@@ -94,6 +161,13 @@
             do_import() {
                 var self = this;
                 {#console.log(this.ptpp)#}
+                if (this.user.info === '' || this.user.cookies === '') {
+                    this.$message({
+                        type: 'warning',
+                        message: '请检查压缩包内文件是否齐全？至少要包含cookies.json和options.json两个文件'
+                    });
+                    return
+                }
                 if (this.ptpp === '') {
                     this.$message({
                         type: 'warning',
@@ -108,7 +182,7 @@
                     axios.post(
                         "{% url "import_from_ptpp" %}",
                         {
-                            'ptpp': this.ptpp
+                            'user': this.user
                         }).then(res => {
                         if (res.data.code === 0) {
                             let messages = res.data.data.messages
@@ -138,8 +212,7 @@
                             })
                             //清空PTPP
                             this.ptpp = ''
-                            this.cookies = ''
-                            {#this.location.refresh()#}
+                            this.zip = ''
                         } else {
                             this.$message({
                                 type: 'error',

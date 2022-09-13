@@ -1,7 +1,6 @@
 import json
 import socket
 import subprocess
-import sys
 from datetime import datetime, timedelta
 
 import docker
@@ -80,7 +79,6 @@ def test_notify(request):
 
 def do_sql(request):
     print('exit')
-    sys.exit(3)
     return JsonResponse('ok', safe=False)
 
 
@@ -88,22 +86,14 @@ def import_from_ptpp(request):
     if request.method == 'GET':
         return render(request, 'auto_pt/import_ptpp.html')
     else:
-
-        # print(request.body)
-        data_list = json.loads(request.body).get('ptpp')
-        datas = json.loads(data_list)
-        print('content', len(datas))
-
-        res = pt_spider.parse_ptpp_cookies(datas)
+        data_list = json.loads(request.body).get('user')
+        res = pt_spider.parse_ptpp_cookies(data_list)
         if res.code == StatusCodeEnum.OK.code:
             cookies = res.data
+            print(cookies)
         else:
             return JsonResponse(res.to_dict(), safe=False)
-        # success_messages = []
-        # error_messages = []
         message_list = []
-        # print(datas)
-
         for data in cookies:
             try:
                 print(data)
@@ -127,7 +117,6 @@ def import_from_ptpp(request):
                     'msg': message,
                     'tag': 'warning'
                 })
-                # raise
         return JsonResponse(CommonResponse.success(data={
             'messages': message_list
         }).to_dict(), safe=False)
