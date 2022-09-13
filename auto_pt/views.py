@@ -180,7 +180,7 @@ def update_page(request):
     restart = 'false'
     delta = '程序未在容器中启动？'
     # 从内部获取容器id
-    for c in client.containers.list():
+    for c in client.api.containers():
         if 'ngfchl/ptools' in c.get('Image'):
             cid = c.get('Id')
             delta = c.get('Status')
