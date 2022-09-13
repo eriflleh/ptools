@@ -8,7 +8,6 @@ from datetime import datetime
 import aip
 import cloudscraper
 import dateutil.parser
-
 import opencc
 from django.db import transaction
 from django.db.models import QuerySet
@@ -274,47 +273,46 @@ class PtSpider:
         else:
             my_level = ' '
         userdatas = cookie.get('userdatas')
-        if not my_site:
-            time_stamp = cookie.get('info').get('joinTime')
-            if time_stamp:
-                time_join = time.strftime('%Y-%m-%d %H:%M:%S', time.localtime(time_stamp / 1000))
-            else:
-                time_join = None
-            result = MySite.objects.update_or_create(site=site, defaults={
-                'cookie': cookie.get('cookies'),
-                'passkey': cookie.get('passkey'),
-                'user_id': cookie.get('info').get('id'),
-                'my_level': my_level if my_level else ' ',
-                'time_join': time_join,
-                'seed': cookie.get('info').get('seeding') if cookie.get('info').get('seeding') else 0,
-                'mail': cookie.get('info').get('messageCount') if cookie.get('info').get('messageCount') else 0,
-            })
-            my_site = result[0]
-            for key, value in userdatas.items():
-                print(key)
-                downloaded = value.get('downloaded')
-                uploaded = value.get('uploaded')
-                seeding_size = value.get('seedingSize')
-                my_sp = value.get('bonus')
-                if not value.get(
-                        'id') or key == 'latest' or not downloaded or not uploaded or not seeding_size or not my_sp:
-                    continue
-                create_time = dateutil.parser.parse(key).date()
-                res_status = SiteStatus.objects.update_or_create(
-                    site=my_site,
-                    created_at__date=create_time,
-                    defaults={
-                        'uploaded': uploaded,
-                        'downloaded': downloaded,
-                        'my_sp': my_sp,
-                        'seed_vol': seeding_size,
-                    })
-                res_status[0].created_at = create_time
-                res_status[0].save()
-                print(res_status)
-            return CommonResponse.success(
-                msg=site.name + (' 信息导入成功！' if result[1] else ' 信息更新成功！')
-            )
+        time_stamp = cookie.get('info').get('joinTime')
+        if time_stamp:
+            time_join = time.strftime('%Y-%m-%d %H:%M:%S', time.localtime(time_stamp / 1000))
+        else:
+            time_join = None
+        result = MySite.objects.update_or_create(site=site, defaults={
+            'cookie': cookie.get('cookies'),
+            'passkey': cookie.get('passkey'),
+            'user_id': cookie.get('info').get('id'),
+            'my_level': my_level if my_level else ' ',
+            'time_join': time_join,
+            'seed': cookie.get('info').get('seeding') if cookie.get('info').get('seeding') else 0,
+            'mail': cookie.get('info').get('messageCount') if cookie.get('info').get('messageCount') else 0,
+        })
+        my_site = result[0]
+        for key, value in userdatas.items():
+            print(key)
+            downloaded = value.get('downloaded')
+            uploaded = value.get('uploaded')
+            seeding_size = value.get('seedingSize')
+            my_sp = value.get('bonus')
+            if not value.get(
+                    'id') or key == 'latest' or not downloaded or not uploaded or not seeding_size or not my_sp:
+                continue
+            create_time = dateutil.parser.parse(key).date()
+            res_status = SiteStatus.objects.update_or_create(
+                site=my_site,
+                created_at__date=create_time,
+                defaults={
+                    'uploaded': uploaded,
+                    'downloaded': downloaded,
+                    'my_sp': my_sp,
+                    'seed_vol': seeding_size,
+                })
+            res_status[0].created_at = create_time
+            res_status[0].save()
+            print(res_status)
+        return CommonResponse.success(
+            msg=site.name + (' 信息导入成功！' if result[1] else ' 信息更新成功！')
+        )
 
     def sign_in_hdsky(self, my_site: MySite, captcha=False):
         """HDSKY签到"""
@@ -479,7 +477,7 @@ class PtSpider:
                         days = (int(bonus) - 10) / 2 + 1
                         signin_today.sign_in_today = True
                         message = '成功,已连续签到{}天,魔力值加{},明日继续签到可获取{}魔力值！'.format(days, bonus,
-                                                                                                      bonus + 2)
+                                                                              bonus + 2)
                         signin_today.sign_in_info = message
                         signin_today.save()
                         return CommonResponse.success(

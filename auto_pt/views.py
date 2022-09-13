@@ -250,7 +250,7 @@ def do_update(request):
         # client.api.inspect_container(cid)
         # StartedAt = client.api.inspect_container(cid).get('State').get('StartedAt')
         return JsonResponse(data=CommonResponse.error(
-            msg='更新成功，重启指令发送成功，容器重启中 ...' if flag else '更新成功，未映射docker路径请手动重启容器 ...'
+            msg='更新成功，重启指令发送成功，容器重启中 ...' if not flag else '更新成功，未映射docker路径请手动重启容器 ...'
         ).to_dict(), safe=False)
     except Exception as e:
         # raise
