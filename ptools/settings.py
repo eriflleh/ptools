@@ -177,7 +177,8 @@ MEDIA_ROOT = os.path.join(BASE_DIR, 'media')
 # https://docs.djangoproject.com/en/4.0/ref/settings/#default-auto-field
 
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
-
+# DATA_UPLOAD_MAX_MEMORY_SIZE：这个设置翻译过来就是：数据上传最大内存大小
+DATA_UPLOAD_MAX_MEMORY_SIZE = 10485760
 APSCHEDULER_DATETIME_FORMAT = 'Y-m-d H:i:s'  # Default
 # 自定义配置
 SIMPLEUI_HOME_TITLE = 'PT一下你就知道'
