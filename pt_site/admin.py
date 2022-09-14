@@ -198,7 +198,7 @@ class StatusInlines(admin.TabularInline):
         'my_sp', 'my_bonus', 'seed_vol',
         'created_at'
     ]
-    classes = ['collapse']
+    # classes = ['collapse']
     readonly_fields = ['created_at']
     ordering = ['-created_at']
     # 自定义模板，删除外键显示
@@ -390,7 +390,6 @@ class MySiteAdmin(ImportExportModelAdmin):  # instead of ModelAdmin
     sign_in.type = 'success'
 
     # 获取站点个人数据
-    @transaction.atomic
     def get_status(self, request, queryset):
         start = time.time()
         # info_list = SiteStatus.objects.filter(update_date=datetime.now().date())
@@ -488,6 +487,7 @@ class MySiteAdmin(ImportExportModelAdmin):  # instead of ModelAdmin
 
     fieldsets = (
         ['用户信息', {
+            'classes': ('collapse',),  # CSS
             'fields': (
                 ('site', 'sign_in', 'hr', 'search'),
                 ('user_id', 'passkey',),
