@@ -13,8 +13,7 @@ from pt_site.models import SiteStatus, MySite, Site
 from pt_site.views import scheduler, pt_spider
 from ptools.base import CommonResponse, StatusCodeEnum
 
-# 获取docker对象
-client = docker.from_env()
+
 
 
 def add_task(request):
@@ -179,6 +178,8 @@ def update_page(request):
     cid = ''
     restart = 'false'
     delta = '程序未在容器中启动？'
+    # 获取docker对象
+    client = docker.from_env()
     # 从内部获取容器id
     for c in client.api.containers():
         if 'ngfchl/ptools' in c.get('Image'):
