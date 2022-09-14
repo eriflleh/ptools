@@ -308,22 +308,42 @@ class PtSpider:
             uploaded = value.get('uploaded')
             seeding_size = value.get('seedingSize')
             my_sp = value.get('bonus')
+            ratio = value.get('ratio')
+            if ratio is None or ratio == 'null':
+                ratio = 1
+            if type(ratio) == str:
+                ratio = ratio.strip('\n').strip()
+            if float(ratio) < 0:
+                ratio = 'inf'
             if not value.get(
                     'id') or key == 'latest' or not downloaded or not uploaded or not seeding_size or not my_sp:
                 continue
             create_time = dateutil.parser.parse(key).date()
-            res_status = SiteStatus.objects.update_or_create(
+            count_status = SiteStatus.objects.filter(site=my_site,
+                                                     created_at__date=create_time).count()
+            if count_status >= 1:
+                continue
+            status = SiteStatus.objects.create(
                 site=my_site,
-                created_at__date=create_time,
-                defaults={
-                    'uploaded': uploaded,
-                    'downloaded': downloaded,
-                    'my_sp': my_sp,
-                    'seed_vol': seeding_size,
-                })
-            res_status[0].created_at = create_time
-            res_status[0].save()
-            print(res_status)
+                uploaded=uploaded,
+                downloaded=downloaded,
+                ratio=float(ratio),
+                seed_vol=seeding_size,
+                my_sp=my_sp
+            )
+            # res_status = SiteStatus.objects.update_or_create(
+            #     site=my_site,
+            #     created_at__date=create_time,
+            #     defaults={
+            #         'uploaded': uploaded,
+            #         'downloaded': downloaded,
+            #         'my_sp': my_sp,
+            #         'seed_vol': seeding_size,
+            #         'ratio': float(ratio),
+            #     })
+            status.created_at = create_time
+            status.save()
+            print(status)
         return CommonResponse.success(
             msg=site.name + (' 信息导入成功！' if result[1] else ' 信息更新成功！')
         )
@@ -989,14 +1009,13 @@ class PtSpider:
                 details_html.xpath(site.invitation_rule)
             ).strip(']:').replace('[', '').strip()
             invitation = re.sub("\D", "", invitation)
-
-            time_join_1 = ''.join(
-                details_html.xpath(site.time_join_rule)
-            ).split('(')[0].strip('\xa0').strip()
+            # time_join_1 = ''.join(
+            #     details_html.xpath(site.time_join_rule)
+            # ).split('(')[0].strip('\xa0').strip()
             # print('注册时间：', time_join_1)
-            time_join = time_join_1.replace('(', '').replace(')', '').strip('\xa0').strip()
-            if not my_site.time_join and time_join:
-                my_site.time_join = time_join
+            # time_join = time_join_1.replace('(', '').replace(')', '').strip('\xa0').strip()
+            # if not my_site.time_join and time_join:
+            #     my_site.time_join = time_join
 
             # 去除字符串中的中文
             my_level_1 = ''.join(
@@ -1008,11 +1027,11 @@ class PtSpider:
                 my_level = re.sub(u"([^\u0041-\u005a\u0061-\u007a])", "", my_level_1)
             # my_level = re.sub('[\u4e00-\u9fa5]', '', my_level_1)
             # print('正则去除中文：', my_level)
-            latest_active = ''.join(
-                details_html.xpath(site.latest_active_rule)
-            ).strip('\xa0').strip()
-            if '(' in latest_active:
-                latest_active = latest_active.split('(')[0].strip()
+            # latest_active = ''.join(
+            #     details_html.xpath(site.latest_active_rule)
+            # ).strip('\xa0').strip()
+            # if '(' in latest_active:
+            #     latest_active = latest_active.split('(')[0].strip()
 
             # 获取字符串中的魔力值
             my_sp = ''.join(
@@ -1045,7 +1064,7 @@ class PtSpider:
                 invitation = 0
             my_site.invitation = int(invitation) if invitation else 0
 
-            my_site.latest_active = latest_active if latest_active != '' else datetime.now()
+            my_site.latest_active = datetime.now()
             my_site.my_level = my_level if my_level != '' else ' '
             if my_hr:
                 my_site.my_hr = my_hr
