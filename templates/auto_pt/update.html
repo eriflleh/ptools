@@ -47,6 +47,7 @@
                 <el-link slot="reference"
                          type="success">{{ update_tips }}
                     <span v-if="{{ restart }}"> + 容器已运行：{{ delta }}</span>
+                    <span v-text="time"></span>
                 </el-link>
             </el-popover>
         </div>
@@ -123,6 +124,7 @@
             update: {{ update }},
             local_log_width: 24,
             cid: "{{ cid }}",
+            time: ''
         },
         created() {
             if (this.update) {
@@ -136,11 +138,20 @@
                 message: "{{ update_tips }}",
                 type: 'success'
             });
-        }
-        ,
+        },
+        watch: {
+            time: function (newValue) {
+                if (newValue == 0) {
+                    this.$router.push("{% url "update_page" %}")
+                }
+            }
+        },
         methods: {
+            timeDown() {
+                this.time--
+            },
             do_restart() {
-                this.$confirm('此操作将重启容器，并更新软件, 是否继续?', '提示', {
+                this.$confirm('重启容器, 是否继续?', '提示', {
                     confirmButtonText: '确定',
                     cancelButtonText: '取消',
                     type: 'warning'
@@ -153,6 +164,8 @@
                                 type: 'success',
                                 message: res.data.msg
                             });
+                            this.time = 15
+                            setInterval(this.timeDown, 1000)
                         } else {
                             console.log(res)
                             this.$message({
@@ -171,7 +184,7 @@
             },
 
             do_update() {
-                this.$confirm('此操作会拉取软件更新软件,并重启容器，是否继续?', '提示', {
+                this.$confirm('此操作会拉取代码并更新软件,并重启容器，是否继续?', '提示', {
                     confirmButtonText: '确定',
                     cancelButtonText: '取消',
                     type: 'warning'
@@ -191,6 +204,8 @@
                                 type: 'success',
                                 message: res.data.msg
                             });
+                            this.time = 15
+                            setInterval(this.timeDown, 1000)
                         } else {
                             console.log(res, 2)
                             this.$message({

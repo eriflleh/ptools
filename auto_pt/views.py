@@ -14,8 +14,6 @@ from pt_site.views import scheduler, pt_spider
 from ptools.base import CommonResponse, StatusCodeEnum
 
 
-
-
 def add_task(request):
     if request.method == 'POST':
         content = json.loads(request.body.decode())  # 接收参数
@@ -175,17 +173,19 @@ def get_update_logs():
 
 
 def update_page(request):
-    cid = ''
-    restart = 'false'
-    delta = '程序未在容器中启动？'
-    # 获取docker对象
-    client = docker.from_env()
-    # 从内部获取容器id
-    for c in client.api.containers():
-        if 'ngfchl/ptools' in c.get('Image'):
-            cid = c.get('Id')
-            delta = c.get('Status')
-            restart = 'true'
+    try:
+        # 获取docker对象
+        client = docker.from_env()
+        # 从内部获取容器id
+        for c in client.api.containers():
+            if 'ngfchl/ptools' in c.get('Image'):
+                cid = c.get('Id')
+                delta = c.get('Status')
+                restart = 'true'
+    except Exception as e:
+        cid = ''
+        restart = 'false'
+        delta = '程序未在容器中启动？'
     if get_update_logs():
         update = 'false'
         update_tips = '目前您使用的是最新版本！'
@@ -277,7 +277,7 @@ def do_restart(request):
         # client.api.inspect_container(cid)
         # StartedAt = client.api.inspect_container(cid).get('State').get('StartedAt')
         return JsonResponse(data=CommonResponse.error(
-            msg='重启指令发送成功，容器重启中 ...'
+            msg='重启指令发送成功，容器重启中 ... 15秒后自动刷新页面 ...'
         ).to_dict(), safe=False)
     except Exception as e:
         return JsonResponse(data=CommonResponse.error(
