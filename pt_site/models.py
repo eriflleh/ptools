@@ -66,7 +66,7 @@ class Site(BaseEntity):
     hr = models.BooleanField(verbose_name='H&R', default=False, help_text='站点是否开启HR')
     hr_rate = models.IntegerField(verbose_name='HR分享率', default=2, help_text='站点要求HR种子的分享率，最小：1')
     hr_time = models.IntegerField(verbose_name='HR时间', default=10, help_text='站点要求HR种子最短做种时间，单位：小时')
-    sp_full = models.FloatField(verbose_name='满魔', default=0, help_text='时魔满魔')
+    sp_full = models.FloatField(verbose_name='满魔', default=100, help_text='时魔满魔')
     limit_speed = models.IntegerField(verbose_name='上传速度限制',
                                       default=100,
                                       help_text='站点盒子限速，家宽用户无需理会，单位：MB/S')
@@ -114,7 +114,7 @@ class Site(BaseEntity):
     )
     sale_expire_rule = models.CharField(
         verbose_name='促销时间',
-        default='.//table/tr/td/font/span/@title',
+        default='.//img[contains(@class,"pro_")]/following::font/span/@title',
         max_length=128)
     release_rule = models.CharField(
         verbose_name='发布时间',
@@ -130,7 +130,7 @@ class Site(BaseEntity):
         max_length=128)
     completers_rule = models.CharField(
         verbose_name='完成人数',
-        default='.//a[contains(@href,"viewsnatches.php?id=")]//text()',
+        default='.//a[contains(@href,"viewsnatches")]//text()',
         max_length=128)
     viewfilelist_rule = models.CharField(
         verbose_name='解析文件结构',
@@ -199,7 +199,7 @@ class Site(BaseEntity):
     )
     my_hr_rule = models.CharField(
         verbose_name='H&R',
-        default='//tr[14]/td[2]/a/text()',
+        default='//a[@href="myhr.php"]//text()',
         max_length=128)
     leech_rule = models.CharField(
         verbose_name='下载数量',
@@ -229,7 +229,7 @@ class Site(BaseEntity):
                                    max_length=128)
     # HASH RULE
     hash_rule = models.CharField(verbose_name='种子HASH',
-                                 default='//tr[11]//td[@class="no_border_wide"][2]/text()',
+                                 default='//td/b[contains(text(),"Hash")]/following::text()[1]',
                                  max_length=128)
 
     class Meta:

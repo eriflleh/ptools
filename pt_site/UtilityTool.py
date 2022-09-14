@@ -96,7 +96,7 @@ class PtSpider:
         for i in list_mid:
             # 以第一个选中的字符分割1次，
             list2 = i.split('=', 1)
-            print(list2)
+            # print(list2)
             if list2[0] == '':
                 continue
             dist_dict[list2[0]] = list2[1]
@@ -671,6 +671,7 @@ class PtSpider:
             else:
                 return CommonResponse.error(msg="网站访问失败")
         except Exception as e:
+            # raise
             self.send_text(site.name + '网站访问失败！原因：' + str(e))
             return CommonResponse.error(msg="网站访问失败" + str(e))
 
