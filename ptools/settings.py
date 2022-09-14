@@ -47,6 +47,7 @@ INSTALLED_APPS = [
     'django.contrib.staticfiles',
     'import_export',
     'django_apscheduler',
+    'django_admin_inline_paginator',
     'util',
     'util.templatetags',
     'pt_site',

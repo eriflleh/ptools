@@ -6,6 +6,7 @@ import transmission_rpc
 from django.contrib import admin, messages
 from django.http import JsonResponse
 from django.utils.html import format_html
+from django_admin_inline_paginator.admin import TabularInlinePaginated
 from import_export.admin import ImportExportModelAdmin
 from import_export.formats import base_formats
 from simpleui.admin import AjaxAdmin
@@ -189,9 +190,9 @@ class SiteAdmin(ImportExportModelAdmin):  # instead of ModelAdmin
     )
 
 
-class StatusInlines(admin.TabularInline):
+class StatusInlines(TabularInlinePaginated):
     model = SiteStatus
-
+    per_page = 10
     fields = [
         'uploaded', 'downloaded', 'ratio',
         'my_sp', 'my_bonus', 'seed_vol',
@@ -217,8 +218,10 @@ class StatusInlines(admin.TabularInline):
         return False
 
 
-class SignInInlines(admin.StackedInline):
+class SignInInlines(TabularInlinePaginated):
     model = SignIn
+    per_page = 15
+
     fields = [
         'sign_in_today', 'sign_in_info',
         'created_at'
@@ -226,6 +229,8 @@ class SignInInlines(admin.StackedInline):
     classes = ['collapse']
     readonly_fields = ['created_at']
     ordering = ['-created_at']
+    can_delete = False
+    template = 'admin/pt_site/inline_status/tabular.html'
 
     # 自定义模板，删除外键显示
     # template = 'admin/pt_site/inline_status/tabular.html'
