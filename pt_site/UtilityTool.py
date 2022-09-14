@@ -246,6 +246,8 @@ class PtSpider:
                 # print(domain, cookie_str)
                 cookies.append({
                     'url': data.get('url'),
+                    'host': host,
+                    'icon': info.get('icon'),
                     'info': info.get('user'),
                     'passkey': info.get('passkey'),
                     'cookies': cookie_str.rstrip(';'),
@@ -260,11 +262,17 @@ class PtSpider:
 
     def get_uid_and_passkey(self, cookie: dict):
         url = cookie.get('url')
-        site = Site.objects.filter(url__contains=url).first()
+        host = cookie.get('host')
+        site = Site.objects.filter(url__contains=host).first()
         # print('查询站点信息：',site)
         if not site:
             return CommonResponse.error(msg='尚未支持此站点：' + url)
-        my_site = MySite.objects.filter(site=site).first()
+        site.url = url
+        icon = cookie.get('icon')
+        if icon:
+            site.logo = icon
+        site.save()
+        # my_site = MySite.objects.filter(site=site).first()
         # print('查询我的站点：',my_site)
         # 如果有更新cookie，如果没有继续创建
         my_level_str = cookie.get('info').get('levelName')
@@ -278,9 +286,15 @@ class PtSpider:
             time_join = time.strftime('%Y-%m-%d %H:%M:%S', time.localtime(time_stamp / 1000))
         else:
             time_join = None
+        passkey = cookie.get('passkey')
+        print('passkey:', passkey)
+        if not passkey:
+            msg = site.name + ' PassKey未填写，请手动添加此站点！'
+            print(msg)
+            return CommonResponse.error(msg=msg)
         result = MySite.objects.update_or_create(site=site, defaults={
             'cookie': cookie.get('cookies'),
-            'passkey': cookie.get('passkey'),
+            'passkey': passkey,
             'user_id': cookie.get('info').get('id'),
             'my_level': my_level if my_level else ' ',
             'time_join': time_join,
@@ -477,7 +491,7 @@ class PtSpider:
                         days = (int(bonus) - 10) / 2 + 1
                         signin_today.sign_in_today = True
                         message = '成功,已连续签到{}天,魔力值加{},明日继续签到可获取{}魔力值！'.format(days, bonus,
-                                                                              bonus + 2)
+                                                                                                      bonus + 2)
                         signin_today.sign_in_info = message
                         signin_today.save()
                         return CommonResponse.success(

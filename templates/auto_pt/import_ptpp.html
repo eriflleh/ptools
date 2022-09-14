@@ -183,7 +183,7 @@
                         message: '数据获取失败，请检查数据文件是否有误？？？'
                     });
                 }
-                this.$confirm('确认导入数据 ？', '提示', {
+                this.$confirm('确认导入数据？重复导入可能导致某些数据被覆盖！', '提示', {
                     confirmButtonText: '确定',
                     cancelButtonText: '取消',
                     type: 'warning'
@@ -220,7 +220,9 @@
                                 }, 200);
                             })
                             //清空PTPP
-                            this.ptpp = ''
+                            this.user.info = ''
+                            this.user.cookies = ''
+                            this.user.userdata = ''
                             this.zip = ''
                         } else {
                             this.$message({
