@@ -4,7 +4,6 @@ from datetime import datetime
 import qbittorrentapi
 import transmission_rpc
 from django.contrib import admin, messages
-from django.db import transaction
 from django.http import JsonResponse
 from django.utils.html import format_html
 from import_export.admin import ImportExportModelAdmin
@@ -203,6 +202,7 @@ class StatusInlines(admin.TabularInline):
     ordering = ['-created_at']
     # 自定义模板，删除外键显示
     template = 'admin/pt_site/inline_status/tabular.html'
+    can_delete = False
 
     # 禁止添加按钮
     def has_add_permission(self, request, obj=None):

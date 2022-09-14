@@ -47,6 +47,8 @@ INSTALLED_APPS = [
     'django.contrib.staticfiles',
     'import_export',
     'django_apscheduler',
+    'util',
+    'util.templatetags',
     'pt_site',
     'pt_test',
     'auto_pt',
