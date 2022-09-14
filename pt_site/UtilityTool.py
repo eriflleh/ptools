@@ -260,14 +260,14 @@ class PtSpider:
             # raise
             return CommonResponse.error(msg='Cookies解析失败，请确认导入了正确的cookies备份文件！')
 
+    @transaction.atomic
     def get_uid_and_passkey(self, cookie: dict):
         url = cookie.get('url')
         host = cookie.get('host')
         site = Site.objects.filter(url__contains=host).first()
-        # print('查询站点信息：',site)
+        # print('查询站点信息：', site, site.url, url)
         if not site:
             return CommonResponse.error(msg='尚未支持此站点：' + url)
-        site.url = url
         icon = cookie.get('icon')
         if icon:
             site.logo = icon
