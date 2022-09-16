@@ -1,0 +1,21 @@
+2022-09-07 01:43:08,740 CRIT Supervisor is running as root.  Privileges were not dropped because no user is specified in the config file.  If you intend to run as root, you can set user=root in the config file to avoid this message.
+2022-09-07 01:43:08,757 INFO RPC interface 'supervisor' initialized
+2022-09-07 01:43:08,759 INFO daemonizing the supervisord process
+2022-09-07 01:43:08,763 INFO supervisord started with pid 78
+2022-09-07 01:46:46,843 CRIT Supervisor is running as root.  Privileges were not dropped because no user is specified in the config file.  If you intend to run as root, you can set user=root in the config file to avoid this message.
+2022-09-07 01:46:47,162 INFO RPC interface 'supervisor' initialized
+2022-09-07 01:46:47,164 INFO daemonizing the supervisord process
+2022-09-07 01:46:47,167 INFO supervisord started with pid 81
+2022-09-07 01:49:48,309 CRIT Supervisor is running as root.  Privileges were not dropped because no user is specified in the config file.  If you intend to run as root, you can set user=root in the config file to avoid this message.
+2022-09-07 01:57:32,859 CRIT Supervisor is running as root.  Privileges were not dropped because no user is specified in the config file.  If you intend to run as root, you can set user=root in the config file to avoid this message.
+2022-09-07 01:58:08,449 CRIT Supervisor is running as root.  Privileges were not dropped because no user is specified in the config file.  If you intend to run as root, you can set user=root in the config file to avoid this message.
+2022-09-07 01:58:08,765 INFO RPC interface 'supervisor' initialized
+2022-09-07 01:58:08,767 INFO daemonizing the supervisord process
+2022-09-07 01:58:08,770 INFO supervisord started with pid 108
+2022-09-07 01:58:34,406 CRIT Supervisor is running as root.  Privileges were not dropped because no user is specified in the config file.  If you intend to run as root, you can set user=root in the config file to avoid this message.
+2022-09-07 01:58:34,724 INFO RPC interface 'supervisor' initialized
+2022-09-07 01:58:34,727 INFO supervisord started with pid 109
+2022-09-07 02:00:50,943 WARN received SIGINT indicating exit request
+2022-09-07 02:00:58,643 INFO Set uid to user 0 succeeded
+2022-09-07 02:00:58,652 INFO RPC interface 'supervisor' initialized
+2022-09-07 02:00:58,655 INFO supervisord started with pid 116
