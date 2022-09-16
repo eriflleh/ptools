@@ -288,10 +288,7 @@ class PtSpider:
             time_join = None
         passkey = cookie.get('passkey')
         print('passkey:', passkey)
-        if not passkey:
-            msg = site.name + ' PassKey未填写，请手动添加此站点！'
-            print(msg)
-            return CommonResponse.error(msg=msg)
+
         result = MySite.objects.update_or_create(site=site, defaults={
             'cookie': cookie.get('cookies'),
             'passkey': passkey,
@@ -302,50 +299,71 @@ class PtSpider:
             'mail': cookie.get('info').get('messageCount') if cookie.get('info').get('messageCount') else 0,
         })
         my_site = result[0]
+        passkey_msg = ''
+        if not passkey:
+            try:
+                response = self.send_request(my_site, site.url + site.page_control_panel)
+                passkey = self.parse(response, site.my_passkey_rule)[0]
+                my_site.passkey = passkey
+                my_site.save()
+            except Exception as e:
+                passkey_msg = site.name + ' PassKey获取失败，请手动添加！'
+                print(passkey_msg)
         for key, value in userdatas.items():
             print(key)
-            downloaded = value.get('downloaded')
-            uploaded = value.get('uploaded')
-            seeding_size = value.get('seedingSize')
-            my_sp = value.get('bonus')
-            ratio = value.get('ratio')
-            if ratio is None or ratio == 'null':
-                ratio = 1
-            if type(ratio) == str:
-                ratio = ratio.strip('\n').strip()
-            if float(ratio) < 0:
-                ratio = 'inf'
-            if not value.get(
-                    'id') or key == 'latest' or not downloaded or not uploaded or not seeding_size or not my_sp:
+            try:
+                downloaded = value.get('downloaded')
+                uploaded = value.get('uploaded')
+                seeding_size = value.get('seedingSize')
+                my_sp = value.get('bonus')
+                ratio = value.get('ratio')
+                if ratio is None or ratio == 'null':
+                    continue
+                if type(ratio) == str:
+                    ratio = ratio.strip('\n').strip()
+                if float(ratio) < 0:
+                    ratio = 'inf'
+                if not value.get(
+                        'id') or key == 'latest' or not downloaded or not uploaded or not seeding_size or not my_sp:
+                    continue
+                create_time = dateutil.parser.parse(key).date()
+                count_status = SiteStatus.objects.filter(site=my_site,
+                                                         created_at__date=create_time).count()
+                if count_status >= 1:
+                    continue
+                status = SiteStatus.objects.create(
+                    site=my_site,
+                    uploaded=uploaded,
+                    downloaded=downloaded,
+                    ratio=float(ratio),
+                    seed_vol=seeding_size,
+                    my_sp=my_sp
+                )
+                # res_status = SiteStatus.objects.update_or_create(
+                #     site=my_site,
+                #     created_at__date=create_time,
+                #     defaults={
+                #         'uploaded': uploaded,
+                #         'downloaded': downloaded,
+                #         'my_sp': my_sp,
+                #         'seed_vol': seeding_size,
+                #         'ratio': float(ratio),
+                #     })
+                status.created_at = create_time
+                status.save()
+                print(status)
+            except Exception as e:
+                print(site.name, key, ' 数据导入出错')
+                print('错误原因：', e)
                 continue
-            create_time = dateutil.parser.parse(key).date()
-            count_status = SiteStatus.objects.filter(site=my_site,
-                                                     created_at__date=create_time).count()
-            if count_status >= 1:
-                continue
-            status = SiteStatus.objects.create(
-                site=my_site,
-                uploaded=uploaded,
-                downloaded=downloaded,
-                ratio=float(ratio),
-                seed_vol=seeding_size,
-                my_sp=my_sp
+        if not passkey:
+            return CommonResponse.success(
+                status=StatusCodeEnum.NO_PASSKEY_WARNING,
+                msg=site.name + (' 信息导入成功！' if result[1] else ' 信息更新成功！ ') + passkey_msg
             )
-            # res_status = SiteStatus.objects.update_or_create(
-            #     site=my_site,
-            #     created_at__date=create_time,
-            #     defaults={
-            #         'uploaded': uploaded,
-            #         'downloaded': downloaded,
-            #         'my_sp': my_sp,
-            #         'seed_vol': seeding_size,
-            #         'ratio': float(ratio),
-            #     })
-            status.created_at = create_time
-            status.save()
-            print(status)
         return CommonResponse.success(
-            msg=site.name + (' 信息导入成功！' if result[1] else ' 信息更新成功！')
+            status=StatusCodeEnum.NO_PASSKEY_WARNING,
+            msg=site.name + (' 信息导入成功！' if result[1] else ' 信息更新成功！ ') + passkey_msg
         )
 
     def sign_in_hdsky(self, my_site: MySite, captcha=False):
@@ -511,7 +529,7 @@ class PtSpider:
                         days = (int(bonus) - 10) / 2 + 1
                         signin_today.sign_in_today = True
                         message = '成功,已连续签到{}天,魔力值加{},明日继续签到可获取{}魔力值！'.format(days, bonus,
-                                                                                                      bonus + 2)
+                                                                              bonus + 2)
                         signin_today.sign_in_info = message
                         signin_today.save()
                         return CommonResponse.success(
