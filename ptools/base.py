@@ -18,7 +18,8 @@ class StatusCodeEnum(Enum):
     OK = (0, '成功')
     ERROR = (-1, '错误')
     SERVER_ERR = (500, '服务器异常')
-
+    # import
+    NO_PASSKEY_WARNING = (7001, 'PassKey获取失败！')
     # OCR 1
     OCR_NO_CONFIG = (1001, 'OCR未配置')
     OCR_ACCESS_ERR = (1002, '在线OCR接口访问错误')
