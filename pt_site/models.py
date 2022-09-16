@@ -246,7 +246,7 @@ class MySite(BaseEntity):
     sort_id = models.IntegerField(verbose_name='排序', default=1)
     # 用户信息
     user_id = models.CharField(verbose_name='用户ID', max_length=16)
-    passkey = models.CharField(max_length=128, verbose_name='PassKey')
+    passkey = models.CharField(max_length=128, verbose_name='PassKey', blank=True, null=True)
     cookie = models.TextField(verbose_name='COOKIE')
     # 用户设置
     hr = models.BooleanField(verbose_name='开启HR下载', default=False, help_text='是否下载HR种子')
