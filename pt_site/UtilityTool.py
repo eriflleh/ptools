@@ -356,11 +356,11 @@ class PtSpider:
                 print(site.name, key, ' 数据导入出错')
                 print('错误原因：', e)
                 continue
-        if not passkey:
-            return CommonResponse.success(
-                status=StatusCodeEnum.NO_PASSKEY_WARNING,
-                msg=site.name + (' 信息导入成功！' if result[1] else ' 信息更新成功！ ') + passkey_msg
-            )
+        # if not passkey:
+        #     return CommonResponse.success(
+        #         status=StatusCodeEnum.NO_PASSKEY_WARNING,
+        #         msg=site.name + (' 信息导入成功！' if result[1] else ' 信息更新成功！ ') + passkey_msg
+        #     )
         return CommonResponse.success(
             status=StatusCodeEnum.NO_PASSKEY_WARNING,
             msg=site.name + (' 信息导入成功！' if result[1] else ' 信息更新成功！ ') + passkey_msg
