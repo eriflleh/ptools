@@ -1,0 +1,86 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>任务管理</title>
+    {% include 'admin/includes/css-part.html' %}
+</head>
+<body>
+
+
+<div id="app">
+    <el-tabs type="border-card" style="height: 200px;" v-for="task in tasks">
+        <el-tab-pane label="task.downloader.name" id="task.downloader.id">
+            <el-table
+                    :data="task.torrents"
+                    height="250"
+                    border
+                    style="width: 100%">
+                <el-table-column
+                        prop="date"
+                        label="日期"
+                        width="180">
+                </el-table-column>
+                <el-table-column prop="name"
+                                 label="种子名称" width="180"></el-table-column>
+                <el-table-column prop="name"
+                                 label="大小" width="180"></el-table-column>
+                <el-table-column prop="name"
+                                 label="已下载"></el-table-column>
+                <el-table-column prop="name"
+                                 label="已上传"></el-table-column>
+                <el-table-column prop="name"
+                                 label="下载速度"></el-table-column>
+                <el-table-column prop="name"
+                                 label="上传速度"></el-table-column>
+                <el-table-column prop="name"
+                                 label="下载进度"></el-table-column>
+                <el-table-column prop="name"
+                                 label="保存路径"></el-table-column>
+                <el-table-column prop="name"
+                                 label="分享率"></el-table-column>
+                <el-table-column prop="name"
+                                 label="做种时间"></el-table-column>
+                <el-table-column prop="name"
+                                 label="当前状态"></el-table-column>
+                <el-table-column prop="name"
+                                 label="最后活动"></el-table-column>
+                <el-table-column prop="name"
+                                 label="分类"></el-table-column>
+                <el-table-column prop="name"
+                                 label="服务器"></el-table-column>
+            </el-table>
+        </el-tab-pane>
+    </el-tabs>
+
+</div>
+
+{% include 'admin/includes/js-part.html' %}
+<script src="{% static 'admin/simpleui-x/js/axios.min.js' %}"></script>
+<script>
+    const vm = new Vue({
+        // 配置选项(option)
+        // element: 指定用vue来管理页面中的哪个标签区域
+        el: '#app',
+        data: {
+            tasks: ''
+        },
+        created() {
+            this.get_downloading()
+        },
+        watch: {},
+        methods: {
+            get_downloading() {
+                axios.get(
+                    "{% url "downloading" %}"
+                ).then(res => {
+                    console.log(res.data)
+                })
+            }
+        }
+    });
+
+</script>
+</body>
+</html>

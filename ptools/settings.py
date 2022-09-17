@@ -201,7 +201,7 @@ SIMPLEUI_CONFIG = {
         'models': [{
             'name': '任务管理',
             'icon': 'fa fa-user',
-            'url': '/downloader/downloading/index'
+            'url': '/tasks/page_downloading'
         }, {
             'name': '查询种子',
             'icon': 'fa fa-user',

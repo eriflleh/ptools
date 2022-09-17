@@ -5,11 +5,12 @@ from datetime import datetime
 
 import docker
 import git
+import qbittorrentapi
 from django.http import JsonResponse
 from django.shortcuts import render
 
 from pt_site import views as tasks
-from pt_site.models import SiteStatus, MySite, Site
+from pt_site.models import SiteStatus, MySite, Site, Downloader
 from pt_site.views import scheduler, pt_spider
 from ptools.base import CommonResponse, StatusCodeEnum
 
@@ -81,6 +82,41 @@ def do_sql(request):
     return JsonResponse('ok', safe=False)
 
 
+def page_downloading(request):
+    return render(request, 'auto_pt/downloading.html')
+
+
+def get_downloading(request):
+    downloader_list = Downloader.objects.all()
+    tasks = []
+    for downloader in downloader_list:
+        qb_client = qbittorrentapi.Client(host=downloader.host,
+                                          port=downloader.port,
+                                          username=downloader.username,
+                                          password=downloader.password)
+        try:
+            qb_client.auth_log_in()
+            t_list = qb_client.torrents_info()
+            print(len(t_list))
+            torrents = []
+            for torrent in t_list:
+                #     torrent.to_dict()
+                torrents.append(dict(torrent))
+            tasks.append({
+                'downloader': {
+                    'name': downloader.name,
+                    'host': 'http://{}:{}'.format(downloader.host, downloader.port)
+                },
+                'torrents': torrents,
+                # 'torrents': t_list,
+            })
+        except Exception as e:
+            print(e)
+            continue
+        print(tasks)
+    return JsonResponse(CommonResponse.success(data=json.dumps(tasks)).to_dict(), safe=False)
+
+
 def import_from_ptpp(request):
     if request.method == 'GET':
         return render(request, 'auto_pt/import_ptpp.html')
@@ -116,7 +152,7 @@ def import_from_ptpp(request):
                     'msg': message,
                     'tag': 'warning'
                 })
-                raise
+                # raise
         return JsonResponse(CommonResponse.success(data={
             'messages': message_list
         }).to_dict(), safe=False)

@@ -12,5 +12,7 @@ urlpatterns = [
     path(r'do_restart', views.do_restart, name='do_restart'),
     path(r'do_update', views.do_update, name='do_update'),
     path(r'import_from_ptpp', views.import_from_ptpp, name='import_from_ptpp'),
+    path(r'page_downloading', views.page_downloading, name='page_downloading'),
+    path(r'downloading', views.get_downloading, name='downloading'),
     path(r'do_sql', views.do_sql, name='do_sql'),
 ]
