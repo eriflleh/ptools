@@ -10,46 +10,71 @@
 
 
 <div id="app">
-    <el-tabs type="border-card" style="height: 200px;" v-for="task in tasks">
-        <el-tab-pane label="task.downloader.name" id="task.downloader.id">
+    <el-tabs type="border-card" @tab-click="handleTabClick">
+        <el-tab-pane
+                v-for="downloader in downloaders"
+                :label="downloader.name"
+                {#                :name="downloader.id"#}
+                :id="downloader.id">
             <el-table
-                    :data="task.torrents"
-                    height="250"
+                    v-loading="loading"
+                    element-loading-text="拼命加载中"
+                    element-loading-spinner="el-icon-loading"
+                    element-loading-background="rgba(0, 0, 0, 0.8)"
+                    :data="torrents"
+                    height="750"
+                    size="mini"
                     border
+                    stripe
+                    highlight-current-row
                     style="width: 100%">
+                {#                <el-table-column type="expand">#}
+                {#                    <template slot-scope="props">#}
+                {##}
+                {#                    </template>#}
+                {#                </el-table-column>#}
                 <el-table-column
-                        prop="date"
-                        label="日期"
-                        width="180">
+                        type="selection"
+                        width="20">
                 </el-table-column>
+
                 <el-table-column prop="name"
-                                 label="种子名称" width="180"></el-table-column>
-                <el-table-column prop="name"
-                                 label="大小" width="180"></el-table-column>
-                <el-table-column prop="name"
+                                 fixed
+                                 label="种子名称" width="220"></el-table-column>
+                <el-table-column prop="size"
+                                 :formatter="handleSize"
+                                 label="大小">
+                </el-table-column>
+                <el-table-column prop="downloaded" :formatter="handleSize"
                                  label="已下载"></el-table-column>
-                <el-table-column prop="name"
+                <el-table-column prop="uploaded" :formatter="handleSize"
                                  label="已上传"></el-table-column>
-                <el-table-column prop="name"
+                <el-table-column prop="dlspeed"
                                  label="下载速度"></el-table-column>
-                <el-table-column prop="name"
+                <el-table-column prop="upspeed"
                                  label="上传速度"></el-table-column>
-                <el-table-column prop="name"
+                <el-table-column prop="progress"
+                                 :formatter="handlePercent"
                                  label="下载进度"></el-table-column>
-                <el-table-column prop="name"
-                                 label="保存路径"></el-table-column>
-                <el-table-column prop="name"
+                {#                <el-table-column prop="save_path"#}
+                {#                                 label="保存路径"></el-table-column>#}
+                <el-table-column prop="ratio"
+                                 :formatter="handlePercent"
                                  label="分享率"></el-table-column>
-                <el-table-column prop="name"
+                <el-table-column prop="seeding_time"
                                  label="做种时间"></el-table-column>
-                <el-table-column prop="name"
+                <el-table-column prop="state"
                                  label="当前状态"></el-table-column>
-                <el-table-column prop="name"
+                <el-table-column prop="last_activity"
                                  label="最后活动"></el-table-column>
-                <el-table-column prop="name"
+                <el-table-column prop="added_on"
+                                 label="添加时间"></el-table-column>
+                <el-table-column prop="category"
                                  label="分类"></el-table-column>
-                <el-table-column prop="name"
-                                 label="服务器"></el-table-column>
+                {#                <el-table-column prop="tracker"#}
+                {#                                 label="Tracker"></el-table-column>#}
+                {#                <el-table-column#}
+                label="操作"></el-table-column>
             </el-table>
         </el-tab-pane>
     </el-tabs>
@@ -60,26 +85,100 @@
 <script src="{% static 'admin/simpleui-x/js/axios.min.js' %}"></script>
 <script>
     const vm = new Vue({
-        // 配置选项(option)
-        // element: 指定用vue来管理页面中的哪个标签区域
-        el: '#app',
-        data: {
-            tasks: ''
-        },
-        created() {
-            this.get_downloading()
-        },
-        watch: {},
-        methods: {
-            get_downloading() {
-                axios.get(
-                    "{% url "downloading" %}"
-                ).then(res => {
-                    console.log(res.data)
-                })
+            // 配置选项(option)
+            // element: 指定用vue来管理页面中的哪个标签区域
+            el: '#app',
+            data: {
+                downloaders: '',
+                loading: false,
+                torrents: []
+            },
+            mounted() {
+                this.get_downloader()
+                this.loading = false
+                {#console.log(this.downloaders)#}
+            },
+            watch: {},
+            methods: {
+                get_downloader() {
+                    axios.get(
+                        "{% url "get_downloader" %}"
+                    ).then(res => {
+                        this.loading = true
+                        console.log('获取下载器列表成功', res.data)
+                        if (res.data.code === 0) {
+                            this.downloaders = res.data.data
+                            this.get_downloading(this.downloaders[0].id)
+                            console.log(this.torrents)
+                            this.loading = false
+                        } else {
+                            this.loading = false
+                            this.$message({
+                                type: 'warning',
+                                message: '获取下载器列表失败！'
+                            });
+                        }
+                    }).catch(res => {
+                        console.log('获取下载器列表失败', res)
+                        this.$message({
+                            type: 'warning',
+                            message: '获取下载器列表失败！' + res
+                        });
+                    })
+
+                },
+                handleTabClick(tab, event) {
+                    console.log(tab)
+                    console.log(tab.$attrs.id)
+                    this.loading = true
+                    {#this.torrents = []#}
+                    this.get_downloading(tab.$attrs.id)
+                    this.loading = false
+                },
+                get_downloading(downloader_id) {
+                    let time = new Date()
+                    console.log(time)
+                    axios.get(
+                        "{% url "downloading" %}",
+                        {
+                            params: {
+                                id: downloader_id
+                            }
+                        }
+                    ).then(res => {
+                        if (res.data.code === 0) {
+                            console.log(res.data.data)
+                            this.torrents = res.data.data
+                        }
+                    })
+                    let time2 = new Date()
+                    console.log(time2)
+                    console.log(time2 - time)
+                },
+                handleSize(row, column, cellValue, index) {
+                    return this.renderSize(cellValue)
+                },
+                renderSize(value) {
+                    if (null == value || value == '') {
+                        return "0";
+                    }
+                    var unitArr = ["B", "KB", "MB", "GB", "TB", "PB", "EB", "ZB", "YB"];
+                    var index = 0;
+                    var srcsize = parseFloat(value);
+                    index = Math.floor(Math.log(srcsize) / Math.log(1024));
+                    var size = srcsize / Math.pow(1024, index);
+                    size = size.toFixed(2);//保留的小数位数
+                    return size + unitArr[index];
+                },
+                handlePercent(row, column, cellValue, index) {
+                    return (cellValue * 100).toFixed(2) + '%'
+                },
+                handleRatio(row, column, cellValue, index) {
+                    return cellValue.toFixed(2)
+                },
             }
-        }
-    });
+        })
+    ;
 
 </script>
 </body>

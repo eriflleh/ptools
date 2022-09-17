@@ -86,35 +86,35 @@ def page_downloading(request):
     return render(request, 'auto_pt/downloading.html')
 
 
+def get_downloader(request):
+    downloader_list = Downloader.objects.values('id', 'name', 'host')
+    return JsonResponse(CommonResponse.success(data=list(downloader_list)).to_dict(), safe=False)
+
+
 def get_downloading(request):
-    downloader_list = Downloader.objects.all()
-    tasks = []
-    for downloader in downloader_list:
-        qb_client = qbittorrentapi.Client(host=downloader.host,
-                                          port=downloader.port,
-                                          username=downloader.username,
-                                          password=downloader.password)
-        try:
-            qb_client.auth_log_in()
-            t_list = qb_client.torrents_info()
-            print(len(t_list))
-            torrents = []
-            for torrent in t_list:
-                #     torrent.to_dict()
-                torrents.append(dict(torrent))
-            tasks.append({
-                'downloader': {
-                    'name': downloader.name,
-                    'host': 'http://{}:{}'.format(downloader.host, downloader.port)
-                },
-                'torrents': torrents,
-                # 'torrents': t_list,
-            })
-        except Exception as e:
-            print(e)
-            continue
-        print(tasks)
-    return JsonResponse(CommonResponse.success(data=json.dumps(tasks)).to_dict(), safe=False)
+    id = request.GET.get('id')
+    print(id)
+    downloader = Downloader.objects.filter(id=id).first()
+
+    qb_client = qbittorrentapi.Client(host=downloader.host,
+                                      port=downloader.port,
+                                      username=downloader.username,
+                                      password=downloader.password)
+    try:
+        qb_client.auth_log_in()
+        t_list = qb_client.torrents_info()
+        print(len(t_list))
+        torrents = []
+        for torrent in t_list:
+            #     torrent.to_dict()
+            torrents.append(dict(torrent))
+        print(torrents)
+        return JsonResponse(CommonResponse.success(data=torrents).to_dict(), safe=False)
+    except Exception as e:
+        print(e)
+        return JsonResponse(CommonResponse.error(
+            msg='连接下载器出错咯！'
+        ).to_dict(), safe=False)
 
 
 def import_from_ptpp(request):
