@@ -16,11 +16,31 @@
                 :label="downloader.name"
                 {#                :name="downloader.id"#}
                 :id="downloader.id">
+            <el-dropdown>
+                        <el-button type="primary" size="mini">
+                            操作<i class="el-icon-arrow-down el-icon--right"></i>
+                        </el-button>
+                        <el-dropdown-menu slot="dropdown" size="mini">
+                            <el-dropdown-item>继续</el-dropdown-item>
+                            <el-dropdown-item>暂停</el-dropdown-item>
+                            <el-dropdown-item>强制继续</el-dropdown-item>
+                            <el-dropdown-item>删除</el-dropdown-item>
+                            <el-dropdown-item>限速</el-dropdown-item>
+                            <el-dropdown-item>分类</el-dropdown-item>
+                            <el-dropdown-item>更改路径</el-dropdown-item>
+                            <el-dropdown-item>自动管理</el-dropdown-item>
+                            <el-dropdown-item>重新校验</el-dropdown-item>
+                            <el-dropdown-item>复制链接</el-dropdown-item>
+                            <el-dropdown-item>复制HASH</el-dropdown-item>
+                        </el-dropdown-menu>
+                    </el-dropdown>
+            <el-divider></el-divider>
             <el-table
                     v-loading="loading"
                     element-loading-text="拼命加载中"
                     element-loading-spinner="el-icon-loading"
                     element-loading-background="rgba(0, 0, 0, 0.8)"
+                    @row-dblclick="handleRow"
                     :data="torrents"
                     height="750"
                     size="mini"
@@ -34,8 +54,7 @@
                 {#                    </template>#}
                 {#                </el-table-column>#}
                 <el-table-column
-                        type="selection"
-                        width="20">
+                        type="selection">
                 </el-table-column>
 
                 <el-table-column prop="name"
@@ -73,8 +92,10 @@
                                  label="分类"></el-table-column>
                 {#                <el-table-column prop="tracker"#}
                 {#                                 label="Tracker"></el-table-column>#}
-                {#                <el-table-column#}
-                label="操作"></el-table-column>
+                <el-table-column
+                        label="操作">
+
+                </el-table-column>
             </el-table>
         </el-tab-pane>
     </el-tabs>
@@ -175,6 +196,11 @@
                 },
                 handleRatio(row, column, cellValue, index) {
                     return cellValue.toFixed(2)
+                },
+                handleRow(row, column, event) {
+                    console.log(row)
+                    console.log(column)
+                    console.log(event)
                 },
             }
         })
