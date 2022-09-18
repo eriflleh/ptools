@@ -528,8 +528,11 @@ class PtSpider:
                         bonus = res_json.get('message')
                         days = (int(bonus) - 10) / 2 + 1
                         signin_today.sign_in_today = True
-                        message = '成功,已连续签到{}天,魔力值加{},明日继续签到可获取{}魔力值！'.format(days, bonus,
-                                                                              bonus + 2)
+                        message = '成功,已连续签到{}天,魔力值加{},明日继续签到可获取{}魔力值！'.format(
+                            days,
+                            bonus,
+                            bonus + 2
+                        )
                         signin_today.sign_in_info = message
                         signin_today.save()
                         return CommonResponse.success(
@@ -751,7 +754,8 @@ class PtSpider:
                         # print(etree.tostring(tr))
                         sale_status = ''.join(tr.xpath(site.sale_rule))
                         print('sale_status:', sale_status)
-                        if not sale_status:
+                        # 非免费种子跳过
+                        if not sale_status or 'free' not in sale_status.lower():
                             continue
                         sale_status = ''.join(re.split(r'[^\x00-\xff]', sale_status))
                         sale_status = sale_status.upper().replace('FREE', 'Free').title().replace(' ', '')
