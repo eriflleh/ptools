@@ -966,7 +966,7 @@ class PtSpider:
     @staticmethod
     def parse_message_num(messages: str):
         """
-
+        解析网站消息条数
         :param messages:
         :return:
         """
@@ -1126,8 +1126,10 @@ class PtSpider:
                     mail_count = int(mail_count) if mail_count else 0
                     notice_count = int(notice_count) if notice_count else 0
                     if mail_count + notice_count > 0:
+                        my_site.mail = mail_count + notice_count
                         template = '### <font color="red">{} 有{}条新短消息，请注意及时查收！</font>'
-                        self.send_text(template.format(site.name, mail_count + notice_count))
+                        # 测试发送网站消息原内容
+                        self.send_text(template.format(site.name, mail_count + notice_count) + mail_str + notice_str)
 
                 res_sp_hour = self.get_hour_sp(my_site=my_site)
                 if res_sp_hour.code != StatusCodeEnum.OK.code:
