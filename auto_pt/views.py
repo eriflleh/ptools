@@ -1,7 +1,8 @@
 import json
 import socket
 import subprocess
-from datetime import datetime
+import time
+from datetime import datetime, timedelta
 
 import docker
 import git
@@ -10,6 +11,7 @@ from django.http import JsonResponse
 from django.shortcuts import render
 
 from pt_site import views as tasks
+from pt_site.UtilityTool import FileSizeConvert
 from pt_site.models import SiteStatus, MySite, Site, Downloader
 from pt_site.views import scheduler, pt_spider
 from ptools.base import CommonResponse, StatusCodeEnum, DownloaderCategory
@@ -88,6 +90,8 @@ def page_downloading(request):
 
 def get_downloader(request):
     downloader_list = Downloader.objects.filter(category=DownloaderCategory.qBittorrent).values('id', 'name', 'host')
+    if len(downloader_list) <= 0:
+        return JsonResponse(CommonResponse.error(msg='请先添加下载器！目前仅支持qBittorrent！').to_dict(), safe=False)
     return JsonResponse(CommonResponse.success(data=list(downloader_list)).to_dict(), safe=False)
 
 
@@ -106,7 +110,42 @@ def get_downloading(request):
     try:
         qb_client.auth_log_in()
         torrents = qb_client.torrents_info()
-        print(len(torrents))
+        for torrent in torrents:
+            # 时间处理
+            # 添加于
+            torrent['added_on'] = datetime.fromtimestamp(torrent.get('added_on')).strftime(
+                '%Y年%m月%d日%H:%M:%S'
+            )
+            # 完成于
+            if torrent.get('downloaded') == 0:
+                torrent['completion_on'] = ''
+                torrent['last_activity'] = ''
+                torrent['downloaded'] = ''
+            else:
+                torrent['completion_on'] = datetime.fromtimestamp(torrent.get('completion_on')).strftime(
+                    '%Y年%m月%d日%H:%M:%S'
+                )
+                # 最后活动于
+                last_activity = str(timedelta(seconds=time.time() - torrent.get('last_activity')))
+
+                torrent['last_activity'] = last_activity.replace(
+                    'days,', '天'
+                ).replace(
+                    'day,', '天'
+                ).replace(':', '小时', 1).replace(':', '分', 1).split('.')[0] + '秒'
+                # torrent['last_activity'] = datetime.fromtimestamp(torrent.get('last_activity')).strftime(
+                #     '%Y年%m月%d日%H:%M:%S')
+            # 做种时间
+            seeding_time = str(timedelta(seconds=torrent.get('seeding_time')))
+            torrent['seeding_time'] = seeding_time.replace('days,', '天').replace(
+                'day,', '天'
+            ).replace(':', '小时', 1).replace(':', '分', 1).split('.')[0] + '秒'
+            # 大小与速度处理
+            torrent['ratio'] = '%.4f' % torrent.get('ratio') if torrent['ratio'] >= 0.0001 else 0
+            torrent['uploaded'] = '' if torrent['uploaded'] == 0 else torrent['uploaded']
+            torrent['upspeed'] = '' if torrent['upspeed'] == 0 else torrent['upspeed']
+            torrent['dlspeed'] = '' if torrent['dlspeed'] == 0 else torrent['dlspeed']
+        print(torrents)
         return JsonResponse(CommonResponse.success(data=torrents).to_dict(), safe=False)
     except Exception as e:
         print(e)

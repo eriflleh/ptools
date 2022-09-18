@@ -205,7 +205,7 @@
                                 message: res.data.msg
                             });
                             this.time = 15
-                            setInterval(this.timeDown, 1000)
+                            setTimeout(this.timeDown, 1000)
                         } else {
                             console.log(res, 2)
                             this.$message({

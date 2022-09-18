@@ -5,6 +5,7 @@
     <meta charset="UTF-8">
     <title>任务管理</title>
     {% include 'admin/includes/css-part.html' %}
+    <link rel="stylesheet" href="https://unpkg.com/umy-ui/lib/theme-chalk/index.css">
 </head>
 <body>
 
@@ -16,86 +17,89 @@
                 :label="downloader.name"
                 {#                :name="downloader.id"#}
                 :id="downloader.id">
-            <el-dropdown>
-                <el-button type="primary" size="mini">
-                    操作<i class="el-icon-arrow-down el-icon--right"></i>
-                </el-button>
-                <el-dropdown-menu slot="dropdown" size="mini">
-                    <el-dropdown-item>继续</el-dropdown-item>
-                    <el-dropdown-item>暂停</el-dropdown-item>
-                    <el-dropdown-item>强制继续</el-dropdown-item>
-                    <el-dropdown-item>删除</el-dropdown-item>
-                    <el-dropdown-item>限速</el-dropdown-item>
-                    <el-dropdown-item>分类</el-dropdown-item>
-                    <el-dropdown-item>更改路径</el-dropdown-item>
-                    <el-dropdown-item>自动管理</el-dropdown-item>
-                    <el-dropdown-item>重新校验</el-dropdown-item>
-                    <el-dropdown-item>复制链接</el-dropdown-item>
-                    <el-dropdown-item>复制HASH</el-dropdown-item>
-                </el-dropdown-menu>
-            </el-dropdown>
-            <el-divider></el-divider>
-            <el-table
-                    v-loading="loading"
-                    element-loading-text="拼命加载中"
-                    element-loading-spinner="el-icon-loading"
-                    element-loading-background="rgba(0, 0, 0, 0.8)"
+
+
+            <u-table
+                    ref="plTable"
+                    row-height="55"
+                    use-virtual
+                    showBodyOverflow="title"
+                    showHeaderOverflow="title"
                     @row-dblclick="handleRow"
+                    @row-contextmenu="rtClick"
                     :data="torrents"
-                    height="700"
+                    height="760"
                     size="mini"
                     border
                     stripe
                     highlight-current-row
                     style="width: 100%">
-                {#                <el-table-column type="expand">#}
-                {#                    <template slot-scope="props">#}
-                {##}
-                {#                    </template>#}
-                {#                </el-table-column>#}
-                <el-table-column
+                <u-table-column
+                        fixed
                         type="selection">
-                </el-table-column>
-                <el-table-column prop="name"
-                                 fixed
-                                 show-overflow-tooltip="true"
-                                 label="种子名称" width="220"></el-table-column>
-                <el-table-column prop="size"
-                                 :formatter="handleSize"
-                                 label="大小">
-                </el-table-column>
-                <el-table-column prop="downloaded" :formatter="handleSize"
-                                 label="已下载"></el-table-column>
-                <el-table-column prop="uploaded" :formatter="handleSize"
-                                 label="已上传"></el-table-column>
-                <el-table-column prop="dlspeed"
-                                 label="下载速度"></el-table-column>
-                <el-table-column prop="upspeed"
-                                 label="上传速度"></el-table-column>
-                <el-table-column prop="progress"
-                                 :formatter="handlePercent"
-                                 label="下载进度"></el-table-column>
-                {#                <el-table-column prop="save_path"#}
-                {#                                 label="保存路径"></el-table-column>#}
-                <el-table-column prop="ratio"
+                </u-table-column>
+                <u-table-column type="index" fixed></u-table-column>
+                <u-table-column
+                        prop="name"
+                        fixed
+                        show-overflow-tooltip="true"
+                        label="种子名称" width="220">
+                </u-table-column>
+                <u-table-column prop="size"
+                                :formatter="handleSize"
+                                label="大小">
+                </u-table-column>
+                {#                <u-table-column prop="downloaded" :formatter="handleSize"#}
+                {#                                 label="已下载"></u-table-column>#}
+                <u-table-column prop="uploaded" :formatter="handleSize"
+                                label="已上传"></u-table-column>
+                <u-table-column prop="dlspeed"
+                                label="下载速度"></u-table-column>
+                <u-table-column prop="upspeed"
+                                label="上传速度"></u-table-column>
+                <u-table-column prop="progress"
+                                :formatter="handlePercent"
+                                label="下载进度"></u-table-column>
+                {#                <u-table-column prop="save_path"#}
+                {#                                 label="保存路径"></u-table-column>#}
+                <u-table-column prop="ratio"
                         {#                                 :formatter="handlePercent"#}
-                                 label="分享率"></el-table-column>
-                <el-table-column prop="seeding_time"
-                                 label="做种时间"></el-table-column>
-                <el-table-column prop="state"
-                                 label="当前状态"></el-table-column>
-                <el-table-column prop="last_activity"
-                                 label="最后活动"></el-table-column>
-                <el-table-column prop="added_on"
-                                 label="添加时间"></el-table-column>
-                <el-table-column prop="category"
-                                 label="分类"></el-table-column>
-                {#                <el-table-column prop="tracker"#}
-                {#                                 label="Tracker"></el-table-column>#}
-                <el-table-column
+                                label="分享率"></u-table-column>
+                {#                <u-table-column prop="seeding_time"#}
+                {#                                 label="做种时间"></u-table-column>#}
+                <u-table-column prop="state"
+                                label="当前状态"></u-table-column>
+                <u-table-column prop="last_activity"
+                                show-overflow-tooltip
+                                label="最后活动"></u-table-column>
+                {#                <u-table-column prop="added_on"#}
+                {#                                 label="添加时间"></u-table-column>#}
+                <u-table-column prop="category"
+                                label="分类"></u-table-column>
+                {#                <u-table-column prop="tracker"#}
+                {#                                 label="Tracker"></u-table-column>#}
+                <u-table-column
+                        width="120"
+                        fixed="right"
                         label="操作">
-                </el-table-column>
-            </el-table>
+                    <el-dropdown split-button type="primary" size="mini">
+                        查看
+                        <el-dropdown-menu slot="dropdown">
+                            <el-dropdown-item>继续</el-dropdown-item>
+                            <el-dropdown-item>暂停</el-dropdown-item>
+                            <el-dropdown-item>强制继续</el-dropdown-item>
+                            <el-dropdown-item>删除</el-dropdown-item>
+                            <el-dropdown-item>限速</el-dropdown-item>
+                            <el-dropdown-item>分类</el-dropdown-item>
+                            <el-dropdown-item>更改路径</el-dropdown-item>
+                            <el-dropdown-item>自动管理</el-dropdown-item>
+                            <el-dropdown-item>重新校验</el-dropdown-item>
+                            <el-dropdown-item>复制链接</el-dropdown-item>
+                            <el-dropdown-item>复制HASH</el-dropdown-item>
+                        </el-dropdown-menu>
+                    </el-dropdown>
+                </u-table-column>
+            </u-table>
         </el-tab-pane>
     </el-tabs>
 
@@ -122,7 +126,9 @@
             <el-form-item label="下载进度">
                 <el-input v-model="torrent.progress"></el-input>
             </el-form-item>
-            <el-form-item label="分享率">
+            <el-form-item
+                    :formatter="handleRatio"
+                    label="分享率">
                 <el-input v-model="torrent.ratio"></el-input>
             </el-form-item>
             <el-form-item label="做种时间">
@@ -153,6 +159,8 @@
 </div>
 
 {% include 'admin/includes/js-part.html' %}
+<script src="https://unpkg.com/umy-ui@1.1.6/lib/index.js"></script>
+
 <script src="{% static 'admin/simpleui-x/js/axios.min.js' %}"></script>
 <script>
     const vm = new Vue({
@@ -255,7 +263,7 @@
                 return (cellValue * 100).toFixed(2) + '%'
             },
             handleRatio(row, column, cellValue, index) {
-                return cellValue.toFixed(2)
+                return cellValue.toFixed(4)
             },
             handleRow(row, column, event) {
                 console.log(row)
@@ -266,6 +274,11 @@
                 console.log(column)
                 console.log(event)
             },
+            // 阻止默认右键菜单弹出
+            rtClick(row, column, event) {
+                // 阻止默认右键菜单弹出
+                event.preventDefault()
+            }
         }
     });
 </script>
