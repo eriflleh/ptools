@@ -17,7 +17,7 @@ from pt_site.models import Site, Downloader, SignIn
 from pt_site.models import TorrentInfo, SiteStatus, MySite
 # Register your models here.
 from pt_site.views import pool, pt_spider
-from ptools.base import StatusCodeEnum
+from ptools.base import StatusCodeEnum, DownloaderCategory
 
 admin.site.site_header = 'PT一下，你就晓嘚'
 admin.site.site_title = 'PT一下，你就晓嘚'
@@ -282,15 +282,14 @@ class MySiteAdmin(ImportExportModelAdmin):  # instead of ModelAdmin
     )
 
     def edit(self, obj: MySite):
-        return format_html(
-            # '<a href="/admin/pt_site/mysite/{}/change/" type="primary" target="_blank">编辑</a>',
-            '编辑')
+        return '编辑'
 
     edit.short_description = '操作'
 
     # 自定义更新时间，提醒今日是否更新
     def status_today(self, obj: MySite):
         is_update = obj.updated_at.date() == datetime.today().date()
+
         return format_html('{}<img src="/static/admin/img/icon-{}.svg">', obj.updated_at.date(),
                            'yes' if is_update and obj.site.get_userinfo_support else 'no')
 
@@ -348,12 +347,23 @@ class MySiteAdmin(ImportExportModelAdmin):  # instead of ModelAdmin
     list_filter = (SignInFilter, UpdatedAtFilter, 'my_level')
 
     def sign_in_state(self, obj: MySite):
+        template = """
+                <div class="el-badge item">
+                <button type="button" class="el-button el-button--default el-button--small">
+                <span>{}</span>
+                </button>
+                <sup class="el-badge__content is-fixed">{}</sup>
+                </div>
+                """
         signin_today = obj.signin_set.filter(created_at__date__gte=datetime.today()).first()
         if not obj.site.sign_in_support:
-            return format_html('<a href="#">无需</a>')
+            sign_template = format_html('<a href="#">无需</a>')
         else:
-            return format_html('<img src="/static/admin/img/icon-{}.svg">',
-                               'yes' if signin_today and signin_today.sign_in_today else 'no')
+            sign_template = format_html('<img src="/static/admin/img/icon-{}.svg">',
+                                        'yes' if signin_today and signin_today.sign_in_today else 'no')
+        if obj.mail == 0:
+            return sign_template
+        return template.format(sign_template, obj.mail)
 
     sign_in_state.short_description = '今日签到'
 
@@ -367,6 +377,29 @@ class MySiteAdmin(ImportExportModelAdmin):  # instead of ModelAdmin
     actions = ['sign_in', 'get_status', 'get_torrents', 'sign_in_celery']
     # 底部显示按钮
     actions_on_bottom = True
+
+    # 尝试获取分类，但是各站差异太大
+    # def get_class(self, request, queryset):
+    #     for my_site in queryset:
+    #         response = pt_spider.send_torrent_info_request(my_site)
+    #         if response.code == 0:
+    #             res = response.data
+    #             classes = pt_spider.parse(res, '//*[@id="ksearchboxmain"]//td/a/img[contains(@class,"c_")]/@class')
+    #             title = pt_spider.parse(res, '//*[@id="ksearchboxmain"]//td/a/img[contains(@class,"c_")]/@title')
+    #             alt = pt_spider.parse(res, '//*[@id="ksearchboxmain"]//td/a/img[contains(@class,"c_")]/@alt')
+    #             print(my_site.site.name)
+    #             for i, j, k in zip(classes, title, alt):
+    #                 print('class', i)
+    #                 print('title', j)
+    #                 print('alt', k)
+    #             # for i in classes:
+    #             #     print('class', i)
+    #             # for i in title:
+    #             #     print('title', i)
+    #             # for i in alt:
+    #             #     print('alt', i)
+    #             messages.success(request, my_site.site.name)
+    #         messages.error(request, my_site.site.name)
 
     def sign_in(self, request, queryset):
         start = time.time()
@@ -771,52 +804,132 @@ class TorrentInfoAdmin(ImportExportModelAdmin, AjaxAdmin):  # instead of ModelAd
                 'msg': '请先选中数据！'
             })
         else:
-            try:
-                # qbittorrentrpc_core.Torrent_management.add()
-                # downloader = Downloader.objects.get(id=post.get('downloader'))
-                # c = Client(host='192.168.123.2', port=9091, username='ngfchl', password='.wq891222')
-                # qb_client.auth_log_in()
-                # print(qb_client.torrents)
-                tr_client = transmission_rpc.Client(host=downloader.host,
-                                                    port=downloader.port,
-                                                    username=downloader.username,
-                                                    password=downloader.password)
-                # 判断剩余空间大小，小于预留空间则停止推送种子
-                if tr_client.free_space('/downloads') <= downloader.reserved_space * 1024 * 1024 * 1024:
-                    return JsonResponse(data={
-                        'status': 'error',
-                        'msg': downloader.name + '磁盘空间已不足，请及时清理！'
-                    })
-                # torrent_list = [i.magnet_url for i in queryset]
-                for torrent_info in queryset:
-                    if not torrent_info.hash_string:
-                        pt_spider.get_hash(torrent_info=torrent_info)
-                    # print(qb_client.torrent_categories.categories.get(torrent.category))
-                    print(torrent_info.magnet_url)
-                    # res = qb_client.torrents_add(torrent.magnet_url)
-                    res = tr_client.add_torrent(torrent=torrent_info.magnet_url,
-                                                download_dir=torrent_info.save_path)
-                    print(res)
-                    if isinstance(res, Torrent):
-                        torrent_info.hash = res.id
-                        torrent_info.state = True
-                        torrent_info.downloader = downloader
-                        torrent_info.save()
-                        return JsonResponse(data={
-                            'status': 'success',
-                            'msg': torrent_info.name + '推送成功！'
-                        })
-                    else:
+            # 计算选中种子总大小，单位：字节
+            total_size = 0
+            for torrent_info in queryset:
+                total_size += torrent_info.size
+            if downloader.category == DownloaderCategory.Transmission:
+                try:
+                    # c = Client(host='192.168.123.2', port=9091, username='ngfchl', password='.wq891222')
+                    # qb_client.auth_log_in()
+                    # print(qb_client.torrents)
+                    tr_client = transmission_rpc.Client(host=downloader.host,
+                                                        port=downloader.port,
+                                                        username=downloader.username,
+                                                        password=downloader.password)
+                    # 判断剩余空间大小，小于预留空间则停止推送种子
+                    free_space = tr_client.free_space('/downloads')
+                    if free_space < total_size:
                         return JsonResponse(data={
                             'status': 'error',
-                            'msg': torrent_info.name + '推送失败！'
+                            'msg': '{}磁盘空间已不足，下载文件总大小{}请及时清理！'.format(
+                                downloader.name,
+                                FileSizeConvert.parse_2_file_size(total_size)
+                            )
                         })
-            except Exception as e:
-                # raise
-                return JsonResponse(data={
-                    'status': 'error',
-                    'msg': str(e) + '！'
-                })
+                    if free_space <= downloader.reserved_space * 1024 * 1024 * 1024:
+                        return JsonResponse(data={
+                            'status': 'error',
+                            'msg': '{}磁盘剩余空间{}已低于保留值{}，请及时清理！'.format(
+                                downloader.name,
+                                FileSizeConvert.parse_2_file_size(free_space),
+                                downloader.reserved_space
+                            )
+                        })
+                    # torrent_list = [i.magnet_url for i in queryset]
+                    for torrent_info in queryset:
+                        if not torrent_info.hash_string:
+                            pt_spider.get_hash(torrent_info=torrent_info)
+                        # print(qb_client.torrent_categories.categories.get(torrent.category))
+                        print(torrent_info.magnet_url)
+                        # res = qb_client.torrents_add(torrent.magnet_url)
+                        res = tr_client.add_torrent(torrent=torrent_info.magnet_url,
+                                                    download_dir=torrent_info.save_path)
+                        print(res)
+                        if isinstance(res, Torrent):
+                            torrent_info.hash = res.id
+                            torrent_info.state = True
+                            torrent_info.downloader = downloader
+                            torrent_info.save()
+                            return JsonResponse(data={
+                                'status': 'success',
+                                'msg': torrent_info.name + '推送成功！'
+                            })
+                        else:
+                            return JsonResponse(data={
+                                'status': 'error',
+                                'msg': torrent_info.name + '推送失败！'
+                            })
+                except Exception as e:
+                    # raise
+                    return JsonResponse(data={
+                        'status': 'error',
+                        'msg': str(e) + '！'
+                    })
+            if downloader.category == DownloaderCategory.qBittorrent:
+                qb_client = qbittorrentapi.Client(
+                    host=downloader.host,
+                    port=downloader.port,
+                    username=downloader.username,
+                    password=downloader.password,
+                    # 仅返回简单JSON
+                    SIMPLE_RESPONSES=True
+                )
+
+                try:
+                    print('开始登录下载器', downloader.name)
+                    qb_client.auth_log_in()
+                    # 判断剩余空间是否满足要求
+                    free_space = qb_client.sync.maindata().server_state.free_space_on_disk
+                    print('下载器剩余空间：', FileSizeConvert.parse_2_file_size(free_space))
+                    print('种子总大小：', FileSizeConvert.parse_2_file_size(total_size))
+                    if free_space <= total_size:
+                        return JsonResponse(data={
+                            'status': 'error',
+                            'msg': '{}磁盘空间已不足，下载文件总大小{}请及时清理！'.format(
+                                downloader.name,
+                                FileSizeConvert.parse_2_file_size(total_size)
+                            )
+                        })
+                    if free_space <= downloader.reserved_space * 1024 * 1024 * 1024:
+                        return JsonResponse(data={
+                            'status': 'error',
+                            'msg': '{}磁盘剩余空间{}已低于保留值{}，请及时清理！'.format(
+                                downloader.name,
+                                FileSizeConvert.parse_2_file_size(free_space),
+                                downloader.reserved_space
+                            )
+                        })
+                    for torrent_info in queryset:
+                        print('创建种子标签', torrent_info.magnet_url)
+                        qb_client.torrents_create_tags(torrent_info.magnet_url)
+                        res = qb_client.torrents.add(
+                            # 种子链接
+                            urls=torrent_info.magnet_url,
+                            cookie=torrent_info.site.mysite.cookie,
+                            # 保存路径
+                            save_path=torrent_info.save_path,
+                            # 自动管理种子
+                            use_auto_torrent_management=True,
+                            # 任务标签，用于和种子信息关联
+                            tags=torrent_info.magnet_url,
+                            # 跳过HASH检查
+                            # is_skip_checking=True
+                        )
+                        print(res)
+                        if res == 'Ok.':
+                            print(torrent_info.magnet_url)
+                            torrent = qb_client.torrents.info(tag=torrent_info.magnet_url)
+                            print(len(torrent))
+                            return JsonResponse(data={
+                                'status': 'success',
+                                'msg': torrent_info.name + '推送成功！'
+                            })
+                except Exception as e:
+                    return JsonResponse(data={
+                        'status': 'error',
+                        'msg': str(e) + '1！'
+                    })
 
     # 显示的文本，与django admin一致
     to_download.short_description = '推送到下载器'
@@ -864,6 +977,6 @@ class TorrentInfoAdmin(ImportExportModelAdmin, AjaxAdmin):  # instead of ModelAd
             # value字段可以指定默认值
             'value': '',
             # 列表推导式来获取下载器
-            # 'options': [{'key': i.id, 'label': i.name} for i in Downloader.objects.all()]
+            'options': [{'key': i.id, 'label': i.name} for i in Downloader.objects.all()]
         }]
     }
