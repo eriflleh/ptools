@@ -12,7 +12,7 @@ from django.shortcuts import render
 from pt_site import views as tasks
 from pt_site.models import SiteStatus, MySite, Site, Downloader
 from pt_site.views import scheduler, pt_spider
-from ptools.base import CommonResponse, StatusCodeEnum
+from ptools.base import CommonResponse, StatusCodeEnum, DownloaderCategory
 
 
 def add_task(request):
@@ -87,7 +87,7 @@ def page_downloading(request):
 
 
 def get_downloader(request):
-    downloader_list = Downloader.objects.values('id', 'name', 'host')
+    downloader_list = Downloader.objects.filter(category=DownloaderCategory.qBittorrent).values('id', 'name', 'host')
     return JsonResponse(CommonResponse.success(data=list(downloader_list)).to_dict(), safe=False)
 
 
@@ -96,19 +96,17 @@ def get_downloading(request):
     print(id)
     downloader = Downloader.objects.filter(id=id).first()
 
-    qb_client = qbittorrentapi.Client(host=downloader.host,
-                                      port=downloader.port,
-                                      username=downloader.username,
-                                      password=downloader.password)
+    qb_client = qbittorrentapi.Client(
+        host=downloader.host,
+        port=downloader.port,
+        username=downloader.username,
+        password=downloader.password,
+        SIMPLE_RESPONSES=True
+    )
     try:
         qb_client.auth_log_in()
-        t_list = qb_client.torrents_info()
-        print(len(t_list))
-        torrents = []
-        for torrent in t_list:
-            #     torrent.to_dict()
-            torrents.append(dict(torrent))
-        print(torrents)
+        torrents = qb_client.torrents_info()
+        print(len(torrents))
         return JsonResponse(CommonResponse.success(data=torrents).to_dict(), safe=False)
     except Exception as e:
         print(e)

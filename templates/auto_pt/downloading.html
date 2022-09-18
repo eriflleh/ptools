@@ -17,23 +17,23 @@
                 {#                :name="downloader.id"#}
                 :id="downloader.id">
             <el-dropdown>
-                        <el-button type="primary" size="mini">
-                            操作<i class="el-icon-arrow-down el-icon--right"></i>
-                        </el-button>
-                        <el-dropdown-menu slot="dropdown" size="mini">
-                            <el-dropdown-item>继续</el-dropdown-item>
-                            <el-dropdown-item>暂停</el-dropdown-item>
-                            <el-dropdown-item>强制继续</el-dropdown-item>
-                            <el-dropdown-item>删除</el-dropdown-item>
-                            <el-dropdown-item>限速</el-dropdown-item>
-                            <el-dropdown-item>分类</el-dropdown-item>
-                            <el-dropdown-item>更改路径</el-dropdown-item>
-                            <el-dropdown-item>自动管理</el-dropdown-item>
-                            <el-dropdown-item>重新校验</el-dropdown-item>
-                            <el-dropdown-item>复制链接</el-dropdown-item>
-                            <el-dropdown-item>复制HASH</el-dropdown-item>
-                        </el-dropdown-menu>
-                    </el-dropdown>
+                <el-button type="primary" size="mini">
+                    操作<i class="el-icon-arrow-down el-icon--right"></i>
+                </el-button>
+                <el-dropdown-menu slot="dropdown" size="mini">
+                    <el-dropdown-item>继续</el-dropdown-item>
+                    <el-dropdown-item>暂停</el-dropdown-item>
+                    <el-dropdown-item>强制继续</el-dropdown-item>
+                    <el-dropdown-item>删除</el-dropdown-item>
+                    <el-dropdown-item>限速</el-dropdown-item>
+                    <el-dropdown-item>分类</el-dropdown-item>
+                    <el-dropdown-item>更改路径</el-dropdown-item>
+                    <el-dropdown-item>自动管理</el-dropdown-item>
+                    <el-dropdown-item>重新校验</el-dropdown-item>
+                    <el-dropdown-item>复制链接</el-dropdown-item>
+                    <el-dropdown-item>复制HASH</el-dropdown-item>
+                </el-dropdown-menu>
+            </el-dropdown>
             <el-divider></el-divider>
             <el-table
                     v-loading="loading"
@@ -42,7 +42,7 @@
                     element-loading-background="rgba(0, 0, 0, 0.8)"
                     @row-dblclick="handleRow"
                     :data="torrents"
-                    height="750"
+                    height="700"
                     size="mini"
                     border
                     stripe
@@ -56,9 +56,9 @@
                 <el-table-column
                         type="selection">
                 </el-table-column>
-
                 <el-table-column prop="name"
                                  fixed
+                                 show-overflow-tooltip="true"
                                  label="种子名称" width="220"></el-table-column>
                 <el-table-column prop="size"
                                  :formatter="handleSize"
@@ -78,7 +78,7 @@
                 {#                <el-table-column prop="save_path"#}
                 {#                                 label="保存路径"></el-table-column>#}
                 <el-table-column prop="ratio"
-                                 :formatter="handlePercent"
+                        {#                                 :formatter="handlePercent"#}
                                  label="分享率"></el-table-column>
                 <el-table-column prop="seeding_time"
                                  label="做种时间"></el-table-column>
@@ -94,118 +94,180 @@
                 {#                                 label="Tracker"></el-table-column>#}
                 <el-table-column
                         label="操作">
-
                 </el-table-column>
             </el-table>
         </el-tab-pane>
     </el-tabs>
 
+    <el-dialog title="收货地址" :visible.sync="dialogFormVisible">
+        <el-form :model="torrent">
+            <el-form-item label="种子名称">
+                <el-input v-model="torrent.name"></el-input>
+            </el-form-item>
+            <el-form-item label="大小">
+                <el-input v-model="torrent.size"></el-input>
+            </el-form-item>
+            <el-form-item label="已下载">
+                <el-input v-model="torrent.downloaded"></el-input>
+            </el-form-item>
+            <el-form-item label="已上传">
+                <el-input v-model="torrent.uploaded"></el-input>
+            </el-form-item>
+            <el-form-item label="下载速度">
+                <el-input v-model="torrent.dlspeed"></el-input>
+            </el-form-item>
+            <el-form-item label="上传速度">
+                <el-input v-model="torrent.upspeed"></el-input>
+            </el-form-item>
+            <el-form-item label="下载进度">
+                <el-input v-model="torrent.progress"></el-input>
+            </el-form-item>
+            <el-form-item label="分享率">
+                <el-input v-model="torrent.ratio"></el-input>
+            </el-form-item>
+            <el-form-item label="做种时间">
+                <el-input v-model="torrent.seeding_time"></el-input>
+            </el-form-item>
+            <el-form-item label="当前状态">
+                <el-input v-model="torrent.state"></el-input>
+            </el-form-item>
+            <el-form-item label="最后活动">
+                <el-input v-model="torrent.last_activity"></el-input>
+            </el-form-item>
+            <el-form-item label="添加时间">
+                <el-input v-model="torrent.added_on"></el-input>
+            </el-form-item>
+            <el-form-item label="分类">
+                <el-input v-model="torrent.added_on"></el-input>
+            </el-form-item>
+            <el-form-item label="Tracker">
+                <el-input v-model="torrent.tracker"></el-input>
+            </el-form-item>
+
+        </el-form>
+        <div slot="footer" class="dialog-footer">
+            <el-button @click="dialogFormVisible = false">取 消</el-button>
+            <el-button type="primary" @click="dialogFormVisible = false">确 定</el-button>
+        </div>
+    </el-dialog>
 </div>
 
 {% include 'admin/includes/js-part.html' %}
 <script src="{% static 'admin/simpleui-x/js/axios.min.js' %}"></script>
 <script>
     const vm = new Vue({
-            // 配置选项(option)
-            // element: 指定用vue来管理页面中的哪个标签区域
-            el: '#app',
-            data: {
-                downloaders: '',
-                loading: false,
-                torrents: []
-            },
-            mounted() {
-                this.get_downloader()
-                this.loading = false
-                {#console.log(this.downloaders)#}
-            },
-            watch: {},
-            methods: {
-                get_downloader() {
-                    axios.get(
-                        "{% url "get_downloader" %}"
-                    ).then(res => {
-                        this.loading = true
-                        console.log('获取下载器列表成功', res.data)
-                        if (res.data.code === 0) {
-                            this.downloaders = res.data.data
-                            this.get_downloading(this.downloaders[0].id)
-                            console.log(this.torrents)
-                            this.loading = false
-                        } else {
-                            this.loading = false
-                            this.$message({
-                                type: 'warning',
-                                message: '获取下载器列表失败！'
-                            });
-                        }
-                    }).catch(res => {
-                        console.log('获取下载器列表失败', res)
+        // 配置选项(option)
+        // element: 指定用vue来管理页面中的哪个标签区域
+        el: '#app',
+        data: {
+            downloaders: '',
+            loading: false,
+            torrents: [],
+            dialogFormVisible: false,
+            torrent: {
+                name: '',
+                category: '',
+                size: '',
+                downloaded: '',
+                uploaded: '',
+                dlspeed: '',
+                upspeed: '',
+                progress: '',
+                ratio: '',
+                seeding_time: '',
+                state: '',
+                last_activity: '',
+                added_on: '',
+                tracker: '',
+            }
+        },
+        mounted() {
+            this.get_downloader()
+            this.loading = false
+        },
+        watch: {},
+        methods: {
+            get_downloader() {
+                axios.get(
+                    "{% url "get_downloader" %}"
+                ).then(res => {
+                    this.loading = true
+                    console.log('获取下载器列表成功', res.data)
+                    if (res.data.code === 0) {
+                        this.downloaders = res.data.data
+                        this.get_downloading(this.downloaders[0].id)
+                        console.log(this.torrents)
+                        this.loading = false
+                    } else {
+                        this.loading = false
                         this.$message({
                             type: 'warning',
-                            message: '获取下载器列表失败！' + res
+                            message: '获取下载器列表失败！'
                         });
-                    })
-
-                },
-                handleTabClick(tab, event) {
-                    console.log(tab)
-                    console.log(tab.$attrs.id)
-                    this.loading = true
-                    {#this.torrents = []#}
-                    this.get_downloading(tab.$attrs.id)
-                    this.loading = false
-                },
-                get_downloading(downloader_id) {
-                    let time = new Date()
-                    console.log(time)
-                    axios.get(
-                        "{% url "downloading" %}",
-                        {
-                            params: {
-                                id: downloader_id
-                            }
-                        }
-                    ).then(res => {
-                        if (res.data.code === 0) {
-                            console.log(res.data.data)
-                            this.torrents = res.data.data
-                        }
-                    })
-                    let time2 = new Date()
-                    console.log(time2)
-                    console.log(time2 - time)
-                },
-                handleSize(row, column, cellValue, index) {
-                    return this.renderSize(cellValue)
-                },
-                renderSize(value) {
-                    if (null == value || value == '') {
-                        return "0";
                     }
-                    var unitArr = ["B", "KB", "MB", "GB", "TB", "PB", "EB", "ZB", "YB"];
-                    var index = 0;
-                    var srcsize = parseFloat(value);
-                    index = Math.floor(Math.log(srcsize) / Math.log(1024));
-                    var size = srcsize / Math.pow(1024, index);
-                    size = size.toFixed(2);//保留的小数位数
-                    return size + unitArr[index];
-                },
-                handlePercent(row, column, cellValue, index) {
-                    return (cellValue * 100).toFixed(2) + '%'
-                },
-                handleRatio(row, column, cellValue, index) {
-                    return cellValue.toFixed(2)
-                },
-                handleRow(row, column, event) {
-                    console.log(row)
-                    console.log(column)
-                    console.log(event)
-                },
-            }
-        })
-    ;
-
+                }).catch(res => {
+                    console.log('获取下载器列表失败', res)
+                    this.$message({
+                        type: 'warning',
+                        message: '获取下载器列表失败！' + res
+                    });
+                })
+            },
+            handleTabClick(tab, event) {
+                console.log(tab)
+                console.log(tab.$attrs.id)
+                this.loading = true
+                {#this.torrents = []#}
+                this.get_downloading(tab.$attrs.id)
+                this.loading = false
+            },
+            get_downloading(downloader_id) {
+                axios.get(
+                    "{% url "downloading" %}",
+                    {
+                        params: {
+                            id: downloader_id
+                        }
+                    }
+                ).then(res => {
+                    if (res.data.code === 0) {
+                        console.log(res.data.data)
+                        this.torrents = res.data.data
+                    }
+                })
+            },
+            handleSize(row, column, cellValue, index) {
+                return this.renderSize(cellValue)
+            },
+            renderSize(value) {
+                if (null == value || value == '') {
+                    return "0";
+                }
+                var unitArr = ["B", "KB", "MB", "GB", "TB", "PB", "EB", "ZB", "YB"];
+                var index = 0;
+                var srcsize = parseFloat(value);
+                index = Math.floor(Math.log(srcsize) / Math.log(1024));
+                var size = srcsize / Math.pow(1024, index);
+                size = size.toFixed(2);//保留的小数位数
+                return size + unitArr[index];
+            },
+            handlePercent(row, column, cellValue, index) {
+                return (cellValue * 100).toFixed(2) + '%'
+            },
+            handleRatio(row, column, cellValue, index) {
+                return cellValue.toFixed(2)
+            },
+            handleRow(row, column, event) {
+                console.log(row)
+                this.torrent = row
+                console.log(this.torrent)
+                this.dialogFormVisible = true
+                console.log(row.name)
+                console.log(column)
+                console.log(event)
+            },
+        }
+    });
 </script>
 </body>
 </html>
