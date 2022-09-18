@@ -17,8 +17,28 @@
                 :label="downloader.name"
                 {#                :name="downloader.id"#}
                 :id="downloader.id">
+            <div>
+                <el-dropdown split-button type="primary" size="mini">
+                    查看
+                    <el-dropdown-menu slot="dropdown">
+                        <el-dropdown-item>继续</el-dropdown-item>
+                        <el-dropdown-item>暂停</el-dropdown-item>
+                        <el-dropdown-item>强制继续</el-dropdown-item>
+                        <el-dropdown-item>删除</el-dropdown-item>
+                        <el-dropdown-item>限速</el-dropdown-item>
+                        <el-dropdown-item>分类</el-dropdown-item>
+                        <el-dropdown-item>更改路径</el-dropdown-item>
+                        <el-dropdown-item>自动管理</el-dropdown-item>
+                        <el-dropdown-item>重新校验</el-dropdown-item>
+                        <el-dropdown-item>复制链接</el-dropdown-item>
+                        <el-dropdown-item>复制HASH</el-dropdown-item>
+                    </el-dropdown-menu>
+                </el-dropdown>
+                <el-button size="mini" type="warning"> 暂停刷新</el-button>
+            </div>
 
 
+            <hr/>
             <u-table
                     ref="plTable"
                     row-height="55"
@@ -33,6 +53,7 @@
                     border
                     stripe
                     highlight-current-row
+                    {#                    show-summary#}
                     style="width: 100%">
                 <u-table-column
                         fixed
@@ -42,63 +63,59 @@
                 <u-table-column
                         prop="name"
                         fixed
+                        sortable
                         show-overflow-tooltip="true"
                         label="种子名称" width="220">
                 </u-table-column>
                 <u-table-column prop="size"
+                                sortable
                                 :formatter="handleSize"
                                 label="大小">
                 </u-table-column>
                 {#                <u-table-column prop="downloaded" :formatter="handleSize"#}
                 {#                                 label="已下载"></u-table-column>#}
-                <u-table-column prop="uploaded" :formatter="handleSize"
+                <u-table-column prop="uploaded"
+                                :formatter="handleSize"
+                                sortable
                                 label="已上传"></u-table-column>
                 <u-table-column prop="dlspeed"
+                                sortable
                                 label="下载速度"></u-table-column>
                 <u-table-column prop="upspeed"
+                                sortable
                                 label="上传速度"></u-table-column>
                 <u-table-column prop="progress"
+                                sortable
                                 :formatter="handlePercent"
                                 label="下载进度"></u-table-column>
                 {#                <u-table-column prop="save_path"#}
                 {#                                 label="保存路径"></u-table-column>#}
                 <u-table-column prop="ratio"
+                                sortable
                         {#                                 :formatter="handlePercent"#}
                                 label="分享率"></u-table-column>
                 {#                <u-table-column prop="seeding_time"#}
                 {#                                 label="做种时间"></u-table-column>#}
                 <u-table-column prop="state"
+                                sortable
                                 label="当前状态"></u-table-column>
                 <u-table-column prop="last_activity"
+                                sortable
                                 show-overflow-tooltip
                                 label="最后活动"></u-table-column>
                 {#                <u-table-column prop="added_on"#}
                 {#                                 label="添加时间"></u-table-column>#}
                 <u-table-column prop="category"
+                                sortable
                                 label="分类"></u-table-column>
                 {#                <u-table-column prop="tracker"#}
                 {#                                 label="Tracker"></u-table-column>#}
-                <u-table-column
-                        width="120"
-                        fixed="right"
-                        label="操作">
-                    <el-dropdown split-button type="primary" size="mini">
-                        查看
-                        <el-dropdown-menu slot="dropdown">
-                            <el-dropdown-item>继续</el-dropdown-item>
-                            <el-dropdown-item>暂停</el-dropdown-item>
-                            <el-dropdown-item>强制继续</el-dropdown-item>
-                            <el-dropdown-item>删除</el-dropdown-item>
-                            <el-dropdown-item>限速</el-dropdown-item>
-                            <el-dropdown-item>分类</el-dropdown-item>
-                            <el-dropdown-item>更改路径</el-dropdown-item>
-                            <el-dropdown-item>自动管理</el-dropdown-item>
-                            <el-dropdown-item>重新校验</el-dropdown-item>
-                            <el-dropdown-item>复制链接</el-dropdown-item>
-                            <el-dropdown-item>复制HASH</el-dropdown-item>
-                        </el-dropdown-menu>
-                    </el-dropdown>
-                </u-table-column>
+                {#                <u-table-column#}
+                {#                        width="120"#}
+                {#                        fixed="right"#}
+                {#                        label="操作">#}
+                {#                   #}
+                {#                </u-table-column>#}
             </u-table>
         </el-tab-pane>
     </el-tabs>
@@ -172,6 +189,8 @@
             loading: false,
             torrents: [],
             dialogFormVisible: false,
+            timer: {},
+            downloader_id: 0,
             torrent: {
                 name: '',
                 category: '',
@@ -189,9 +208,15 @@
                 tracker: '',
             }
         },
-        mounted() {
+        beforeMount() {
             this.get_downloader()
-            this.loading = false
+
+        },
+        mounted() {
+            console.log("下载器：", this.downloaders)
+            this.timer = setInterval(() => {
+                this.get_downloading(this.downloader_id)
+            }, 5000)
         },
         watch: {},
         methods: {
@@ -203,7 +228,8 @@
                     console.log('获取下载器列表成功', res.data)
                     if (res.data.code === 0) {
                         this.downloaders = res.data.data
-                        this.get_downloading(this.downloaders[0].id)
+                        this.downloader_id = this.downloaders[0].id
+                        this.get_downloading(this.downloader_id)
                         console.log(this.torrents)
                         this.loading = false
                     } else {
@@ -226,7 +252,8 @@
                 console.log(tab.$attrs.id)
                 this.loading = true
                 {#this.torrents = []#}
-                this.get_downloading(tab.$attrs.id)
+                this.downloader_id = tab.$attrs.id
+                this.get_downloading(this.downloader_id)
                 this.loading = false
             },
             get_downloading(downloader_id) {
