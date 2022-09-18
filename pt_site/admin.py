@@ -349,21 +349,20 @@ class MySiteAdmin(ImportExportModelAdmin):  # instead of ModelAdmin
     def sign_in_state(self, obj: MySite):
         template = """
                 <div class="el-badge item">
-                <button type="button" class="el-button el-button--default el-button--small">
-                <span>{}</span>
-                </button>
+                <span style="width: 25px">{}</span>
                 <sup class="el-badge__content is-fixed">{}</sup>
                 </div>
                 """
         signin_today = obj.signin_set.filter(created_at__date__gte=datetime.today()).first()
         if not obj.site.sign_in_support:
-            sign_template = format_html('<a href="#">无需</a>')
+            sign_template = '<a href="#">无需</a>'
         else:
-            sign_template = format_html('<img src="/static/admin/img/icon-{}.svg">',
-                                        'yes' if signin_today and signin_today.sign_in_today else 'no')
+            sign_template = '<img src="/static/admin/img/icon-{}.svg">'.format(
+                'yes' if signin_today and signin_today.sign_in_today else 'no'
+            )
         if obj.mail == 0:
-            return sign_template
-        return template.format(sign_template, obj.mail)
+            return format_html(sign_template)
+        return format_html(template.format(sign_template, obj.mail))
 
     sign_in_state.short_description = '今日签到'
 
