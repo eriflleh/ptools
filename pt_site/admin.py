@@ -675,6 +675,14 @@ class DownloaderAdmin(ImportExportModelAdmin, AjaxAdmin):  # instead of ModelAdm
     #     print(sender.test_connect(kwargs['instance']))
 
 
+def get_downloader():
+    """获取下载器列表"""
+    try:
+        return [{'key': i.id, 'label': i.name} for i in Downloader.objects.all()]
+    except Exception as e:
+        return []
+
+
 @admin.register(TorrentInfo)
 class TorrentInfoAdmin(ImportExportModelAdmin, AjaxAdmin):  # instead of ModelAdmin
     formats = (base_formats.XLS, base_formats.CSV, base_formats.JSON)
@@ -952,13 +960,6 @@ class TorrentInfoAdmin(ImportExportModelAdmin, AjaxAdmin):  # instead of ModelAd
     #     # 模拟处理业务耗时
     #     time.sleep(2)
     # 可以根据request的用户，来动态设置返回哪些字段，每次点击都会来获取配置显示
-
-    def get_downloader(self):
-        """获取下载器列表"""
-        try:
-            return [{'key': i.id, 'label': i.name} for i in Downloader.objects.all()]
-        except Exception as e:
-            return []
 
     to_download.layer = {
         # 弹出层中的输入框配置
