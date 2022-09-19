@@ -109,12 +109,12 @@ class Site(BaseEntity):
         max_length=128)
     sale_rule = models.CharField(
         verbose_name='促销信息',
-        default='.//div/img[contains(@class,"pro_")]/@alt',
+        default='.//img[contains(@class,"free")]/@alt',
         max_length=128
     )
     sale_expire_rule = models.CharField(
         verbose_name='促销时间',
-        default='.//img[contains(@class,"pro_")]/following::font/span/@title',
+        default='.//img[contains(@class,"free")]/following::font/span/@title',
         max_length=128)
     release_rule = models.CharField(
         verbose_name='发布时间',
@@ -184,7 +184,7 @@ class Site(BaseEntity):
         max_length=128)
     my_level_rule = models.CharField(
         verbose_name='用户等级',
-        default='//a[contains(@class,"_Name") and contains(@href,"userdetails.php?id=1")]/@class',
+        default='//table[@id="info_block"]//span/a[contains(@class,"_Name") and contains(@href,"userdetails.php?id=")]/@class',
         max_length=128
     )
     my_passkey_rule = models.CharField(
@@ -194,7 +194,7 @@ class Site(BaseEntity):
     )
     my_uid_rule = models.CharField(
         verbose_name='用户ID',
-        default='//a[contains(@class,"_Name") and contains(@href,"userdetails.php?id=")]/@href',
+        default='//table[@id="info_block"]//span/a[contains(@class,"_Name") and contains(@href,"userdetails.php?id=")]/@href',
         max_length=128
     )
     my_hr_rule = models.CharField(
