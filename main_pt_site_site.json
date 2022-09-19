@@ -30,6 +30,7 @@
     "hr": 0,
     "hr_rate": 2,
     "hr_time": 10,
+    "sp_full": 0,
     "limit_speed": 100,
     "torrents_rule": "//table[@class=\"torrents\"]/tr",
     "name_rule": ".//td[@class=\"embedded\"]/a/b/text()",
@@ -41,7 +42,6 @@
     "download_url_rule": ".//a[contains(@href,\"download.php?id=\") and contains(@href,\"passkey\")]/@href",
     "size_rule": ".//td[5]/text()",
     "hr_rule": ".//table/tr/td/img[@class=\"hitandrun\"]/@title",
-    "sale_rule": ".//table/tr/td/img[contains(@class,\"pro_\")]/@alt",
     "sale_expire_rule": ".//table/tr/td/font/span/@title",
     "release_rule": ".//td[4]/span/@title",
     "seeders_rule": ".//td[6]/b/a/text()",
@@ -72,7 +72,7 @@
     "my_passkey_rule": "//td[contains(text(),\"密钥\")]/following-sibling::td[1]/text()",
     "my_uid_rule": "//table[@id=\"info_block\"]//span/a[contains(@class,\"_Name\") and contains(@href,\"userdetails.php?id=\")]/@href",
     "page_control_panel": "usercp.php",
-    "sp_full": 0
+    "sale_rule": ".//img[contains(@class,\"free\")]/@alt"
   },
   {
     "id": 2,
@@ -105,6 +105,7 @@
     "hr": 1,
     "hr_rate": 2,
     "hr_time": 10,
+    "sp_full": 0,
     "limit_speed": 100,
     "torrents_rule": "//table[@class=\"torrents\"]/tr",
     "name_rule": ".//td[@class=\"embedded\"]/a/b/text()",
@@ -116,7 +117,6 @@
     "download_url_rule": ".//a[contains(@href,\"download.php?\") and contains(text(),\"右键查看\") ]/@href",
     "size_rule": ".//td[5]//text()",
     "hr_rule": ".//img[@class=\"hitandrun\"]/@title",
-    "sale_rule": ".//img[contains(@class,\"pro_\")]/@alt",
     "sale_expire_rule": ".//font/span/@title",
     "release_rule": ".//td[4]/span/@title",
     "seeders_rule": ".//b/a[contains(@href,\"dllist=1#seeders\")]/text()",
@@ -147,7 +147,7 @@
     "my_passkey_rule": "//td[contains(text(),\"密钥\")]/following-sibling::td[1]/text()",
     "my_uid_rule": "//a[contains(@class,\"_Name\") and contains(@href,\"userdetails.php?id=\")]/@href",
     "page_control_panel": "usercp.php",
-    "sp_full": 0
+    "sale_rule": ".//img[contains(@class,\"free\")]/@alt"
   },
   {
     "id": 3,
@@ -180,6 +180,7 @@
     "hr": 0,
     "hr_rate": 2,
     "hr_time": 10,
+    "sp_full": 0,
     "limit_speed": 100,
     "torrents_rule": "//table[@class=\"torrents\"]/tr",
     "name_rule": ".//td[@class=\"embedded\"]/a/b/text()",
@@ -191,7 +192,6 @@
     "download_url_rule": ".//a[contains(@href,\"download.php?id=\") and contains(@href,\"passkey\")]/@href",
     "size_rule": ".//td[5]/text()",
     "hr_rule": ".//table/tr/td/img[@class=\"hitandrun\"]/@title",
-    "sale_rule": ".//table/tr/td/img[contains(@class,\"pro_\")]/@alt",
     "sale_expire_rule": ".//table/tr/td/font/span/@title",
     "release_rule": ".//td[4]/span/@title",
     "seeders_rule": ".//td[6]/b/a/text()",
@@ -222,7 +222,7 @@
     "my_passkey_rule": "//td[contains(text(),\"密钥\")]/following-sibling::td[1]/text()",
     "my_uid_rule": "//a[contains(@class,\"_Name\") and contains(@href,\"userdetails.php?id=\")]/@href",
     "page_control_panel": "usercp.php",
-    "sp_full": 0
+    "sale_rule": ".//img[contains(@class,\"free\")]/@alt"
   },
   {
     "id": 5,
@@ -255,6 +255,7 @@
     "hr": 0,
     "hr_rate": 2,
     "hr_time": 10,
+    "sp_full": 0,
     "limit_speed": 100,
     "torrents_rule": "//table[@class=\"torrents\"]/tr",
     "name_rule": ".//td[@class=\"embedded\"]/a/b/text()",
@@ -266,7 +267,6 @@
     "download_url_rule": ".//a[contains(@href,\"download.php?id=\") and contains(@href,\"passkey\")]/@href",
     "size_rule": ".//td[5]/text()",
     "hr_rule": ".//table/tr/td/img[@class=\"hitandrun\"]/@title",
-    "sale_rule": ".//table/tr/td/img[contains(@class,\"pro_\")]/@alt",
     "sale_expire_rule": ".//table/tr/td/font/span/@title",
     "release_rule": ".//td[4]/span/@title",
     "seeders_rule": ".//td[6]/b/a/text()",
@@ -297,7 +297,7 @@
     "my_passkey_rule": "//td[contains(text(),\"密钥\")]/following-sibling::td[1]/text()",
     "my_uid_rule": "//a[contains(@class,\"_Name\") and contains(@href,\"userdetails.php?id=\")]/@href",
     "page_control_panel": "usercp.php",
-    "sp_full": 0
+    "sale_rule": ".//img[contains(@class,\"free\")]/@alt"
   },
   {
     "id": 8,
@@ -330,6 +330,7 @@
     "hr": 1,
     "hr_rate": 2,
     "hr_time": 24,
+    "sp_full": 0,
     "limit_speed": 100,
     "torrents_rule": "//table[@class=\"torrents\"]/tr",
     "name_rule": ".//td[@class=\"embedded\"]/a/b/text()",
@@ -341,7 +342,6 @@
     "download_url_rule": ".//a[contains(@href,\"download.php?id=\") and contains(@href,\"passkey\")]/@href",
     "size_rule": ".//td[5]/text()",
     "hr_rule": ".//table/tr/td/img[@class=\"hitandrun\"]/@title",
-    "sale_rule": ".//table/tr/td/img[contains(@class,\"pro_\")]/@alt",
     "sale_expire_rule": ".//table/tr/td/font/span/@title",
     "release_rule": ".//td[4]/span/@title",
     "seeders_rule": ".//td[6]/b/a/text()",
@@ -372,7 +372,7 @@
     "my_passkey_rule": "//td[contains(text(),\"密钥\")]/following-sibling::td[1]/text()",
     "my_uid_rule": "//a[contains(@class,\"_Name\") and contains(@href,\"userdetails.php?id=\")]/@href",
     "page_control_panel": "usercp.php",
-    "sp_full": 0
+    "sale_rule": ".//img[contains(@class,\"free\")]/@alt"
   },
   {
     "id": 9,
@@ -405,6 +405,7 @@
     "hr": 0,
     "hr_rate": 2,
     "hr_time": 10,
+    "sp_full": 0,
     "limit_speed": 100,
     "torrents_rule": "//table[@class=\"torrents\"]/tr",
     "name_rule": ".//td[@class=\"embedded\"]/a/b/text()",
@@ -416,7 +417,6 @@
     "download_url_rule": ".//td[contains(text(),\"download.php?id=\") and contains(text(),\"passkey\")]/text()",
     "size_rule": ".//td[5]/text()",
     "hr_rule": ".//table/tr/td/img[@class=\"hitandrun\"]/@title",
-    "sale_rule": ".//table/tr/td/img[contains(@class,\"pro_\")]/@alt",
     "sale_expire_rule": ".//table/tr/td/font/span/@title",
     "release_rule": ".//td[4]/span/@title",
     "seeders_rule": ".//td[6]/b/a/text()",
@@ -447,7 +447,7 @@
     "my_passkey_rule": "//td[contains(text(),\"密钥\")]/following-sibling::td[1]/text()",
     "my_uid_rule": "//a[contains(@class,\"_Name\") and contains(@href,\"userdetails.php?id=\")]/@href",
     "page_control_panel": "usercp.php",
-    "sp_full": 0
+    "sale_rule": ".//img[contains(@class,\"free\")]/@alt"
   },
   {
     "id": 10,
@@ -480,6 +480,7 @@
     "hr": 0,
     "hr_rate": 2,
     "hr_time": 10,
+    "sp_full": 0,
     "limit_speed": 100,
     "torrents_rule": "//table[@class=\"torrents\"]/tr",
     "name_rule": ".//td[@class=\"embedded\"]/a/b/text()",
@@ -491,7 +492,6 @@
     "download_url_rule": ".//a[contains(@href,\"download.php?id=\") and contains(@href,\"passkey\")]/@href",
     "size_rule": ".//td[5]/text()",
     "hr_rule": ".//table/tr/td/img[@class=\"hitandrun\"]/@title",
-    "sale_rule": ".//table/tr/td/img[contains(@class,\"pro_\")]/@alt",
     "sale_expire_rule": ".//table/tr/td/font/span/@title",
     "release_rule": ".//td[4]/span/@title",
     "seeders_rule": ".//td[6]/b/a/text()",
@@ -522,7 +522,7 @@
     "my_passkey_rule": "//td[contains(text(),\"密钥\")]/following-sibling::td[1]/text()",
     "my_uid_rule": "//table[@id=\"info_block\"]//span/a[contains(@class,\"_Name\") and contains(@href,\"userdetails.php?id=\")]/@href",
     "page_control_panel": "usercp.php",
-    "sp_full": 0
+    "sale_rule": ".//img[contains(@class,\"free\")]/@alt"
   },
   {
     "id": 11,
@@ -555,6 +555,7 @@
     "hr": 0,
     "hr_rate": 2,
     "hr_time": 10,
+    "sp_full": 0,
     "limit_speed": 100,
     "torrents_rule": "//table[contains(@class,\"torrents\")]/tr",
     "name_rule": ".//td[@class=\"embedded\"]/a/b/text()",
@@ -566,7 +567,6 @@
     "download_url_rule": ".//a[contains(@href,\"download.php?id=\") and contains(@href,\"passkey\")]/@href",
     "size_rule": ".//td[5]/text()",
     "hr_rule": ".//table/tr/td/img[@class=\"hitandrun\"]/@title",
-    "sale_rule": ".//table/tr/td/img[contains(@class,\"pro_\")]/@alt",
     "sale_expire_rule": ".//td[@class=\"embedded\"]/img[contains(@class,\"pro_\")]/@onmouseover",
     "release_rule": ".//td[4]/span/@title",
     "seeders_rule": ".//td[6]/b/a/text()",
@@ -597,7 +597,7 @@
     "my_passkey_rule": "//td[contains(text(),\"密钥\")]/following-sibling::td[1]/text()",
     "my_uid_rule": "//a[contains(@class,\"_Name\") and contains(@href,\"userdetails.php?id=\")]/@href",
     "page_control_panel": "usercp.php",
-    "sp_full": 0
+    "sale_rule": ".//img[contains(@class,\"free\")]/@alt"
   },
   {
     "id": 12,
@@ -630,6 +630,7 @@
     "hr": 0,
     "hr_rate": 2,
     "hr_time": 10,
+    "sp_full": 0,
     "limit_speed": 100,
     "torrents_rule": "//table[@class=\"torrents\"]/tr",
     "name_rule": ".//td[@class=\"embedded\"]/a/b/text()",
@@ -641,7 +642,6 @@
     "download_url_rule": ".//a[contains(@href,\"download.php?id=\") and contains(@href,\"passkey\")]/@href",
     "size_rule": ".//td[5]/text()",
     "hr_rule": ".//table/tr/td/img[@class=\"hitandrun\"]/@title",
-    "sale_rule": ".//table/tr/td/img[contains(@class,\"pro_\")]/@alt",
     "sale_expire_rule": ".//table/tr/td/font/span/@title",
     "release_rule": ".//td[4]/span/@title",
     "seeders_rule": ".//td[6]/b/a/text()",
@@ -672,7 +672,7 @@
     "my_passkey_rule": "//td[contains(text(),\"密钥\")]/following-sibling::td[1]/text()",
     "my_uid_rule": "//a[contains(@class,\"_Name\") and contains(@href,\"userdetails.php?id=\")]/@href",
     "page_control_panel": "usercp.php",
-    "sp_full": 0
+    "sale_rule": ".//img[contains(@class,\"free\")]/@alt"
   },
   {
     "id": 13,
@@ -705,6 +705,7 @@
     "hr": 0,
     "hr_rate": 2,
     "hr_time": 10,
+    "sp_full": 0,
     "limit_speed": 100,
     "torrents_rule": "//table[@class=\"torrents\"]/tr",
     "name_rule": ".//td[@class=\"embedded\"]/a/b/text()",
@@ -716,7 +717,6 @@
     "download_url_rule": ".//a[contains(@href,\"download.php?id=\") and contains(@href,\"passkey\")]/@href",
     "size_rule": ".//td[5]/text()",
     "hr_rule": ".//table/tr/td/img[@class=\"hitandrun\"]/@title",
-    "sale_rule": ".//table/tr/td/img[contains(@class,\"pro_\")]/@alt",
     "sale_expire_rule": ".//td[@class=\"embedded\"]/b/span/@title",
     "release_rule": ".//td[4]/span/@title",
     "seeders_rule": ".//td[6]/b/a/text()",
@@ -747,7 +747,7 @@
     "my_passkey_rule": "//td[contains(text(),\"密钥\")]/following-sibling::td[1]/text()",
     "my_uid_rule": "//a[contains(@class,\"_Name\") and contains(@href,\"userdetails.php?id=\")]/@href",
     "page_control_panel": "usercp.php",
-    "sp_full": 0
+    "sale_rule": ".//img[contains(@class,\"free\")]/@alt"
   },
   {
     "id": 14,
@@ -780,6 +780,7 @@
     "hr": 0,
     "hr_rate": 2,
     "hr_time": 10,
+    "sp_full": 0,
     "limit_speed": 100,
     "torrents_rule": "//table[@class=\"torrents\"]/tr",
     "name_rule": ".//td[@class=\"embedded\"]/a/b/text()",
@@ -791,7 +792,6 @@
     "download_url_rule": ".//a[contains(@href,\"download.php?id=\") and contains(@href,\"passkey\")]/@href",
     "size_rule": ".//td[5]/text()",
     "hr_rule": ".//table/tr/td/img[@class=\"hitandrun\"]/@title",
-    "sale_rule": ".//table/tr/td/img[contains(@class,\"pro_\")]/@alt",
     "sale_expire_rule": ".//table/tr/td/font/span/@title",
     "release_rule": ".//td[4]/span/@title",
     "seeders_rule": ".//td[6]/b/a/text()",
@@ -822,7 +822,7 @@
     "my_passkey_rule": "//td[contains(text(),\"密钥\")]/following-sibling::td[1]/text()",
     "my_uid_rule": "//a[contains(@class,\"_Name\") and contains(@href,\"userdetails.php?id=\")]/@href",
     "page_control_panel": "usercp.php",
-    "sp_full": 0
+    "sale_rule": ".//img[contains(@class,\"free\")]/@alt"
   },
   {
     "id": 15,
@@ -855,6 +855,7 @@
     "hr": 0,
     "hr_rate": 2,
     "hr_time": 10,
+    "sp_full": 0,
     "limit_speed": 100,
     "torrents_rule": "//table[@class=\"torrents\"]/tr",
     "name_rule": ".//td[@class=\"embedded\"]/a/b/text()",
@@ -866,7 +867,6 @@
     "download_url_rule": ".//a[contains(@href,\"download.php?id=\") and contains(@href,\"passkey\")]/@href",
     "size_rule": ".//td[5]/text()",
     "hr_rule": ".//table/tr/td/img[@class=\"hitandrun\"]/@title",
-    "sale_rule": ".//table/tr/td/img[contains(@class,\"pro_\")]/@alt",
     "sale_expire_rule": ".//table/tr/td/font/span/@title",
     "release_rule": ".//td[4]/span/@title",
     "seeders_rule": ".//td[6]/b/a/text()",
@@ -897,7 +897,7 @@
     "my_passkey_rule": "//td[contains(text(),\"密钥\")]/following-sibling::td[1]/text()",
     "my_uid_rule": "//a[contains(@class,\"_Name\") and contains(@href,\"userdetails.php?id=\")]/@href",
     "page_control_panel": "usercp.php",
-    "sp_full": 0
+    "sale_rule": ".//img[contains(@class,\"free\")]/@alt"
   },
   {
     "id": 16,
@@ -930,6 +930,7 @@
     "hr": 0,
     "hr_rate": 2,
     "hr_time": 10,
+    "sp_full": 0,
     "limit_speed": 100,
     "torrents_rule": "//table[@class=\"torrents\"]/tr",
     "name_rule": ".//td[@class=\"embedded\"]/a/b/text()",
@@ -941,7 +942,6 @@
     "download_url_rule": ".//a[contains(@href,\"download.php?id=\") and contains(@href,\"passkey\")]/@href",
     "size_rule": ".//td[5]/text()",
     "hr_rule": ".//table/tr/td/img[@class=\"hitandrun\"]/@title",
-    "sale_rule": ".//table/tr/td/img[contains(@class,\"pro_\")]/@alt",
     "sale_expire_rule": ".//table/tr/td/font/span/@title",
     "release_rule": ".//td[4]/span/@title",
     "seeders_rule": ".//td[6]/b/a/text()",
@@ -972,7 +972,7 @@
     "my_passkey_rule": "//td[contains(text(),\"密钥\")]/following-sibling::td[1]/text()",
     "my_uid_rule": "//a[contains(@class,\"_Name\") and contains(@href,\"userdetails.php?id=\")]/@href",
     "page_control_panel": "usercp.php",
-    "sp_full": 0
+    "sale_rule": ".//img[contains(@class,\"free\")]/@alt"
   },
   {
     "id": 17,
@@ -1005,6 +1005,7 @@
     "hr": 0,
     "hr_rate": 2,
     "hr_time": 10,
+    "sp_full": 0,
     "limit_speed": 100,
     "torrents_rule": "//table[@class=\"torrents\"]/tr",
     "name_rule": ".//td[@class=\"embedded\"]/a/b/text()",
@@ -1016,7 +1017,6 @@
     "download_url_rule": ".//a[contains(@href,\"download.php?id=\") and contains(@href,\"passkey\")]/@href",
     "size_rule": ".//td[5]/text()",
     "hr_rule": ".//table/tr/td/img[@class=\"hitandrun\"]/@title",
-    "sale_rule": ".//table/tr/td/img[contains(@class,\"pro_\")]/@alt",
     "sale_expire_rule": ".//table/tr/td/font/span/@title",
     "release_rule": ".//td[4]/span/@title",
     "seeders_rule": ".//td[6]/b/a/text()",
@@ -1047,7 +1047,7 @@
     "my_passkey_rule": "//td[contains(text(),\"密钥\")]/following-sibling::td[1]/text()",
     "my_uid_rule": "//a[contains(@class,\"_Name\") and contains(@href,\"userdetails.php?id=\")]/@href",
     "page_control_panel": "usercp.php",
-    "sp_full": 0
+    "sale_rule": ".//img[contains(@class,\"free\")]/@alt"
   },
   {
     "id": 18,
@@ -1080,6 +1080,7 @@
     "hr": 0,
     "hr_rate": 2,
     "hr_time": 10,
+    "sp_full": 0,
     "limit_speed": 100,
     "torrents_rule": "//table[@class=\"torrents\"]/tr",
     "name_rule": ".//td[@class=\"embedded\"]/a/b/text()",
@@ -1091,7 +1092,6 @@
     "download_url_rule": ".//a[contains(@href,\"download.php?id=\") and contains(@href,\"passkey\")]/@href",
     "size_rule": ".//td[5]/text()",
     "hr_rule": ".//table/tr/td/img[@class=\"hitandrun\"]/@title",
-    "sale_rule": ".//table/tr/td/img[contains(@class,\"pro_\")]/@alt",
     "sale_expire_rule": ".//table/tr/td/font/span/@title",
     "release_rule": ".//td[4]/span/@title",
     "seeders_rule": ".//td[6]/b/a/text()",
@@ -1122,7 +1122,7 @@
     "my_passkey_rule": "//td[contains(text(),\"密钥\")]/following-sibling::td[1]/text()",
     "my_uid_rule": "//a[contains(@class,\"_Name\") and contains(@href,\"userdetails.php?id=\")]/@href",
     "page_control_panel": "usercp.php",
-    "sp_full": 0
+    "sale_rule": ".//img[contains(@class,\"free\")]/@alt"
   },
   {
     "id": 19,
@@ -1155,6 +1155,7 @@
     "hr": 0,
     "hr_rate": 2,
     "hr_time": 10,
+    "sp_full": 0,
     "limit_speed": 100,
     "torrents_rule": "//table[@class=\"torrents\"]/tr",
     "name_rule": ".//td[@class=\"embedded\"]/a/b/text()",
@@ -1166,7 +1167,6 @@
     "download_url_rule": ".//a[contains(@href,\"download.php?id=\") and contains(@href,\"passkey\")]/@href",
     "size_rule": "./td[6]/text()",
     "hr_rule": ".//table/tr/td/img[@class=\"hitandrun\"]/@title",
-    "sale_rule": ".//td[@class=\"embedded\"]/font[contains(@class,\"promotion\") and not(contains(@class,\"b4\"))][1]/text()",
     "sale_expire_rule": ".//td[@class=\"embedded\"]/span/@title",
     "release_rule": ".//td[@class=\"rowfollow nowrap\"]/span/@title",
     "seeders_rule": ".//td[@class=\"rowfollow\"][5]/b/a/text()",
@@ -1197,7 +1197,7 @@
     "my_passkey_rule": "//td[contains(text(),\"密钥\")]/following-sibling::td[1]/text()",
     "my_uid_rule": "//a[contains(@class,\"_Name\") and contains(@href,\"userdetails.php?id=\")]/@href",
     "page_control_panel": "usercp.php",
-    "sp_full": 0
+    "sale_rule": ".//td[@class=\"embedded\"]/font[contains(@class,\"promotion\") and not(contains(@class,\"b4\"))][1]/text()"
   },
   {
     "id": 20,
@@ -1230,6 +1230,7 @@
     "hr": 0,
     "hr_rate": 2,
     "hr_time": 10,
+    "sp_full": 0,
     "limit_speed": 100,
     "torrents_rule": "//table[@class=\"torrents\"]/tr",
     "name_rule": ".//td[@class=\"embedded\"]/a/b/text()",
@@ -1241,7 +1242,6 @@
     "download_url_rule": ".//a[contains(@href,\"download.php?id=\") and contains(@href,\"passkey\")]/@href",
     "size_rule": ".//td[5]/text()",
     "hr_rule": ".//table/tr/td/img[@class=\"hitandrun\"]/@title",
-    "sale_rule": ".//table/tr/td/img[contains(@class,\"pro_\")]/@alt",
     "sale_expire_rule": ".//td[@class=\"embedded\"]/img[contains(@class,\"pro_\")]/@onmouseover",
     "release_rule": ".//td[4]/span/@title",
     "seeders_rule": ".//td[6]/b/a/text()",
@@ -1272,7 +1272,7 @@
     "my_passkey_rule": "//td[contains(text(),\"密钥\")]/following-sibling::td[1]/text()",
     "my_uid_rule": "//a[contains(@class,\"_Name\") and contains(@href,\"userdetails.php?id=\")]/@href",
     "page_control_panel": "usercp.php",
-    "sp_full": 0
+    "sale_rule": ".//img[contains(@class,\"free\")]/@alt"
   },
   {
     "id": 21,
@@ -1305,6 +1305,7 @@
     "hr": 0,
     "hr_rate": 2,
     "hr_time": 10,
+    "sp_full": 0,
     "limit_speed": 100,
     "torrents_rule": "//table[@class=\"torrents\"]/tr",
     "name_rule": ".//td[@class=\"embedded\"]/a/b/text()",
@@ -1316,7 +1317,6 @@
     "download_url_rule": ".//a[contains(@href,\"download.php?id=\") and contains(@href,\"passkey\")]/@href",
     "size_rule": ".//td[5]/text()",
     "hr_rule": ".//table/tr/td/img[@class=\"hitandrun\"]/@title",
-    "sale_rule": ".//table/tr/td/img[contains(@class,\"pro_\")]/@alt",
     "sale_expire_rule": ".//td[@class=\"embedded\"]/b/span/@title",
     "release_rule": ".//td[4]/span/@title",
     "seeders_rule": ".//td[6]/b/a/text()",
@@ -1347,7 +1347,7 @@
     "my_passkey_rule": "//td[contains(text(),\"密钥\")]/following-sibling::td[1]/text()",
     "my_uid_rule": "//table[@id=\"info_block\"]//span/a[contains(@class,\"_Name\") and contains(@href,\"userdetails.php?id=\")]/@href",
     "page_control_panel": "usercp.php",
-    "sp_full": 0
+    "sale_rule": ".//img[contains(@class,\"free\")]/@alt"
   },
   {
     "id": 22,
@@ -1380,6 +1380,7 @@
     "hr": 0,
     "hr_rate": 2,
     "hr_time": 10,
+    "sp_full": 0,
     "limit_speed": 100,
     "torrents_rule": "//table[@class=\"torrents\"]/tbody/tr",
     "name_rule": ".//td[@class=\"embedded\"]/a/@title",
@@ -1391,7 +1392,6 @@
     "download_url_rule": ".//a[contains(@href,\"download.php?id=\") and contains(@href,\"passkey\")]/@href",
     "size_rule": "./td[@id=\"torrents_td\"][6]/text()",
     "hr_rule": ".//table/tr/td/img[@class=\"hitandrun\"]/@title",
-    "sale_rule": ".//img[contains(@class,\"pro_\")]/@alt",
     "sale_expire_rule": ".//td[@class=\"embedded\"]/font/b/span/@title",
     "release_rule": ".//td[4]/span/@title",
     "seeders_rule": ".//td[8]/b/a/text()",
@@ -1422,7 +1422,7 @@
     "my_passkey_rule": "//td[contains(text(),\"密钥\")]/following-sibling::td[1]/text()",
     "my_uid_rule": "//a[contains(@class,\"_Name\") and contains(@href,\"userdetails.php?id=\")]/@href",
     "page_control_panel": "usercp.php",
-    "sp_full": 0
+    "sale_rule": ".//img[contains(@class,\"free\")]/@alt"
   },
   {
     "id": 23,
@@ -1455,6 +1455,7 @@
     "hr": 0,
     "hr_rate": 2,
     "hr_time": 10,
+    "sp_full": 0,
     "limit_speed": 100,
     "torrents_rule": "//table[@class=\"torrents\"]/tr",
     "name_rule": ".//td[@class=\"embedded\"]/a/b/text()",
@@ -1466,7 +1467,6 @@
     "download_url_rule": ".//a[contains(@href,\"download.php?id=\") and contains(@href,\"passkey\")]/@href",
     "size_rule": ".//td[5]/text()",
     "hr_rule": ".//table/tr/td/img[@class=\"hitandrun\"]/@title",
-    "sale_rule": ".//table/tr/td/img[contains(@class,\"pro_\")]/@alt",
     "sale_expire_rule": ".//td[@class=\"embedded\"]/img[contains(@class,\"pro_\")]/@onmouseover",
     "release_rule": ".//td[4]/span/@title",
     "seeders_rule": ".//td[6]/b/a/text()",
@@ -1497,7 +1497,7 @@
     "my_passkey_rule": "//td[contains(text(),\"密钥\")]/following-sibling::td[1]/text()",
     "my_uid_rule": "//a[contains(@class,\"_Name\") and contains(@href,\"userdetails.php?id=\")]/@href",
     "page_control_panel": "usercp.php",
-    "sp_full": 0
+    "sale_rule": ".//img[contains(@class,\"free\")]/@alt"
   },
   {
     "id": 24,
@@ -1530,6 +1530,7 @@
     "hr": 0,
     "hr_rate": 2,
     "hr_time": 10,
+    "sp_full": 0,
     "limit_speed": 100,
     "torrents_rule": "//table[@class=\"torrents\"]/tr",
     "name_rule": ".//td[@class=\"embedded\"]/a/b/text()",
@@ -1541,7 +1542,6 @@
     "download_url_rule": ".//a[contains(@href,\"download.php?id=\") and contains(@href,\"passkey\")]/@href",
     "size_rule": ".//td[5]/text()",
     "hr_rule": ".//table/tr/td/img[@class=\"hitandrun\"]/@title",
-    "sale_rule": ".//table/tr/td/img[contains(@class,\"pro_\")]/@alt",
     "sale_expire_rule": ".//td[@class=\"embedded\"]/b/span/@title",
     "release_rule": ".//td[4]/span/@title",
     "seeders_rule": ".//td[6]/b/a/text()",
@@ -1572,7 +1572,7 @@
     "my_passkey_rule": "//td[contains(text(),\"密钥\")]/following-sibling::td[1]/text()",
     "my_uid_rule": "//a[contains(@class,\"_Name\") and contains(@href,\"userdetails.php?id=\")]/@href",
     "page_control_panel": "usercp.php",
-    "sp_full": 0
+    "sale_rule": ".//img[contains(@class,\"free\")]/@alt"
   },
   {
     "id": 25,
@@ -1605,6 +1605,7 @@
     "hr": 0,
     "hr_rate": 2,
     "hr_time": 10,
+    "sp_full": 0,
     "limit_speed": 100,
     "torrents_rule": "//table[@class=\"torrents\"]/tr",
     "name_rule": ".//td[@class=\"embedded\"]/a/b/text()",
@@ -1616,7 +1617,6 @@
     "download_url_rule": ".//a[contains(@href,\"download.php?id=\") and contains(@href,\"passkey\")]/@href",
     "size_rule": ".//td[5]/text()",
     "hr_rule": ".//table/tr/td/img[@class=\"hitandrun\"]/@title",
-    "sale_rule": ".//td[@class=\"embedded\"][1]/img[contains(@class,\"pro_\")]/@alt",
     "sale_expire_rule": ".//td[@class=\"embedded\"]/img[contains(@class,\"pro_\")]/@onmouseover",
     "release_rule": ".//td[4]/span/@title",
     "seeders_rule": ".//td[6]/b/a/text()",
@@ -1647,7 +1647,7 @@
     "my_passkey_rule": "//td[contains(text(),\"密钥\")]/following-sibling::td[1]/text()",
     "my_uid_rule": "//a[contains(@class,\"_Name\") and contains(@href,\"userdetails.php?id=\")]/@href",
     "page_control_panel": "usercp.php",
-    "sp_full": 0
+    "sale_rule": ".//img[contains(@class,\"free\")]/@alt"
   },
   {
     "id": 26,
@@ -1680,6 +1680,7 @@
     "hr": 0,
     "hr_rate": 2,
     "hr_time": 10,
+    "sp_full": 0,
     "limit_speed": 100,
     "torrents_rule": "//table[contains(@class,\"torrents\")]/tr",
     "name_rule": ".//td[@class=\"embedded\"]/a/b/text()",
@@ -1691,7 +1692,6 @@
     "download_url_rule": ".//a[contains(@href,\"download.php?id=\") and contains(@href,\"passkey\")]/@href",
     "size_rule": ".//td[5]/text()",
     "hr_rule": ".//table/tr/td/img[@class=\"hitandrun\"]/@title",
-    "sale_rule": ".//table/tr/td/img[contains(@class,\"pro_\")]/@alt",
     "sale_expire_rule": ".//tr[contains(@class,\"sticky\")]/td[@class=\"embedded\"]/b/span[last()]/@title",
     "release_rule": ".//td[4]/span/@title",
     "seeders_rule": ".//td[6]/b/a/text()",
@@ -1722,7 +1722,7 @@
     "my_passkey_rule": "//td[contains(text(),\"密钥\")]/following-sibling::td[1]/span/text()",
     "my_uid_rule": "//a[contains(@class,\"_Name\") and contains(@href,\"userdetails.php?id=\")]/@href",
     "page_control_panel": "usercp.php",
-    "sp_full": 0
+    "sale_rule": ".//img[contains(@class,\"free\")]/@alt"
   },
   {
     "id": 28,
@@ -1755,6 +1755,7 @@
     "hr": 0,
     "hr_rate": 2,
     "hr_time": 10,
+    "sp_full": 0,
     "limit_speed": 100,
     "torrents_rule": "//table[@class=\"torrents\"]/tr",
     "name_rule": ".//td[@class=\"embedded\"]/a/b/text()",
@@ -1766,7 +1767,6 @@
     "download_url_rule": ".//a[contains(@href,\"download.php?id=\") and contains(@href,\"passkey\")]/@href",
     "size_rule": ".//td[5]/text()",
     "hr_rule": ".//table/tr/td/img[@class=\"hitandrun\"]/@title",
-    "sale_rule": ".//table/tr/td/img[contains(@class,\"pro_\")]/@alt",
     "sale_expire_rule": ".//table/tr/td/font/span/@title",
     "release_rule": ".//td[4]/span/@title",
     "seeders_rule": ".//td[6]/b/a/text()",
@@ -1797,7 +1797,7 @@
     "my_passkey_rule": "//td[contains(text(),\"密钥\")]/following-sibling::td[1]/text()",
     "my_uid_rule": "//a[contains(@class,\"_Name\") and contains(@href,\"userdetails.php?id=\")]/@href",
     "page_control_panel": "usercp.php",
-    "sp_full": 0
+    "sale_rule": ".//img[contains(@class,\"free\")]/@alt"
   },
   {
     "id": 29,
@@ -1830,6 +1830,7 @@
     "hr": 0,
     "hr_rate": 2,
     "hr_time": 10,
+    "sp_full": 0,
     "limit_speed": 100,
     "torrents_rule": "//table[@class=\"torrents\"]/tr",
     "name_rule": ".//td[@class=\"embedded\"]/a/b/text()",
@@ -1841,7 +1842,6 @@
     "download_url_rule": ".//a[contains(@href,\"download.php?id=\") and contains(@href,\"passkey\")]/@href",
     "size_rule": ".//td[5]/text()",
     "hr_rule": ".//table/tr/td/img[@class=\"hitandrun\"]/@title",
-    "sale_rule": ".//table/tr/td/img[contains(@class,\"pro_\")]/@alt",
     "sale_expire_rule": ".//table/tr/td/font/span/@title",
     "release_rule": ".//td[4]/span/@title",
     "seeders_rule": ".//td[6]/b/a/text()",
@@ -1872,7 +1872,7 @@
     "my_passkey_rule": "//td[contains(text(),\"密钥\")]/following-sibling::td[1]/text()",
     "my_uid_rule": "//a[contains(@class,\"_Name\") and contains(@href,\"userdetails.php?id=\")]/@href",
     "page_control_panel": "usercp.php",
-    "sp_full": 0
+    "sale_rule": ".//img[contains(@class,\"free\")]/@alt"
   },
   {
     "id": 30,
@@ -1905,6 +1905,7 @@
     "hr": 0,
     "hr_rate": 2,
     "hr_time": 10,
+    "sp_full": 0,
     "limit_speed": 100,
     "torrents_rule": "//table[@class=\"torrents\"]/tr",
     "name_rule": ".//td[@class=\"embedded\"]/a/b/text()",
@@ -1916,7 +1917,6 @@
     "download_url_rule": ".//a[contains(@href,\"download.php?id=\") and contains(@href,\"passkey\")]/@href",
     "size_rule": ".//td[5]/text()",
     "hr_rule": ".//table/tr/td/img[@class=\"hitandrun\"]/@title",
-    "sale_rule": ".//table/tr/td/img[contains(@class,\"pro_\")]/@alt",
     "sale_expire_rule": ".//table/tr/td/font/span/@title",
     "release_rule": ".//td[4]/span/@title",
     "seeders_rule": ".//td[6]/b/a/text()",
@@ -1947,7 +1947,7 @@
     "my_passkey_rule": "//td[contains(text(),\"密钥\")]/following-sibling::td[1]/text()",
     "my_uid_rule": "//a[contains(@class,\"_Name\") and contains(@href,\"userdetails.php?id=\")]/@href",
     "page_control_panel": "usercp.php",
-    "sp_full": 0
+    "sale_rule": ".//img[contains(@class,\"free\")]/@alt"
   },
   {
     "id": 31,
@@ -1980,6 +1980,7 @@
     "hr": 0,
     "hr_rate": 2,
     "hr_time": 10,
+    "sp_full": 0,
     "limit_speed": 100,
     "torrents_rule": "//table[@class=\"layui-table\"]/tr",
     "name_rule": ".//td/div/a/b/text()",
@@ -1991,7 +1992,6 @@
     "download_url_rule": ".//a[contains(@href,\"download.php?id=\") and contains(@href,\"passkey\")]/@href",
     "size_rule": "//td[@data-field=\"size\"]/@data-content",
     "hr_rule": ".//table/tr/td/img[@class=\"hitandrun\"]/@title",
-    "sale_rule": ".//td[@data-field=\"name\"]/div/img[contains(@class,\"pro_\")]/@title",
     "sale_expire_rule": "//td[@data-field=\"name\"]/div/span/@text()",
     "release_rule": ".//td[@data-field=\"added\"]/@data-content",
     "seeders_rule": ".//td[@data-field=\"seeders\"]/@data-content",
@@ -2022,7 +2022,7 @@
     "my_passkey_rule": "//td[contains(text(),\"密钥\")]/following-sibling::td[1]/text()",
     "my_uid_rule": "//a[contains(@class,\"_Name\") and contains(@href,\"userdetails.php?id=\")]/@href",
     "page_control_panel": "usercp.php",
-    "sp_full": 0
+    "sale_rule": ".//img[contains(@class,\"free\")]/@alt"
   },
   {
     "id": 32,
@@ -2055,6 +2055,7 @@
     "hr": 0,
     "hr_rate": 2,
     "hr_time": 10,
+    "sp_full": 0,
     "limit_speed": 100,
     "torrents_rule": "//table[@class=\"torrents\"]/tr",
     "name_rule": ".//td[@class=\"embedded\"]/a/b/text()",
@@ -2066,7 +2067,6 @@
     "download_url_rule": ".//a[contains(@href,\"download.php?id=\") and contains(@href,\"passkey\")]/@href",
     "size_rule": ".//td[5]/text()",
     "hr_rule": ".//table/tr/td/img[@class=\"hitandrun\"]/@title",
-    "sale_rule": ".//table/tr/td/img[contains(@class,\"pro_\")]/@alt",
     "sale_expire_rule": ".//td[@class=\"embedded\"]/span/text()",
     "release_rule": ".//td[4]/span/@title",
     "seeders_rule": ".//td[6]/b/a/text()",
@@ -2097,7 +2097,7 @@
     "my_passkey_rule": "//td[contains(text(),\"密钥\")]/following-sibling::td[1]/text()",
     "my_uid_rule": "//a[contains(@class,\"_Name\") and contains(@href,\"userdetails.php?id=\")]/@href",
     "page_control_panel": "usercp.php",
-    "sp_full": 0
+    "sale_rule": ".//img[contains(@class,\"free\")]/@alt"
   },
   {
     "id": 33,
@@ -2130,6 +2130,7 @@
     "hr": 0,
     "hr_rate": 2,
     "hr_time": 10,
+    "sp_full": 0,
     "limit_speed": 100,
     "torrents_rule": "//table[@class=\"torrents\"]/tr",
     "name_rule": ".//td[@class=\"embedded\"]/a/b/text()",
@@ -2141,7 +2142,6 @@
     "download_url_rule": ".//a[contains(@href,\"download.php?\") and contains(text(),\"右键查看\")]/@href",
     "size_rule": ".//td[4]/text()",
     "hr_rule": ".//table/tr/td/img[@class=\"hitandrun\"]/@title",
-    "sale_rule": ".//table/tr/td/img[contains(@class,\"pro_\")]/@alt",
     "sale_expire_rule": ".//table/tr/td/font/span/@title",
     "release_rule": ".//td[3]/text()",
     "seeders_rule": ".//a[contains(@href,\"dllist=1#seeders\")]//text()",
@@ -2151,7 +2151,7 @@
     "viewpeerlist_rule": ".//tr/td[9]/nobr/text()",
     "peer_speed_rule": ".//tr/td[5]/nobr/text()",
     "remark": "",
-    "invitation_rule": "//a[contains(@href,\"invite.php?id=\")]/text()[1]",
+    "invitation_rule": "//span/a[contains(@href,\"invite.php?id=\")]/text()[1]",
     "time_join_rule": "//td[contains(text(),\"加入\")]/following-sibling::td[1]//span/@title",
     "latest_active_rule": "//td[contains(text(),\"最近\")]/following-sibling::td[1]//span/@title",
     "uploaded_rule": "//span[@id=\"userlink\"]/span/img[@class=\"arrowup\"][1]/following-sibling::text()[1]",
@@ -2172,7 +2172,7 @@
     "my_passkey_rule": "//td[contains(text(),\"密钥\")]/following-sibling::td[1]/text()",
     "my_uid_rule": "//a[contains(@class,\"_Name\") and contains(@href,\"userdetails.php?id=\")]/@href",
     "page_control_panel": "usercp.php",
-    "sp_full": 0
+    "sale_rule": ".//img[contains(@class,\"free\")]/@alt"
   },
   {
     "id": 34,
@@ -2205,6 +2205,7 @@
     "hr": 0,
     "hr_rate": 2,
     "hr_time": 10,
+    "sp_full": 0,
     "limit_speed": 100,
     "torrents_rule": "//table[@class=\"torrents\"]/tr",
     "name_rule": ".//td[@class=\"embedded\"]/a/b/text()",
@@ -2216,7 +2217,6 @@
     "download_url_rule": ".//a[contains(@href,\"download.php?id=\") and contains(@href,\"passkey\")]/@href",
     "size_rule": ".//td[5]/text()",
     "hr_rule": ".//table/tr/td/img[@class=\"hitandrun\"]/@title",
-    "sale_rule": ".//table/tr/td/img[contains(@class,\"pro_\")]/@alt",
     "sale_expire_rule": ".//table/tr/td/font/span/@title",
     "release_rule": ".//td[4]/span/@title",
     "seeders_rule": ".//td[6]/b/a/text()",
@@ -2247,7 +2247,7 @@
     "my_passkey_rule": "//td[contains(text(),\"密钥\")]/following-sibling::td[1]/text()",
     "my_uid_rule": "//a[contains(@class,\"_Name\") and contains(@href,\"userdetails.php?id=\")]/@href",
     "page_control_panel": "usercp.php",
-    "sp_full": 0
+    "sale_rule": ".//img[contains(@class,\"free\")]/@alt"
   },
   {
     "id": 35,
@@ -2280,6 +2280,7 @@
     "hr": 0,
     "hr_rate": 2,
     "hr_time": 10,
+    "sp_full": 0,
     "limit_speed": 100,
     "torrents_rule": "//table[@class=\"torrents layui-table\"]/tr",
     "name_rule": ".//td[2]/div[1]/div[1]/div[2]/div/a/@title",
@@ -2291,7 +2292,6 @@
     "download_url_rule": ".//a[contains(@href,\"download.php?id=\") and contains(@href,\"passkey\")]/@href",
     "size_rule": ".//td[5]/text()",
     "hr_rule": ".//table/tr/td/img[@class=\"hitandrun\"]/@title",
-    "sale_rule": ".//td//img[contains(@class,\"pro_\")]/@alt",
     "sale_expire_rule": ".//td//em/span/@title",
     "release_rule": ".//td[4]/span/@title",
     "seeders_rule": ".//td[6]/b/a/text()",
@@ -2322,7 +2322,7 @@
     "my_passkey_rule": "//td[contains(text(),\"密钥\")]/following-sibling::td[1]/text()",
     "my_uid_rule": "//a[contains(@class,\"_Name\") and contains(@href,\"userdetails.php?id=\")]/@href",
     "page_control_panel": "usercp.php",
-    "sp_full": 0
+    "sale_rule": ".//img[contains(@class,\"free\")]/@alt"
   },
   {
     "id": 36,
@@ -2355,6 +2355,7 @@
     "hr": 0,
     "hr_rate": 2,
     "hr_time": 10,
+    "sp_full": 0,
     "limit_speed": 100,
     "torrents_rule": "//table[@class=\"torrents\"]/tr",
     "name_rule": ".//td[@class=\"embedded\"]/a/b/text()",
@@ -2366,7 +2367,6 @@
     "download_url_rule": ".//a[contains(@href,\"download.php?id=\") and contains(@href,\"passkey\")]/@href",
     "size_rule": ".//td[5]/text()",
     "hr_rule": ".//table/tr/td/img[@class=\"hitandrun\"]/@title",
-    "sale_rule": ".//table/tr/td/img[contains(@class,\"pro_\")]/@alt",
     "sale_expire_rule": ".//table/tr/td/font/span/@title",
     "release_rule": ".//td[4]/span/@title",
     "seeders_rule": ".//td[6]/b/a/text()",
@@ -2397,7 +2397,7 @@
     "my_passkey_rule": "//td[contains(text(),\"密钥\")]/following-sibling::td[1]/text()",
     "my_uid_rule": "//a[contains(@class,\"_Name\") and contains(@href,\"userdetails.php?id=\")]/@href",
     "page_control_panel": "usercp.php",
-    "sp_full": 0
+    "sale_rule": ".//img[contains(@class,\"free\")]/@alt"
   },
   {
     "id": 38,
@@ -2430,6 +2430,7 @@
     "hr": 0,
     "hr_rate": 2,
     "hr_time": 10,
+    "sp_full": 0,
     "limit_speed": 100,
     "torrents_rule": "//table[@class=\"torrents\"]/tr",
     "name_rule": ".//td[@class=\"embedded\"]/a/b/text()",
@@ -2441,7 +2442,6 @@
     "download_url_rule": ".//a[contains(@href,\"download.php?id=\") and contains(@href,\"passkey\")]/@href",
     "size_rule": ".//td[5]/text()",
     "hr_rule": ".//table/tr/td/img[@class=\"hitandrun\"]/@title",
-    "sale_rule": ".//table/tr/td/img[contains(@class,\"pro_\")]/@alt",
     "sale_expire_rule": ".//table/tr/td/font/span/@title",
     "release_rule": ".//td[4]/span/@title",
     "seeders_rule": ".//td[6]/b/a/text()",
@@ -2472,7 +2472,7 @@
     "my_passkey_rule": "//td[contains(text(),\"密钥\")]/following-sibling::td[1]/text()",
     "my_uid_rule": "//a[contains(@class,\"_Name\") and contains(@href,\"userdetails.php?id=\")]/@href",
     "page_control_panel": "usercp.php",
-    "sp_full": 0
+    "sale_rule": ".//img[contains(@class,\"free\")]/@alt"
   },
   {
     "id": 39,
@@ -2505,6 +2505,7 @@
     "hr": 0,
     "hr_rate": 2,
     "hr_time": 10,
+    "sp_full": 111,
     "limit_speed": 100,
     "torrents_rule": "//table[contains(@class,\"torrents\")]/tr",
     "name_rule": ".//td[@class=\"embedded\"]/a/b/text()",
@@ -2516,7 +2517,6 @@
     "download_url_rule": "//td/a[contains(@href,\"downhash\")]/@href",
     "size_rule": ".//td[5]/text()",
     "hr_rule": ".//table/tr/td/img[@class=\"hitandrun\"]/@title",
-    "sale_rule": ".//table/tr/td/img[contains(@class,\"pro_\")]/@alt",
     "sale_expire_rule": ".//table/tr/td/font/span/@title",
     "release_rule": ".//td[4]/span/@title",
     "seeders_rule": ".//td[6]/b/a/text()",
@@ -2547,7 +2547,7 @@
     "my_passkey_rule": "//td[contains(text(),\"密钥\")]/following-sibling::td[1]/text()",
     "my_uid_rule": "//a[contains(@class,\"_Name\") and contains(@href,\"userdetails.php?id=\")]/@href",
     "page_control_panel": "usercp.php",
-    "sp_full": 111
+    "sale_rule": ".//img[contains(@class,\"free\")]/@alt"
   },
   {
     "id": 40,
@@ -2580,6 +2580,7 @@
     "hr": 0,
     "hr_rate": 2,
     "hr_time": 10,
+    "sp_full": 0,
     "limit_speed": 100,
     "torrents_rule": "//table[@class=\"torrents\"]/tr",
     "name_rule": ".//td[@class=\"embedded\"]/a/b/text()",
@@ -2591,7 +2592,6 @@
     "download_url_rule": "//td/a[contains(@href,\"downhash\")]/@href",
     "size_rule": ".//td[5]/text()",
     "hr_rule": ".//table/tr/td/img[@class=\"hitandrun\"]/@title",
-    "sale_rule": ".//table/tr/td/img[contains(@class,\"pro_\")]/@alt",
     "sale_expire_rule": ".//table/tr/td/font/span/@title",
     "release_rule": ".//td[4]/span/@title",
     "seeders_rule": ".//td[6]/b/a/text()",
@@ -2622,7 +2622,7 @@
     "my_passkey_rule": "//td[contains(text(),\"密钥\")]/following-sibling::td[1]/text()",
     "my_uid_rule": "//a[contains(@class,\"_Name\") and contains(@href,\"userdetails.php?id=\")]/@href",
     "page_control_panel": "usercp.php",
-    "sp_full": 0
+    "sale_rule": ".//img[contains(@class,\"free\")]/@alt"
   },
   {
     "id": 41,
@@ -2655,6 +2655,7 @@
     "hr": 0,
     "hr_rate": 2,
     "hr_time": 10,
+    "sp_full": 0,
     "limit_speed": 100,
     "torrents_rule": "//table[@class=\"torrents\"]/tr",
     "name_rule": ".//td[@class=\"embedded\"]/a/b/text()",
@@ -2666,7 +2667,6 @@
     "download_url_rule": ".//a[contains(@href,\"download.php?id=\") and contains(@href,\"passkey\")]/@href",
     "size_rule": ".//td[5]/text()",
     "hr_rule": ".//table/tr/td/img[@class=\"hitandrun\"]/@title",
-    "sale_rule": ".//table/tr/td/img[contains(@class,\"pro_\")]/@alt",
     "sale_expire_rule": ".//table/tr/td/font/span/@title",
     "release_rule": ".//td[4]/span/@title",
     "seeders_rule": ".//td[6]/b/a/text()",
@@ -2697,7 +2697,7 @@
     "my_passkey_rule": "//td[contains(text(),\"密钥\")]/following-sibling::td[1]/text()",
     "my_uid_rule": "//a[contains(@class,\"_Name\") and contains(@href,\"userdetails.php?id=\")]/@href",
     "page_control_panel": "usercp.php",
-    "sp_full": 0
+    "sale_rule": ".//img[contains(@class,\"free\")]/@alt"
   },
   {
     "id": 42,
@@ -2730,6 +2730,7 @@
     "hr": 0,
     "hr_rate": 2,
     "hr_time": 10,
+    "sp_full": 0,
     "limit_speed": 100,
     "torrents_rule": "//center/div/div/div[contains(@class,\"trblock\")]",
     "name_rule": "./div[@class=\"trtop\"]/a//text()[1]",
@@ -2741,7 +2742,6 @@
     "download_url_rule": ".//a[contains(@href,\"download.php?id=\") and contains(@href,\"passkey\")]/@href",
     "size_rule": ".//div[@class=\"trl\"]/i/following-sibling::text()[1]",
     "hr_rule": ".//table/tr/td/img[@class=\"hitandrun\"]/@title",
-    "sale_rule": "./div[@class=\"trm\"]/div[@class=\"trbo\"]/div/img/@class",
     "sale_expire_rule": ".//table/tr/td/font/span/@title",
     "release_rule": "./div[@class=\"trtop\"]/div/text()",
     "seeders_rule": ".//a[contains(@href,\"dllist=1#seeders\")]/font/text()",
@@ -2772,7 +2772,7 @@
     "my_passkey_rule": "//td[contains(text(),\"密钥\")]/following-sibling::td[1]/text()",
     "my_uid_rule": "//a[contains(@class,\"_Name\") and contains(@href,\"userdetails.php?id=\")]/@href",
     "page_control_panel": "usercp.php",
-    "sp_full": 0
+    "sale_rule": "./div[@class=\"trm\"]/div[@class=\"trbo\"]/div/img/@class"
   },
   {
     "id": 43,
@@ -2805,6 +2805,7 @@
     "hr": 0,
     "hr_rate": 2,
     "hr_time": 10,
+    "sp_full": 0,
     "limit_speed": 100,
     "torrents_rule": "//table[@class=\"torrents\"]/tr",
     "name_rule": ".//td[@class=\"embedded\"]/a/b/text()",
@@ -2816,7 +2817,6 @@
     "download_url_rule": ".//a[contains(@href,\"download.php?id=\") and contains(@href,\"passkey\")]/@href",
     "size_rule": ".//td[5]/text()",
     "hr_rule": ".//table/tr/td/img[@class=\"hitandrun\"]/@title",
-    "sale_rule": ".//table/tr/td/img[contains(@class,\"pro_\")]/@alt",
     "sale_expire_rule": ".//table/tr/td/font/span/@title",
     "release_rule": ".//td[4]/span/@title",
     "seeders_rule": ".//td[6]/b/a/text()",
@@ -2847,7 +2847,7 @@
     "my_passkey_rule": "//td[contains(text(),\"密钥\")]/following-sibling::td[1]/text()",
     "my_uid_rule": "//a[contains(@class,\"_Name\") and contains(@href,\"userdetails.php?id=\")]/@href",
     "page_control_panel": "usercp.php",
-    "sp_full": 0
+    "sale_rule": ".//img[contains(@class,\"free\")]/@alt"
   },
   {
     "id": 44,
@@ -2880,6 +2880,7 @@
     "hr": 0,
     "hr_rate": 2,
     "hr_time": 10,
+    "sp_full": 100,
     "limit_speed": 100,
     "torrents_rule": "//table[@class=\"torrents\"]/tr",
     "name_rule": ".//td[@class=\"embedded\"]/a/b/text()",
@@ -2891,7 +2892,6 @@
     "download_url_rule": ".//input[@id=\"download_link\"]/@value",
     "size_rule": ".//td[5]/text()",
     "hr_rule": ".//table/tr/td/img[@class=\"hitandrun\"]/@title",
-    "sale_rule": ".//img[contains(@class,\"pro_\")]/@alt",
     "sale_expire_rule": ".//img[contains(@class,\"pro_\")]/@onmouseover",
     "release_rule": ".//td[4]/span/@title",
     "seeders_rule": ".//a[contains(@href,\"#seeders\")]//text()",
@@ -2922,7 +2922,7 @@
     "my_passkey_rule": "//td[contains(text(),\"密钥\")]/following-sibling::td[1]/text()",
     "my_uid_rule": "//a[contains(@class,\"_Name\") and contains(@href,\"userdetails.php?id=\")]/@href",
     "page_control_panel": "usercp.php",
-    "sp_full": 100
+    "sale_rule": ".//img[contains(@class,\"free\")]/@alt"
   },
   {
     "id": 45,
@@ -2955,6 +2955,7 @@
     "hr": 0,
     "hr_rate": 2,
     "hr_time": 10,
+    "sp_full": 0,
     "limit_speed": 100,
     "torrents_rule": "//table[@class=\"torrents\"]/tr",
     "name_rule": ".//td[@class=\"embedded\"]/a/b/text()",
@@ -2966,7 +2967,6 @@
     "download_url_rule": ".//a[contains(@href,\"download.php?id=\") and contains(@href,\"passkey\")]/@href",
     "size_rule": ".//td[5]/text()",
     "hr_rule": ".//table/tr/td/img[@class=\"hitandrun\"]/@title",
-    "sale_rule": ".//table/tr/td/img[contains(@class,\"pro_\")]/@alt",
     "sale_expire_rule": ".//table/tr/td/font/span/@title",
     "release_rule": ".//td[4]/span/@title",
     "seeders_rule": ".//td[6]/b/a/text()",
@@ -2997,7 +2997,7 @@
     "my_passkey_rule": "//td[contains(text(),\"密钥\")]/following-sibling::td[1]/span/@data-content",
     "my_uid_rule": "//a[contains(@class,\"_Name\") and contains(@href,\"userdetails.php?id=\")]/@href",
     "page_control_panel": "usercp.php",
-    "sp_full": 0
+    "sale_rule": ".//img[contains(@class,\"free\")]/@alt"
   },
   {
     "id": 46,
@@ -3030,6 +3030,7 @@
     "hr": 0,
     "hr_rate": 2,
     "hr_time": 10,
+    "sp_full": 0,
     "limit_speed": 100,
     "torrents_rule": "//table[@class=\"torrents\"]/tr",
     "name_rule": ".//td[@class=\"embedded\"]/a/b/text()",
@@ -3041,7 +3042,6 @@
     "download_url_rule": ".//a[contains(@href,\"download.php?id=\") and contains(@href,\"passkey\")]/@href",
     "size_rule": ".//td[5]/text()",
     "hr_rule": ".//table/tr/td/img[@class=\"hitandrun\"]/@title",
-    "sale_rule": ".//table/tr/td/img[contains(@class,\"pro_\")]/@alt",
     "sale_expire_rule": ".//table/tr/td/font/span/@title",
     "release_rule": ".//td[4]/span/@title",
     "seeders_rule": ".//td[6]/b/a/text()",
@@ -3072,7 +3072,7 @@
     "my_passkey_rule": "//td[contains(text(),\"密钥\")]/following-sibling::td[1]/text()",
     "my_uid_rule": "//a[contains(@class,\"_Name\") and contains(@href,\"userdetails.php?id=\")]/@href",
     "page_control_panel": "usercp.php",
-    "sp_full": 0
+    "sale_rule": ".//img[contains(@class,\"free\")]/@alt"
   },
   {
     "id": 47,
@@ -3105,6 +3105,7 @@
     "hr": 0,
     "hr_rate": 2,
     "hr_time": 10,
+    "sp_full": 0,
     "limit_speed": 100,
     "torrents_rule": "//table[@class=\"torrents\"]/tr",
     "name_rule": ".//td[@class=\"embedded\"]/a/b/text()",
@@ -3116,7 +3117,6 @@
     "download_url_rule": ".//a[contains(@href,\"download.php?id=\") and contains(@href,\"passkey\")]/@href",
     "size_rule": ".//td[5]/text()",
     "hr_rule": ".//table/tr/td/img[@class=\"hitandrun\"]/@title",
-    "sale_rule": ".//table/tr/td/img[contains(@class,\"pro_\")]/@alt",
     "sale_expire_rule": ".//table/tr/td/font/span/@title",
     "release_rule": ".//td[4]/span/@title",
     "seeders_rule": ".//td[6]/b/a/text()",
@@ -3147,7 +3147,7 @@
     "my_passkey_rule": "//td[contains(text(),\"密钥\")]/following-sibling::td[1]/text()",
     "my_uid_rule": "//a[contains(@class,\"_Name\") and contains(@href,\"userdetails.php?id=\")]/@href",
     "page_control_panel": "usercp.php",
-    "sp_full": 0
+    "sale_rule": ".//img[contains(@class,\"free\")]/@alt"
   },
   {
     "id": 48,
@@ -3180,6 +3180,7 @@
     "hr": 0,
     "hr_rate": 2,
     "hr_time": 10,
+    "sp_full": 0,
     "limit_speed": 100,
     "torrents_rule": "//table[@class=\"torrents\"]/tr",
     "name_rule": ".//td[@class=\"embedded\"]/a/b/text()",
@@ -3191,7 +3192,6 @@
     "download_url_rule": ".//a[contains(@href,\"download.php?id=\") and contains(@href,\"passkey\")]/@href",
     "size_rule": ".//td[5]/text()",
     "hr_rule": ".//table/tr/td/img[@class=\"hitandrun\"]/@title",
-    "sale_rule": ".//table/tr/td/img[contains(@class,\"pro_\")]/@alt",
     "sale_expire_rule": ".//table/tr/td/font/span/@title",
     "release_rule": ".//td[4]/span/@title",
     "seeders_rule": ".//td[6]/b/a/text()",
@@ -3222,7 +3222,7 @@
     "my_passkey_rule": "//td[contains(text(),\"密钥\")]/following-sibling::td[1]/text()",
     "my_uid_rule": "//table[@id=\"info_block\"]//span/a[contains(@class,\"_Name\") and contains(@href,\"userdetails.php?id=\")]/@href",
     "page_control_panel": "usercp.php",
-    "sp_full": 0
+    "sale_rule": ".//img[contains(@class,\"free\")]/@alt"
   },
   {
     "id": 49,
@@ -3255,6 +3255,7 @@
     "hr": 0,
     "hr_rate": 2,
     "hr_time": 10,
+    "sp_full": 0,
     "limit_speed": 100,
     "torrents_rule": "//table[@class=\"torrents\"]/tr",
     "name_rule": ".//td[@class=\"embedded\"]/a/b/text()",
@@ -3266,7 +3267,6 @@
     "download_url_rule": ".//a[contains(@href,\"download.php?id=\") and contains(@href,\"passkey\")]/@href",
     "size_rule": ".//td[5]/text()",
     "hr_rule": ".//table/tr/td/img[@class=\"hitandrun\"]/@title",
-    "sale_rule": ".//table/tr/td/img[contains(@class,\"pro_\")]/@alt",
     "sale_expire_rule": ".//table/tr/td/font/span/@title",
     "release_rule": ".//td[4]/span/@title",
     "seeders_rule": ".//td[6]/b/a/text()",
@@ -3297,7 +3297,7 @@
     "my_passkey_rule": "//td[contains(text(),\"密钥\")]/following-sibling::td[1]/text()",
     "my_uid_rule": "//a[contains(@class,\"_Name\") and contains(@href,\"userdetails.php?id=\")]/@href",
     "page_control_panel": "usercp.php",
-    "sp_full": 0
+    "sale_rule": ".//img[contains(@class,\"free\")]/@alt"
   },
   {
     "id": 50,
@@ -3330,6 +3330,7 @@
     "hr": 0,
     "hr_rate": 2,
     "hr_time": 10,
+    "sp_full": 0,
     "limit_speed": 100,
     "torrents_rule": "//table[@class=\"torrents\"]/tr",
     "name_rule": ".//td[@class=\"embedded\"]/a/b/text()",
@@ -3341,7 +3342,6 @@
     "download_url_rule": ".//a[contains(@href,\"download.php?id=\") and contains(@href,\"passkey\")]/@href",
     "size_rule": ".//td[5]/text()",
     "hr_rule": ".//table/tr/td/img[@class=\"hitandrun\"]/@title",
-    "sale_rule": ".//table/tr/td/img[contains(@class,\"pro_\")]/@alt",
     "sale_expire_rule": ".//table/tr/td/font/span/@title",
     "release_rule": ".//td[4]/span/@title",
     "seeders_rule": ".//td[6]/b/a/text()",
@@ -3372,7 +3372,7 @@
     "my_passkey_rule": "//td[contains(text(),\"密钥\")]/following-sibling::td[1]/text()",
     "my_uid_rule": "//a[contains(@class,\"_Name\") and contains(@href,\"userdetails.php?id=\")]/@href",
     "page_control_panel": "usercp.php",
-    "sp_full": 0
+    "sale_rule": ".//img[contains(@class,\"free\")]/@alt"
   },
   {
     "id": 51,
@@ -3405,6 +3405,7 @@
     "hr": 0,
     "hr_rate": 2,
     "hr_time": 10,
+    "sp_full": 0,
     "limit_speed": 100,
     "torrents_rule": "//table[@class=\"torrents\"]/tr",
     "name_rule": ".//td[@class=\"embedded\"]/a/b/text()",
@@ -3416,7 +3417,6 @@
     "download_url_rule": ".//a[contains(@href,\"download.php?id=\") and contains(@href,\"passkey\")]/@href",
     "size_rule": ".//td[5]/text()",
     "hr_rule": ".//table/tr/td/img[@class=\"hitandrun\"]/@title",
-    "sale_rule": ".//table/tr/td/img[contains(@class,\"pro_\")]/@alt",
     "sale_expire_rule": ".//table/tr/td/font/span/@title",
     "release_rule": ".//td[4]/span/@title",
     "seeders_rule": ".//td[6]/b/a/text()",
@@ -3447,7 +3447,7 @@
     "my_passkey_rule": "//td[contains(text(),\"密钥\")]/following-sibling::td[1]/text()",
     "my_uid_rule": "//a[contains(@class,\"_Name\") and contains(@href,\"userdetails.php?id=\")]/@href",
     "page_control_panel": "usercp.php",
-    "sp_full": 0
+    "sale_rule": ".//img[contains(@class,\"free\")]/@alt"
   },
   {
     "id": 52,
@@ -3480,6 +3480,7 @@
     "hr": 0,
     "hr_rate": 2,
     "hr_time": 10,
+    "sp_full": 0,
     "limit_speed": 100,
     "torrents_rule": "//table[@class=\"torrents\"]/tr",
     "name_rule": ".//td[@class=\"embedded\"]/a/b/text()",
@@ -3491,7 +3492,6 @@
     "download_url_rule": ".//a[contains(@href,\"download.php?id=\") and contains(@href,\"passkey\")]/@href",
     "size_rule": ".//td[5]/text()",
     "hr_rule": ".//table/tr/td/img[@class=\"hitandrun\"]/@title",
-    "sale_rule": ".//table/tr/td/img[contains(@class,\"pro_\")]/@alt",
     "sale_expire_rule": ".//table/tr/td/font/span/@title",
     "release_rule": ".//td[4]/span/@title",
     "seeders_rule": ".//td[6]/b/a/text()",
@@ -3522,7 +3522,7 @@
     "my_passkey_rule": "//td[contains(text(),\"密钥\")]/following-sibling::td[1]/text()",
     "my_uid_rule": "//table[@id=\"info_block\"]//span/a[contains(@class,\"_Name\") and contains(@href,\"userdetails.php?id=\")]/@href",
     "page_control_panel": "usercp.php",
-    "sp_full": 0
+    "sale_rule": ".//img[contains(@class,\"free\")]/@alt"
   },
   {
     "id": 53,
@@ -3555,6 +3555,7 @@
     "hr": 0,
     "hr_rate": 2,
     "hr_time": 10,
+    "sp_full": 0,
     "limit_speed": 100,
     "torrents_rule": "//table[@class=\"torrents\"]/tr",
     "name_rule": ".//td[@class=\"embedded\"]/a/b/text()",
@@ -3566,7 +3567,6 @@
     "download_url_rule": ".//a[contains(@href,\"download.php?id=\") and contains(@href,\"passkey\")]/@href",
     "size_rule": ".//td[5]/text()",
     "hr_rule": ".//table/tr/td/img[@class=\"hitandrun\"]/@title",
-    "sale_rule": ".//table/tr/td/img[contains(@class,\"pro_\")]/@alt",
     "sale_expire_rule": ".//table/tr/td/font/span/@title",
     "release_rule": ".//td[4]/span/@title",
     "seeders_rule": ".//td[6]/b/a/text()",
@@ -3597,7 +3597,7 @@
     "my_passkey_rule": "//td[contains(text(),\"密钥\")]/following-sibling::td[1]/text()",
     "my_uid_rule": "//a[contains(@class,\"_Name\") and contains(@href,\"userdetails.php?id=\")]/@href",
     "page_control_panel": "usercp.php",
-    "sp_full": 0
+    "sale_rule": ".//img[contains(@class,\"free\")]/@alt"
   },
   {
     "id": 54,
@@ -3630,6 +3630,7 @@
     "hr": 0,
     "hr_rate": 2,
     "hr_time": 10,
+    "sp_full": 0,
     "limit_speed": 100,
     "torrents_rule": "//table[@class=\"torrents\"]/tr",
     "name_rule": ".//td[@class=\"embedded\"]/a/b/text()",
@@ -3641,7 +3642,6 @@
     "download_url_rule": ".//a[contains(@href,\"download.php?id=\") and contains(@href,\"passkey\")]/@href",
     "size_rule": ".//td[5]/text()",
     "hr_rule": ".//table/tr/td/img[@class=\"hitandrun\"]/@title",
-    "sale_rule": ".//table/tr/td/img[contains(@class,\"pro_\")]/@alt",
     "sale_expire_rule": ".//table/tr/td/font/span/@title",
     "release_rule": ".//td[4]/span/@title",
     "seeders_rule": ".//td[6]/b/a/text()",
@@ -3672,7 +3672,7 @@
     "my_passkey_rule": "//td[contains(text(),\"密钥\")]/following-sibling::td[1]/text()",
     "my_uid_rule": "//a[contains(@class,\"_Name\") and contains(@href,\"userdetails.php?id=\")]/@href",
     "page_control_panel": "usercp.php",
-    "sp_full": 0
+    "sale_rule": ".//img[contains(@class,\"free\")]/@alt"
   },
   {
     "id": 55,
@@ -3705,6 +3705,7 @@
     "hr": 0,
     "hr_rate": 2,
     "hr_time": 10,
+    "sp_full": 0,
     "limit_speed": 100,
     "torrents_rule": "//table[@class=\"torrents\"]/tr",
     "name_rule": ".//td[@class=\"embedded\"]/a/b/text()",
@@ -3716,7 +3717,6 @@
     "download_url_rule": ".//a[contains(@href,\"download.php?id=\") and contains(@href,\"passkey\")]/@href",
     "size_rule": ".//td[5]/text()",
     "hr_rule": ".//table/tr/td/img[@class=\"hitandrun\"]/@title",
-    "sale_rule": ".//table/tr/td/img[contains(@class,\"pro_\")]/@alt",
     "sale_expire_rule": ".//table/tr/td/font/span/@title",
     "release_rule": ".//td[4]/span/@title",
     "seeders_rule": ".//td[6]/b/a/text()",
@@ -3747,7 +3747,7 @@
     "my_passkey_rule": "//td[contains(text(),\"密钥\")]/following-sibling::td[1]/text()",
     "my_uid_rule": "//a[contains(@class,\"_Name\") and contains(@href,\"userdetails.php?id=\")]/@href",
     "page_control_panel": "usercp.php",
-    "sp_full": 0
+    "sale_rule": ".//img[contains(@class,\"free\")]/@alt"
   },
   {
     "id": 56,
@@ -3780,6 +3780,7 @@
     "hr": 0,
     "hr_rate": 2,
     "hr_time": 10,
+    "sp_full": 0,
     "limit_speed": 100,
     "torrents_rule": "//table[@class=\"torrents\"]/tr",
     "name_rule": ".//td[@class=\"embedded\"]/a/b/text()",
@@ -3791,7 +3792,6 @@
     "download_url_rule": ".//a[contains(@href,\"download.php?id=\") and contains(@href,\"passkey\")]/@href",
     "size_rule": ".//td[5]/text()",
     "hr_rule": ".//table/tr/td/img[@class=\"hitandrun\"]/@title",
-    "sale_rule": ".//table/tr/td/img[contains(@class,\"pro_\")]/@alt",
     "sale_expire_rule": ".//table/tr/td/font/span/@title",
     "release_rule": ".//td[4]/span/@title",
     "seeders_rule": ".//td[6]/b/a/text()",
@@ -3822,7 +3822,7 @@
     "my_passkey_rule": "//td[contains(text(),\"密钥\")]/following-sibling::td[1]/text()",
     "my_uid_rule": "//a[contains(@class,\"_Name\") and contains(@href,\"userdetails.php?id=\")]/@href",
     "page_control_panel": "usercp.php",
-    "sp_full": 0
+    "sale_rule": ".//img[contains(@class,\"free\")]/@alt"
   },
   {
     "id": 57,
@@ -3855,6 +3855,7 @@
     "hr": 0,
     "hr_rate": 2,
     "hr_time": 10,
+    "sp_full": 0,
     "limit_speed": 100,
     "torrents_rule": "//table[@class=\"torrents\"]/tr",
     "name_rule": ".//td[@class=\"embedded\"]/a/b/text()",
@@ -3866,7 +3867,6 @@
     "download_url_rule": "//a[contains(@href,\"download.php?\") and contains(text(),\"右键\")]/@href",
     "size_rule": ".//td[5]/text()",
     "hr_rule": ".//table/tr/td/img[@class=\"hitandrun\"]/@title",
-    "sale_rule": ".//img[contains(@class,\"pro_\")]/@alt",
     "sale_expire_rule": ".//img[contains(@class,\"pro_\")]/following::font/span/@title",
     "release_rule": ".//td[4]/text()",
     "seeders_rule": ".//a[contains(@href,\"#seeders\")]//text()",
@@ -3876,7 +3876,7 @@
     "viewpeerlist_rule": ".//tr/td[9]/nobr/text()",
     "peer_speed_rule": ".//tr/td[5]/nobr/text()",
     "remark": "",
-    "invitation_rule": "//a[contains(@href,\"invite.php\")]/text()[1]",
+    "invitation_rule": "//span/a[contains(@href,\"invite.php\")]/text()[1]",
     "time_join_rule": "//td[contains(text(),\"加入\")]/following-sibling::td/span/@title",
     "latest_active_rule": "//td[contains(text(),\"最近动向\")]/following-sibling::td/span/@title",
     "uploaded_rule": "//font[@class=\"color_uploaded\"]/following-sibling::text()[1]",
@@ -3897,7 +3897,7 @@
     "my_passkey_rule": "//td[contains(text(),\"密钥\")]/following-sibling::td[1]/text()[1]",
     "my_uid_rule": "//table[@id=\"info_block\"]//span/a[contains(@class,\"_Name\") and contains(@href,\"userdetails.php?id=\")]/@href",
     "page_control_panel": "usercp.php",
-    "sp_full": 0
+    "sale_rule": ".//img[contains(@class,\"free\")]/@alt"
   },
   {
     "id": 58,
@@ -3930,6 +3930,7 @@
     "hr": 0,
     "hr_rate": 2,
     "hr_time": 10,
+    "sp_full": 0,
     "limit_speed": 100,
     "torrents_rule": "//table[@class=\"torrents\"]/tr",
     "name_rule": ".//td[@class=\"embedded\"]/a/b/text()",
@@ -3941,7 +3942,6 @@
     "download_url_rule": ".//a[contains(@href,\"download.php?id=\") and contains(@href,\"passkey\")]/@href",
     "size_rule": ".//td[5]/text()",
     "hr_rule": ".//table/tr/td/img[@class=\"hitandrun\"]/@title",
-    "sale_rule": ".//td/img[contains(@class,\"pro_\")]/@alt",
     "sale_expire_rule": ".//img[contains(@class,\"pro_\")]/following::span[1]/@title",
     "release_rule": ".//td[4]/span/@title",
     "seeders_rule": ".//a[contains(@href,\"#seeders\")]/text()",
@@ -3972,7 +3972,7 @@
     "my_passkey_rule": "//td[contains(text(),\"密钥\")]/following-sibling::td[1]/text()",
     "my_uid_rule": "//a[contains(@class,\"_Name\") and contains(@href,\"userdetails.php?id=\")]/@href",
     "page_control_panel": "usercp.php",
-    "sp_full": 0
+    "sale_rule": ".//img[contains(@class,\"free\")]/@alt"
   },
   {
     "id": 59,
@@ -4005,6 +4005,7 @@
     "hr": 0,
     "hr_rate": 2,
     "hr_time": 10,
+    "sp_full": 0,
     "limit_speed": 100,
     "torrents_rule": "//table[@class=\"torrents\"]/tr",
     "name_rule": ".//td[@class=\"embedded\"]/a/b/text()",
@@ -4016,7 +4017,6 @@
     "download_url_rule": ".//a[contains(@href,\"download.php?\") and contains(text(),\"右键查看\")]/@href",
     "size_rule": ".//td[5]/text()",
     "hr_rule": ".//table/tr/td/img[@class=\"hitandrun\"]/@title",
-    "sale_rule": ".//img[contains(@class,\"pro_\")]/@alt",
     "sale_expire_rule": ".//img[contains(@class,\"pro_\")]/following::font/span/@title",
     "release_rule": ".//td[4]/span/@title",
     "seeders_rule": ".//a[contains(@href,\"#seeders\")]//text()",
@@ -4047,7 +4047,7 @@
     "my_passkey_rule": "//td[contains(text(),\"密钥\")]/following-sibling::td[1]/text()",
     "my_uid_rule": "//a[contains(@class,\"_Name\") and contains(@href,\"userdetails.php?id=\")]/@href",
     "page_control_panel": "usercp.php",
-    "sp_full": 0
+    "sale_rule": ".//img[contains(@class,\"free\")]/@alt"
   },
   {
     "id": 62,
@@ -4080,6 +4080,7 @@
     "hr": 0,
     "hr_rate": 2,
     "hr_time": 10,
+    "sp_full": 0,
     "limit_speed": 100,
     "torrents_rule": "//table[@class=\"torrents\"]/tr",
     "name_rule": ".//td[@class=\"embedded\"]/a/b/text()",
@@ -4091,7 +4092,6 @@
     "download_url_rule": ".//a[contains(@href,\"download.php?id=\") and contains(@href,\"passkey\")]/@href",
     "size_rule": ".//td[5]/text()",
     "hr_rule": ".//table/tr/td/img[@class=\"hitandrun\"]/@title",
-    "sale_rule": ".//table/tr/td/img[contains(@class,\"pro_\")]/@alt",
     "sale_expire_rule": ".//table/tr/td/font/span/@title",
     "release_rule": ".//td[4]/span/@title",
     "seeders_rule": ".//td[6]/b/a/text()",
@@ -4122,6 +4122,81 @@
     "my_passkey_rule": "//td[contains(text(),\"密钥\")]/following-sibling::td[1]/text()",
     "my_uid_rule": "//table[@id=\"info_block\"]//span/a[contains(@class,\"_Name\") and contains(@href,\"userdetails.php?id=\")]/@href",
     "page_control_panel": "usercp.php",
-    "sp_full": 0
+    "sale_rule": ".//img[contains(@class,\"free\")]/@alt"
+  },
+  {
+    "id": 63,
+    "created_at": "2022-09-19 22:02:22.069570",
+    "updated_at": "2022-09-19 22:56:52.610469",
+    "name": "憨憨",
+    "url": "https://hhanclub.top/",
+    "logo": "https://hhanclub.top/favicon.ico",
+    "sign_in_support": 1,
+    "get_torrent_support": 1,
+    "get_userinfo_support": 1,
+    "search_support": 0,
+    "page_default": "torrents.php",
+    "page_sign_in": "attendance.php",
+    "page_detail": "details.php?id={}",
+    "page_download": "download.php?id={}",
+    "page_user": "userdetails.php?id={}",
+    "page_search": "torrents.php?search={}",
+    "page_leeching": "getusertorrentlistajax.php?userid={}&type=leeching",
+    "page_uploaded": "getusertorrentlistajax.php?userid={}&type=uploaded",
+    "page_seeding": "getusertorrentlistajax.php?userid={}&type=seeding",
+    "page_completed": "getusertorrentlistajax.php?userid={}&type=completed",
+    "page_mybonus": "mybonus.php",
+    "page_viewfilelist": "viewfilelist.php?id={}",
+    "page_viewpeerlist": "viewpeerlist.php?id={}",
+    "sign_in_method": "get",
+    "sign_in_captcha": 0,
+    "sign_in_params": "{}",
+    "sign_in_headers": "{}",
+    "hr": 0,
+    "hr_rate": 2,
+    "hr_time": 10,
+    "sp_full": 100,
+    "limit_speed": 100,
+    "torrents_rule": "//table[@class=\"torrents\"]/tr",
+    "name_rule": ".//td[@class=\"embedded\"]/a/b/text()",
+    "title_rule": ".//td[@class=\"embedded\"]/a[contains(@href,\"detail\")]/parent::td/text()",
+    "detail_url_rule": ".//td[@class=\"embedded\"]/a[contains(@href,\"detail\")]/@href",
+    "category_rule": ".//td[@class=\"rowfollow nowrap\"][1]/a[1]/img/@title",
+    "poster_rule": ".//table/tr/td[1]/img/@src",
+    "magnet_url_rule": ".//td/a[contains(@href,\"download.php?id=\")]/@href",
+    "download_url_rule": ".//a[contains(@href,\"download.php?id=\") and contains(@href,\"passkey\")]/@href",
+    "size_rule": ".//td[5]/text()",
+    "hr_rule": ".//table/tr/td/img[@class=\"hitandrun\"]/@title",
+    "sale_expire_rule": ".//img[contains(@class,\"free\")]/following::font/span/@title",
+    "release_rule": ".//td[4]/span/@title",
+    "seeders_rule": ".//a[contains(@href,\"#seeders\")]/text()",
+    "leechers_rule": ".//a[contains(@href,\"#leechers\")]/text()",
+    "completers_rule": ".//a[contains(@href,\"viewsnatches\")]//text()",
+    "viewfilelist_rule": ".//td/text()",
+    "viewpeerlist_rule": ".//tr/td[9]/nobr/text()",
+    "peer_speed_rule": ".//tr/td[7]/nobr/text()",
+    "remark": "",
+    "invitation_rule": "//span/a[contains(@href,\"invite.php?id=\")]/following-sibling::text()[1]",
+    "time_join_rule": "//td[contains(text(),\"加入\")]/following-sibling::td/span/@title",
+    "latest_active_rule": "//td[contains(text(),\"最近动向\")]/following-sibling::td/span/@title",
+    "uploaded_rule": "//font[@class=\"color_uploaded\"]/following-sibling::text()[1]",
+    "downloaded_rule": "//font[@class=\"color_downloaded\"]/following-sibling::text()[1]",
+    "ratio_rule": "//font[@class=\"color_ratio\"][1]/following-sibling::text()[1]",
+    "my_sp_rule": "//a[@href=\"mybonus.php\"]/following-sibling::text()[1]",
+    "hour_sp_rule": "//div[contains(text(),\"每小时能获取\")]/text()[1]",
+    "my_bonus_rule": "//font[@class=\"color_bonus\" and contains(text(),\"积分\")]/following-sibling::text()[1]",
+    "my_level_rule": "//table[@id=\"info_block\"]//span/a[contains(@class,\"_Name\") and contains(@href,\"userdetails.php?id=\")]/@class",
+    "my_hr_rule": "//a[@href=\"myhr.php\"]//text()",
+    "leech_rule": "//img[@class=\"arrowdown\"]/following-sibling::text()[1]",
+    "seed_rule": "//img[@class=\"arrowup\"]/following-sibling::text()[1]",
+    "record_count_rule": ".//td[3]/text()",
+    "seed_vol_rule": "//tr/td[4]",
+    "mailbox_rule": "//a[@href=\"messages.php\"]/font[contains(text(),\"条\")]/text()[1]",
+    "hash_rule": "//td/b[contains(text(),\"Hash\")]/following::text()[1]",
+    "notice_rule": "//a[@href=\"index.php\"]/font[contains(text(),\"条\")]/text()[1]",
+    "my_passkey_rule": "//td[contains(text(),\"密钥\")]/following-sibling::td[1]/text()",
+    "my_uid_rule": "//table[@id=\"info_block\"]//span/a[contains(@class,\"_Name\") and contains(@href,\"userdetails.php?id=\")]/@href",
+    "page_control_panel": "usercp.php",
+    "sale_rule": ".//img[contains(@class,\"free\")]/@alt"
   }
 ]
