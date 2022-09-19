@@ -38,7 +38,9 @@ ADD ./start.sh /var/www/html
 RUN chmod +x /var/www/html/start.sh
 
 # 更换USTC源，并安装gcc，git
-RUN sed -i 's/deb.debian.org/mirrors.ustc.edu.cn/g' /etc/apt/sources.list && apt update && yes|apt install gcc git &&     apt-get autoclean
+RUN sed -i 's/deb.debian.org/mirrors.ustc.edu.cn/g' /etc/apt/sources.list; \
+    apt update && yes|apt install git; \
+    apt-get autoclean && rm -rf /var/lib/apt/lists/*
 
 VOLUME ["/var/www/html/ptools"]
 
