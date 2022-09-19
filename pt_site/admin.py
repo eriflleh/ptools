@@ -953,8 +953,7 @@ class TorrentInfoAdmin(ImportExportModelAdmin, AjaxAdmin):  # instead of ModelAd
     #     time.sleep(2)
     # 可以根据request的用户，来动态设置返回哪些字段，每次点击都会来获取配置显示
 
-    @staticmethod
-    def get_downloader():
+    def get_downloader(self):
         """获取下载器列表"""
         try:
             return [{'key': i.id, 'label': i.name} for i in Downloader.objects.all()]
