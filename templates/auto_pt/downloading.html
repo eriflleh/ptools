@@ -85,7 +85,8 @@
                         fixed
                         sortable
                         show-overflow-tooltip="true"
-                        label="种子名称" width="220">
+                        label="种子名称" max-width="380"
+                        min-width="220">
                 </u-table-column>
                 <u-table-column prop="size"
                                 sortable
@@ -98,7 +99,7 @@
                 <u-table-column prop="uploaded"
                                 :formatter="handleSize"
                                 sortable
-                                width="75"
+                                width="85"
                                 label="上传"></u-table-column>
                 <u-table-column prop="dlspeed"
                                 sortable
@@ -147,11 +148,11 @@
                 {#                                 label="做种时间"></u-table-column>#}
                 <u-table-column prop="state"
                                 sortable
-                                width="95"
-                                label="当前状态"></u-table-column>
+                                width="75"
+                                label="状态"></u-table-column>
                 <u-table-column prop="last_activity"
                                 sortable
-                                width="95"
+                                width="105"
                                 show-overflow-tooltip
                                 label="最后活动"></u-table-column>
                 {#                <u-table-column prop="added_on"#}
