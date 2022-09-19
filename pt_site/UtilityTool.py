@@ -497,6 +497,7 @@ class PtSpider:
                 logging.error(my_site.site.name + '签到失败！原因：' + result.msg)
             return message_list
 
+    @transaction.atomic
     def sign_in(self, my_site: MySite):
         """签到"""
         site = my_site.site
@@ -979,6 +980,7 @@ class PtSpider:
             count = 0
         return int(count)
 
+    @transaction.atomic
     def parse_status_html(self, my_site: MySite, result: dict):
         """解析个人状态"""
         with lock:
