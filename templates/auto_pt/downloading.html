@@ -47,7 +47,8 @@
                 </el-dropdown>
                 <el-button size="mini" type="warning" @click="clearTimer" v-if="refresh"> 暂停刷新</el-button>
                 {#                <el-button size="mini" type="success" @click="handleRefresh" v-else="refresh"> 开始刷新</el-button>#}
-                <el-dropdown split-button type="success" size="mini" v-else="refresh" @command="handleRefresh">
+                <el-dropdown split-button type="success" size="mini" v-else="refresh" @click="handleRefresh(10)"
+                             @command="handleRefresh">
                     开始刷新
                     <el-dropdown-menu slot="dropdown">
                         <el-dropdown-item icon="el-icon-loading" command="5">5S</el-dropdown-item>
