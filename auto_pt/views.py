@@ -14,7 +14,7 @@ from pt_site import views as tasks
 from pt_site.UtilityTool import FileSizeConvert
 from pt_site.models import SiteStatus, MySite, Site, Downloader
 from pt_site.views import scheduler, pt_spider
-from ptools.base import CommonResponse, StatusCodeEnum, DownloaderCategory
+from ptools.base import CommonResponse, StatusCodeEnum, DownloaderCategory, TorrentBaseInfo
 
 
 def add_task(request):
@@ -141,7 +141,9 @@ def get_downloading(request):
                 'day,', '天'
             ).replace(':', '小时', 1).replace(':', '分', 1).split('.')[0] + '秒'
             # 大小与速度处理
+            torrent['state'] = TorrentBaseInfo.download_state.get(torrent.get('state'))
             torrent['ratio'] = '%.4f' % torrent.get('ratio') if torrent['ratio'] >= 0.0001 else 0
+            torrent['progress'] = '%.4f' % torrent.get('progress') if float(torrent['progress']) < 1 else 1
             torrent['uploaded'] = '' if torrent['uploaded'] == 0 else torrent['uploaded']
             torrent['upspeed'] = '' if torrent['upspeed'] == 0 else torrent['upspeed']
             torrent['dlspeed'] = '' if torrent['dlspeed'] == 0 else torrent['dlspeed']
