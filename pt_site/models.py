@@ -148,7 +148,7 @@ class Site(BaseEntity):
     # 状态信息XPath
     invitation_rule = models.CharField(
         verbose_name='邀请资格',
-        default='//a[contains(@href,"invite.php?id=")]/following-sibling::text()[1]',
+        default='//span/a[contains(@href,"invite.php?id=")]/following-sibling::text()[1]',
         max_length=128)
     time_join_rule = models.CharField(
         verbose_name='注册时间',
