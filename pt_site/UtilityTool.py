@@ -677,7 +677,7 @@ class PtSpider:
 
     @staticmethod
     def parse(response, rules):
-        return etree.HTML(response.text).xpath(rules)
+        return etree.HTML(response.content.decode('utf8')).xpath(rules)
 
     def send_torrent_info_request(self, my_site: MySite):
         site = my_site.site
@@ -756,32 +756,39 @@ class PtSpider:
                         sale_status = ''.join(tr.xpath(site.sale_rule))
                         print('sale_status:', sale_status)
                         # 非免费种子跳过
-                        if not sale_status or 'free' not in sale_status.lower():
+                        if not sale_status:
+                            print('非免费种子跳过')
                             continue
-                        sale_status = ''.join(re.split(r'[^\x00-\xff]', sale_status))
-                        sale_status = sale_status.upper().replace('FREE', 'Free').title().replace(' ', '')
+                        title_list = tr.xpath(site.title_rule)
+                        print(title_list)
+                        title = ''.join(title_list).strip().strip('剩余时间：').strip('剩餘時間：').strip('()')
+                        name = ''.join(tr.xpath(site.name_rule))
+                        if not name and not title:
+                            print('无名无姓？跳过')
+                            continue
+                        # sale_status = ''.join(re.split(r'[^\x00-\xff]', sale_status))
+                        sale_status = sale_status.upper().replace(
+                            'FREE', 'Free'
+                        ).replace('免费', 'Free').replace(' ', '')
                         # # 下载链接，下载链接已存在则跳过
                         href = ''.join(tr.xpath(site.magnet_url_rule))
                         print('href', href)
-                        magnet_url = site.url + href.replace('&type=zip', '').replace(site.url, '')
+                        magnet_url = site.url + href.replace('&type=zip', '').replace(site.url, '').lstrip('/')
                         if href.count('passkey') <= 0 and href.count('&sign=') <= 0:
                             download_url = magnet_url + '&passkey=' + my_site.passkey
                         else:
                             download_url = magnet_url
                         print('download_url', download_url)
                         print('magnet_url', magnet_url)
-                        title_list = tr.xpath(site.title_rule)
-                        print(title_list)
-                        title = ''.join(title_list).strip().strip('剩余时间：').strip('剩餘時間：').strip('()')
 
                         # if sale_status == '2X':
                         #     sale_status = '2XFree'
 
                         # 如果种子有HR，则为否 HR绿色表示无需，红色表示未通过HR考核
-                        hr = False if ''.join(tr.xpath(site.hr_rule)) else True
-                        # print(torrent.hr)
+                        hr = False if tr.xpath(site.hr_rule) else True
                         # H&R 种子有HR且站点设置不下载HR种子,跳过，
                         if not hr and not site.hr:
+                            print('hr种子，未开启HR跳过')
                             continue
                         # # 促销到期时间
                         sale_expire = ''.join(tr.xpath(site.sale_expire_rule))
@@ -791,12 +798,28 @@ class PtSpider:
                             'https://www.hitpt.com/',
                             'https://hdsky.me/',
                             'https://pt.keepfrds.com/',
+                            # 'https://totheglory.im/',
                         ]:
                             """
                             由于备胎等站优惠结束日期格式特殊，所以做特殊处理,使用正则表达式获取字符串中的时间
                             """
                             sale_expire = ''.join(
-                                re.findall(r'\d{4}-\d{2}-\d{2} \d{2}:\d{2}:\d{2}', ''.join(sale_expire)))
+                                re.findall(r'\d{4}\D\d{2}\D\d{2}\D\d{2}\D\d{2}\D', ''.join(sale_expire)))
+
+                        if site.url in [
+                            'https://totheglory.im/',
+                        ]:
+                            # javascript: alert('Freeleech将持续到2022年09月20日13点46分,加油呀~')
+                            # 获取时间数据
+                            time_array = re.findall(r'\d+', ''.join(sale_expire))
+                            # 不组9位
+                            time_array.extend([0, 0, 0, 0])
+                            # 转化为标准时间字符串
+                            sale_expire = time.strftime(
+                                "%Y-%m-%d %H:%M:%S",
+                                time.struct_time(tuple([int(x) for x in time_array]))
+                            )
+                        #     pass
                         # print(sale_expire)
                         # 如果促销结束时间为空，则为无限期
                         sale_expire = '无限期' if not sale_expire else sale_expire
@@ -813,7 +836,6 @@ class PtSpider:
                         # print(type(seeders), type(leechers), type(completers), )
                         # print(seeders, leechers, completers)
                         # print(''.join(tr.xpath(site.name_rule)))
-                        name = ''.join(tr.xpath(site.name_rule))
                         category = ''.join(tr.xpath(site.category_rule))
                         file_parse_size = ''.join(tr.xpath(site.size_rule))
                         # file_parse_size = ''.join(tr.xpath(''))
@@ -821,7 +843,9 @@ class PtSpider:
                         file_size = FileSizeConvert.parse_2_byte(file_parse_size)
                         # title = title if title else name
                         poster_url = ''.join(tr.xpath(site.poster_rule))  # 海报链接
-                        detail_url = ''.join(tr.xpath(site.detail_url_rule))
+                        detail_url = site.url + ''.join(
+                            tr.xpath(site.detail_url_rule)
+                        ).replace(site.url, '').lstrip('/')
                         print('name：', site)
                         print('size', file_size, )
                         print('category：', category, )
@@ -836,9 +860,10 @@ class PtSpider:
                         print('leechers：', leechers)
                         print('H&R：', hr)
                         print('completers：', completers)
-                        result = TorrentInfo.objects.update_or_create(magnet_url=magnet_url, site=site, defaults={
+                        result = TorrentInfo.objects.update_or_create(site=site, detail_url=detail_url, defaults={
                             'category': category,
                             'download_url': download_url,
+                            'magnet_url': magnet_url,
                             'name': name,
                             'title': title,
                             'poster_url': poster_url,  # 海报链接
