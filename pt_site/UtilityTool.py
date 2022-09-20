@@ -1025,9 +1025,11 @@ class PtSpider:
             for seed_vol in seed_vol_list:
                 # print(etree.tostring(seed_vol))
                 vol = ''.join(seed_vol.xpath('.//text()'))
-                # print(vol)
+                print(vol)
                 if not len(vol) <= 0:
-                    seed_vol_all += FileSizeConvert.parse_2_byte(vol)
+                    seed_vol_all += FileSizeConvert.parse_2_byte(
+                        vol.replace('i', '')  # U2返回字符串为mib，gib
+                    )
                 else:
                     # seed_vol_all = 0
                     pass
@@ -1037,7 +1039,7 @@ class PtSpider:
             # print(etree.tostring(details_html))
             # leech = self.get_user_torrent(leeching_html, site.leech_rule)
             # seed = self.get_user_torrent(seeding_html, site.seed_rule)
-            leech = ''.join(details_html.xpath(site.leech_rule)).strip()
+            leech = re.sub(r'\D', '', ''.join(details_html.xpath(site.leech_rule)).strip())
             seed = ''.join(details_html.xpath(site.seed_rule)).strip()
             if not leech and not seed:
                 return CommonResponse.error(
@@ -1048,11 +1050,11 @@ class PtSpider:
 
             downloaded = ''.join(
                 details_html.xpath(site.downloaded_rule)
-            ).replace(':', '').replace('\xa0\xa0', '').strip(' ')
+            ).replace(':', '').replace('\xa0\xa0', '').replace('i', '').strip(' ')
             downloaded = FileSizeConvert.parse_2_byte(downloaded)
             uploaded = ''.join(
                 details_html.xpath(site.uploaded_rule)
-            ).replace(':', '').strip(' ')
+            ).replace(':', '').replace('i', '').strip(' ')
             uploaded = FileSizeConvert.parse_2_byte(uploaded)
 
             invitation = ''.join(
@@ -1073,6 +1075,8 @@ class PtSpider:
             ).replace('_Name', '').strip()
             if 'city' in site.url:
                 my_level = my_level_1.strip()
+            elif 'u2' in site.url:
+                my_level = ''.join(re.findall(r'/(.*).{4}', my_level_1)).title()
             else:
                 my_level = re.sub(u"([^\u0041-\u005a\u0061-\u007a])", "", my_level_1)
             # my_level = re.sub('[\u4e00-\u9fa5]', '', my_level_1)
@@ -1123,18 +1127,18 @@ class PtSpider:
             my_site.leech = int(leech) if leech else 0
 
             print('站点：', site)
-            # print('等级：', my_level, )
-            # print('魔力：', my_sp, )
-            # print('积分：', my_bonus if my_bonus else 0)
+            print('等级：', my_level, )
+            print('魔力：', my_sp, )
+            print('积分：', my_bonus if my_bonus else 0)
             # print('分享率：', ratio, )
-            # print('下载量：', downloaded, )
-            # print('上传量：', uploaded, )
-            # print('邀请：', invitation, )
+            print('下载量：', downloaded, )
+            print('上传量：', uploaded, )
+            print('邀请：', invitation, )
             # print('注册时间：', time_join, )
             # print('最后活动：', latest_active)
-            # print('H&R：', my_hr)
-            # print('上传数：', seed)
-            # print('下载数：', leech)
+            print('H&R：', my_hr)
+            print('上传数：', seed)
+            print('下载数：', leech)
             try:
                 ratio = ''.join(
                     details_html.xpath(site.ratio_rule)
@@ -1183,8 +1187,8 @@ class PtSpider:
             except Exception as e:
                 message = my_site.site.name + '解析个人主页信息：失败！原因：' + str(e)
                 logging.error(message)
-                self.send_text('# <font color="red">' + message + '</font>  \n')
                 # raise
+                self.send_text('# <font color="red">' + message + '</font>  \n')
                 return CommonResponse.error(msg=message)
 
     def get_hour_sp(self, my_site: MySite):
@@ -1195,30 +1199,32 @@ class PtSpider:
                 my_site=my_site,
                 url=site.url + site.page_mybonus,
             )
+            """
             if 'btschool' in site.url:
-                """
-                # print(response.content.decode('utf8'))
-                url = self.parse(response, '//form[@id="challenge-form"]/@action[1]')
-                data = {
-                    'md': ''.join(self.parse(response, '//form[@id="challenge-form"]/input[@name="md"]/@value')),
-                    'r': ''.join(self.parse(response, '//form[@id="challenge-form"]/input[@name="r"]/@value'))
-                }
-                print(data)
-                print('学校时魔页面url：', url)
-                response = self.send_request(
-                    my_site=my_site,
-                    url=site.url + ''.join(url).lstrip('/'),
-                    method='post',
-                    # headers=headers,
-                    data=data
-                )
-                """
-
+            # print(response.content.decode('utf8'))
+            url = self.parse(response, '//form[@id="challenge-form"]/@action[1]')
+            data = {
+                'md': ''.join(self.parse(response, '//form[@id="challenge-form"]/input[@name="md"]/@value')),
+                'r': ''.join(self.parse(response, '//form[@id="challenge-form"]/input[@name="r"]/@value'))
+            }
+            print(data)
+            print('学校时魔页面url：', url)
+            response = self.send_request(
+                my_site=my_site,
+                url=site.url + ''.join(url).lstrip('/'),
+                method='post',
+                # headers=headers,
+                data=data
+            )
+            """
             res = converter.convert(response.content)
             # print('时魔响应', response.content)
             # print('转为简体的时魔页面：', str(res))
             # res_list = self.parse(res, site.hour_sp_rule)
             res_list = etree.HTML(res).xpath(site.hour_sp_rule)
+            if 'u2.dmhy.org' in site.url:
+                res_list = ''.join(res_list).split('，')
+                res_list.reverse()
             print('时魔字符串', res_list)
             if len(res_list) <= 0:
                 CommonResponse.error(msg='时魔获取失败！')
