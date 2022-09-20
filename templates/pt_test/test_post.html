@@ -1,0 +1,65 @@
+<!doctype html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport"
+          content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+</head>
+<body>
+
+<form action="{% url 'test_post' %}?action=show" method="post">
+    <h3 align="center">在此写下留言</h3>
+    <p align="left"></p>
+    <ul align="left">
+        <li>至少 5 个字符，不是字节。</li>
+        <li>回答正确，将获得 9 到 59 个 UCoin 的随机奖励。</li>
+        <li>回答错误，将得到 1 个 UCoin。</li>
+        <li>请在验证问题有效期内回答，如问题已经过期或出现其他错误，则视为签到失败而非回答错误。签到文字将被保留 10 分钟，可随时重新签到。</li>
+        <li><b>注意：回答按钮点击时即提交，手滑损失自负～</b>
+        </li>
+    </ul>
+    <p></p>
+    <p></p>
+    <center>
+        <textarea name="message" style="width: 60%;height: 60px"></textarea>
+        <p></p>
+        <div id="showup">
+            <div id="showup">
+                <table class="captcha">
+                    <tbody>
+                    <tr>
+                        <td><img
+                                src=""
+                                alt="captcha"
+                                onclick="ajax.update('image.php?action=reload_adbc2&amp;div=showup&amp;rand=2831326998','showup')"
+                                style="cursor: pointer;"></td>
+                        <td><input type="hidden" name="req"
+                                   value="a09835abd49e30b69effd72c1a7cb682dad6a976d8317f7473a6a2447a412f86fef5e4e326a38fc55e87efa7a585ed3b5095a8d4ded333e6ca7b7906b594f3b26fac4ae6f78c7934800d5ce565353430"><input
+                                type="hidden" name="hash" value="09c78cfcd73043ddf0f6fc3a4aec266bb4d07d48"><input
+                                type="hidden" name="form" value="586400afd6979bc7aabb92a9d617cfad0c2f6655">
+                            <h3>CAPTCHA</h3>
+                            <input type="submit" name="captcha_0f111ca5f714aac2fc4e8e485df2a0cccda35ef1"
+                                   value="Vampiyan Kids / バンパイヤン・キッズ"><br>
+                            <input type="submit" name="captcha_3dd78242da7aa0cd0a12e32cc9b584bd0c049797"
+                                   value="Brain Powerd / ブレンパワード"><br>
+                            <input type="submit" name="captcha_b324546cfe38ca2bf89af8312107c754efacd3ec"
+                                   value="Karakai Jouzu no Takagi-san 3 / からかい上手の高木さん3 / Teasing Master Takagi-san 3 / 擅长捉弄的高木同学3"><br>
+                            <input type="submit" name="captcha_b1ce8cee3f580362b3646d752fa77b4a5e3a0789"
+                                   value="Utawarerumono: Itsuwari no Kamen / うたわれるもの 偽りの仮面 / Utawarerumono: The False Faces / 受讚頌者 虛偽的假面 / 传颂之物 虚伪的假面"><br>
+
+                            <p>请找出左侧图片中圆点，再选择该处对应的作品名称。<br>注意：本测试有效期 120 秒，请于图片注明的时间前提交。<br><a href="javascript:;"
+                                                                                               class="faqlink"
+                                                                                               onclick="ajax.update('image.php?action=reload_adbc2&amp;div=showup&amp;rand=2831326998','showup')">刷新</a>
+                            </p>
+                        </td>
+                    </tr>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </center>
+</form>
+</body>
+</html>
