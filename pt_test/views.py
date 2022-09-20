@@ -51,3 +51,15 @@ def test_import(request):
 def handle_json(request):
     if request.method == 'GET':
         return render(request, 'pt_test/test_json.html')
+
+
+def test_post(request):
+    if request.method == 'GET':
+        return render(request, 'pt_test/test_post.html')
+    else:
+        r = request.POST
+        for i, j in r.items():
+            print(i, type(i))
+            print(j, type(j))
+        print(r)
+        return JsonResponse(CommonResponse.success(data=r).to_dict(), safe=False)
