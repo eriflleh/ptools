@@ -749,7 +749,7 @@ class TorrentInfoAdmin(ImportExportModelAdmin, AjaxAdmin):  # instead of ModelAd
             # <el-link href="{}" target="_blank">下载种子</el-link>
             # '<a target="blank" href="{}" >下载种子</a>',
             '<a href="{}" target="_blank" title="{}">{}</a>',
-            obj.site.url + obj.detail_url,
+            obj.detail_url,
             obj.title,
             obj.title[0:20] + ' ...'
         )
@@ -880,7 +880,7 @@ class TorrentInfoAdmin(ImportExportModelAdmin, AjaxAdmin):  # instead of ModelAd
                     username=downloader.username,
                     password=downloader.password,
                     # 仅返回简单JSON
-                    SIMPLE_RESPONSES=True
+                    # SIMPLE_RESPONSES=True
                 )
 
                 try:
@@ -908,8 +908,8 @@ class TorrentInfoAdmin(ImportExportModelAdmin, AjaxAdmin):  # instead of ModelAd
                             )
                         })
                     for torrent_info in queryset:
-                        print('创建种子标签', torrent_info.magnet_url)
-                        qb_client.torrents_create_tags(torrent_info.magnet_url)
+                        print('创建种子标签', torrent_info.detail_url)
+                        qb_client.torrents_create_category(torrent_info.detail_url)
                         res = qb_client.torrents.add(
                             # 种子链接
                             urls=torrent_info.magnet_url,
@@ -919,15 +919,17 @@ class TorrentInfoAdmin(ImportExportModelAdmin, AjaxAdmin):  # instead of ModelAd
                             # 自动管理种子
                             use_auto_torrent_management=True,
                             # 任务标签，用于和种子信息关联
-                            tags=torrent_info.magnet_url,
+                            category=torrent_info.detail_url,
                             # 跳过HASH检查
                             # is_skip_checking=True
                         )
                         print(res)
                         if res == 'Ok.':
                             print(torrent_info.magnet_url)
-                            torrent = qb_client.torrents.info(tag=torrent_info.magnet_url)
+                            torrent = qb_client.torrents.info(category=torrent_info.detail_url)
                             print(len(torrent))
+                            torrent_info.hash_string = torrent[0].hash
+                            torrent_info.save()
                             return JsonResponse(data={
                                 'status': 'success',
                                 'msg': torrent_info.name + '推送成功！'
