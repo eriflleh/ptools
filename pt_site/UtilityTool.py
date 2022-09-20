@@ -10,7 +10,6 @@ import aip
 import cloudscraper
 import dateutil.parser
 import opencc
-from django.db import transaction
 from django.db.models import QuerySet
 from lxml import etree
 from pypushdeer import PushDeer
@@ -261,7 +260,7 @@ class PtSpider:
             # raise
             return CommonResponse.error(msg='Cookies解析失败，请确认导入了正确的cookies备份文件！')
 
-    @transaction.atomic
+    # @transaction.atomic
     def get_uid_and_passkey(self, cookie: dict):
         url = cookie.get('url')
         host = cookie.get('host')
@@ -413,7 +412,7 @@ class PtSpider:
             print(response.content.decode('utf8'))
             return CommonResponse.success(data=response)
         except Exception as e:
-            raise
+            # raise
             return CommonResponse.success(
                 status=StatusCodeEnum.WEB_CONNECT_ERR,
                 msg=site.name + str(e)
@@ -550,7 +549,7 @@ class PtSpider:
                 logging.error(my_site.site.name + '签到失败！原因：' + result.msg)
             return message_list
 
-    @transaction.atomic
+    # @transaction.atomic
     def sign_in(self, my_site: MySite):
         """签到"""
         site = my_site.site
@@ -734,7 +733,7 @@ class PtSpider:
             else:
                 return CommonResponse.error(msg='请确认签到是否成功？？网页返回码：' + str(res.status_code))
         except Exception as e:
-            raise
+            # raise
             self.send_text(site.name + '签到失败！原因：' + str(e))
             return CommonResponse.error(msg='签到失败！' + str(e))
 
@@ -760,7 +759,7 @@ class PtSpider:
             self.send_text(site.name + '网站访问失败！原因：' + str(e))
             return CommonResponse.error(msg="网站访问失败" + str(e))
 
-    @transaction.atomic
+    # @transaction.atomic
     def get_torrent_info_list(self, my_site: MySite, response: Response):
         count = 0
         new_count = 0
@@ -1068,7 +1067,7 @@ class PtSpider:
             count = 0
         return int(count)
 
-    @transaction.atomic
+    # @transaction.atomic
     def parse_status_html(self, my_site: MySite, result: dict):
         """解析个人状态"""
         with lock:
