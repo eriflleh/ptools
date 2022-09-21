@@ -78,7 +78,7 @@ class Site(BaseEntity):
                                  default='.//td[@class="embedded"]/a/b/text()',
                                  max_length=128)
     title_rule = models.CharField(verbose_name='种子标题',
-                                  default='.//td[@class="embedded"]/a/following::text()[1]',
+                                  default='.//a[contains(@href,"detail")]/parent::td/text()[last()]',
                                   max_length=128)
     detail_url_rule = models.CharField(
         verbose_name='种子详情',
@@ -114,7 +114,7 @@ class Site(BaseEntity):
     )
     sale_expire_rule = models.CharField(
         verbose_name='促销时间',
-        default='.//img[contains(@class,"free")]/following::font/span/@title',
+        default='.//img[contains(@class,"free")]/following-sibling::font/span/@title',
         max_length=128)
     release_rule = models.CharField(
         verbose_name='发布时间',
