@@ -161,6 +161,7 @@ class PtSpider:
                      url: str,
                      method: str = 'get',
                      data: dict = None,
+                     params: dict = None,
                      timeout: int = 20,
                      delay: int = 15,
                      headers: dict = {},
@@ -179,7 +180,8 @@ class PtSpider:
                 cookies=self.cookies2dict(my_site.cookie),
                 data=data,
                 timeout=timeout,
-                proxies=proxies
+                proxies=proxies,
+                params=params,
             )
         return scraper.get(
             url=url,
@@ -188,6 +190,7 @@ class PtSpider:
             data=data,
             timeout=timeout,
             proxies=proxies,
+            params=params,
         )
 
     def ocr_captcha(self, img_url):
@@ -383,7 +386,7 @@ class PtSpider:
             print(submit_name)
             print(submit_value)
             headers = {
-                "Content-Type": "application/x-www-form-urlencoded; charset=UTF-8"
+                "mimeType": "application/x-www-form-urlencoded; charset=UTF-8"
             }
             params = []
             for name, value in zip(submit_name, submit_value):
@@ -404,10 +407,11 @@ class PtSpider:
             print(data)
             response = self.send_request(
                 my_site,
-                url=site.url + '?action=show',
+                url=site.url + '?action=show' + param,
                 method=site.sign_in_method,
                 headers=headers,
-                data=data
+                params=data,
+                data=data,
             )
             print(response.content.decode('utf8'))
             return CommonResponse.success(data=response)
@@ -1218,8 +1222,8 @@ class PtSpider:
                     notice_count = re.sub(u"([^\u0030-\u0039])", "", notice_str)
                     mail_count = int(mail_count) if mail_count else 0
                     notice_count = int(notice_count) if notice_count else 0
+                    my_site.mail = mail_count + notice_count
                     if mail_count + notice_count > 0:
-                        my_site.mail = mail_count + notice_count
                         template = '### <font color="red">{} 有{}条新短消息，请注意及时查收！</font>'
                         # 测试发送网站消息原内容
                         self.send_text(template.format(site.name, mail_count + notice_count) + mail_str + notice_str)
