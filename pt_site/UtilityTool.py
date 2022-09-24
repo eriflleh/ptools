@@ -162,6 +162,7 @@ class PtSpider:
                      method: str = 'get',
                      data: dict = None,
                      params: dict = None,
+                     json: dict = None,
                      timeout: int = 20,
                      delay: int = 15,
                      headers: dict = {},
@@ -180,6 +181,7 @@ class PtSpider:
                 cookies=self.cookies2dict(my_site.cookie),
                 data=data,
                 timeout=timeout,
+                json=json,
                 proxies=proxies,
                 params=params,
             )
@@ -191,6 +193,7 @@ class PtSpider:
             timeout=timeout,
             proxies=proxies,
             params=params,
+            json=json,
         )
 
     def ocr_captcha(self, img_url):
@@ -386,11 +389,11 @@ class PtSpider:
             print(submit_name)
             print(submit_value)
             headers = {
-                "mimeType": "application/x-www-form-urlencoded; charset=UTF-8"
+                "Content-Type": "application/x-www-form-urlencoded; charset=UTF-8"
             }
-            params = []
+            param = []
             for name, value in zip(submit_name, submit_value):
-                params.append({
+                param.append({
                     name: value
                 })
             data = {
@@ -399,25 +402,23 @@ class PtSpider:
                 'form': form[0],
                 'message': message,
             }
-            i = random.randint(0, 3)
-            param = '&message={}&req={}&hash={}&form={}&{}={}'.format(
-                message, req, hash_str, form, submit_name[i], submit_value[i])
-
-            data.update(params[random.randint(0, 3)])
+            data.update(param[random.randint(0, 3)])
             print(data)
             response = self.send_request(
                 my_site,
-                url=site.url + '?action=show' + param,
+                url=site.url + site.page_sign_in.lstrip('/') + '?action=show',
                 method=site.sign_in_method,
                 headers=headers,
-                params=data,
                 data=data,
             )
             print(response.content.decode('utf8'))
-            return CommonResponse.success(data=response)
+            if 'response.content.decode("utf8")' in response.content.decode('utf8'):
+                return CommonResponse.success(msg='低保签到成功！')
+            else:
+                return CommonResponse.error(msg='签到失败！')
         except Exception as e:
             # raise
-            return CommonResponse.success(
+            return CommonResponse.error(
                 status=StatusCodeEnum.WEB_CONNECT_ERR,
                 msg=site.name + str(e)
             )
