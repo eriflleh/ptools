@@ -42,7 +42,7 @@ RUN sed -i 's/deb.debian.org/mirrors.ustc.edu.cn/g' /etc/apt/sources.list; \
     apt update && yes|apt install git; \
     apt-get autoclean && rm -rf /var/lib/apt/lists/*
 
-VOLUME ["/var/www/html/ptools"]
+VOLUME ["/var/www/html/ptools/db"]
 
 EXPOSE  $DJANGO_WEB_PORT
 
