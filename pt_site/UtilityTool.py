@@ -1,3 +1,4 @@
+import contextlib
 import json
 import logging
 import random
@@ -5,11 +6,13 @@ import re
 import threading
 import time
 from datetime import datetime
+from urllib.request import urlopen
 
 import aip
 import cloudscraper
 import dateutil.parser
 import opencc
+import requests
 from django.db.models import QuerySet
 from lxml import etree
 from pypushdeer import PushDeer
@@ -372,6 +375,23 @@ class PtSpider:
             msg=site.name + (' 信息导入成功！' if result[1] else ' 信息更新成功！ ') + passkey_msg
         )
 
+    @staticmethod
+    def download_img(image_url):
+        """
+        下载图片并转为二进制流
+        :param image_url:
+        :return:
+        """
+        if image_url.startswith('http'):
+            r = requests.get(image_url, timeout=5)
+            img_data = r.content
+        elif image_url.startswith('ftp'):
+            with contextlib.closing(urlopen(image_url, None, 10)) as r:
+                img_data = r.read()
+        else:
+            return False
+        return img_data
+
     def sign_in_u2(self, my_site: MySite):
         site = my_site.site
         try:
@@ -380,6 +400,9 @@ class PtSpider:
                 my_site=my_site,
                 url=url,
             )
+            sign_str = ''.join(self.parse(result, '//a[@href="showup.php"]'))
+            if '已签到' in converter.convert(sign_str):
+                return CommonResponse.success(msg=site.name + '已签到，请勿重复操作！！')
             req = self.parse(result, '//form//td/input[@name="req"]/@value')
             hash_str = self.parse(result, '//form//td/input[@name="hash"]/@value')
             form = self.parse(result, '//form//td/input[@name="form"]/@value')
