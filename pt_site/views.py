@@ -1,4 +1,5 @@
 # Create your views here.
+import datetime
 import logging
 import time
 from concurrent.futures.thread import ThreadPoolExecutor
@@ -7,7 +8,7 @@ from apscheduler.schedulers.background import BackgroundScheduler
 from django_apscheduler.jobstores import DjangoJobStore
 
 from pt_site.UtilityTool import PtSpider, MessageTemplate, FileSizeConvert
-from pt_site.models import MySite
+from pt_site.models import MySite, TorrentInfo
 from ptools.base import StatusCodeEnum
 
 job_defaults = {
@@ -135,6 +136,26 @@ try:
         删除过期种子
         """
         start = time.time()
+        torrent_info_list = TorrentInfo.objects.all().filter(downloader__isnull=False)
+        for torrent_info in torrent_info_list:
+            expire_time = torrent_info.sale_expire
+            if '无限期' in expire_time:
+                # ToDo 先更新种子信息，然后再判断
+                continue
+            if expire_time.endswith(':'):
+                expire_time += '00'
+            time_now = datetime.datetime.now()
+            expire_time_parse = datetime.datetime.strptime(expire_time, '%Y-%m-%d %H:%M:%S')
+
+            if time_now >= expire_time_parse:
+                if not torrent_info.downloader:
+                    # 未推送到下载器，跳过或删除？
+                    continue
+                if pt_spider.get_torrent_info_from_downloader(torrent_info).code == StatusCodeEnum.OK.code:
+                    # todo 设定任务规则：
+                    #  免费到期后，下载完毕的种子是删除还是保留？
+                    #  未下载完成的，是暂停还是删除？
+                    torrent_info.delete()
         end = time.time()
         pt_spider.send_text(
             '> {} 任务运行成功！耗时：{}{}  \n'.format('签到', end - start, time.strftime("%Y-%m-%d %H:%M:%S")))

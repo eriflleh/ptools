@@ -12,7 +12,9 @@ import aip
 import cloudscraper
 import dateutil.parser
 import opencc
+import qbittorrentapi
 import requests
+import transmission_rpc
 from django.db.models import QuerySet
 from lxml import etree
 from pypushdeer import PushDeer
@@ -23,7 +25,7 @@ from wxpusher import WxPusher
 
 from auto_pt.models import Notify, OCR
 from pt_site.models import MySite, SignIn, TorrentInfo, SiteStatus, Site
-from ptools.base import TorrentBaseInfo, PushConfig, CommonResponse, StatusCodeEnum
+from ptools.base import TorrentBaseInfo, PushConfig, CommonResponse, StatusCodeEnum, DownloaderCategory
 
 
 def cookie2dict(source_str: str):
@@ -373,6 +375,55 @@ class PtSpider:
         return CommonResponse.success(
             status=StatusCodeEnum.NO_PASSKEY_WARNING,
             msg=site.name + (' 信息导入成功！' if result[1] else ' 信息更新成功！ ') + passkey_msg
+        )
+
+    @staticmethod
+    def get_torrent_info_from_downloader(torrent_info: TorrentInfo):
+        """
+        通过种子信息，到下载器查询任务信息
+        :param torrent_info:
+        :return:
+        """
+        downloader = torrent_info.downloader
+        if not downloader:
+            return CommonResponse.error(
+                msg='此种子未推送到下载器！'
+            )
+        if downloader.category == DownloaderCategory.Transmission:
+            try:
+                tr_client = transmission_rpc.Client(host=downloader.host,
+                                                    port=downloader.port,
+                                                    username=downloader.username,
+                                                    password=downloader.password)
+                torrent = tr_client.get_torrents(ids=torrent_info.hash_string)
+            except Exception as e:
+                return CommonResponse.error(
+                    msg='下载无法连接，请检查下载器是否正常？！'
+                )
+        elif downloader.category == DownloaderCategory.qBittorrent:
+            try:
+                qb_client = qbittorrentapi.Client(
+                    host=downloader.host,
+                    port=downloader.port,
+                    username=downloader.username,
+                    password=downloader.password,
+                    # 仅返回简单JSON
+                    # SIMPLE_RESPONSES=True
+                )
+                qb_client.auth_log_in()
+                torrent = qb_client.torrents_info(hashes=torrent_info.hash_string)
+            except Exception as e:
+                return CommonResponse.error(
+                    msg='下载无法连接，请检查下载器是否正常？'
+                )
+            # if downloader.category == DownloaderCategory.qBittorrent:
+            #     pass
+        else:
+            return CommonResponse.error(
+                msg='下载不存在，请检查下载器是否正常？'
+            )
+        return CommonResponse.success(
+            data=torrent
         )
 
     @staticmethod
