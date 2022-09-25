@@ -1299,10 +1299,12 @@ class PtSpider:
                     notice_count = int(notice_count) if notice_count else 0
                     my_site.mail = mail_count + notice_count
                     if mail_count + notice_count > 0:
-                        template = '### <font color="red">{} 有{}条新短消息，请注意及时查收！</font>'
+                        template = '### <font color="red">{} 有{}条新短消息，请注意及时查收！</font>  \n'
                         # 测试发送网站消息原内容
-                        self.send_text(template.format(site.name, mail_count + notice_count) + mail_str + notice_str)
-                if mail_str or notice_str:
+                        self.send_text(
+                            template.format(site.name, mail_count + notice_count) + mail_str + '\n' + notice_str
+                        )
+                else:
                     my_site.mail = 0
                 res_sp_hour = self.get_hour_sp(my_site=my_site)
                 if res_sp_hour.code != StatusCodeEnum.OK.code:
