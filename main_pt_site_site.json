@@ -1880,7 +1880,7 @@
     "updated_at": "2022-09-25 21:49:03.935145",
     "name": "HD杜比",
     "url": "https://www.hddolby.com/",
-    "logo": "https://www.hddolby.com/favicon.ico",
+    "logo": "https://gitee.com/ngfchl/icons/raw/master/pt_site/hddolby.ico",
     "sign_in_support": 1,
     "get_torrent_support": 1,
     "get_userinfo_support": 1,
