@@ -649,6 +649,9 @@ class PtSpider:
                 result = self.sign_in_u2(my_site)
                 if result.code == StatusCodeEnum.OK.code:
                     print(result.data)
+                    signin_today.sign_in_today = True
+                    signin_today.sign_in_info = result.msg
+                    signin_today.save()
                     return CommonResponse.success(
                         status=StatusCodeEnum.OK,
                         msg='签到成功！'
@@ -1201,8 +1204,15 @@ class PtSpider:
             # ).split('(')[0].strip('\xa0').strip()
             # print('注册时间：', time_join_1)
             # time_join = time_join_1.replace('(', '').replace(')', '').strip('\xa0').strip()
-            # if not my_site.time_join and time_join:
-            #     my_site.time_join = time_join
+
+            if not my_site.time_join:
+                time_join = ''.join(
+                    details_html.xpath(site.time_join_rule)
+                )
+                if time_join:
+                    my_site.time_join = time_join
+                else:
+                    pass
 
             # 去除字符串中的中文
             my_level_1 = ''.join(
