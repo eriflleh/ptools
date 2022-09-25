@@ -2,7 +2,7 @@
   {
     "id": 1,
     "created_at": "2022-07-17 10:22:03.474000",
-    "updated_at": "2022-09-14 15:59:14.182000",
+    "updated_at": "2022-09-25 21:49:03.861820",
     "name": "阿童木",
     "url": "https://hdatmos.club/",
     "logo": "https://hdatmos.club/favicon.ico",
@@ -77,7 +77,7 @@
   {
     "id": 2,
     "created_at": "2022-07-17 10:24:21.376000",
-    "updated_at": "2022-09-21 09:07:10.231375",
+    "updated_at": "2022-09-25 21:49:03.866349",
     "name": "猪猪网",
     "url": "https://piggo.me/",
     "logo": "https://piggo.me/favicon.ico",
@@ -152,7 +152,7 @@
   {
     "id": 3,
     "created_at": "2022-07-17 10:24:59.754000",
-    "updated_at": "2022-09-20 12:51:45.624521",
+    "updated_at": "2022-09-25 21:53:04.563478",
     "name": "BT学校",
     "url": "https://pt.btschool.club/",
     "logo": "https://pt.btschool.club/favicon.ico",
@@ -201,19 +201,19 @@
     "viewpeerlist_rule": ".//tr/td[9]/nobr/text()",
     "peer_speed_rule": ".//tr/td[5]/nobr/text()",
     "remark": "",
-    "invitation_rule": "//table/tr[1]/td[2]/a/text()",
-    "time_join_rule": "//table/tr[2]/td[2]/span/@title",
-    "latest_active_rule": "//table/tr[3]/td[2]/span/@title",
-    "uploaded_rule": "//tr[6]/td[2]/table/tr[2]/td[1]/text()",
-    "downloaded_rule": "//tr[6]/td[2]//table/tr[2]/td[2]/text()",
-    "ratio_rule": "//tr[6]/td[2]/table/tr/td[1]/font/text()",
-    "my_sp_rule": "//tr[12]/td[2]/text()",
+    "invitation_rule": "//span/a[contains(@href,\"invite.php?id=\")]/following-sibling::text()[1]",
+    "time_join_rule": "//td[contains(text(),\"加入\")]/following-sibling::td[1]//span/@title",
+    "latest_active_rule": "//td[contains(text(),\"最近\")]/following-sibling::td[1]//span/@title",
+    "uploaded_rule": "//font[@class=\"color_uploaded\"]/following-sibling::text()[1]",
+    "downloaded_rule": "//font[@class=\"color_downloaded\"]/following-sibling::text()[1]",
+    "ratio_rule": "//font[@class=\"color_ratio\"][1]/following-sibling::text()[1]",
+    "my_sp_rule": "//a[@href=\"mybonus.php\"]/following-sibling::text()[1]",
     "hour_sp_rule": "//div[contains(text(),\"每小时\")]/text()[1]",
-    "my_bonus_rule": "//tr[112]/td[2]/text()",
-    "my_level_rule": "//tr/td/span/span/a/@class",
-    "my_hr_rule": "//table/tr[18]/td[2]//text()",
+    "my_bonus_rule": "//font[@class=\"color_bonus\" and contains(text(),\"积分\")]/following-sibling::text()[1]",
+    "my_level_rule": "//table[@id=\"info_block\"]//span/a[contains(@class,\"_Name\") and contains(@href,\"userdetails.php?id=\")]/@class",
+    "my_hr_rule": "//a[@href=\"myhr.php\"]//text()",
     "leech_rule": "//img[@class=\"arrowdown\"][1]/following-sibling::text()[1]",
-    "seed_rule": "/html/body/b/text()",
+    "seed_rule": "//img[@class=\"arrowup\"][1]/following-sibling::text()[1]",
     "record_count_rule": "/html/body/b/text()",
     "seed_vol_rule": "//tr/td[3]",
     "mailbox_rule": "//a[@href=\"messages.php\"]/font[contains(text(),\"条\")]/text()[1]",
@@ -227,7 +227,7 @@
   {
     "id": 5,
     "created_at": "2022-07-17 10:27:30.380000",
-    "updated_at": "2022-09-21 09:08:43.934984",
+    "updated_at": "2022-09-25 21:49:03.872212",
     "name": "1PT",
     "url": "https://1ptba.com/",
     "logo": "https://1ptba.com/favicon.ico",
@@ -302,7 +302,7 @@
   {
     "id": 8,
     "created_at": "2022-07-20 10:05:03.493000",
-    "updated_at": "2022-09-14 15:59:19.738000",
+    "updated_at": "2022-09-25 21:49:03.876141",
     "name": "CarPT",
     "url": "https://carpt.net/",
     "logo": "https://carpt.net/favicon.ico",
@@ -377,7 +377,7 @@
   {
     "id": 9,
     "created_at": "2022-07-20 10:06:16.029000",
-    "updated_at": "2022-09-14 15:59:16.396000",
+    "updated_at": "2022-09-25 21:49:03.879383",
     "name": "HDArea",
     "url": "https://www.hdarea.co/",
     "logo": "https://www.hdarea.co/favicon.ico",
@@ -452,7 +452,7 @@
   {
     "id": 10,
     "created_at": "2022-07-20 10:07:13.505000",
-    "updated_at": "2022-09-14 15:59:17.795000",
+    "updated_at": "2022-09-25 21:49:03.881954",
     "name": "红豆饭",
     "url": "https://hdfans.org/",
     "logo": "https://hdfans.org/favicon.ico",
@@ -527,7 +527,7 @@
   {
     "id": 11,
     "created_at": "2022-07-20 10:08:12.726000",
-    "updated_at": "2022-09-14 15:59:19.591000",
+    "updated_at": "2022-09-25 21:49:03.884499",
     "name": "天空",
     "url": "https://hdsky.me/",
     "logo": "https://hdsky.me/favicon.ico",
@@ -602,7 +602,7 @@
   {
     "id": 12,
     "created_at": "2022-07-20 10:09:18.723000",
-    "updated_at": "2022-09-14 15:59:18.558000",
+    "updated_at": "2022-09-25 21:49:03.887163",
     "name": "时光",
     "url": "https://hdtime.org/",
     "logo": "https://hdtime.org/favicon.ico",
@@ -677,7 +677,7 @@
   {
     "id": 13,
     "created_at": "2022-07-20 10:09:59.938000",
-    "updated_at": "2022-09-14 15:59:19.137000",
+    "updated_at": "2022-09-25 21:49:03.889784",
     "name": "Zone",
     "url": "https://hdzone.me/",
     "logo": "https://hdzone.me/favicon.ico",
@@ -752,7 +752,7 @@
   {
     "id": 14,
     "created_at": "2022-07-20 10:11:12.180000",
-    "updated_at": "2022-09-14 15:59:20.213000",
+    "updated_at": "2022-09-25 21:49:03.893572",
     "name": "冬樱",
     "url": "https://wintersakura.net/",
     "logo": "https://wintersakura.net/favicon.ico",
@@ -827,7 +827,7 @@
   {
     "id": 15,
     "created_at": "2022-07-20 10:12:13.107000",
-    "updated_at": "2022-09-21 08:59:12.042216",
+    "updated_at": "2022-09-25 21:49:03.896770",
     "name": "蚂蚁",
     "url": "http://hdmayi.com/",
     "logo": "http://hdmayi.com/favicon.ico",
@@ -902,7 +902,7 @@
   {
     "id": 16,
     "created_at": "2022-07-20 10:13:15.407000",
-    "updated_at": "2022-09-21 09:05:30.063747",
+    "updated_at": "2022-09-25 21:49:03.899440",
     "name": "农场",
     "url": "https://pt.0ff.cc/",
     "logo": "https://pt.0ff.cc/favicon.ico",
@@ -977,7 +977,7 @@
   {
     "id": 17,
     "created_at": "2022-07-20 10:15:59.584000",
-    "updated_at": "2022-09-14 15:59:19.587000",
+    "updated_at": "2022-09-25 21:49:03.901961",
     "name": "铂金学院",
     "url": "https://ptchina.org/",
     "logo": "https://ptchina.org/favicon.ico",
@@ -1052,7 +1052,7 @@
   {
     "id": 18,
     "created_at": "2022-07-20 10:58:58.928000",
-    "updated_at": "2022-09-14 15:59:14.985000",
+    "updated_at": "2022-09-25 21:49:03.904493",
     "name": "马杀鸡",
     "url": "https://pt.msg.vg/",
     "logo": "https://pt.msg.vg/favicon.ico",
@@ -1127,7 +1127,7 @@
   {
     "id": 19,
     "created_at": "2022-07-20 11:03:57.583000",
-    "updated_at": "2022-09-20 13:17:23.216293",
+    "updated_at": "2022-09-25 21:49:03.908640",
     "name": "时间",
     "url": "https://www.pttime.org/",
     "logo": "https://www.pttime.org/favicon.ico",
@@ -1202,7 +1202,7 @@
   {
     "id": 20,
     "created_at": "2022-07-20 11:06:11.901000",
-    "updated_at": "2022-09-14 15:59:19.434000",
+    "updated_at": "2022-09-25 21:49:03.911914",
     "name": "欧申",
     "url": "http://www.oshen.win/",
     "logo": "http://www.oshen.win/favicon.ico",
@@ -1277,7 +1277,7 @@
   {
     "id": 21,
     "created_at": "2022-07-20 11:12:51.331000",
-    "updated_at": "2022-09-14 15:59:19.839000",
+    "updated_at": "2022-09-25 21:49:03.914439",
     "name": "海棠",
     "url": "https://www.htpt.cc/",
     "logo": "https://www.htpt.cc/favicon.ico",
@@ -1352,7 +1352,7 @@
   {
     "id": 22,
     "created_at": "2022-07-20 11:17:25.992000",
-    "updated_at": "2022-09-14 15:59:20.079000",
+    "updated_at": "2022-09-25 21:49:03.916914",
     "name": "烧包",
     "url": "https://ptsbao.club/",
     "logo": "https://ptsbao.club/favicon.ico",
@@ -1427,7 +1427,7 @@
   {
     "id": 23,
     "created_at": "2022-07-20 11:25:55.869000",
-    "updated_at": "2022-09-14 15:59:17.525000",
+    "updated_at": "2022-09-25 21:49:03.919617",
     "name": "百川",
     "url": "https://www.hitpt.com/",
     "logo": "https://www.hitpt.com/favicon.ico",
@@ -1502,7 +1502,7 @@
   {
     "id": 24,
     "created_at": "2022-07-20 11:27:42.866000",
-    "updated_at": "2022-09-14 15:59:16.114000",
+    "updated_at": "2022-09-25 21:49:03.922099",
     "name": "聆音",
     "url": "https://pt.soulvoice.club/",
     "logo": "https://pt.soulvoice.club/favicon.ico",
@@ -1577,7 +1577,7 @@
   {
     "id": 25,
     "created_at": "2022-07-20 11:28:54.234000",
-    "updated_at": "2022-09-14 15:59:19.942000",
+    "updated_at": "2022-09-25 21:49:03.925133",
     "name": "备胎",
     "url": "https://www.beitai.pt/",
     "logo": "https://www.beitai.pt/favicon.ico",
@@ -1652,7 +1652,7 @@
   {
     "id": 26,
     "created_at": "2022-07-20 23:48:14.437000",
-    "updated_at": "2022-09-14 15:59:18.180000",
+    "updated_at": "2022-09-25 21:49:03.927633",
     "name": "观众",
     "url": "https://audiences.me/",
     "logo": "https://audiences.me/favicon.ico",
@@ -1727,7 +1727,7 @@
   {
     "id": 28,
     "created_at": "2022-07-20 23:51:03.848000",
-    "updated_at": "2022-09-14 15:59:19.331000",
+    "updated_at": "2022-09-25 21:49:03.930010",
     "name": "丐帮",
     "url": "https://gainbound.net/",
     "logo": "https://gainbound.net/favicon.ico",
@@ -1802,7 +1802,7 @@
   {
     "id": 29,
     "created_at": "2022-07-20 23:51:54.709000",
-    "updated_at": "2022-09-14 15:59:18.980000",
+    "updated_at": "2022-09-25 21:49:03.932400",
     "name": "海胆",
     "url": "https://www.haidan.video/",
     "logo": "https://www.haidan.video/public/pic/favicon.ico",
@@ -1877,7 +1877,7 @@
   {
     "id": 30,
     "created_at": "2022-07-20 23:52:34.568000",
-    "updated_at": "2022-09-14 18:14:43.203000",
+    "updated_at": "2022-09-25 21:49:03.935145",
     "name": "HD杜比",
     "url": "https://www.hddolby.com/",
     "logo": "https://www.hddolby.com/favicon.ico",
@@ -1952,7 +1952,7 @@
   {
     "id": 31,
     "created_at": "2022-07-20 23:53:30.271000",
-    "updated_at": "2022-09-14 15:59:17.256000",
+    "updated_at": "2022-09-25 21:49:03.937827",
     "name": "海带",
     "url": "https://www.hd.ai/",
     "logo": "https://www.hd.ai/favicon.png",
@@ -2027,7 +2027,7 @@
   {
     "id": 32,
     "created_at": "2022-07-20 23:55:26.251000",
-    "updated_at": "2022-09-14 15:59:18.394000",
+    "updated_at": "2022-09-25 21:49:03.942198",
     "name": "MTeam",
     "url": "https://kp.m-team.cc/",
     "logo": "https://kp.m-team.cc/favicon.ico",
@@ -2102,7 +2102,7 @@
   {
     "id": 33,
     "created_at": "2022-07-20 23:56:40.615000",
-    "updated_at": "2022-09-15 01:18:44.589000",
+    "updated_at": "2022-09-25 21:49:03.944982",
     "name": "芒果",
     "url": "https://www.3wmg.com/",
     "logo": "https://www.3wmg.com/favicon.ico",
@@ -2177,7 +2177,7 @@
   {
     "id": 34,
     "created_at": "2022-07-23 19:05:57.166000",
-    "updated_at": "2022-09-14 15:59:20.183000",
+    "updated_at": "2022-09-25 21:49:03.948343",
     "name": "海豹GPW",
     "url": "https://greatposterwall.com/",
     "logo": "https://greatposterwall.com/favicon.ico",
@@ -2252,7 +2252,7 @@
   {
     "id": 35,
     "created_at": "2022-07-23 19:10:24.853000",
-    "updated_at": "2022-09-14 15:59:18.161000",
+    "updated_at": "2022-09-25 21:49:03.950908",
     "name": "白兔hares",
     "url": "https://club.hares.top/",
     "logo": "https://club.hares.top/favicon.ico",
@@ -2327,7 +2327,7 @@
   {
     "id": 36,
     "created_at": "2022-07-27 12:59:12.234000",
-    "updated_at": "2022-09-21 08:56:32.640159",
+    "updated_at": "2022-09-25 21:49:03.953461",
     "name": "老师",
     "url": "https://www.nicept.net/",
     "logo": "https://www.nicept.net/favicon.ico",
@@ -2402,7 +2402,7 @@
   {
     "id": 38,
     "created_at": "2022-08-02 10:14:26.854000",
-    "updated_at": "2022-09-21 09:29:33.480597",
+    "updated_at": "2022-09-25 21:49:03.956748",
     "name": "明教",
     "url": "https://hdpt.xyz/",
     "logo": "https://hdpt.xyz/favicon.ico",
@@ -2477,7 +2477,7 @@
   {
     "id": 39,
     "created_at": "2022-08-12 23:29:07.033000",
-    "updated_at": "2022-09-14 10:07:34.082000",
+    "updated_at": "2022-09-25 21:49:03.959759",
     "name": "铂金家",
     "url": "https://pthome.net/",
     "logo": "https://pthome.net/favicon.ico",
@@ -2552,7 +2552,7 @@
   {
     "id": 40,
     "created_at": "2022-08-14 09:14:51.194000",
-    "updated_at": "2022-09-14 15:59:20.352000",
+    "updated_at": "2022-09-25 21:49:03.962193",
     "name": "ipt",
     "url": "https://iptorrents.com/",
     "logo": "https://iptorrents.com/favicon.ico",
@@ -2627,7 +2627,7 @@
   {
     "id": 41,
     "created_at": "2022-08-18 00:39:11.082000",
-    "updated_at": "2022-09-14 15:59:20.245000",
+    "updated_at": "2022-09-25 21:49:03.964434",
     "name": "梓喵",
     "url": "https://azusa.ru/",
     "logo": "https://azusa.ru/favicon.ico",
@@ -2702,7 +2702,7 @@
   {
     "id": 42,
     "created_at": "2022-08-18 00:46:55.688000",
-    "updated_at": "2022-09-20 13:24:16.003720",
+    "updated_at": "2022-09-25 21:49:03.966905",
     "name": "HD城市",
     "url": "https://hdcity.city/",
     "logo": "https://hdcity.city/favicon.ico",
@@ -2777,7 +2777,7 @@
   {
     "id": 43,
     "created_at": "2022-08-19 23:20:30.164000",
-    "updated_at": "2022-09-14 15:59:20.373000",
+    "updated_at": "2022-09-25 21:49:03.969374",
     "name": "HDVIDEO",
     "url": "https://hdvideo.one/",
     "logo": "https://hdvideo.one/favicon.ico",
@@ -2852,7 +2852,7 @@
   {
     "id": 44,
     "created_at": "2022-08-23 16:41:38.669000",
-    "updated_at": "2022-09-21 09:42:12.450782",
+    "updated_at": "2022-09-25 21:49:03.972760",
     "name": "月月Frds",
     "url": "https://pt.keepfrds.com/",
     "logo": "https://pt.keepfrds.com/favicon.ico",
@@ -2927,7 +2927,7 @@
   {
     "id": 45,
     "created_at": "2022-08-26 20:52:18.452000",
-    "updated_at": "2022-09-20 15:44:21.934917",
+    "updated_at": "2022-09-25 21:49:03.975183",
     "name": "U2",
     "url": "https://u2.dmhy.org/",
     "logo": "https://u2.dmhy.org/favicon.ico",
@@ -3002,7 +3002,7 @@
   {
     "id": 46,
     "created_at": "2022-08-26 20:53:50.259000",
-    "updated_at": "2022-09-20 10:39:27.109242",
+    "updated_at": "2022-09-25 21:49:03.977600",
     "name": "TTG",
     "url": "https://totheglory.im/",
     "logo": "https://totheglory.im/favicon.ico",
@@ -3077,7 +3077,7 @@
   {
     "id": 47,
     "created_at": "2022-08-26 20:54:35.357000",
-    "updated_at": "2022-09-20 12:49:15.948867",
+    "updated_at": "2022-09-25 21:49:03.979970",
     "name": "蝶粉",
     "url": "https://discfan.net/",
     "logo": "https://discfan.net/favicon.ico",
@@ -3152,7 +3152,7 @@
   {
     "id": 48,
     "created_at": "2022-08-26 20:55:42.110000",
-    "updated_at": "2022-09-20 12:42:28.689254",
+    "updated_at": "2022-09-25 21:49:03.982448",
     "name": "joyhd",
     "url": "https://www.joyhd.net/",
     "logo": "https://www.joyhd.net/favicon.ico",
@@ -3227,7 +3227,7 @@
   {
     "id": 49,
     "created_at": "2022-08-27 17:32:01.405000",
-    "updated_at": "2022-09-14 10:07:34.209000",
+    "updated_at": "2022-09-25 21:49:03.984937",
     "name": "彩虹岛",
     "url": "https://chdbits.co/",
     "logo": "https://chdbits.co/favicon.ico",
@@ -3302,7 +3302,7 @@
   {
     "id": 50,
     "created_at": "2022-08-27 17:36:00.453000",
-    "updated_at": "2022-09-14 10:07:34.225000",
+    "updated_at": "2022-09-25 21:49:03.987622",
     "name": "好多油",
     "url": "https://pt.hdupt.com/",
     "logo": "https://pt.hdupt.com/favicon.ico",
@@ -3377,7 +3377,7 @@
   {
     "id": 51,
     "created_at": "2022-08-27 17:43:57.903000",
-    "updated_at": "2022-09-14 10:07:34.236000",
+    "updated_at": "2022-09-25 21:49:03.990382",
     "name": "我堡",
     "url": "https://ourbits.club/",
     "logo": "https://ourbits.club/favicon.ico",
@@ -3452,7 +3452,7 @@
   {
     "id": 52,
     "created_at": "2022-08-27 18:16:09.224000",
-    "updated_at": "2022-09-21 08:54:15.936834",
+    "updated_at": "2022-09-25 21:49:03.993120",
     "name": "家园",
     "url": "https://hdhome.org/",
     "logo": "https://hdhome.org/favicon.ico",
@@ -3527,7 +3527,7 @@
   {
     "id": 53,
     "created_at": "2022-08-27 18:18:44.023000",
-    "updated_at": "2022-09-14 10:07:34.257000",
+    "updated_at": "2022-09-25 21:49:03.995510",
     "name": "不可说",
     "url": "https://springsunday.net/",
     "logo": "https://springsunday.net/favicon.ico",
@@ -3602,7 +3602,7 @@
   {
     "id": 54,
     "created_at": "2022-08-27 18:24:32.917000",
-    "updated_at": "2022-09-14 10:07:34.268000",
+    "updated_at": "2022-09-25 21:49:03.997811",
     "name": "OpenCD",
     "url": "https://open.cd/",
     "logo": "https://open.cd/favicon.ico",
@@ -3677,7 +3677,7 @@
   {
     "id": 55,
     "created_at": "2022-08-27 21:57:23.449000",
-    "updated_at": "2022-09-14 10:07:34.279000",
+    "updated_at": "2022-09-25 21:49:04.000358",
     "name": "这是猫站",
     "url": "https://pterclub.com/",
     "logo": "https://pterclub.com/favicon.ico",
@@ -3752,7 +3752,7 @@
   {
     "id": 56,
     "created_at": "2022-08-27 21:57:47.858000",
-    "updated_at": "2022-09-14 10:07:34.289000",
+    "updated_at": "2022-09-25 21:49:04.003589",
     "name": "柠檬",
     "url": "https://lemonhd.org/",
     "logo": "https://lemonhd.org/favicon.ico",
@@ -3827,7 +3827,7 @@
   {
     "id": 57,
     "created_at": "2022-08-27 21:58:11.379000",
-    "updated_at": "2022-09-16 15:18:48.934457",
+    "updated_at": "2022-09-25 21:49:04.006772",
     "name": "南洋",
     "url": "https://nanyangpt.com/",
     "logo": "https://nanyangpt.com/favicon.ico",
@@ -3902,7 +3902,7 @@
   {
     "id": 58,
     "created_at": "2022-09-03 00:08:20.078000",
-    "updated_at": "2022-09-21 09:22:20.962848",
+    "updated_at": "2022-09-25 21:49:04.009812",
     "name": "吐鲁番",
     "url": "https://pt.eastgame.org/",
     "logo": "https://pt.eastgame.org/favicon.ico",
@@ -3977,7 +3977,7 @@
   {
     "id": 59,
     "created_at": "2022-09-14 08:33:16.574000",
-    "updated_at": "2022-09-21 09:17:25.001471",
+    "updated_at": "2022-09-25 21:49:04.012452",
     "name": "KamePT",
     "url": "https://kamept.com/",
     "logo": "https://kamept.com/favicon.ico",
@@ -4052,7 +4052,7 @@
   {
     "id": 62,
     "created_at": "2022-07-27 13:01:11.697000",
-    "updated_at": "2022-09-14 00:05:07.652000",
+    "updated_at": "2022-09-25 21:49:04.015001",
     "name": "艾薇",
     "url": "http://avgv.cc/",
     "logo": "http://avgv.cc/favicon.ico",
@@ -4125,9 +4125,9 @@
     "title_rule": ".//tr/td[@class=\"embedded\"][1]/text()"
   },
   {
-    "id": 63,
+    "id": 67,
     "created_at": "2022-09-19 22:02:22.069570",
-    "updated_at": "2022-09-19 22:56:52.610469",
+    "updated_at": "2022-09-25 21:49:04.017341",
     "name": "憨憨",
     "url": "https://hhanclub.top/",
     "logo": "https://hhanclub.top/favicon.ico",
