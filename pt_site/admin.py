@@ -255,7 +255,8 @@ class MySiteAdmin(ImportExportModelAdmin):  # instead of ModelAdmin
     list_display = (
         'sort_id',
         # 'user_id',
-        'site',
+        # 'site',
+        'site_name',
         'sign_in_state',
         # 'sign_in_today',
         'invitation',
@@ -346,13 +347,18 @@ class MySiteAdmin(ImportExportModelAdmin):  # instead of ModelAdmin
 
     list_filter = (SignInFilter, UpdatedAtFilter, 'my_level')
 
+    def site_name(self, obj: MySite):
+        template = '<div style="margin: auto 0;text-align: center"><img src="{}" style="height: 16px;weight: 16px;border-radius: 50%;"><br><a href="{}" target="blank">{}</a></div>'
+        template_badge = """<div class="el-badge item"><span style="width: 25px">{}</span><sup class="el-badge__content is-fixed">{}</sup></div>"""
+        site = obj.site
+        if obj.mail == 0:
+            return format_html(template, site.logo, site.url, site.name)
+        return format_html(template.format(site.logo, site.url, template_badge.format(site.name, obj.mail)))
+        # return format_html(template_badge.format(template.format(site.logo, site.url, site.name), obj.mail))
+
+    site_name.short_description = format_html('<a href="#">站点</a>')
+
     def sign_in_state(self, obj: MySite):
-        template = """
-                <div class="el-badge item">
-                <span style="width: 25px">{}</span>
-                <sup class="el-badge__content is-fixed">{}</sup>
-                </div>
-                """
         signin_today = obj.signin_set.filter(created_at__date__gte=datetime.today()).first()
         if not obj.site.sign_in_support:
             sign_template = '<a href="#">无需</a>'
@@ -360,11 +366,9 @@ class MySiteAdmin(ImportExportModelAdmin):  # instead of ModelAdmin
             sign_template = '<img src="/static/admin/img/icon-{}.svg">'.format(
                 'yes' if signin_today and signin_today.sign_in_today else 'no'
             )
-        if obj.mail == 0:
-            return format_html(sign_template)
-        return format_html(template.format(sign_template, obj.mail))
+        return format_html(sign_template)
 
-    sign_in_state.short_description = '今日签到'
+    sign_in_state.short_description = format_html('<a href="#">签到</a>')
 
     # def get_changeform_initial_data(self, request):
     #     print(request)
