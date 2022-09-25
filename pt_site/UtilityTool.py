@@ -451,7 +451,8 @@ class PtSpider:
                 my_site=my_site,
                 url=url,
             )
-            sign_str = ''.join(self.parse(result, '//a[@href="showup.php"]'))
+            sign_str = ''.join(self.parse(result, '//a[@href="showup.php"]/text()'))
+            print(site.name, sign_str)
             if '已签到' in converter.convert(sign_str):
                 return CommonResponse.success(msg=site.name + '已签到，请勿重复操作！！')
             req = self.parse(result, '//form//td/input[@name="req"]/@value')
@@ -486,12 +487,12 @@ class PtSpider:
                 data=data,
             )
             print(response.content.decode('utf8'))
-            if 'response.content.decode("utf8")' in response.content.decode('utf8'):
+            if "window.location.href = 'showup.php';" in response.content.decode('utf8'):
                 return CommonResponse.success(msg='低保签到成功！')
             else:
                 return CommonResponse.error(msg='签到失败！')
         except Exception as e:
-            # raise
+            raise
             return CommonResponse.error(
                 status=StatusCodeEnum.WEB_CONNECT_ERR,
                 msg=site.name + str(e)
@@ -812,7 +813,7 @@ class PtSpider:
             else:
                 return CommonResponse.error(msg='请确认签到是否成功？？网页返回码：' + str(res.status_code))
         except Exception as e:
-            # raise
+            raise
             self.send_text(site.name + '签到失败！原因：' + str(e))
             return CommonResponse.error(msg='签到失败！' + str(e))
 
