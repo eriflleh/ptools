@@ -445,58 +445,51 @@ class PtSpider:
 
     def sign_in_u2(self, my_site: MySite):
         site = my_site.site
-        try:
-            url = site.url + site.page_sign_in.lstrip('/')
-            result = self.send_request(
-                my_site=my_site,
-                url=url,
-            )
-            sign_str = ''.join(self.parse(result, '//a[@href="showup.php"]/text()'))
-            print(site.name, sign_str)
-            if '已签到' in converter.convert(sign_str):
-                return CommonResponse.success(msg=site.name + '已签到，请勿重复操作！！')
-            req = self.parse(result, '//form//td/input[@name="req"]/@value')
-            hash_str = self.parse(result, '//form//td/input[@name="hash"]/@value')
-            form = self.parse(result, '//form//td/input[@name="form"]/@value')
-            submit_name = self.parse(result, '//form//td/input[@type="submit"]/@name')
-            submit_value = self.parse(result, '//form//td/input[@type="submit"]/@value')
-            message = site.sign_in_params if len(site.sign_in_params) >= 5 else '天空飘来五个字儿,幼儿园里没有事儿'
-            print(submit_name)
-            print(submit_value)
-            headers = {
-                "Content-Type": "application/x-www-form-urlencoded; charset=UTF-8"
-            }
-            param = []
-            for name, value in zip(submit_name, submit_value):
-                param.append({
-                    name: value
-                })
-            data = {
-                'req': req[0],
-                'hash': hash_str[0],
-                'form': form[0],
-                'message': message,
-            }
-            data.update(param[random.randint(0, 3)])
-            print(data)
-            response = self.send_request(
-                my_site,
-                url=site.url + site.page_sign_in.lstrip('/') + '?action=show',
-                method=site.sign_in_method,
-                headers=headers,
-                data=data,
-            )
-            print(response.content.decode('utf8'))
-            if "window.location.href = 'showup.php';" in response.content.decode('utf8'):
-                return CommonResponse.success(msg='低保签到成功！')
-            else:
-                return CommonResponse.error(msg='签到失败！')
-        except Exception as e:
-            raise
-            return CommonResponse.error(
-                status=StatusCodeEnum.WEB_CONNECT_ERR,
-                msg=site.name + str(e)
-            )
+        url = site.url + site.page_sign_in.lstrip('/')
+        result = self.send_request(
+            my_site=my_site,
+            url=url,
+        )
+        sign_str = ''.join(self.parse(result, '//a[@href="showup.php"]/text()'))
+        print(site.name, sign_str)
+        if '已签到' in converter.convert(sign_str):
+            return CommonResponse.success(msg=site.name + '已签到，请勿重复操作！！')
+        req = self.parse(result, '//form//td/input[@name="req"]/@value')
+        hash_str = self.parse(result, '//form//td/input[@name="hash"]/@value')
+        form = self.parse(result, '//form//td/input[@name="form"]/@value')
+        submit_name = self.parse(result, '//form//td/input[@type="submit"]/@name')
+        submit_value = self.parse(result, '//form//td/input[@type="submit"]/@value')
+        message = site.sign_in_params if len(site.sign_in_params) >= 5 else '天空飘来五个字儿,幼儿园里没有事儿'
+        print(submit_name)
+        print(submit_value)
+        headers = {
+            "Content-Type": "application/x-www-form-urlencoded; charset=UTF-8"
+        }
+        param = []
+        for name, value in zip(submit_name, submit_value):
+            param.append({
+                name: value
+            })
+        data = {
+            'req': req[0],
+            'hash': hash_str[0],
+            'form': form[0],
+            'message': message,
+        }
+        data.update(param[random.randint(0, 3)])
+        print(data)
+        response = self.send_request(
+            my_site,
+            url=site.url + site.page_sign_in.lstrip('/') + '?action=show',
+            method=site.sign_in_method,
+            headers=headers,
+            data=data,
+        )
+        print(response.content.decode('utf8'))
+        if "window.location.href = 'showup.php';" in response.content.decode('utf8'):
+            return CommonResponse.success(msg='低保签到成功！')
+        else:
+            return CommonResponse.error(msg='签到失败！')
 
     def sign_in_hdsky(self, my_site: MySite, captcha=False):
         """HDSKY签到"""
@@ -813,7 +806,7 @@ class PtSpider:
             else:
                 return CommonResponse.error(msg='请确认签到是否成功？？网页返回码：' + str(res.status_code))
         except Exception as e:
-            raise
+            # raise
             self.send_text(site.name + '签到失败！原因：' + str(e))
             return CommonResponse.error(msg='签到失败！' + str(e))
 
