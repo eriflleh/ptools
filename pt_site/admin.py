@@ -682,7 +682,8 @@ class DownloaderAdmin(ImportExportModelAdmin, AjaxAdmin):  # instead of ModelAdm
 def get_downloader():
     """获取下载器列表"""
     try:
-        return [{'key': i.id, 'label': i.name} for i in Downloader.objects.all()]
+        return [{'key': i.id, 'label': i.name} for i in
+                Downloader.objects.filter(category=DownloaderCategory.qBittorrent).all()]
     except Exception as e:
         return []
 
@@ -972,7 +973,7 @@ class TorrentInfoAdmin(ImportExportModelAdmin, AjaxAdmin):  # instead of ModelAd
         # 这里指定对话框的标题
         'title': '推送到下载器',
         # 提示信息
-        'tips': '异步获取配置' + datetime.now().strftime("%Y-%m-%d %H:%M:%S"),
+        'tips': '仅支持推送到qBittorrent下载器！',
         # 确认按钮显示文本
         'confirm_button': '确认提交',
         # 取消按钮显示文本
@@ -984,7 +985,7 @@ class TorrentInfoAdmin(ImportExportModelAdmin, AjaxAdmin):  # instead of ModelAd
         'params': [{
             'type': 'select',
             'key': 'downloader',
-            'label': '类型',
+            'label': '下载器',
             'width': '200px',
             # size对应elementui的size，取值为：medium / small / mini
             'size': 'small',
